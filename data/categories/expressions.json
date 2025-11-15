@@ -1,0 +1,175 @@
+[
+  {
+    "id": 1001,
+    "japanese": "こんにちは",
+    "hiragana": "こんにちは",
+    "romaji": "konnichiwa",
+    "english": "Hello, good afternoon",
+    "level": "N5",
+    "type": "phrase",
+    "category": "expressions",
+    "frequency": 10,
+    "notes": "Common greeting. Note: は is pronounced 'wa' here, not 'ha'",
+    "example_sentences": [
+      {
+        "japanese": "こんにちは、元気ですか？",
+        "hiragana": "こんにちは、げんきですか？",
+        "romaji": "konnichiwa, genki desu ka?",
+        "english": "Hello, how are you?"
+      }
+    ]
+  },
+  {
+    "id": 1002,
+    "japanese": "おはよう",
+    "hiragana": "おはよう",
+    "romaji": "ohayou",
+    "english": "Good morning",
+    "level": "N5",
+    "type": "phrase",
+    "category": "expressions",
+    "frequency": 10,
+    "notes": "Casual form. Polite form is おはようございます",
+    "example_sentences": [
+      {
+        "japanese": "おはようございます",
+        "hiragana": "おはようございます",
+        "romaji": "ohayou gozaimasu",
+        "english": "Good morning (polite)"
+      }
+    ]
+  },
+  {
+    "id": 1003,
+    "japanese": "こんばんは",
+    "hiragana": "こんばんは",
+    "romaji": "konbanwa",
+    "english": "Good evening",
+    "level": "N5",
+    "type": "phrase",
+    "category": "expressions",
+    "frequency": 9,
+    "notes": "Note: は is pronounced 'wa'",
+    "example_sentences": []
+  },
+  {
+    "id": 1004,
+    "japanese": "ありがとう",
+    "hiragana": "ありがとう",
+    "romaji": "arigatou",
+    "english": "Thank you",
+    "level": "N5",
+    "type": "phrase",
+    "category": "expressions",
+    "frequency": 10,
+    "notes": "Casual form. Polite form is ありがとうございます",
+    "example_sentences": [
+      {
+        "japanese": "ありがとうございます",
+        "hiragana": "ありがとうございます",
+        "romaji": "arigatou gozaimasu",
+        "english": "Thank you very much (polite)"
+      }
+    ]
+  },
+  {
+    "id": 1005,
+    "japanese": "すみません",
+    "hiragana": "すみません",
+    "romaji": "sumimasen",
+    "english": "Excuse me, sorry",
+    "level": "N5",
+    "type": "phrase",
+    "category": "expressions",
+    "frequency": 10,
+    "notes": "Very common. Used to get attention or apologize",
+    "example_sentences": [
+      {
+        "japanese": "すみません、これはいくらですか？",
+        "hiragana": "すみません、これはいくらですか？",
+        "romaji": "sumimasen, kore wa ikura desu ka?",
+        "english": "Excuse me, how much is this?"
+      }
+    ]
+  },
+  {
+    "id": 1006,
+    "japanese": "ごめんなさい",
+    "hiragana": "ごめんなさい",
+    "romaji": "gomennasai",
+    "english": "I'm sorry",
+    "level": "N5",
+    "type": "phrase",
+    "category": "expressions",
+    "frequency": 9,
+    "notes": "More formal apology. Casual form is ごめん",
+    "example_sentences": []
+  },
+  {
+    "id": 1007,
+    "japanese": "はじめまして",
+    "hiragana": "はじめまして",
+    "romaji": "hajimemashite",
+    "english": "Nice to meet you",
+    "level": "N5",
+    "type": "phrase",
+    "category": "expressions",
+    "frequency": 8,
+    "notes": "Used when meeting someone for the first time",
+    "example_sentences": [
+      {
+        "japanese": "はじめまして、私は田中です。",
+        "hiragana": "はじめまして、わたしはたなかです。",
+        "romaji": "hajimemashite, watashi wa tanaka desu.",
+        "english": "Nice to meet you, I'm Tanaka."
+      }
+    ]
+  },
+  {
+    "id": 1008,
+    "japanese": "お願いします",
+    "hiragana": "おねがいします",
+    "romaji": "onegaishimasu",
+    "english": "Please",
+    "level": "N5",
+    "type": "phrase",
+    "category": "expressions",
+    "frequency": 10,
+    "notes": "Very polite way to say please",
+    "example_sentences": []
+  },
+  {
+    "id": 1009,
+    "japanese": "大丈夫",
+    "hiragana": "だいじょうぶ",
+    "romaji": "daijoubu",
+    "english": "It's okay, all right, safe",
+    "level": "N5",
+    "type": "phrase",
+    "category": "expressions",
+    "frequency": 9,
+    "notes": "Commonly used to reassure others. Very common in anime",
+    "example_sentences": [
+      {
+        "japanese": "大丈夫ですか？",
+        "hiragana": "だいじょうぶですか？",
+        "romaji": "daijoubu desu ka?",
+        "english": "Are you okay?"
+      }
+    ]
+  },
+  {
+    "id": 1010,
+    "japanese": "頑張って",
+    "hiragana": "がんばって",
+    "romaji": "ganbatte",
+    "english": "Do your best, good luck",
+    "level": "N5",
+    "type": "phrase",
+    "category": "expressions",
+    "frequency": 9,
+    "notes": "Very common encouragement phrase in anime and daily life",
+    "example_sentences": []
+  }
+]
+

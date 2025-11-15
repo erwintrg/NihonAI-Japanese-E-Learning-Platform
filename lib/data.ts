@@ -1,10 +1,21 @@
 /**
  * Data utilities for Japanese vocabulary
- * Imports and manages JLPT vocabulary lists and anime terms
+ * Imports and manages categorized vocabulary lists with phrases and sentences
  */
 
+// Legacy imports (will be migrated to categories)
 import jlptN5Vocab from '../data/jlpt-n5-vocab.json';
 import animeTerms from '../data/anime-terms.json';
+
+// Category imports
+import expressions from '../data/categories/expressions.json';
+
+export interface ExampleSentence {
+  japanese: string;
+  hiragana: string;
+  romaji: string;
+  english: string;
+}
 
 export interface VocabularyItem {
   id: number;
@@ -13,50 +24,91 @@ export interface VocabularyItem {
   romaji: string;
   english: string;
   level: string;
-  type: string;
-  anime_context?: string;
+  type: string; // 'word', 'phrase', 'sentence'
+  category?: string; // 'pronouns', 'verbs', 'nouns', 'adjectives', 'expressions', etc.
+  frequency?: number; // 1-10, higher = more common
+  example_sentences?: ExampleSentence[];
+  notes?: string;
+  kanji_breakdown?: string;
+  anime_context?: string; // Legacy field
 }
 
 /**
- * Get all JLPT N5 vocabulary
+ * Get all vocabulary from a specific category
+ */
+export function getVocabByCategory(category: string): VocabularyItem[] {
+  switch (category) {
+    case 'expressions':
+      return expressions as VocabularyItem[];
+    // Add more categories as they're created
+    default:
+      return [];
+  }
+}
+
+/**
+ * Get all JLPT N5 vocabulary (legacy)
  */
 export function getJLPTN5Vocab(): VocabularyItem[] {
   return jlptN5Vocab as VocabularyItem[];
 }
 
 /**
- * Get all anime terms
+ * Get all anime terms (legacy)
  */
 export function getAnimeTerms(): VocabularyItem[] {
   return animeTerms as VocabularyItem[];
 }
 
 /**
- * Get all vocabulary (combined)
+ * Get all vocabulary (combined from all sources)
  */
 export function getAllVocab(): VocabularyItem[] {
-  return [...jlptN5Vocab, ...animeTerms] as VocabularyItem[];
+  return [
+    ...expressions,
+    ...jlptN5Vocab,
+    ...animeTerms,
+  ] as VocabularyItem[];
+}
+
+/**
+ * Get vocabulary by type (word, phrase, sentence)
+ */
+export function getVocabByType(type: string): VocabularyItem[] {
+  return getAllVocab().filter((item) => item.type === type);
 }
 
 /**
  * Get random vocabulary items
  * @param count Number of items to return
- * @param includeAnime Whether to include anime terms
+ * @param category Optional category filter
+ * @param minFrequency Minimum frequency (1-10)
  */
 export function getRandomVocab(
   count: number = 5,
-  includeAnime: boolean = true
+  category?: string,
+  minFrequency: number = 1
 ): VocabularyItem[] {
-  const vocab = includeAnime ? getAllVocab() : getJLPTN5Vocab();
+  let vocab = category
+    ? getVocabByCategory(category)
+    : getAllVocab();
+
+  // Filter by frequency if specified
+  if (minFrequency > 1) {
+    vocab = vocab.filter(
+      (item) => (item.frequency || 1) >= minFrequency
+    );
+  }
+
   const shuffled = [...vocab].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 }
 
 /**
- * Get vocabulary by type (noun, verb, adjective, etc.)
+ * Get vocabulary by JLPT level
  */
-export function getVocabByType(type: string): VocabularyItem[] {
-  return getAllVocab().filter((item) => item.type === type);
+export function getVocabByLevel(level: string): VocabularyItem[] {
+  return getAllVocab().filter((item) => item.level === level);
 }
 
 /**
@@ -69,7 +121,40 @@ export function searchVocab(query: string): VocabularyItem[] {
       item.japanese.includes(query) ||
       item.hiragana.includes(query) ||
       item.romaji.toLowerCase().includes(lowerQuery) ||
-      item.english.toLowerCase().includes(lowerQuery)
+      item.english.toLowerCase().includes(lowerQuery) ||
+      item.notes?.toLowerCase().includes(lowerQuery)
   );
 }
 
+/**
+ * Get phrases (multi-word expressions)
+ */
+export function getPhrases(): VocabularyItem[] {
+  return getAllVocab().filter((item) => item.type === 'phrase');
+}
+
+/**
+ * Get example sentences for a vocabulary item
+ */
+export function getExampleSentences(itemId: number): ExampleSentence[] {
+  const item = getAllVocab().find((v) => v.id === itemId);
+  return item?.example_sentences || [];
+}
+
+/**
+ * Get vocabulary sorted by frequency (most common first)
+ */
+export function getVocabByFrequency(
+  category?: string,
+  limit?: number
+): VocabularyItem[] {
+  let vocab = category ? getVocabByCategory(category) : getAllVocab();
+  
+  vocab = vocab.sort((a, b) => {
+    const freqA = a.frequency || 0;
+    const freqB = b.frequency || 0;
+    return freqB - freqA; // Descending order
+  });
+
+  return limit ? vocab.slice(0, limit) : vocab;
+}
