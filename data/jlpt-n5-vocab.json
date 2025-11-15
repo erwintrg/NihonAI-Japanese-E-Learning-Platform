@@ -1,0 +1,183 @@
+[
+  {
+    "id": 1,
+    "japanese": "私",
+    "hiragana": "わたし",
+    "romaji": "watashi",
+    "english": "I, me",
+    "level": "N5",
+    "type": "pronoun"
+  },
+  {
+    "id": 2,
+    "japanese": "あなた",
+    "hiragana": "あなた",
+    "romaji": "anata",
+    "english": "you",
+    "level": "N5",
+    "type": "pronoun"
+  },
+  {
+    "id": 3,
+    "japanese": "本",
+    "hiragana": "ほん",
+    "romaji": "hon",
+    "english": "book",
+    "level": "N5",
+    "type": "noun"
+  },
+  {
+    "id": 4,
+    "japanese": "水",
+    "hiragana": "みず",
+    "romaji": "mizu",
+    "english": "water",
+    "level": "N5",
+    "type": "noun"
+  },
+  {
+    "id": 5,
+    "japanese": "食べる",
+    "hiragana": "たべる",
+    "romaji": "taberu",
+    "english": "to eat",
+    "level": "N5",
+    "type": "verb"
+  },
+  {
+    "id": 6,
+    "japanese": "飲む",
+    "hiragana": "のむ",
+    "romaji": "nomu",
+    "english": "to drink",
+    "level": "N5",
+    "type": "verb"
+  },
+  {
+    "id": 7,
+    "japanese": "行く",
+    "hiragana": "いく",
+    "romaji": "iku",
+    "english": "to go",
+    "level": "N5",
+    "type": "verb"
+  },
+  {
+    "id": 8,
+    "japanese": "来る",
+    "hiragana": "くる",
+    "romaji": "kuru",
+    "english": "to come",
+    "level": "N5",
+    "type": "verb"
+  },
+  {
+    "id": 9,
+    "japanese": "見る",
+    "hiragana": "みる",
+    "romaji": "miru",
+    "english": "to see, to watch",
+    "level": "N5",
+    "type": "verb"
+  },
+  {
+    "id": 10,
+    "japanese": "聞く",
+    "hiragana": "きく",
+    "romaji": "kiku",
+    "english": "to hear, to listen",
+    "level": "N5",
+    "type": "verb"
+  },
+  {
+    "id": 11,
+    "japanese": "大きい",
+    "hiragana": "おおきい",
+    "romaji": "ookii",
+    "english": "big, large",
+    "level": "N5",
+    "type": "adjective"
+  },
+  {
+    "id": 12,
+    "japanese": "小さい",
+    "hiragana": "ちいさい",
+    "romaji": "chiisai",
+    "english": "small, little",
+    "level": "N5",
+    "type": "adjective"
+  },
+  {
+    "id": 13,
+    "japanese": "新しい",
+    "hiragana": "あたらしい",
+    "romaji": "atarashii",
+    "english": "new",
+    "level": "N5",
+    "type": "adjective"
+  },
+  {
+    "id": 14,
+    "japanese": "古い",
+    "hiragana": "ふるい",
+    "romaji": "furui",
+    "english": "old",
+    "level": "N5",
+    "type": "adjective"
+  },
+  {
+    "id": 15,
+    "japanese": "良い",
+    "hiragana": "よい",
+    "romaji": "yoi",
+    "english": "good",
+    "level": "N5",
+    "type": "adjective"
+  },
+  {
+    "id": 16,
+    "japanese": "今日",
+    "hiragana": "きょう",
+    "romaji": "kyou",
+    "english": "today",
+    "level": "N5",
+    "type": "noun"
+  },
+  {
+    "id": 17,
+    "japanese": "明日",
+    "hiragana": "あした",
+    "romaji": "ashita",
+    "english": "tomorrow",
+    "level": "N5",
+    "type": "noun"
+  },
+  {
+    "id": 18,
+    "japanese": "昨日",
+    "hiragana": "きのう",
+    "romaji": "kinou",
+    "english": "yesterday",
+    "level": "N5",
+    "type": "noun"
+  },
+  {
+    "id": 19,
+    "japanese": "学校",
+    "hiragana": "がっこう",
+    "romaji": "gakkou",
+    "english": "school",
+    "level": "N5",
+    "type": "noun"
+  },
+  {
+    "id": 20,
+    "japanese": "家",
+    "hiragana": "いえ",
+    "romaji": "ie",
+    "english": "house, home",
+    "level": "N5",
+    "type": "noun"
+  }
+]
+
