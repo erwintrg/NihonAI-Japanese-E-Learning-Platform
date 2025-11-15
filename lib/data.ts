@@ -9,6 +9,12 @@ import animeTerms from '../data/anime-terms.json';
 
 // Category imports
 import expressions from '../data/categories/expressions.json';
+import pronouns from '../data/categories/pronouns.json';
+import verbs from '../data/categories/verbs.json';
+import nouns from '../data/categories/nouns.json';
+import adjectives from '../data/categories/adjectives.json';
+import phrases from '../data/categories/phrases.json';
+import time from '../data/categories/time.json';
 
 export interface ExampleSentence {
   japanese: string;
@@ -40,7 +46,18 @@ export function getVocabByCategory(category: string): VocabularyItem[] {
   switch (category) {
     case 'expressions':
       return expressions as VocabularyItem[];
-    // Add more categories as they're created
+    case 'pronouns':
+      return pronouns as VocabularyItem[];
+    case 'verbs':
+      return verbs as VocabularyItem[];
+    case 'nouns':
+      return nouns as VocabularyItem[];
+    case 'adjectives':
+      return adjectives as VocabularyItem[];
+    case 'phrases':
+      return phrases as VocabularyItem[];
+    case 'time':
+      return time as VocabularyItem[];
     default:
       return [];
   }
@@ -66,6 +83,12 @@ export function getAnimeTerms(): VocabularyItem[] {
 export function getAllVocab(): VocabularyItem[] {
   return [
     ...expressions,
+    ...pronouns,
+    ...verbs,
+    ...nouns,
+    ...adjectives,
+    ...phrases,
+    ...time,
     ...jlptN5Vocab,
     ...animeTerms,
   ] as VocabularyItem[];

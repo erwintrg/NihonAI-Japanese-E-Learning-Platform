@@ -1,0 +1,360 @@
+[
+  {
+    "id": 2001,
+    "japanese": "私",
+    "hiragana": "わたし",
+    "romaji": "watashi",
+    "english": "I, me",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 10,
+    "notes": "Most common first-person pronoun. Used by both males and females in formal situations.",
+    "example_sentences": [
+      {
+        "japanese": "私が行きましょう。",
+        "hiragana": "わたしがいきましょう。",
+        "romaji": "watashi ga ikimashou.",
+        "english": "Why don't I go."
+      },
+      {
+        "japanese": "私もそう思います。",
+        "hiragana": "わたしもそうおもいます。",
+        "romaji": "watashi mo sou omoimasu.",
+        "english": "I think so too."
+      }
+    ]
+  },
+  {
+    "id": 2002,
+    "japanese": "あなた",
+    "hiragana": "あなた",
+    "romaji": "anata",
+    "english": "you",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 8,
+    "notes": "Second-person pronoun. Can be impolite in some contexts - often omitted in Japanese.",
+    "example_sentences": [
+      {
+        "japanese": "この本、あなたにあげます。",
+        "hiragana": "このほん、あなたにあげます。",
+        "romaji": "kono hon, anata ni agemasu.",
+        "english": "I'll give you this book."
+      }
+    ]
+  },
+  {
+    "id": 2003,
+    "japanese": "僕",
+    "hiragana": "ぼく",
+    "romaji": "boku",
+    "english": "I, me (male)",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 9,
+    "notes": "Casual first-person pronoun used by males. Common in anime and casual speech.",
+    "example_sentences": [
+      {
+        "japanese": "僕は学生です。",
+        "hiragana": "ぼくはがくせいです。",
+        "romaji": "boku wa gakusei desu.",
+        "english": "I'm a student."
+      },
+      {
+        "japanese": "僕も行く。",
+        "hiragana": "ぼくもいく。",
+        "romaji": "boku mo iku.",
+        "english": "I'll go too."
+      }
+    ]
+  },
+  {
+    "id": 2004,
+    "japanese": "俺",
+    "hiragana": "おれ",
+    "romaji": "ore",
+    "english": "I, me (male, rough)",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 7,
+    "notes": "Very casual/rough first-person pronoun used by males. Common in anime but be careful - can sound impolite.",
+    "example_sentences": [
+      {
+        "japanese": "俺の頼みを聞いてくれ。",
+        "hiragana": "おれのたのみをきいてくれ。",
+        "romaji": "ore no tanomi wo kiite kure.",
+        "english": "Do me a favor."
+      }
+    ]
+  },
+  {
+    "id": 2005,
+    "japanese": "これ",
+    "hiragana": "これ",
+    "romaji": "kore",
+    "english": "this, this one",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 10,
+    "notes": "Demonstrative pronoun for something close to the speaker.",
+    "example_sentences": [
+      {
+        "japanese": "これをください。",
+        "hiragana": "これをください。",
+        "romaji": "kore wo kudasai.",
+        "english": "I'll have this please."
+      },
+      {
+        "japanese": "これはいくらですか？",
+        "hiragana": "これはいくらですか？",
+        "romaji": "kore wa ikura desu ka?",
+        "english": "How much is this?"
+      }
+    ]
+  },
+  {
+    "id": 2006,
+    "japanese": "それ",
+    "hiragana": "それ",
+    "romaji": "sore",
+    "english": "that, that one",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 10,
+    "notes": "Demonstrative pronoun for something close to the listener.",
+    "example_sentences": [
+      {
+        "japanese": "それはとってもいい話だ。",
+        "hiragana": "それはとってもいいはなしだ。",
+        "romaji": "sore wa tottemo ii hanashi da.",
+        "english": "That's a really nice story."
+      }
+    ]
+  },
+  {
+    "id": 2007,
+    "japanese": "あれ",
+    "hiragana": "あれ",
+    "romaji": "are",
+    "english": "that over there",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 8,
+    "notes": "Demonstrative pronoun for something far from both speaker and listener.",
+    "example_sentences": [
+      {
+        "japanese": "あれは何ですか。",
+        "hiragana": "あれはなんですか。",
+        "romaji": "are wa nan desu ka?",
+        "english": "What's that?"
+      }
+    ]
+  },
+  {
+    "id": 2008,
+    "japanese": "ここ",
+    "hiragana": "ここ",
+    "romaji": "koko",
+    "english": "here",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 9,
+    "notes": "Location pronoun - where the speaker is.",
+    "example_sentences": [
+      {
+        "japanese": "ここに本があります。",
+        "hiragana": "ここにほんがあります。",
+        "romaji": "koko ni hon ga arimasu.",
+        "english": "There's a book here."
+      }
+    ]
+  },
+  {
+    "id": 2009,
+    "japanese": "そこ",
+    "hiragana": "そこ",
+    "romaji": "soko",
+    "english": "there",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 8,
+    "notes": "Location pronoun - where the listener is.",
+    "example_sentences": [
+      {
+        "japanese": "そこに座ってください。",
+        "hiragana": "そこにすわってください。",
+        "romaji": "soko ni suwatte kudasai.",
+        "english": "Please sit there."
+      }
+    ]
+  },
+  {
+    "id": 2010,
+    "japanese": "あそこ",
+    "hiragana": "あそこ",
+    "romaji": "asoko",
+    "english": "over there",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 7,
+    "notes": "Location pronoun - far from both speaker and listener.",
+    "example_sentences": []
+  },
+  {
+    "id": 2011,
+    "japanese": "どこ",
+    "hiragana": "どこ",
+    "romaji": "doko",
+    "english": "where",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 9,
+    "notes": "Question word for location.",
+    "example_sentences": [
+      {
+        "japanese": "あの本をどこに置きましたか。",
+        "hiragana": "あのほんをどこにおきましたか。",
+        "romaji": "ano hon wo doko ni okimashita ka?",
+        "english": "Where did you put that book?"
+      }
+    ]
+  },
+  {
+    "id": 2012,
+    "japanese": "誰",
+    "hiragana": "だれ",
+    "romaji": "dare",
+    "english": "who, whom",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 8,
+    "notes": "Question word for people.",
+    "example_sentences": [
+      {
+        "japanese": "誰と会ってみたいですか。",
+        "hiragana": "だれとあってみたいですか。",
+        "romaji": "dare to atte mitai desu ka?",
+        "english": "Who would you like to meet one day?"
+      }
+    ]
+  },
+  {
+    "id": 2013,
+    "japanese": "何",
+    "hiragana": "なに",
+    "romaji": "nani",
+    "english": "what, which",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 10,
+    "notes": "Question word. Can be pronounced 'nan' before certain particles.",
+    "example_sentences": [
+      {
+        "japanese": "夕食には何を食べたいですか。",
+        "hiragana": "ゆうしょくにはなにをたべたいですか。",
+        "romaji": "yuushoku ni wa nani wo tabetai desu ka?",
+        "english": "What would you like for supper?"
+      },
+      {
+        "japanese": "質問は何ですか。",
+        "hiragana": "しつもんはなんですか。",
+        "romaji": "shitsumon wa nan desu ka?",
+        "english": "What's the question?"
+      }
+    ]
+  },
+  {
+    "id": 2014,
+    "japanese": "彼",
+    "hiragana": "かれ",
+    "romaji": "kare",
+    "english": "he, one's boyfriend",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 7,
+    "notes": "Third-person pronoun for males. Can also mean 'boyfriend'.",
+    "example_sentences": [
+      {
+        "japanese": "彼は私の上司です。",
+        "hiragana": "かれはわたしのじょうしです。",
+        "romaji": "kare wa watashi no joushi desu.",
+        "english": "He's my senior."
+      }
+    ]
+  },
+  {
+    "id": 2015,
+    "japanese": "彼女",
+    "hiragana": "かのじょ",
+    "romaji": "kanojo",
+    "english": "she, one's girlfriend",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 7,
+    "notes": "Third-person pronoun for females. Can also mean 'girlfriend'.",
+    "example_sentences": [
+      {
+        "japanese": "彼女はOLです。",
+        "hiragana": "かのじょはオーエルです。",
+        "romaji": "kanojo wa OL desu.",
+        "english": "She's an office worker."
+      }
+    ]
+  },
+  {
+    "id": 2016,
+    "japanese": "自分",
+    "hiragana": "じぶん",
+    "romaji": "jibun",
+    "english": "self, oneself",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 8,
+    "notes": "Reflexive pronoun meaning 'oneself'.",
+    "example_sentences": [
+      {
+        "japanese": "宿題は自分でやりなさい。",
+        "hiragana": "しゅくだいはじぶんでやりなさい。",
+        "romaji": "shukudai wa jibun de yarinasai.",
+        "english": "Do your homework by yourself."
+      }
+    ]
+  },
+  {
+    "id": 2017,
+    "japanese": "こちら",
+    "hiragana": "こちら",
+    "romaji": "kochira",
+    "english": "this way, here (polite)",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 7,
+    "notes": "Polite form of 'koko'. Also means 'this person' (polite).",
+    "example_sentences": [
+      {
+        "japanese": "受付はこちらです。",
+        "hiragana": "うけつけはこちらです。",
+        "romaji": "uketsuke wa kochira desu.",
+        "english": "The reception desk is this way."
+      }
+    ]
+  }
+]
+

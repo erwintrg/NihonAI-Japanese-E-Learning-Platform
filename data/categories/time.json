@@ -1,0 +1,227 @@
+[
+  {
+    "id": 6001,
+    "japanese": "今日",
+    "hiragana": "きょう",
+    "romaji": "kyou",
+    "english": "today",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 10,
+    "notes": "Very common time word.",
+    "example_sentences": [
+      {
+        "japanese": "今日は仕事がありません。",
+        "hiragana": "きょうはしごとがありません。",
+        "romaji": "kyou wa shigoto ga arimasen.",
+        "english": "I have no work today."
+      },
+      {
+        "japanese": "今日はありがとう",
+        "hiragana": "きょうはありがとう",
+        "romaji": "kyou wa arigatou",
+        "english": "As for today - thank you (Thank you for today)."
+      },
+      {
+        "japanese": "今日も",
+        "hiragana": "きょうも",
+        "romaji": "kyou mo",
+        "english": "[You go there] today, too?"
+      }
+    ]
+  },
+  {
+    "id": 6002,
+    "japanese": "明日",
+    "hiragana": "あした",
+    "romaji": "ashita",
+    "english": "tomorrow",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 9,
+    "notes": "Common time word. Can also be read as 'asu' in formal contexts.",
+    "example_sentences": [
+      {
+        "japanese": "明日、また来ます。",
+        "hiragana": "あした、またきます。",
+        "romaji": "ashita, mata kimasu.",
+        "english": "I'll come again tomorrow."
+      }
+    ]
+  },
+  {
+    "id": 6003,
+    "japanese": "昨日",
+    "hiragana": "きのう",
+    "romaji": "kinou",
+    "english": "yesterday",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 8,
+    "notes": "Common time word.",
+    "example_sentences": [
+      {
+        "japanese": "昨日タイカレーを食べました。",
+        "hiragana": "きのうタイカレーをたべました。",
+        "romaji": "kinou tai karee wo tabemashita.",
+        "english": "I had Thai curry yesterday."
+      }
+    ]
+  },
+  {
+    "id": 6004,
+    "japanese": "今",
+    "hiragana": "いま",
+    "romaji": "ima",
+    "english": "now",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 10,
+    "notes": "Very common time word.",
+    "example_sentences": [
+      {
+        "japanese": "彼は今、勉強しています。",
+        "hiragana": "かれはいま、べんきょうしています。",
+        "romaji": "kare wa ima, benkyou shite imasu.",
+        "english": "He's studying now."
+      },
+      {
+        "japanese": "今、朝ご飯を作っています。",
+        "hiragana": "いま、あさごはんをつくっています。",
+        "romaji": "ima, asagohan wo tsukutte imasu.",
+        "english": "I'm making breakfast now."
+      }
+    ]
+  },
+  {
+    "id": 6005,
+    "japanese": "時",
+    "hiragana": "とき",
+    "romaji": "toki",
+    "english": "time, when",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 9,
+    "notes": "Can mean 'time' or 'when' (as a conjunction).",
+    "example_sentences": [
+      {
+        "japanese": "時の経つのは早い。",
+        "hiragana": "ときのたつのははやい。",
+        "romaji": "toki no tatsu no wa hayai.",
+        "english": "Time passes by quickly."
+      }
+    ]
+  },
+  {
+    "id": 6006,
+    "japanese": "後",
+    "hiragana": "あと",
+    "romaji": "ato",
+    "english": "after",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 8,
+    "notes": "Common time word meaning 'after' or 'later'.",
+    "example_sentences": [
+      {
+        "japanese": "仕事の後、映画を見た。",
+        "hiragana": "しごとのあと、えいがをみた。",
+        "romaji": "shigoto no ato, eiga wo mita.",
+        "english": "I saw a movie after work."
+      }
+    ]
+  },
+  {
+    "id": 6007,
+    "japanese": "前",
+    "hiragana": "まえ",
+    "romaji": "mae",
+    "english": "front, before",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 8,
+    "notes": "Can mean both 'front' (spatial) and 'before' (temporal).",
+    "example_sentences": [
+      {
+        "japanese": "その店の前で会いましょう。",
+        "hiragana": "そのみせのまえであいましょう。",
+        "romaji": "sono mise no mae de aimashou.",
+        "english": "Let's meet in front of the shop."
+      }
+    ]
+  },
+  {
+    "id": 6008,
+    "japanese": "もう",
+    "hiragana": "もう",
+    "romaji": "mou",
+    "english": "already, yet, another",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 9,
+    "notes": "Can mean 'already', 'yet', or 'another' depending on context.",
+    "example_sentences": [
+      {
+        "japanese": "彼はもう帰りました。",
+        "hiragana": "かれはもうかえりました。",
+        "romaji": "kare wa mou kaerimashita.",
+        "english": "He's already gone home."
+      },
+      {
+        "japanese": "コーヒーをもう一杯ください。",
+        "hiragana": "コーヒーをもういっぱいください。",
+        "romaji": "koohii wo mou ippai kudasai.",
+        "english": "Please give me another cup of coffee."
+      }
+    ]
+  },
+  {
+    "id": 6009,
+    "japanese": "まだ",
+    "hiragana": "まだ",
+    "romaji": "mada",
+    "english": "yet, more, still",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 8,
+    "notes": "Common time word.",
+    "example_sentences": [
+      {
+        "japanese": "宿題はまだ終わっていません。",
+        "hiragana": "しゅくだいはまだおわっていません。",
+        "romaji": "shukudai wa mada owatte imasen.",
+        "english": "I haven't finished my homework yet."
+      }
+    ]
+  },
+  {
+    "id": 6010,
+    "japanese": "いつ",
+    "hiragana": "いつ",
+    "romaji": "itsu",
+    "english": "when",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 9,
+    "notes": "Question word for time.",
+    "example_sentences": [
+      {
+        "japanese": "彼女はいつ来ますか。",
+        "hiragana": "かのじょはいつきますか。",
+        "romaji": "kanojo wa itsu kimasu ka?",
+        "english": "When is she coming?"
+      }
+    ]
+  }
+]
+

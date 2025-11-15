@@ -1,0 +1,401 @@
+[
+  {
+    "id": 4001,
+    "japanese": "本",
+    "hiragana": "ほん",
+    "romaji": "hon",
+    "english": "book",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 9,
+    "notes": "Common noun. Counter is 'satsu' (冊).",
+    "example_sentences": [
+      {
+        "japanese": "ここに本があります。",
+        "hiragana": "ここにほんがあります。",
+        "romaji": "koko ni hon ga arimasu.",
+        "english": "There's a book here."
+      },
+      {
+        "japanese": "この本、あなたにあげます。",
+        "hiragana": "このほん、あなたにあげます。",
+        "romaji": "kono hon, anata ni agemasu.",
+        "english": "I'll give you this book."
+      }
+    ]
+  },
+  {
+    "id": 4002,
+    "japanese": "水",
+    "hiragana": "みず",
+    "romaji": "mizu",
+    "english": "water",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 8,
+    "notes": "Common noun.",
+    "example_sentences": []
+  },
+  {
+    "id": 4003,
+    "japanese": "人",
+    "hiragana": "ひと",
+    "romaji": "hito",
+    "english": "person",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 10,
+    "notes": "Very common noun. Counter is 'nin' (人) or 'ri' (人) for small numbers.",
+    "example_sentences": [
+      {
+        "japanese": "彼は優しい人です。",
+        "hiragana": "かれはやさしいひとです。",
+        "romaji": "kare wa yasashii hito desu.",
+        "english": "He's a nice guy."
+      },
+      {
+        "japanese": "一人",
+        "hiragana": "ひとり",
+        "romaji": "hitori",
+        "english": "one person, alone"
+      }
+    ]
+  },
+  {
+    "id": 4004,
+    "japanese": "学校",
+    "hiragana": "がっこう",
+    "romaji": "gakkou",
+    "english": "school",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 9,
+    "notes": "Common noun.",
+    "example_sentences": []
+  },
+  {
+    "id": 4005,
+    "japanese": "家",
+    "hiragana": "いえ",
+    "romaji": "ie",
+    "english": "house, home",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 9,
+    "notes": "Can also be read as 'uchi' meaning 'my home' or 'our home'.",
+    "example_sentences": [
+      {
+        "japanese": "ここが私の家です。",
+        "hiragana": "ここがわたしのいえです。",
+        "romaji": "koko ga watashi no ie desu.",
+        "english": "This is my house."
+      }
+    ]
+  },
+  {
+    "id": 4006,
+    "japanese": "時間",
+    "hiragana": "じかん",
+    "romaji": "jikan",
+    "english": "time, hour",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 9,
+    "notes": "Can mean both 'time' and 'hour'.",
+    "example_sentences": [
+      {
+        "japanese": "今は時間がありません。",
+        "hiragana": "いまはじかんがありません。",
+        "romaji": "ima wa jikan ga arimasen.",
+        "english": "I don't have time now."
+      }
+    ]
+  },
+  {
+    "id": 4007,
+    "japanese": "仕事",
+    "hiragana": "しごと",
+    "romaji": "shigoto",
+    "english": "work, job",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 9,
+    "notes": "Common noun for work/job.",
+    "example_sentences": [
+      {
+        "japanese": "3月は仕事が忙しい。",
+        "hiragana": "さんがつはしごとがいそがしい。",
+        "romaji": "sangatsu wa shigoto ga isogashii.",
+        "english": "I have a lot of work in March."
+      }
+    ]
+  },
+  {
+    "id": 4008,
+    "japanese": "友達",
+    "hiragana": "ともだち",
+    "romaji": "tomodachi",
+    "english": "friend",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 9,
+    "notes": "Common noun. Very common in anime.",
+    "example_sentences": [
+      {
+        "japanese": "友達と一緒に宿題をした。",
+        "hiragana": "ともだちといっしょにしゅくだいをした。",
+        "romaji": "tomodachi to issho ni shukudai wo shita.",
+        "english": "I did my homework with a friend."
+      }
+    ]
+  },
+  {
+    "id": 4009,
+    "japanese": "言葉",
+    "hiragana": "ことば",
+    "romaji": "kotoba",
+    "english": "word, language",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 7,
+    "notes": "Can mean both 'word' and 'language'.",
+    "example_sentences": [
+      {
+        "japanese": "この言葉の意味が分かりません。",
+        "hiragana": "このことばのいみがわかりません。",
+        "romaji": "kono kotoba no imi ga wakarimasen.",
+        "english": "I don't understand the meaning of this word."
+      }
+    ]
+  },
+  {
+    "id": 4010,
+    "japanese": "話",
+    "hiragana": "はなし",
+    "romaji": "hanashi",
+    "english": "talk, story, conversation",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 8,
+    "notes": "Noun form of 'hanasu' (to speak).",
+    "example_sentences": [
+      {
+        "japanese": "あなたの話は面白いね。",
+        "hiragana": "あなたのはなしはおもしろいね。",
+        "romaji": "anata no hanashi wa omoshiroi ne.",
+        "english": "Your story's interesting."
+      }
+    ]
+  },
+  {
+    "id": 4011,
+    "japanese": "体",
+    "hiragana": "からだ",
+    "romaji": "karada",
+    "english": "body, health",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 8,
+    "notes": "Common noun.",
+    "example_sentences": [
+      {
+        "japanese": "私は体が丈夫だ。",
+        "hiragana": "わたしはからだがじょうぶだ。",
+        "romaji": "watashi wa karada ga joubu da.",
+        "english": "I'm physically strong."
+      }
+    ]
+  },
+  {
+    "id": 4012,
+    "japanese": "部屋",
+    "hiragana": "へや",
+    "romaji": "heya",
+    "english": "room",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 8,
+    "notes": "Common noun.",
+    "example_sentences": [
+      {
+        "japanese": "私の部屋は2階にあります。",
+        "hiragana": "わたしのへやはにかいにあります。",
+        "romaji": "watashi no heya wa nikai ni arimasu.",
+        "english": "My room is on the second floor."
+      }
+    ]
+  },
+  {
+    "id": 4013,
+    "japanese": "世界",
+    "hiragana": "せかい",
+    "romaji": "sekai",
+    "english": "world",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 7,
+    "notes": "Common noun.",
+    "example_sentences": [
+      {
+        "japanese": "私は世界旅行をしたい。",
+        "hiragana": "わたしはせかいろこうをしたい。",
+        "romaji": "watashi wa sekai ryokou wo shitai.",
+        "english": "I want to travel around the world."
+      }
+    ]
+  },
+  {
+    "id": 4014,
+    "japanese": "子供",
+    "hiragana": "こども",
+    "romaji": "kodomo",
+    "english": "child, kid",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 8,
+    "notes": "Common noun. Can also be written as 子ども.",
+    "example_sentences": [
+      {
+        "japanese": "電車で子供が騒いでいた。",
+        "hiragana": "でんしゃでこどもがさわいでいた。",
+        "romaji": "densha de kodomo ga sawaide ita.",
+        "english": "Kids were making a racket in the train."
+      }
+    ]
+  },
+  {
+    "id": 4015,
+    "japanese": "問題",
+    "hiragana": "もんだい",
+    "romaji": "mondai",
+    "english": "problem, question",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 8,
+    "notes": "Can mean both 'problem' and 'question' (in tests).",
+    "example_sentences": [
+      {
+        "japanese": "問題が一つあります。",
+        "hiragana": "もんだいがひとつあります。",
+        "romaji": "mondai ga hitotsu arimasu.",
+        "english": "There's one problem."
+      }
+    ]
+  },
+  {
+    "id": 4016,
+    "japanese": "意味",
+    "hiragana": "いみ",
+    "romaji": "imi",
+    "english": "meaning, significance",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 8,
+    "notes": "Common noun.",
+    "example_sentences": [
+      {
+        "japanese": "それはどういう意味ですか。",
+        "hiragana": "それはどういういみですか。",
+        "romaji": "sore wa dou iu imi desu ka?",
+        "english": "What does that mean?"
+      }
+    ]
+  },
+  {
+    "id": 4017,
+    "japanese": "場所",
+    "hiragana": "ばしょ",
+    "romaji": "basho",
+    "english": "place, space",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 8,
+    "notes": "Common noun.",
+    "example_sentences": [
+      {
+        "japanese": "会社の場所を教えてください。",
+        "hiragana": "かいしゃのばしょをおしえてください。",
+        "romaji": "kaisha no basho wo oshiete kudasai.",
+        "english": "Please tell me where the office is."
+      }
+    ]
+  },
+  {
+    "id": 4018,
+    "japanese": "手",
+    "hiragana": "て",
+    "romaji": "te",
+    "english": "hand",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 8,
+    "notes": "Body part noun.",
+    "example_sentences": [
+      {
+        "japanese": "分かった人は手を上げてください。",
+        "hiragana": "わかったひとはてをあげてください。",
+        "romaji": "wakatta hito wa te wo agete kudasai.",
+        "english": "Please raise your hand if you understand."
+      }
+    ]
+  },
+  {
+    "id": 4019,
+    "japanese": "目",
+    "hiragana": "め",
+    "romaji": "me",
+    "english": "eye",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 8,
+    "notes": "Body part noun.",
+    "example_sentences": [
+      {
+        "japanese": "彼女は青い目をしています。",
+        "hiragana": "かのじょはあおいめをしています。",
+        "romaji": "kanojo wa aoi me wo shite imasu.",
+        "english": "She has blue eyes."
+      }
+    ]
+  },
+  {
+    "id": 4020,
+    "japanese": "口",
+    "hiragana": "くち",
+    "romaji": "kuchi",
+    "english": "mouth",
+    "level": "N5",
+    "type": "word",
+    "category": "nouns",
+    "frequency": 7,
+    "notes": "Body part noun.",
+    "example_sentences": [
+      {
+        "japanese": "口を大きく開けてください。",
+        "hiragana": "くちをおおきくあけてください。",
+        "romaji": "kuchi wo ookiku akete kudasai.",
+        "english": "Open wide, please."
+      }
+    ]
+  }
+]
+

@@ -1,0 +1,372 @@
+[
+  {
+    "id": 5001,
+    "japanese": "大きい",
+    "hiragana": "おおきい",
+    "romaji": "ookii",
+    "english": "big, large",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 10,
+    "notes": "い-adjective. Very common.",
+    "example_sentences": [
+      {
+        "japanese": "あの大きい建物は何ですか。",
+        "hiragana": "あのおおきいたてものはなんですか。",
+        "romaji": "ano ookii tatemono wa nan desu ka?",
+        "english": "What's that big building?"
+      }
+    ]
+  },
+  {
+    "id": 5002,
+    "japanese": "小さい",
+    "hiragana": "ちいさい",
+    "romaji": "chiisai",
+    "english": "small, little",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 9,
+    "notes": "い-adjective. Very common.",
+    "example_sentences": []
+  },
+  {
+    "id": 5003,
+    "japanese": "新しい",
+    "hiragana": "あたらしい",
+    "romaji": "atarashii",
+    "english": "new",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 9,
+    "notes": "い-adjective.",
+    "example_sentences": []
+  },
+  {
+    "id": 5004,
+    "japanese": "古い",
+    "hiragana": "ふるい",
+    "romaji": "furui",
+    "english": "old",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 8,
+    "notes": "い-adjective. For objects, not people.",
+    "example_sentences": []
+  },
+  {
+    "id": 5005,
+    "japanese": "良い",
+    "hiragana": "よい",
+    "romaji": "yoi",
+    "english": "good",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 10,
+    "notes": "い-adjective. Can also be read as 'ii' in casual speech.",
+    "example_sentences": [
+      {
+        "japanese": "彼は良いところだけを強調した。",
+        "hiragana": "かれはよいところだけをきょうちょうした。",
+        "romaji": "kare wa yoi tokoro dake wo kyouchou shita.",
+        "english": "He only emphasized the strong points."
+      }
+    ]
+  },
+  {
+    "id": 5006,
+    "japanese": "悪い",
+    "hiragana": "わるい",
+    "romaji": "warui",
+    "english": "bad",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 8,
+    "notes": "い-adjective.",
+    "example_sentences": [
+      {
+        "japanese": "たばこは体に悪い。",
+        "hiragana": "たばこはからだにわるい。",
+        "romaji": "tabako wa karada ni warui.",
+        "english": "Cigarettes are bad for your health."
+      }
+    ]
+  },
+  {
+    "id": 5007,
+    "japanese": "好き",
+    "hiragana": "すき",
+    "romaji": "suki",
+    "english": "liked, favorite",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 9,
+    "notes": "な-adjective. Very common in anime. Used to express liking something.",
+    "example_sentences": [
+      {
+        "japanese": "私はワインが好きです。",
+        "hiragana": "わたしはワインがすきです。",
+        "romaji": "watashi wa wain ga suki desu.",
+        "english": "I like wine."
+      },
+      {
+        "japanese": "好きな人",
+        "hiragana": "すきなひと",
+        "romaji": "suki na hito",
+        "english": "a person [you] like"
+      }
+    ]
+  },
+  {
+    "id": 5008,
+    "japanese": "大丈夫",
+    "hiragana": "だいじょうぶ",
+    "romaji": "daijoubu",
+    "english": "alright, OK, safe",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 10,
+    "notes": "な-adjective. Very common expression in anime and daily life.",
+    "example_sentences": [
+      {
+        "japanese": "大丈夫ですか。",
+        "hiragana": "だいじょうぶですか。",
+        "romaji": "daijoubu desu ka?",
+        "english": "Are you OK?"
+      },
+      {
+        "japanese": "今日も大丈夫",
+        "hiragana": "きょうもだいじょうぶ",
+        "romaji": "kyou mo daijoubu",
+        "english": "Today ok, too?"
+      }
+    ]
+  },
+  {
+    "id": 5009,
+    "japanese": "本当",
+    "hiragana": "ほんとう",
+    "romaji": "hontou",
+    "english": "truth, reality, really",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 9,
+    "notes": "な-adjective. Very common in anime for emphasis.",
+    "example_sentences": [
+      {
+        "japanese": "その話は本当ですか。",
+        "hiragana": "そのはなしはほんとうですか。",
+        "romaji": "sono hanashi wa hontou desu ka?",
+        "english": "Is the story true?"
+      }
+    ]
+  },
+  {
+    "id": 5010,
+    "japanese": "強い",
+    "hiragana": "つよい",
+    "romaji": "tsuyoi",
+    "english": "strong",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 8,
+    "notes": "い-adjective.",
+    "example_sentences": [
+      {
+        "japanese": "今日は風が強い。",
+        "hiragana": "きょうはかぜがつよい。",
+        "romaji": "kyou wa kaze ga tsuyoi.",
+        "english": "There's a strong wind today."
+      }
+    ]
+  },
+  {
+    "id": 5011,
+    "japanese": "早い",
+    "hiragana": "はやい",
+    "romaji": "hayai",
+    "english": "early, fast",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 8,
+    "notes": "い-adjective. Can mean both 'early' and 'fast'. Context determines meaning.",
+    "example_sentences": [
+      {
+        "japanese": "まだ学校へ行くには早い時間です。",
+        "hiragana": "まだがっこうへいくにははやいじかんです。",
+        "romaji": "mada gakkou e iku ni wa hayai jikan desu.",
+        "english": "It's still too early to go to school."
+      }
+    ]
+  },
+  {
+    "id": 5012,
+    "japanese": "遅い",
+    "hiragana": "おそい",
+    "romaji": "osoi",
+    "english": "late, slow",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 7,
+    "notes": "い-adjective.",
+    "example_sentences": []
+  },
+  {
+    "id": 5013,
+    "japanese": "高い",
+    "hiragana": "たかい",
+    "romaji": "takai",
+    "english": "high, tall, expensive",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 9,
+    "notes": "い-adjective. Can mean 'high', 'tall', or 'expensive' depending on context.",
+    "example_sentences": []
+  },
+  {
+    "id": 5014,
+    "japanese": "長い",
+    "hiragana": "ながい",
+    "romaji": "nagai",
+    "english": "long",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 8,
+    "notes": "い-adjective.",
+    "example_sentences": [
+      {
+        "japanese": "長いな",
+        "hiragana": "ながいな",
+        "romaji": "nagai na",
+        "english": "[Her hair is] long, isn't it?"
+      }
+    ]
+  },
+  {
+    "id": 5015,
+    "japanese": "短い",
+    "hiragana": "みじかい",
+    "romaji": "mijikai",
+    "english": "short",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 7,
+    "notes": "い-adjective.",
+    "example_sentences": []
+  },
+  {
+    "id": 5016,
+    "japanese": "多い",
+    "hiragana": "おおい",
+    "romaji": "ooi",
+    "english": "lots of, many",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 9,
+    "notes": "い-adjective.",
+    "example_sentences": [
+      {
+        "japanese": "京都にはお寺が多い。",
+        "hiragana": "きょうとにはおてらがおおい。",
+        "romaji": "kyouto ni wa otera ga ooi.",
+        "english": "There are a lot of temples in Kyoto."
+      }
+    ]
+  },
+  {
+    "id": 5017,
+    "japanese": "少ない",
+    "hiragana": "すくない",
+    "romaji": "sukunai",
+    "english": "few, little",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 7,
+    "notes": "い-adjective.",
+    "example_sentences": []
+  },
+  {
+    "id": 5018,
+    "japanese": "可愛い",
+    "hiragana": "かわいい",
+    "romaji": "kawaii",
+    "english": "cute, adorable",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 9,
+    "notes": "い-adjective. Very important concept in Japanese culture.",
+    "example_sentences": [
+      {
+        "japanese": "かわいい人",
+        "hiragana": "かわいいひと",
+        "romaji": "kawaii hito",
+        "english": "A cute person!"
+      },
+      {
+        "japanese": "かわいいもの",
+        "hiragana": "かわいいもの",
+        "romaji": "kawaii mono",
+        "english": "A cute thing?"
+      }
+    ]
+  },
+  {
+    "id": 5019,
+    "japanese": "きれい",
+    "hiragana": "きれい",
+    "romaji": "kirei",
+    "english": "pretty, lovely, beautiful, clean",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 8,
+    "notes": "な-adjective. Can mean both 'beautiful' and 'clean'.",
+    "example_sentences": [
+      {
+        "japanese": "きれいな人",
+        "hiragana": "きれいなひと",
+        "romaji": "kirei na hito",
+        "english": "[She is a] beautiful person."
+      }
+    ]
+  },
+  {
+    "id": 5020,
+    "japanese": "すごい",
+    "hiragana": "すごい",
+    "romaji": "sugoi",
+    "english": "amazing, great, incredible",
+    "level": "N5",
+    "type": "word",
+    "category": "adjectives",
+    "frequency": 9,
+    "notes": "い-adjective. Very common in anime and casual speech.",
+    "example_sentences": [
+      {
+        "japanese": "すごい人",
+        "hiragana": "すごいひと",
+        "romaji": "sugoi hito",
+        "english": "So many people! / An amazing person!"
+      }
+    ]
+  }
+]
+

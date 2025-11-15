@@ -1,0 +1,527 @@
+[
+  {
+    "id": 3001,
+    "japanese": "する",
+    "hiragana": "する",
+    "romaji": "suru",
+    "english": "do, make",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 10,
+    "notes": "Most common verb. Irregular conjugation. Used to make many compound verbs.",
+    "example_sentences": [
+      {
+        "japanese": "友達と一緒に宿題をした。",
+        "hiragana": "ともだちといっしょにしゅくだいをした。",
+        "romaji": "tomodachi to issho ni shukudai wo shita.",
+        "english": "I did my homework with a friend."
+      }
+    ]
+  },
+  {
+    "id": 3002,
+    "japanese": "行く",
+    "hiragana": "いく",
+    "romaji": "iku",
+    "english": "go",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 10,
+    "notes": "Irregular verb. Past tense is 'itta' (not 'ikita').",
+    "example_sentences": [
+      {
+        "japanese": "日曜日は図書館に行きます。",
+        "hiragana": "にちようびはとしょかんにいきます。",
+        "romaji": "nichiyoubi wa toshokan ni ikimasu.",
+        "english": "I go to the library on Sundays."
+      },
+      {
+        "japanese": "私も行く。",
+        "hiragana": "わたしもいく。",
+        "romaji": "watashi mo iku.",
+        "english": "I'll go too."
+      }
+    ]
+  },
+  {
+    "id": 3003,
+    "japanese": "来る",
+    "hiragana": "くる",
+    "romaji": "kuru",
+    "english": "come",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 10,
+    "notes": "Irregular verb. Only two irregular verbs in Japanese: する and 来る.",
+    "example_sentences": [
+      {
+        "japanese": "彼は昼過ぎに来ます。",
+        "hiragana": "かれはひるすぎにきます。",
+        "romaji": "kare wa hiru sugi ni kimasu.",
+        "english": "He'll come after lunch."
+      }
+    ]
+  },
+  {
+    "id": 3004,
+    "japanese": "食べる",
+    "hiragana": "たべる",
+    "romaji": "taberu",
+    "english": "eat",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 10,
+    "notes": "Ichidan (ru-verb). Very common verb.",
+    "example_sentences": [
+      {
+        "japanese": "昨日タイカレーを食べました。",
+        "hiragana": "きのうタイカレーをたべました。",
+        "romaji": "kinou tai karee wo tabemashita.",
+        "english": "I had Thai curry yesterday."
+      },
+      {
+        "japanese": "夕食には何を食べたいですか。",
+        "hiragana": "ゆうしょくにはなにをたべたいですか。",
+        "romaji": "yuushoku ni wa nani wo tabetai desu ka?",
+        "english": "What would you like for supper?"
+      }
+    ]
+  },
+  {
+    "id": 3005,
+    "japanese": "飲む",
+    "hiragana": "のむ",
+    "romaji": "nomu",
+    "english": "drink",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "僕も飲む。",
+        "hiragana": "ぼくものむ。",
+        "romaji": "boku mo nomu.",
+        "english": "I also drink [this]."
+      }
+    ]
+  },
+  {
+    "id": 3006,
+    "japanese": "見る",
+    "hiragana": "みる",
+    "romaji": "miru",
+    "english": "see, look at, watch",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 10,
+    "notes": "Ichidan (ru-verb). Used for watching TV, movies, etc.",
+    "example_sentences": [
+      {
+        "japanese": "私は絵を見るのが好きです。",
+        "hiragana": "わたしはえをみるのがすきです。",
+        "romaji": "watashi wa e wo miru no ga suki desu.",
+        "english": "I like looking at pictures."
+      }
+    ]
+  },
+  {
+    "id": 3007,
+    "japanese": "聞く",
+    "hiragana": "きく",
+    "romaji": "kiku",
+    "english": "hear, listen, ask",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb). Can mean both 'listen' and 'ask' depending on context.",
+    "example_sentences": [
+      {
+        "japanese": "彼女はラジオを聞いています。",
+        "hiragana": "かのじょはラジオをきいています。",
+        "romaji": "kanojo wa rajio wo kiite imasu.",
+        "english": "She's listening to the radio."
+      }
+    ]
+  },
+  {
+    "id": 3008,
+    "japanese": "言う",
+    "hiragana": "いう",
+    "romaji": "iu",
+    "english": "say, tell",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "上司が「一杯、飲もう。」と言った。",
+        "hiragana": "じょうしが「いっぱい、のもう。」といった。",
+        "romaji": "joushi ga 'ippai, nomou.' to itta.",
+        "english": "My boss said: 'Let's have a drink.'"
+      }
+    ]
+  },
+  {
+    "id": 3009,
+    "japanese": "思う",
+    "hiragana": "おもう",
+    "romaji": "omou",
+    "english": "think",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "私もそう思います。",
+        "hiragana": "わたしもそうおもいます。",
+        "romaji": "watashi mo sou omoimasu.",
+        "english": "I think so too."
+      },
+      {
+        "japanese": "あなたはどう思いますか。",
+        "hiragana": "あなたはどうおもいますか。",
+        "romaji": "anata wa dou omoimasu ka?",
+        "english": "What do you think?"
+      }
+    ]
+  },
+  {
+    "id": 3010,
+    "japanese": "分かる",
+    "hiragana": "わかる",
+    "romaji": "wakaru",
+    "english": "understand",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "質問の意味は分かりましたか。",
+        "hiragana": "しつもんのいみはわかりましたか。",
+        "romaji": "shitsumon no imi wa wakarimashita ka?",
+        "english": "Did you understand the meaning of the question?"
+      }
+    ]
+  },
+  {
+    "id": 3011,
+    "japanese": "出来る",
+    "hiragana": "できる",
+    "romaji": "dekiru",
+    "english": "can do, be good at",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Ichidan (ru-verb). Expresses ability or possibility.",
+    "example_sentences": [
+      {
+        "japanese": "彼女はイタリア語が出来ます。",
+        "hiragana": "かのじょはイタリアごができます。",
+        "romaji": "kanojo wa itaria-go ga dekimasu.",
+        "english": "She knows Italian."
+      }
+    ]
+  },
+  {
+    "id": 3012,
+    "japanese": "ある",
+    "hiragana": "ある",
+    "romaji": "aru",
+    "english": "exist, possess (for inanimate objects)",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 10,
+    "notes": "Godan (u-verb). Used for inanimate objects. Use 'iru' for animate objects.",
+    "example_sentences": [
+      {
+        "japanese": "私の机の上に書類がたくさん有ります。",
+        "hiragana": "わたしのつくえのうえにしょるいがたくさんあります。",
+        "romaji": "watashi no tsukue no ue ni shorui ga takusan arimasu.",
+        "english": "There are a lot of documents on my desk."
+      },
+      {
+        "japanese": "ここに本があります。",
+        "hiragana": "ここにほんがあります。",
+        "romaji": "koko ni hon ga arimasu.",
+        "english": "There's a book here."
+      }
+    ]
+  },
+  {
+    "id": 3013,
+    "japanese": "いる",
+    "hiragana": "いる",
+    "romaji": "iru",
+    "english": "be present, exist (for animate objects)",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 10,
+    "notes": "Ichidan (ru-verb). Used for people and animals. Use 'aru' for inanimate objects.",
+    "example_sentences": [
+      {
+        "japanese": "今日は一日中家に居ました。",
+        "hiragana": "きょうはいちにちじゅういえにいました。",
+        "romaji": "kyou wa ichinichijuu ie ni imashita.",
+        "english": "I was at home all day today."
+      }
+    ]
+  },
+  {
+    "id": 3014,
+    "japanese": "なる",
+    "hiragana": "なる",
+    "romaji": "naru",
+    "english": "become",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "彼は医者になりました。",
+        "hiragana": "かれはいしゃになりました。",
+        "romaji": "kare wa isha ni narimashita.",
+        "english": "He became a doctor."
+      }
+    ]
+  },
+  {
+    "id": 3015,
+    "japanese": "持つ",
+    "hiragana": "もつ",
+    "romaji": "motsu",
+    "english": "have, possess, hold",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "私は車を持っています。",
+        "hiragana": "わたしはくるまをもっています。",
+        "romaji": "watashi wa kuruma wo motte imasu.",
+        "english": "I have a car."
+      }
+    ]
+  },
+  {
+    "id": 3016,
+    "japanese": "作る",
+    "hiragana": "つくる",
+    "romaji": "tsukuru",
+    "english": "make, create",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "今、朝ご飯を作っています。",
+        "hiragana": "いま、あさごはんをつくっています。",
+        "romaji": "ima, asagohan wo tsukutte imasu.",
+        "english": "I'm making breakfast now."
+      }
+    ]
+  },
+  {
+    "id": 3017,
+    "japanese": "使う",
+    "hiragana": "つかう",
+    "romaji": "tsukau",
+    "english": "use",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "このパソコンを使ってください。",
+        "hiragana": "このパソコンをつかってください。",
+        "romaji": "kono pasokon wo tsukatte kudasai.",
+        "english": "Please use this computer."
+      }
+    ]
+  },
+  {
+    "id": 3018,
+    "japanese": "話す",
+    "hiragana": "はなす",
+    "romaji": "hanasu",
+    "english": "speak, tell",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "母と電話で話しました。",
+        "hiragana": "ははとでんわではなしました。",
+        "romaji": "haha to denwa de hanashimashita.",
+        "english": "I spoke to my mother on the phone."
+      }
+    ]
+  },
+  {
+    "id": 3019,
+    "japanese": "知る",
+    "hiragana": "しる",
+    "romaji": "shiru",
+    "english": "know",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 9,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "誰もその話を知らない。",
+        "hiragana": "だれもそのはなしをしらない。",
+        "romaji": "dare mo sono hanashi wo shiranai.",
+        "english": "No one knows that story."
+      }
+    ]
+  },
+  {
+    "id": 3020,
+    "japanese": "待つ",
+    "hiragana": "まつ",
+    "romaji": "matsu",
+    "english": "wait, wait for",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 8,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "あなたが来るのを待っています。",
+        "hiragana": "あなたがくるのをまっています。",
+        "romaji": "anata ga kuru no wo matte imasu.",
+        "english": "I am waiting for you to come."
+      }
+    ]
+  },
+  {
+    "id": 3021,
+    "japanese": "帰る",
+    "hiragana": "かえる",
+    "romaji": "kaeru",
+    "english": "return, go back",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 8,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "家に帰ろう。",
+        "hiragana": "いえにかえろう。",
+        "romaji": "ie ni kaerou.",
+        "english": "Let's go home."
+      }
+    ]
+  },
+  {
+    "id": 3022,
+    "japanese": "始める",
+    "hiragana": "はじめる",
+    "romaji": "hajimeru",
+    "english": "begin, start",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 8,
+    "notes": "Ichidan (ru-verb).",
+    "example_sentences": [
+      {
+        "japanese": "テストを始めてください。",
+        "hiragana": "テストをはじめてください。",
+        "romaji": "tesuto wo hajimete kudasai.",
+        "english": "Please start the test."
+      }
+    ]
+  },
+  {
+    "id": 3023,
+    "japanese": "終わる",
+    "hiragana": "おわる",
+    "romaji": "owaru",
+    "english": "finish, end",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 8,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "会議は4時に終わります。",
+        "hiragana": "かいぎはよじにおわります。",
+        "romaji": "kaigi wa yoji ni owarimasu.",
+        "english": "The conference ends at four o'clock."
+      }
+    ]
+  },
+  {
+    "id": 3024,
+    "japanese": "出す",
+    "hiragana": "だす",
+    "romaji": "dasu",
+    "english": "take out, put out",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 8,
+    "notes": "Godan (u-verb).",
+    "example_sentences": [
+      {
+        "japanese": "彼はかばんから教科書を出した。",
+        "hiragana": "かれはかばんからきょうかしょをだした。",
+        "romaji": "kare wa kaban kara kyoukasho wo dashita.",
+        "english": "He took the textbook out of his bag."
+      }
+    ]
+  },
+  {
+    "id": 3025,
+    "japanese": "入る",
+    "hiragana": "はいる",
+    "romaji": "hairu",
+    "english": "enter",
+    "level": "N5",
+    "type": "word",
+    "category": "verbs",
+    "frequency": 8,
+    "notes": "Godan (u-verb). Irregular - ends in 'ru' but conjugates as u-verb.",
+    "example_sentences": [
+      {
+        "japanese": "寒いので中に入ってください。",
+        "hiragana": "さむいのでなかにはいってください。",
+        "romaji": "samui node naka ni haitte kudasai.",
+        "english": "It's cold so please come inside."
+      }
+    ]
+  }
+]
+
