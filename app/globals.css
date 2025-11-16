@@ -24,3 +24,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Fix Supabase Auth UI button text visibility in dark mode */
+[data-theme="dark"] .supabase-auth-ui_ui-button,
+.dark .supabase-auth-ui_ui-button {
+  color: #000000 !important;
+}
+
+[data-theme="dark"] .supabase-auth-ui_ui-button *,
+.dark .supabase-auth-ui_ui-button * {
+  color: #000000 !important;
+}

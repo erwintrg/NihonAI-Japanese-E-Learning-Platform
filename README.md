@@ -48,18 +48,28 @@ cd nihonAI/nihonai
 npm install
 ```
 
-3. Set up environment variables:
+3. Set up Supabase:
+   - Create a project at [supabase.com](https://app.supabase.com)
+   - Go to Project Settings → API
+   - Copy your Project URL and anon/public key
+
+4. Set up environment variables:
+   Create a `.env.local` file in the root directory:
 ```bash
-cp .env.example .env.local
-# Add your Supabase and OpenAI API keys
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-4. Run the development server:
+5. Set up database schema:
+   - Go to Supabase Dashboard → SQL Editor
+   - Run the SQL from `supabase/schema.sql` (or see Database Setup section below)
+
+6. Run the development server:
 ```bash
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+7. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 📁 Project Structure
 
