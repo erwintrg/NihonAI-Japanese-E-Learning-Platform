@@ -52,3 +52,23 @@ body {
 .dark input::placeholder {
   color: #a1a1aa !important;
 }
+
+/* Global cursor pointer for interactive elements */
+button,
+a,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+label[for],
+select {
+  cursor: pointer;
+}
+
+/* Disabled elements should not have pointer cursor */
+button:disabled,
+input:disabled,
+select:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}

@@ -5,6 +5,7 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { createClient } from '@/lib/supabase/client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 export default function AuthPage() {
   const supabase = createClient()
@@ -45,17 +46,27 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-black px-4">
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 px-4">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-black dark:text-zinc-50 mb-2">
+          <div className="flex items-center justify-center mb-4">
+            <Image
+              src="/images/nihonAI_Logo.png"
+              alt="NihonAI Tutor Logo"
+              width={80}
+              height={80}
+              className="w-20 h-20 object-contain"
+              priority
+            />
+          </div>
+          <h1 className="text-4xl font-bold text-black dark:text-zinc-50 mb-2">
             NihonAI Tutor
           </h1>
-          <p className="text-zinc-600 dark:text-zinc-400">
+          <p className="text-lg text-zinc-600 dark:text-zinc-400">
             Sign in to start your Japanese learning journey
           </p>
         </div>
-        <div className="bg-white dark:bg-zinc-900 rounded-lg shadow-lg p-6">
+        <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
           <Auth
             supabaseClient={supabase}
             appearance={{
@@ -63,16 +74,16 @@ export default function AuthPage() {
               variables: {
                 default: {
                   colors: {
-                    brand: '#000000',
-                    brandAccent: '#27272a',
+                    brand: '#ec4899',
+                    brandAccent: '#f472b6',
                     inputText: '#000000',
                     inputBackground: '#ffffff',
                   },
                 },
                 dark: {
                   colors: {
-                    brand: '#ffffff',
-                    brandAccent: '#a1a1aa',
+                    brand: '#ec4899',
+                    brandAccent: '#f472b6',
                     inputText: '#ffffff',
                     inputBackground: '#18181b',
                   },

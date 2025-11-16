@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "NihonAI Tutor - Learn Japanese with AI",
   description: "Personalized Japanese language learning with AI-powered quizzes and conversations",
+  icons: {
+    icon: "/images/nihonAI_Logo.png",
+    apple: "/images/nihonAI_Logo.png",
+  },
 };
 
 export default function RootLayout({
