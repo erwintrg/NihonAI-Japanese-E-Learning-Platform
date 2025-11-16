@@ -65,12 +65,16 @@ export default function AuthPage() {
                   colors: {
                     brand: '#000000',
                     brandAccent: '#27272a',
+                    inputText: '#000000',
+                    inputBackground: '#ffffff',
                   },
                 },
                 dark: {
                   colors: {
                     brand: '#ffffff',
                     brandAccent: '#a1a1aa',
+                    inputText: '#ffffff',
+                    inputBackground: '#18181b',
                   },
                 },
               },

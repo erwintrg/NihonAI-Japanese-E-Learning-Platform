@@ -35,3 +35,20 @@ body {
 .dark .supabase-auth-ui_ui-button * {
   color: #000000 !important;
 }
+
+/* Fix input text visibility in dark mode */
+[data-theme="dark"] input,
+.dark input,
+[data-theme="dark"] input[type="email"],
+.dark input[type="email"],
+[data-theme="dark"] input[type="password"],
+.dark input[type="password"],
+[data-theme="dark"] input[type="text"],
+.dark input[type="text"] {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] input::placeholder,
+.dark input::placeholder {
+  color: #a1a1aa !important;
+}
