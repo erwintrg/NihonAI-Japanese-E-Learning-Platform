@@ -910,12 +910,32 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
             <div className="flex gap-4 justify-center">
               <button
                 type="button"
-                onClick={() => {
-                  // Preserve current batch in URL when going to dashboard
-                  // Add cache busting timestamp
+                onClick={async () => {
+                  // Since the session is completed, use the next available batch
+                  // Reload batches from Supabase to ensure we have the latest state
                   const currentBatch = session?.batchNumber || 1
-                  // Use window.location for full page reload to ensure state is reset
-                  window.location.href = `/dashboard?returnBatch=${currentBatch}&t=${Date.now()}`
+                  
+                  try {
+                    const { data: batches } = await supabase
+                      .from('completed_batches')
+                      .select('batch_number')
+                      .eq('user_id', user.id)
+                      .eq('batch_type', 'hiragana')
+                    
+                    const completedSet = new Set(batches?.map(b => b.batch_number) || [])
+                    const totalBatches = getTotalHiraganaBatches()
+                    const nextBatch = currentBatch + 1
+                    const canAccessNext = nextBatch <= totalBatches && (nextBatch === 1 || completedSet.has(nextBatch - 1))
+                    
+                    // Use the next batch if available, otherwise use the current batch
+                    const returnBatch = canAccessNext ? nextBatch : currentBatch
+                    // Use window.location for full page reload to ensure state is reset
+                    window.location.href = `/dashboard?returnBatch=${returnBatch}&t=${Date.now()}`
+                  } catch (error) {
+                    console.error('Error determining return batch:', error)
+                    // Fallback to current batch
+                    window.location.href = `/dashboard?returnBatch=${currentBatch}&t=${Date.now()}`
+                  }
                 }}
                 className="px-6 py-3 bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 text-black dark:text-white rounded-lg font-medium transition-colors"
               >

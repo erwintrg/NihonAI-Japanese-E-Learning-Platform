@@ -115,28 +115,27 @@ export default async function DashboardPage({
               </button>
             </div>
 
-            {/* AI Chat Card */}
-            <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 hover:shadow-xl transition-shadow">
+            {/* AI Chat Card (Placeholder for future) */}
+            <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 hover:shadow-xl transition-shadow opacity-60">
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h2 className="text-xl font-semibold text-black dark:text-zinc-50 mb-1">
                     AI Chat
                   </h2>
                   <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                    Practice conversations
+                    Practice conversations (Coming soon)
                   </p>
                 </div>
                 <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
                   <span className="text-xl">💬</span>
                 </div>
               </div>
-              <Link
-                href="/dashboard/chat"
-                className="inline-flex items-center gap-2 w-full justify-center px-4 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-medium transition-colors"
+              <button
+                disabled
+                className="inline-flex items-center gap-2 w-full justify-center px-4 py-3 bg-zinc-300 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 rounded-lg font-medium cursor-not-allowed"
               >
-                Start Chat
-                <span>→</span>
-              </Link>
+                Coming Soon
+              </button>
             </div>
           </div>
 
