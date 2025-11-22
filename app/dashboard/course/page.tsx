@@ -78,13 +78,6 @@ function CoursePageContent() {
     })
   }, [router, supabase])
 
-  // Load session when completed batches are loaded and search params change
-  useEffect(() => {
-    if (mounted && user) {
-      loadSession()
-    }
-  }, [mounted, user, completedBatches, searchParams, loadSession])
-
 
 
   const loadSession = useCallback(() => {
