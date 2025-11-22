@@ -148,11 +148,13 @@ export default function OnboardingPage() {
 
       if (error) {
         console.error('Error updating profile:', error)
+        setLoading(false)
       } else {
         setCurrentStep('complete')
-        // Redirect to dashboard after a brief delay
+        setLoading(false)
+        // Redirect to dashboard after a brief delay to show completion message
         setTimeout(() => {
-          router.push('/dashboard')
+          window.location.href = '/dashboard'
         }, 2000)
       }
     } catch (error) {
@@ -421,13 +423,19 @@ export default function OnboardingPage() {
               )}
             </div>
             <button
-              onClick={() => router.push('/dashboard')}
+              onClick={() => {
+                router.push('/dashboard')
+                router.refresh() // Force refresh to ensure middleware check passes
+              }}
               disabled={loading}
               className="inline-flex items-center gap-2 px-8 py-4 bg-pink-500 hover:bg-pink-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 text-white rounded-lg font-medium transition-colors text-lg"
             >
               Go to Dashboard
               <span>→</span>
             </button>
+            {loading && (
+              <p className="mt-4 text-sm text-zinc-500">Saving your preferences...</p>
+            )}
           </div>
         )}
       </div>
