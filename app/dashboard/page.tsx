@@ -3,8 +3,22 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import Roadmap from './components/Roadmap'
+import { Suspense } from 'react'
+import CourseLink from './components/CourseLink'
 
-export default async function DashboardPage() {
+// Disable caching for this page to ensure fresh data
+export const revalidate = 0
+export const dynamic = 'force-dynamic'
+
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ returnBatch?: string }>
+}) {
+  // Await searchParams in Next.js 16
+  const params = await searchParams
+  const returnBatch = params?.returnBatch
+  
   const supabase = await createClient()
   const {
     data: { user },
@@ -68,13 +82,14 @@ export default async function DashboardPage() {
                   <span className="text-xl">📚</span>
                 </div>
               </div>
-              <Link
-                href="/dashboard/course"
-                className="inline-flex items-center gap-2 w-full justify-center px-4 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
-              >
-                Start Course Session
-                <span>→</span>
-              </Link>
+              <Suspense fallback={
+                <div className="inline-flex items-center gap-2 w-full justify-center px-4 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors">
+                  Start Course Session
+                  <span>→</span>
+                </div>
+              }>
+                <CourseLink returnBatch={returnBatch} />
+              </Suspense>
             </div>
 
             {/* SRS System Card (Placeholder for future) */}

@@ -5,6 +5,9 @@ export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   })
+  
+  // Add cache control headers to prevent stale data
+  supabaseResponse.headers.set('Cache-Control', 'no-store, must-revalidate')
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -45,7 +48,11 @@ export async function middleware(request: NextRequest) {
   if (user && request.nextUrl.pathname === '/auth') {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
-    return NextResponse.redirect(url)
+    // Add cache busting to prevent stale redirects
+    url.searchParams.set('t', Date.now().toString())
+    const redirectResponse = NextResponse.redirect(url)
+    redirectResponse.headers.set('Cache-Control', 'no-store, must-revalidate')
+    return redirectResponse
   }
 
   // Check onboarding status for authenticated users accessing dashboard

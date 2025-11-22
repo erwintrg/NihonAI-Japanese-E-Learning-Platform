@@ -53,6 +53,7 @@ function CoursePageContent() {
   const [answerFeedback, setAnswerFeedback] = useState<'correct' | 'incorrect' | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const [completedBatches, setCompletedBatches] = useState<Set<number>>(new Set())
+  const [batchesLoaded, setBatchesLoaded] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -74,6 +75,7 @@ function CoursePageContent() {
         if (batches) {
           setCompletedBatches(new Set(batches.map(b => b.batch_number)))
         }
+        setBatchesLoaded(true)
       }
     })
   }, [router, supabase])
@@ -83,15 +85,24 @@ function CoursePageContent() {
   const loadSession = useCallback(() => {
     if (!searchParams) return
     
+    // Don't reload if session is already completed (preserves review state)
+    if (sessionCompleted) return
+    
+    // Don't load if batches aren't loaded yet (prevents race condition)
+    if (!batchesLoaded) return
+    
     // Get batch number from URL params, default to batch 1
-    const batchNumber = parseInt(searchParams.get('batch') || '1', 10)
+    // Ignore timestamp parameter if present
+    const batchParam = searchParams.get('batch') || '1'
+    const batchNumber = parseInt(batchParam, 10)
     
     // Check if batch is unlocked (batch 1 is always unlocked, others require previous batch completion)
     if (batchNumber > 1 && !completedBatches.has(batchNumber - 1)) {
       // Redirect to previous incomplete batch or batch 1
       const lastCompleted = Array.from(completedBatches).sort((a, b) => b - a)[0] || 0
       const nextBatch = lastCompleted + 1
-      router.push(`/dashboard/course?batch=${nextBatch}`)
+      // Use window.location to force full reload and prevent caching
+      window.location.href = `/dashboard/course?batch=${nextBatch}`
       return
     }
     
@@ -267,14 +278,16 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     }
 
     setSession(hiraganaSession)
-  }, [searchParams, completedBatches, router])
+  }, [searchParams, completedBatches, router, sessionCompleted, batchesLoaded])
 
   // Load session when completed batches are loaded and search params change
+  // Don't reload if session is completed (to preserve review state)
+  // Wait for batches to be loaded before checking unlock status
   useEffect(() => {
-    if (mounted && user) {
+    if (mounted && user && searchParams && batchesLoaded && !sessionCompleted) {
       loadSession()
     }
-  }, [mounted, user, completedBatches, searchParams, loadSession])
+  }, [mounted, user, completedBatches, searchParams, loadSession, sessionCompleted, batchesLoaded])
 
   const startSession = () => {
     setSessionStarted(true)
@@ -341,7 +354,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
   }
 
   const completeSession = async () => {
-    setSessionCompleted(true)
+    // Don't set sessionCompleted until we've saved everything
     setLoading(true)
 
     try {
@@ -391,10 +404,9 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
       console.error('Error saving session progress:', error)
     } finally {
       setLoading(false)
+      // Only mark as completed after everything is saved
+      setSessionCompleted(true)
     }
-    
-    // Return completion status for navigation
-    return { success: true }
   }
 
   const calculatePercentage = () => {
@@ -422,7 +434,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     }
   }, [session, currentPracticeIndex, currentSection, sessionStarted, sessionCompleted, answerFeedback])
 
-  if (!mounted || !user || !session) {
+  if (!mounted || !user || !session || !batchesLoaded) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-lg">Loading...</div>
@@ -794,7 +806,15 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
               </div>
               <div className="space-y-3">
                 {session.practice
-                  .filter((q) => q.isCorrect === false || (showCorrectAnswers && q.isCorrect === true))
+                  .filter((q) => {
+                    // Only show questions that have been answered (isCorrect is not null)
+                    if (q.isCorrect === null) return false
+                    // Show incorrect answers (false) by default
+                    if (q.isCorrect === false) return true
+                    // Show correct answers (true) only when toggle is enabled
+                    if (showCorrectAnswers && q.isCorrect === true) return true
+                    return false
+                  })
                   .map((q) => (
                   <div
                     key={q.id}
@@ -840,7 +860,12 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                     </div>
                   </div>
                 ))}
-                {session.practice.filter((q) => q.isCorrect === false || (showCorrectAnswers && q.isCorrect === true)).length === 0 && (
+                {session.practice.filter((q) => {
+                  if (q.isCorrect === null) return false
+                  if (q.isCorrect === false) return true
+                  if (showCorrectAnswers && q.isCorrect === true) return true
+                  return false
+                }).length === 0 && (
                   <div className="text-center py-8 text-zinc-600 dark:text-zinc-400">
                     <p>No incorrect answers to review! 🎉</p>
                     <p className="text-sm mt-2">Toggle "Show correct answers" to see all your answers.</p>
@@ -852,7 +877,14 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
             {/* Action Buttons */}
             <div className="flex gap-4 justify-center">
               <button
-                onClick={() => router.push('/dashboard')}
+                type="button"
+                onClick={() => {
+                  // Preserve current batch in URL when going to dashboard
+                  // Add cache busting timestamp
+                  const currentBatch = session?.batchNumber || 1
+                  // Use window.location for full page reload to ensure state is reset
+                  window.location.href = `/dashboard?returnBatch=${currentBatch}&t=${Date.now()}`
+                }}
                 className="px-6 py-3 bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 text-black dark:text-white rounded-lg font-medium transition-colors"
               >
                 Back to Dashboard
@@ -865,21 +897,37 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                 
                 return canAccessNext ? (
                   <button
-                    onClick={async () => {
-                      // Ensure batch completion is saved before navigating
-                      // Reload completed batches to ensure state is up to date
-                      const { data: batches } = await supabase
-                        .from('completed_batches')
-                        .select('batch_number')
-                        .eq('user_id', user.id)
-                        .eq('batch_type', 'hiragana')
+                    type="button"
+                    onClick={async (e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
                       
-                      if (batches) {
-                        setCompletedBatches(new Set(batches.map(b => b.batch_number)))
+                      try {
+                        // Ensure the current batch completion is saved and loaded
+                        // Reload completed batches to ensure we have the latest state
+                        const { data: batches } = await supabase
+                          .from('completed_batches')
+                          .select('batch_number')
+                          .eq('user_id', user.id)
+                          .eq('batch_type', 'hiragana')
+                        
+                        if (batches) {
+                          const completedSet = new Set(batches.map(b => b.batch_number))
+                          setCompletedBatches(completedSet)
+                          
+                          // Verify the next batch is actually unlocked
+                          if (nextBatch > 1 && !completedSet.has(nextBatch - 1)) {
+                            console.error('Next batch is not unlocked yet')
+                            return
+                          }
+                        }
+                        
+                        // Navigate to next batch with full page reload and cache busting
+                        // Add timestamp to prevent browser caching
+                        window.location.href = `/dashboard/course?batch=${nextBatch}&t=${Date.now()}`
+                      } catch (error) {
+                        console.error('Error navigating to next batch:', error)
                       }
-                      
-                      // Navigate to next batch with full page reload to ensure state is reset
-                      window.location.href = `/dashboard/course?batch=${nextBatch}`
                     }}
                     className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
                   >

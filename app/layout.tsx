@@ -19,6 +19,12 @@ export const metadata: Metadata = {
     icon: "/images/nihonAI_Logo.png",
     apple: "/images/nihonAI_Logo.png",
   },
+  // Prevent caching
+  other: {
+    'Cache-Control': 'no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0',
+  },
 };
 
 export default function RootLayout({
