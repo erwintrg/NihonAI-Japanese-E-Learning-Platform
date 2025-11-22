@@ -90,6 +90,16 @@ export default function AuthPage() {
                 },
               },
             }}
+            localization={{
+              variables: {
+                sign_up: {
+                  social_provider_text: 'Sign up with {{provider}}',
+                },
+                sign_in: {
+                  social_provider_text: 'Sign in with {{provider}}',
+                },
+              },
+            }}
             providers={['google']}
             redirectTo={typeof window !== 'undefined' ? `${window.location.origin}/dashboard` : '/dashboard'}
             onlyThirdPartyProviders={false}
