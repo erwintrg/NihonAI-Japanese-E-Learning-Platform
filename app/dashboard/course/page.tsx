@@ -3,8 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { getHiraganaByBatch, type KanaCharacter } from '@/lib/kana'
-import { convertRomajiToHiragana } from '@/lib/romaji-to-hiragana'
+import { getHiraganaByBatch, getAllHiragana, type KanaCharacter } from '@/lib/kana'
 import { getAllVocab, type VocabularyItem } from '@/lib/data'
 
 type SessionSection = 'theory' | 'examples' | 'practice'
@@ -17,6 +16,7 @@ type KanaPracticeQuestion = {
   correctAnswer: string
   userAnswer: string
   isCorrect: boolean | null
+  options?: string[] // For multiple choice questions
 }
 
 type CourseSession = {
@@ -44,12 +44,10 @@ function CoursePageContent() {
   const [session, setSession] = useState<CourseSession | null>(null)
   const [sessionStarted, setSessionStarted] = useState(false)
   const [sessionCompleted, setSessionCompleted] = useState(false)
-  const [timeRemaining, setTimeRemaining] = useState(300) // 5 minutes in seconds
-  const [timerEnabled, setTimerEnabled] = useState(true)
-  const [practiceScore, setPracticeScore] = useState(0)
+  const [correctAnswers, setCorrectAnswers] = useState(0)
   const [currentPracticeIndex, setCurrentPracticeIndex] = useState(0)
   const [userInput, setUserInput] = useState('')
-  const [convertedInput, setConvertedInput] = useState('')
+  const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -67,25 +65,6 @@ function CoursePageContent() {
     })
   }, [router, supabase])
 
-  // Timer effect
-  useEffect(() => {
-    if (!timerEnabled || !sessionStarted || sessionCompleted || timeRemaining <= 0) {
-      return
-    }
-
-    const interval = setInterval(() => {
-      setTimeRemaining((prev) => {
-        if (prev <= 1) {
-          // Time's up - auto-complete session
-          handleTimeUp()
-          return 0
-        }
-        return prev - 1
-      })
-    }, 1000)
-
-    return () => clearInterval(interval)
-  }, [timerEnabled, sessionStarted, sessionCompleted, timeRemaining])
 
   const loadSession = () => {
     // Get batch number from URL params, default to batch 1
@@ -97,27 +76,74 @@ function CoursePageContent() {
       return
     }
 
-    // Create practice questions - mix of character-to-romaji and romaji-to-character
-    const practiceQuestions: KanaPracticeQuestion[] = batchKana.flatMap((kana, index) => [
-      {
-        id: index * 2 + 1,
+    // Create practice questions - each kana appears twice
+    // For romaji-to-character, use multiple choice
+    const allKana = getAllHiragana()
+    const practiceQuestions: KanaPracticeQuestion[] = []
+    
+    batchKana.forEach((kana, index) => {
+      // First question: character-to-romaji (typing)
+      practiceQuestions.push({
+        id: index * 4 + 1,
         kana,
         questionType: 'character-to-romaji' as const,
         question: `What is the romaji for this character?`,
         correctAnswer: kana.romaji.toLowerCase(),
         userAnswer: '',
         isCorrect: null,
-      },
-      {
-        id: index * 2 + 2,
+      })
+      
+      // Second question: romaji-to-character (multiple choice)
+      // Generate 3 wrong options from other kana
+      const wrongOptions = allKana
+        .filter(k => k.character !== kana.character)
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3)
+        .map(k => k.character)
+      
+      const allOptions = [kana.character, ...wrongOptions].sort(() => 0.5 - Math.random())
+      
+      practiceQuestions.push({
+        id: index * 4 + 2,
         kana,
         questionType: 'romaji-to-character' as const,
         question: `What is the Hiragana character for "${kana.romaji}"?`,
         correctAnswer: kana.character,
         userAnswer: '',
         isCorrect: null,
-      },
-    ])
+        options: allOptions,
+      })
+      
+      // Repeat each question type once more (total 2x per kana)
+      practiceQuestions.push({
+        id: index * 4 + 3,
+        kana,
+        questionType: 'character-to-romaji' as const,
+        question: `What is the romaji for this character?`,
+        correctAnswer: kana.romaji.toLowerCase(),
+        userAnswer: '',
+        isCorrect: null,
+      })
+      
+      const wrongOptions2 = allKana
+        .filter(k => k.character !== kana.character)
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3)
+        .map(k => k.character)
+      
+      const allOptions2 = [kana.character, ...wrongOptions2].sort(() => 0.5 - Math.random())
+      
+      practiceQuestions.push({
+        id: index * 4 + 4,
+        kana,
+        questionType: 'romaji-to-character' as const,
+        question: `What is the Hiragana character for "${kana.romaji}"?`,
+        correctAnswer: kana.character,
+        userAnswer: '',
+        isCorrect: null,
+        options: allOptions2,
+      })
+    })
 
     // Randomize practice questions
     for (let i = practiceQuestions.length - 1; i > 0; i--) {
@@ -155,15 +181,25 @@ Each character below has a mnemonic - a memory aid that connects the character's
 
 In this batch, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
     } else {
-      theoryContent = `In this session, you'll learn ${batchKana.length} more Hiragana characters. Each character has a mnemonic to help you remember its shape and sound.
+      // Get the row name (a-row, ka-row, etc.)
+      const firstKana = batchKana[0]
+      const rowName = firstKana.romaji.slice(-1).toUpperCase() + '-row'
+      
+      // Check if this is a noteworthy batch (e.g., special patterns)
+      let batchNote = ''
+      if (batchNumber === 2) {
+        batchNote = `\n\n**Note:** This is the K-row (か行). Notice how each character starts with "k" followed by the five vowels (a, i, u, e, o). This pattern continues for other consonant rows.`
+      } else if (batchNumber === 3) {
+        batchNote = `\n\n**Note:** This is the S-row (さ行). Pay attention to "shi" (し) - it's the only character in this row that doesn't follow the "s + vowel" pattern.`
+      } else if (batchNumber === 4) {
+        batchNote = `\n\n**Note:** This is the T-row (た行). Notice "chi" (ち) and "tsu" (つ) - they don't follow the standard "t + vowel" pattern.`
+      }
+      
+      theoryContent = `**Hiragana Ordering:**
+Hiragana is organized in a specific order called "gojūon" (五十音, "fifty sounds"). Characters are grouped by their consonant sound and vowel. This batch continues the ${rowName} pattern.${batchNote}
 
 **About Mnemonics:**
-The mnemonics below are visual stories that connect each character's shape to its sound. For example, if a character looks like something familiar, the mnemonic will help you remember that connection. Try to visualize each mnemonic as you study the characters - the more vivid your mental image, the better you'll remember!
-
-**Remember:**
-- Each character represents a syllable
-- Use the mnemonics to remember the character shapes
-- Practice writing and recognizing each character
+Each character has a mnemonic - a visual story connecting its shape to its sound. Visualize each mnemonic as you study: the more vivid your mental image, the better you'll remember!
 
 Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     }
@@ -189,85 +225,61 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
   const startSession = () => {
     setSessionStarted(true)
     setCurrentSection('theory')
-    setTimeRemaining(300) // Reset to 5 minutes
-  }
-
-  const handleTimeUp = () => {
-    // Auto-advance to practice if in theory/examples, or complete if in practice
-    if (currentSection === 'theory') {
-      setCurrentSection('examples')
-      setTimeRemaining(300) // Reset timer for next section
-    } else if (currentSection === 'examples') {
-      setCurrentSection('practice')
-      setTimeRemaining(300) // Reset timer for practice
-    } else {
-      completeSession()
-    }
   }
 
   const nextSection = () => {
     if (currentSection === 'theory') {
       setCurrentSection('examples')
-      setTimeRemaining(300) // Reset timer
     } else if (currentSection === 'examples') {
       setCurrentSection('practice')
-      setTimeRemaining(300) // Reset timer
     }
   }
 
   const handlePracticeSubmit = () => {
-    if ((!userInput.trim() && !convertedInput.trim()) || !session) return
-
-    const currentQuestion = session.practice[currentPracticeIndex]
-    // Use converted input if it's a romaji-to-character question, otherwise use regular input
-    const userAnswer = currentQuestion.questionType === 'romaji-to-character' 
-      ? (convertedInput.trim() || userInput.trim())
-      : userInput.trim().toLowerCase()
-    const correctAnswer = currentQuestion.correctAnswer
+    if (!session) return
     
-    // Check if answer is correct (case-insensitive for romaji)
-    const isCorrect = currentQuestion.questionType === 'character-to-romaji'
-      ? userAnswer.toLowerCase() === correctAnswer.toLowerCase()
-      : userAnswer === correctAnswer
+    const currentQuestion = session.practice[currentPracticeIndex]
+    let userAnswer = ''
+    let isCorrect = false
+    
+    if (currentQuestion.questionType === 'character-to-romaji') {
+      // Typing question - use user input
+      if (!userInput.trim()) return
+      userAnswer = userInput.trim().toLowerCase()
+      isCorrect = userAnswer === currentQuestion.correctAnswer.toLowerCase()
+    } else {
+      // Multiple choice question - use selected option
+      if (!selectedOption) return
+      userAnswer = selectedOption
+      isCorrect = userAnswer === currentQuestion.correctAnswer
+    }
 
     // Update question with user answer
     const updatedPractice = [...session.practice]
     updatedPractice[currentPracticeIndex] = {
       ...currentQuestion,
-      userAnswer: userInput.trim(),
+      userAnswer,
       isCorrect,
     }
 
     setSession({ ...session, practice: updatedPractice })
 
-    // Update score
+    // Update correct answers count
     if (isCorrect) {
-      setPracticeScore(practiceScore + 1)
+      setCorrectAnswers(correctAnswers + 1)
     }
 
-    // Clear input
+    // Clear input and selection
     setUserInput('')
-    setConvertedInput('')
+    setSelectedOption(null)
 
     // Move to next question or complete session
     if (currentPracticeIndex < session.practice.length - 1) {
       setCurrentPracticeIndex(currentPracticeIndex + 1)
       setUserInput('')
-      setConvertedInput('')
+      setSelectedOption(null)
     } else {
       completeSession()
-    }
-  }
-
-  // Handle input change with romaji-to-hiragana conversion
-  const handleInputChange = (value: string) => {
-    setUserInput(value)
-    if (currentPracticeQuestion?.questionType === 'romaji-to-character') {
-      // Convert full word to Hiragana
-      const converted = convertRomajiToHiragana(value)
-      setConvertedInput(converted)
-    } else {
-      setConvertedInput('')
     }
   }
 
@@ -276,10 +288,14 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     setLoading(true)
 
     try {
+      // Calculate percentage
+      const totalQuestions = session?.practice.length || 0
+      const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0
+      
       // Save to Supabase progress table
       const { error } = await supabase.from('progress').insert({
         user_id: user.id,
-        quiz_score: practiceScore,
+        quiz_score: percentage,
         quiz_type: 'hiragana_session',
         vocabulary_items: session?.practice.map((q) => ({
           kana: q.kana.character,
@@ -301,10 +317,9 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     }
   }
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins}:${secs.toString().padStart(2, '0')}`
+  const calculatePercentage = () => {
+    if (!session || session.practice.length === 0) return 0
+    return Math.round((correctAnswers / session.practice.length) * 100)
   }
 
   if (!mounted || !user || !session) {
@@ -336,25 +351,6 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
           </p>
         </div>
 
-        {/* Timer */}
-        {sessionStarted && !sessionCompleted && (
-          <div className="mb-4 flex items-center justify-between bg-white dark:bg-zinc-900 rounded-lg p-3 border border-zinc-200 dark:border-zinc-800">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-                Time: {formatTime(timeRemaining)}
-              </span>
-              <button
-                onClick={() => setTimerEnabled(!timerEnabled)}
-                className="text-xs px-2 py-1 bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 rounded transition-colors"
-              >
-                {timerEnabled ? 'Pause' : 'Resume'}
-              </button>
-            </div>
-            <div className="text-xs text-zinc-500">
-              Section: {currentSection.charAt(0).toUpperCase() + currentSection.slice(1)}
-            </div>
-          </div>
-        )}
 
         {/* Start Screen */}
         {!sessionStarted && !sessionCompleted && (
@@ -541,9 +537,9 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                   Question {currentPracticeIndex + 1} of {session.practice.length}
                 </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Score:</span>
-                  <div className="w-10 h-10 rounded-full bg-blue-500 text-white text-sm font-bold flex items-center justify-center">
-                    {practiceScore}
+                  <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Progress:</span>
+                  <div className="text-lg font-bold text-pink-500 dark:text-pink-400">
+                    {calculatePercentage()}%
                   </div>
                 </div>
               </div>
@@ -582,42 +578,55 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
               </div>
               
               <div className="space-y-4">
-                {currentPracticeQuestion.questionType === 'romaji-to-character' && convertedInput && (
-                  <div className="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg text-center">
-                    <p className="text-sm text-blue-600 dark:text-blue-400 mb-1">Converted to Hiragana:</p>
-                    <p className="text-4xl font-bold text-blue-700 dark:text-blue-300">{convertedInput}</p>
-                  </div>
+                {currentPracticeQuestion.questionType === 'character-to-romaji' ? (
+                  <>
+                    <input
+                      type="text"
+                      value={userInput}
+                      onChange={(e) => setUserInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handlePracticeSubmit()
+                        }
+                      }}
+                      placeholder='Type the romaji (e.g., "ka", "ki", "ku")...'
+                      className="w-full px-4 py-3 bg-white dark:bg-zinc-800 text-black dark:text-white border-2 border-zinc-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all text-center text-2xl"
+                      autoFocus
+                    />
+                    <button
+                      onClick={handlePracticeSubmit}
+                      disabled={!userInput.trim()}
+                      className="w-full px-6 py-3 bg-pink-500 hover:bg-pink-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
+                    >
+                      Submit Answer
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="space-y-2">
+                      {currentPracticeQuestion.options?.map((option, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setSelectedOption(option)}
+                          className={`w-full p-4 text-4xl font-bold rounded-lg border-2 transition-all ${
+                            selectedOption === option
+                              ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300'
+                              : 'border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-black dark:text-zinc-50 hover:border-pink-300 dark:hover:border-pink-700'
+                          }`}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                    <button
+                      onClick={handlePracticeSubmit}
+                      disabled={!selectedOption}
+                      className="w-full px-6 py-3 bg-pink-500 hover:bg-pink-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
+                    >
+                      Submit Answer
+                    </button>
+                  </>
                 )}
-                <input
-                  type="text"
-                  value={userInput}
-                  onChange={(e) => handleInputChange(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handlePracticeSubmit()
-                    }
-                  }}
-                  placeholder={
-                    currentPracticeQuestion.questionType === 'character-to-romaji'
-                      ? 'Type the romaji (e.g., "ka", "ki", "ku")...'
-                      : 'Type romaji (e.g., "a" for あ, "hoteru" for ほてる)...'
-                  }
-                  className="w-full px-4 py-3 bg-white dark:bg-zinc-800 text-black dark:text-white border-2 border-zinc-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all text-center text-2xl"
-                  autoFocus
-                />
-                {currentPracticeQuestion.questionType === 'romaji-to-character' && (
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 text-center">
-                    💡 Tip: Type romaji (like "a", "ka", "hoteru", "kyoto") and it will convert to Hiragana automatically
-                  </p>
-                )}
-                
-                <button
-                  onClick={handlePracticeSubmit}
-                  disabled={!userInput.trim() && !convertedInput.trim()}
-                  className="w-full px-6 py-3 bg-pink-500 hover:bg-pink-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
-                >
-                  Submit Answer
-                </button>
               </div>
             </div>
           </div>
@@ -633,22 +642,18 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
               <h2 className="text-3xl font-bold text-black dark:text-zinc-50 mb-2">
                 Session Complete!
               </h2>
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="text-5xl font-bold text-black dark:text-zinc-50">
-                  {practiceScore}
+              <div className="mb-4">
+                <div className="text-6xl font-bold text-pink-500 dark:text-pink-400 mb-2">
+                  {calculatePercentage()}%
                 </div>
-                <div className="text-2xl text-zinc-400">/</div>
-                <div className="text-5xl font-bold text-zinc-400">
-                  {session.practice.length}
-                </div>
+                <p className="text-lg text-zinc-600 dark:text-zinc-400">
+                  {calculatePercentage() === 100
+                    ? 'Perfect! Excellent work! 🌟'
+                    : calculatePercentage() >= 80
+                    ? 'Great job! Keep practicing! 💪'
+                    : 'Good effort! Review and try again! 📚'}
+                </p>
               </div>
-              <p className="text-lg text-zinc-600 dark:text-zinc-400">
-                {practiceScore === session.practice.length
-                  ? 'Perfect score! Excellent work! 🌟'
-                  : practiceScore >= session.practice.length * 0.8
-                  ? 'Great job! Keep practicing! 💪'
-                  : 'Good effort! Review and try again! 📚'}
-              </p>
             </div>
 
             {/* Review Section */}
