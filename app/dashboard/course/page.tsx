@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
+import { useEffect, useState, useRef, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { getHiraganaByBatch, getAllHiragana, type KanaCharacter } from '@/lib/kana'
@@ -51,6 +51,7 @@ function CoursePageContent() {
   const [loading, setLoading] = useState(false)
   const [showCorrectAnswers, setShowCorrectAnswers] = useState(false)
   const [answerFeedback, setAnswerFeedback] = useState<'correct' | 'incorrect' | null>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -358,6 +359,23 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
 
   const currentPracticeQuestion = session.practice[currentPracticeIndex]
 
+  // Auto-focus input field when moving to next textfield question
+  useEffect(() => {
+    if (
+      sessionStarted &&
+      !sessionCompleted &&
+      currentSection === 'practice' &&
+      currentPracticeQuestion?.questionType === 'character-to-romaji' &&
+      answerFeedback === null &&
+      inputRef.current
+    ) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        inputRef.current?.focus()
+      }, 100)
+    }
+  }, [currentPracticeIndex, currentSection, sessionStarted, sessionCompleted, currentPracticeQuestion?.questionType, answerFeedback])
+
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -601,6 +619,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                 {currentPracticeQuestion.questionType === 'character-to-romaji' ? (
                   <>
                     <input
+                      ref={inputRef}
                       type="text"
                       value={userInput}
                       onChange={(e) => setUserInput(e.target.value)}
@@ -618,7 +637,6 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                           ? 'bg-red-200 dark:bg-red-800 border-red-400 dark:border-red-600'
                           : 'bg-white dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600'
                       }`}
-                      autoFocus
                     />
                     <button
                       onClick={handlePracticeSubmit}
