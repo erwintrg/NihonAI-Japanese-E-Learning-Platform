@@ -392,6 +392,9 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     } finally {
       setLoading(false)
     }
+    
+    // Return completion status for navigation
+    return { success: true }
   }
 
   const calculatePercentage = () => {
@@ -791,7 +794,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
               </div>
               <div className="space-y-3">
                 {session.practice
-                  .filter((q) => !q.isCorrect || showCorrectAnswers)
+                  .filter((q) => q.isCorrect === false || (showCorrectAnswers && q.isCorrect === true))
                   .map((q) => (
                   <div
                     key={q.id}
@@ -837,7 +840,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                     </div>
                   </div>
                 ))}
-                {session.practice.filter((q) => !q.isCorrect || showCorrectAnswers).length === 0 && (
+                {session.practice.filter((q) => q.isCorrect === false || (showCorrectAnswers && q.isCorrect === true)).length === 0 && (
                   <div className="text-center py-8 text-zinc-600 dark:text-zinc-400">
                     <p>No incorrect answers to review! 🎉</p>
                     <p className="text-sm mt-2">Toggle "Show correct answers" to see all your answers.</p>
@@ -862,18 +865,21 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                 
                 return canAccessNext ? (
                   <button
-                    onClick={() => {
-                      router.push(`/dashboard/course?batch=${nextBatch}`)
-                      // Reset session state
-                      setSessionCompleted(false)
-                      setSessionStarted(false)
-                      setCurrentSection('theory')
-                      setCurrentPracticeIndex(0)
-                      setCorrectAnswers(0)
-                      setUserInput('')
-                      setSelectedOption(null)
-                      setAnswerFeedback(null)
-                      setShowCorrectAnswers(false)
+                    onClick={async () => {
+                      // Ensure batch completion is saved before navigating
+                      // Reload completed batches to ensure state is up to date
+                      const { data: batches } = await supabase
+                        .from('completed_batches')
+                        .select('batch_number')
+                        .eq('user_id', user.id)
+                        .eq('batch_type', 'hiragana')
+                      
+                      if (batches) {
+                        setCompletedBatches(new Set(batches.map(b => b.batch_number)))
+                      }
+                      
+                      // Navigate to next batch with full page reload to ensure state is reset
+                      window.location.href = `/dashboard/course?batch=${nextBatch}`
                     }}
                     className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
                   >
