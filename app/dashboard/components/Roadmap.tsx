@@ -94,7 +94,7 @@ export default function Roadmap() {
       </p>
 
       <div className="relative">
-        <div className="space-y-6">
+        <div className="space-y-4">
           {roadmapSegments.map((segment, index) => {
             const isCurrent = segment.status === 'current'
             const isCompleted = segment.status === 'completed'
@@ -104,11 +104,26 @@ export default function Roadmap() {
 
             return (
               <div key={segment.id} className="relative flex items-start">
+                {/* Connector line - positioned to connect from this icon to next */}
+                {!isLast && (
+                  <div
+                    className={`absolute left-7 top-12 w-0.5 ${
+                      (isCompleted || isCurrent) || (prevCompleted && (isCompleted || isCurrent))
+                        ? 'bg-pink-500'
+                        : 'bg-zinc-200 dark:bg-zinc-700'
+                    }`}
+                    style={{ 
+                      height: 'calc(100% + 1rem)', // Extends through spacing to next item
+                      zIndex: 0
+                    }}
+                  />
+                )}
+                
                 {/* Icon column - fixed width */}
-                <div className="flex-shrink-0 w-14 flex flex-col items-center">
+                <div className="flex-shrink-0 w-14 flex flex-col items-center relative z-10">
                   {/* Icon */}
                   <div
-                    className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm relative z-10 ${
+                    className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm ${
                       isCurrent
                         ? 'bg-pink-500 text-white'
                         : isCompleted
@@ -124,18 +139,6 @@ export default function Roadmap() {
                       <span className="text-xl">🔒</span>
                     )}
                   </div>
-                  
-                  {/* Connector line below icon */}
-                  {!isLast && (
-                    <div
-                      className={`w-0.5 mt-2 ${
-                        (isCompleted || isCurrent) || (prevCompleted && (isCompleted || isCurrent))
-                          ? 'bg-pink-500'
-                          : 'bg-zinc-200 dark:bg-zinc-700'
-                      }`}
-                      style={{ height: '6rem' }}
-                    />
-                  )}
                 </div>
 
                 {/* Content card */}
