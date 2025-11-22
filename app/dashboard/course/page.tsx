@@ -65,15 +65,25 @@ function CoursePageContent() {
       } else {
         setUser(user)
         
-        // Load completed batches
-        const { data: batches } = await supabase
+        // Load completed batches - ensure we're filtering by the correct user_id
+        const { data: batches, error: batchesError } = await supabase
           .from('completed_batches')
           .select('batch_number')
           .eq('user_id', user.id)
           .eq('batch_type', 'hiragana')
         
+        if (batchesError) {
+          console.error('Error loading completed batches on mount:', batchesError)
+          setBatchesLoaded(true) // Still set to true to allow page to load
+          return
+        }
+        
         if (batches) {
-          setCompletedBatches(new Set(batches.map(b => b.batch_number)))
+          const batchNumbers = batches.map(b => b.batch_number)
+          console.log(`Loaded ${batchNumbers.length} completed batches for user ${user.id}:`, batchNumbers)
+          setCompletedBatches(new Set(batchNumbers))
+        } else {
+          console.log(`No completed batches found for user ${user.id}`)
         }
         setBatchesLoaded(true)
       }
@@ -82,8 +92,8 @@ function CoursePageContent() {
 
 
 
-  const loadSession = useCallback(() => {
-    if (!searchParams) return
+  const loadSession = useCallback(async () => {
+    if (!searchParams || !user) return
     
     // Don't reload if session is already completed (preserves review state)
     if (sessionCompleted) return
@@ -91,15 +101,34 @@ function CoursePageContent() {
     // Don't load if batches aren't loaded yet (prevents race condition)
     if (!batchesLoaded) return
     
+    // Always reload batches from Supabase to ensure we have the latest data
+    // This prevents issues where local state is stale
+    const { data: batches, error: batchesError } = await supabase
+      .from('completed_batches')
+      .select('batch_number')
+      .eq('user_id', user.id)
+      .eq('batch_type', 'hiragana')
+    
+    if (batchesError) {
+      console.error('Error loading completed batches in loadSession:', batchesError)
+      return
+    }
+    
+    // Update local state with fresh data from Supabase
+    const batchNumbers = batches?.map(b => b.batch_number) || []
+    const freshCompletedBatches = new Set(batchNumbers)
+    console.log(`loadSession: Loaded ${batchNumbers.length} completed batches for user ${user.id}:`, batchNumbers)
+    setCompletedBatches(freshCompletedBatches)
+    
     // Get batch number from URL params, default to batch 1
     // Ignore timestamp parameter if present
     const batchParam = searchParams.get('batch') || '1'
     const batchNumber = parseInt(batchParam, 10)
     
     // Check if batch is unlocked (batch 1 is always unlocked, others require previous batch completion)
-    if (batchNumber > 1 && !completedBatches.has(batchNumber - 1)) {
+    if (batchNumber > 1 && !freshCompletedBatches.has(batchNumber - 1)) {
       // Redirect to previous incomplete batch or batch 1
-      const lastCompleted = Array.from(completedBatches).sort((a, b) => b - a)[0] || 0
+      const lastCompleted = Array.from(freshCompletedBatches).sort((a, b) => b - a)[0] || 0
       const nextBatch = lastCompleted + 1
       // Use window.location to force full reload and prevent caching
       window.location.href = `/dashboard/course?batch=${nextBatch}`
@@ -278,16 +307,18 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     }
 
     setSession(hiraganaSession)
-  }, [searchParams, completedBatches, router, sessionCompleted, batchesLoaded])
+  }, [searchParams, user, router, sessionCompleted, batchesLoaded, supabase])
 
   // Load session when completed batches are loaded and search params change
   // Don't reload if session is completed (to preserve review state)
   // Wait for batches to be loaded before checking unlock status
   useEffect(() => {
     if (mounted && user && searchParams && batchesLoaded && !sessionCompleted) {
-      loadSession()
+      loadSession().catch(error => {
+        console.error('Error loading session:', error)
+      })
     }
-  }, [mounted, user, completedBatches, searchParams, loadSession, sessionCompleted, batchesLoaded])
+  }, [mounted, user, searchParams, loadSession, sessionCompleted, batchesLoaded])
 
   const startSession = () => {
     setSessionStarted(true)
@@ -397,6 +428,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
           console.error('Error marking batch as completed:', batchError)
         } else {
           // Update local state
+          console.log(`Batch ${session.batchNumber} marked as completed for user ${user.id}`)
           setCompletedBatches(prev => new Set([...prev, session.batchNumber]))
         }
       }
@@ -905,11 +937,16 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                       try {
                         // Ensure the current batch completion is saved and loaded
                         // Reload completed batches to ensure we have the latest state
-                        const { data: batches } = await supabase
+                        const { data: batches, error: batchesError } = await supabase
                           .from('completed_batches')
                           .select('batch_number')
                           .eq('user_id', user.id)
                           .eq('batch_type', 'hiragana')
+                        
+                        if (batchesError) {
+                          console.error('Error loading completed batches:', batchesError)
+                          return
+                        }
                         
                         if (batches) {
                           const completedSet = new Set(batches.map(b => b.batch_number))
@@ -917,7 +954,11 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                           
                           // Verify the next batch is actually unlocked
                           if (nextBatch > 1 && !completedSet.has(nextBatch - 1)) {
-                            console.error('Next batch is not unlocked yet')
+                            console.error(`Next batch ${nextBatch} is not unlocked yet. Completed batches:`, Array.from(completedSet))
+                            // Instead of returning, redirect to the last completed batch + 1
+                            const lastCompleted = Array.from(completedSet).sort((a, b) => b - a)[0] || 0
+                            const actualNext = lastCompleted + 1
+                            window.location.href = `/dashboard/course?batch=${actualNext}&t=${Date.now()}`
                             return
                           }
                         }
