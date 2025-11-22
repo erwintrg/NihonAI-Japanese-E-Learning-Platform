@@ -121,6 +121,11 @@ export default function OnboardingPage() {
   }
 
   const completeOnboarding = async (finalQuestions: AssessmentQuestion[], finalScore: number) => {
+    if (!user) {
+      console.error('User not available for onboarding completion')
+      return
+    }
+
     setLoading(true)
 
     try {
@@ -148,19 +153,27 @@ export default function OnboardingPage() {
 
       if (error) {
         console.error('Error updating profile:', error)
-        setLoading(false)
-      } else {
+        // Still show complete step even if there's an error, but allow manual redirect
         setCurrentStep('complete')
         setLoading(false)
+        console.log('Set currentStep to complete (error case)')
+      } else {
+        console.log('Onboarding completed successfully, setting step to complete')
+        setCurrentStep('complete')
+        setLoading(false)
+        console.log('Current step set to:', 'complete')
         // Redirect to dashboard after a brief delay to show completion message
         setTimeout(() => {
+          console.log('Redirecting to dashboard...')
           window.location.href = '/dashboard'
         }, 2000)
       }
     } catch (error) {
       console.error('Error completing onboarding:', error)
-    } finally {
+      // Show complete step even on error so user isn't stuck
+      setCurrentStep('complete')
       setLoading(false)
+      console.log('Set currentStep to complete (catch case)')
     }
   }
 
@@ -170,17 +183,26 @@ export default function OnboardingPage() {
 
   if (!mounted || !user) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-lg">Loading...</div>
+      <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
+        <div className="text-lg text-zinc-900 dark:text-zinc-50">Loading...</div>
       </div>
     )
   }
 
   const currentQuestion = assessmentQuestions[currentQuestionIndex]
 
+  // Debug: Log current step
+  console.log('Current step:', currentStep, 'Loading:', loading, 'User:', !!user)
+
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Debug info - remove in production */}
+        {process.env.NODE_ENV === 'development' && (
+          <div className="mb-4 p-2 bg-yellow-100 dark:bg-yellow-900/20 text-xs text-yellow-800 dark:text-yellow-200 rounded">
+            Debug: Step={currentStep}, Loading={loading ? 'true' : 'false'}
+          </div>
+        )}
         {/* Welcome Step */}
         {currentStep === 'welcome' && (
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 text-center border border-zinc-200 dark:border-zinc-800">
@@ -432,9 +454,6 @@ export default function OnboardingPage() {
               Go to Dashboard
               <span>→</span>
             </button>
-            {loading && (
-              <p className="mt-4 text-sm text-zinc-500">Saving your preferences...</p>
-            )}
             {loading && (
               <p className="mt-4 text-sm text-zinc-500">Saving your preferences...</p>
             )}
