@@ -1,15 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { getVocabByLevel, type VocabularyItem } from '@/lib/data'
+import { getHiraganaByBatch, type KanaCharacter } from '@/lib/kana'
 
 type SessionSection = 'theory' | 'examples' | 'practice'
 
-type PracticeQuestion = {
+type KanaPracticeQuestion = {
   id: number
-  vocabulary: VocabularyItem
+  kana: KanaCharacter
+  questionType: 'character-to-romaji' | 'romaji-to-character'
   question: string
   correctAnswer: string
   userAnswer: string
@@ -20,21 +21,19 @@ type CourseSession = {
   id: string
   title: string
   description: string
+  batchNumber: number
   theory: {
     title: string
     content: string
-    vocabulary?: VocabularyItem[]
+    kana: KanaCharacter[]
   }
-  examples: Array<{
-    japanese: string
-    hiragana: string
-    english: string
-  }>
-  practice: PracticeQuestion[]
+  examples: KanaCharacter[]
+  practice: KanaPracticeQuestion[]
 }
 
-export default function CoursePage() {
+function CoursePageContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const supabase = createClient()
   const [mounted, setMounted] = useState(false)
   const [user, setUser] = useState<any>(null)
@@ -58,7 +57,7 @@ export default function CoursePage() {
         router.push('/auth')
       } else {
         setUser(user)
-        // Load mock session data for "Hiragana Basics"
+        // Load Hiragana session data
         loadSession()
       }
     })
@@ -85,39 +84,57 @@ export default function CoursePage() {
   }, [timerEnabled, sessionStarted, sessionCompleted, timeRemaining])
 
   const loadSession = () => {
-    // Mock session data for "Hiragana Basics" using JLPT N5 vocabulary
-    const n5Vocab = getVocabByLevel('N5').slice(0, 5)
+    // Get batch number from URL params, default to batch 1
+    const batchNumber = parseInt(searchParams?.get('batch') || '1', 10)
+    const batchKana = getHiraganaByBatch(batchNumber)
     
-    const mockSession: CourseSession = {
-      id: 'hiragana-basics-1',
-      title: 'Hiragana Basics',
-      description: 'Learn essential hiragana and basic vocabulary',
-      theory: {
-        title: 'Introduction to Hiragana',
-        content: `Hiragana is one of the three writing systems in Japanese. It consists of 46 basic characters representing syllables. In this lesson, we'll learn some common words that use hiragana.
-
-Key points:
-- Hiragana is used for native Japanese words
-- Each character represents a syllable (like "ka", "ki", "ku")
-- It's essential for reading and writing Japanese`,
-        vocabulary: n5Vocab,
-      },
-      examples: n5Vocab.slice(0, 3).map((vocab) => ({
-        japanese: vocab.japanese,
-        hiragana: vocab.hiragana,
-        english: vocab.english,
-      })),
-      practice: n5Vocab.map((vocab, index) => ({
-        id: index + 1,
-        vocabulary: vocab,
-        question: `Translate: ${vocab.japanese} (${vocab.hiragana})`,
-        correctAnswer: vocab.english.toLowerCase().trim(),
-        userAnswer: '',
-        isCorrect: null,
-      })),
+    if (batchKana.length === 0) {
+      console.error(`No Hiragana found for batch ${batchNumber}`)
+      return
     }
 
-    setSession(mockSession)
+    // Create practice questions - mix of character-to-romaji and romaji-to-character
+    const practiceQuestions: KanaPracticeQuestion[] = batchKana.flatMap((kana, index) => [
+      {
+        id: index * 2 + 1,
+        kana,
+        questionType: 'character-to-romaji' as const,
+        question: `What is the romaji for this character?`,
+        correctAnswer: kana.romaji.toLowerCase(),
+        userAnswer: '',
+        isCorrect: null,
+      },
+      {
+        id: index * 2 + 2,
+        kana,
+        questionType: 'romaji-to-character' as const,
+        question: `What is the Hiragana character for "${kana.romaji}"?`,
+        correctAnswer: kana.character,
+        userAnswer: '',
+        isCorrect: null,
+      },
+    ])
+
+    const hiraganaSession: CourseSession = {
+      id: `hiragana-batch-${batchNumber}`,
+      title: `Hiragana Batch ${batchNumber}`,
+      description: `Learn ${batchKana.length} Hiragana characters: ${batchKana.map(k => k.character).join(', ')}`,
+      batchNumber,
+      theory: {
+        title: `Hiragana Characters: Batch ${batchNumber}`,
+        content: `In this session, you'll learn ${batchKana.length} Hiragana characters. Each character has a mnemonic to help you remember its shape and sound.
+
+Remember:
+- Each character represents a syllable
+- Use the mnemonics to remember the character shapes
+- Practice writing and recognizing each character`,
+        kana: batchKana,
+      },
+      examples: batchKana,
+      practice: practiceQuestions,
+    }
+
+    setSession(hiraganaSession)
   }
 
   const startSession = () => {
@@ -153,18 +170,11 @@ Key points:
     if (!userInput.trim() || !session) return
 
     const currentQuestion = session.practice[currentPracticeIndex]
-    const userAnswer = userInput.toLowerCase().trim()
+    const userAnswer = userInput.trim().toLowerCase()
+    const correctAnswer = currentQuestion.correctAnswer.toLowerCase()
     
-    // Check if answer is correct (handle multiple possible answers)
-    const correctAnswers = currentQuestion.correctAnswer
-      .split(/[,;]/)
-      .map((a) => a.trim().toLowerCase())
-      .filter((a) => a.length > 0)
-    
-    const isCorrect = 
-      correctAnswers.includes(userAnswer) ||
-      correctAnswers.some((ans) => userAnswer.includes(ans)) ||
-      userAnswer === currentQuestion.correctAnswer
+    // Check if answer is correct
+    const isCorrect = userAnswer === correctAnswer
 
     // Update question with user answer
     const updatedPractice = [...session.practice]
@@ -201,13 +211,14 @@ Key points:
       const { error } = await supabase.from('progress').insert({
         user_id: user.id,
         quiz_score: practiceScore,
-        quiz_type: 'course_session',
+        quiz_type: 'hiragana_session',
         vocabulary_items: session?.practice.map((q) => ({
-          japanese: q.vocabulary.japanese,
-          hiragana: q.vocabulary.hiragana,
-          english: q.vocabulary.english,
+          kana: q.kana.character,
+          romaji: q.kana.romaji,
+          questionType: q.questionType,
           userAnswer: q.userAnswer,
           isCorrect: q.isCorrect,
+          batchNumber: session?.batchNumber,
         })),
       })
 
@@ -319,33 +330,34 @@ Key points:
               </div>
             </div>
 
-            {session.theory.vocabulary && session.theory.vocabulary.length > 0 && (
-              <div className="mt-6">
-                <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
-                  Vocabulary in this lesson:
-                </h3>
-                <div className="space-y-2">
-                  {session.theory.vocabulary.map((vocab, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl font-bold text-black dark:text-zinc-50">
-                          {vocab.japanese}
-                        </span>
-                        <span className="text-zinc-600 dark:text-zinc-400">
-                          ({vocab.hiragana})
-                        </span>
-                        <span className="text-zinc-700 dark:text-zinc-300">
-                          - {vocab.english}
-                        </span>
-                      </div>
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
+                Characters in this batch:
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {session.theory.kana.map((kana, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
+                  >
+                    <div className="text-center mb-2">
+                      <span className="text-5xl font-bold text-black dark:text-zinc-50">
+                        {kana.character}
+                      </span>
                     </div>
-                  ))}
-                </div>
+                    <div className="text-center mb-2">
+                      <span className="text-lg font-semibold text-zinc-600 dark:text-zinc-400">
+                        {kana.romaji}
+                      </span>
+                    </div>
+                    <div className="text-sm text-zinc-700 dark:text-zinc-300 text-center">
+                      <p className="font-medium mb-1">Mnemonic:</p>
+                      <p>{kana.mnemonic}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
 
             <button
               onClick={nextSection}
@@ -360,29 +372,27 @@ Key points:
         {sessionStarted && !sessionCompleted && currentSection === 'examples' && (
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
             <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-4">
-              Examples
+              Character Recognition
             </h2>
             <p className="text-zinc-600 dark:text-zinc-400 mb-6">
-              See how these words are used in context:
+              Review the characters you just learned. Try to recall the mnemonic for each:
             </p>
 
-            <div className="space-y-4 mb-6">
-              {session.examples.map((example, idx) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+              {session.examples.map((kana, idx) => (
                 <div
                   key={idx}
-                  className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
+                  className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 text-center"
                 >
-                  <div className="mb-2">
-                    <p className="text-xl font-bold text-black dark:text-zinc-50">
-                      {example.japanese}
-                    </p>
-                    <p className="text-zinc-600 dark:text-zinc-400">
-                      ({example.hiragana})
-                    </p>
+                  <div className="text-6xl font-bold text-black dark:text-zinc-50 mb-2">
+                    {kana.character}
                   </div>
-                  <p className="text-zinc-700 dark:text-zinc-300">
-                    {example.english}
-                  </p>
+                  <div className="text-lg font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                    {kana.romaji}
+                  </div>
+                  <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                    {kana.mnemonic}
+                  </div>
                 </div>
               ))}
             </div>
@@ -422,14 +432,28 @@ Key points:
 
             {/* Question */}
             <div className="mb-6">
-              <div className="mb-4 p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700">
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-2">Translate to English:</p>
-                <h2 className="text-3xl font-bold text-black dark:text-zinc-50 mb-1">
-                  {currentPracticeQuestion.vocabulary.japanese}
-                </h2>
-                <p className="text-lg text-zinc-600 dark:text-zinc-400">
-                  ({currentPracticeQuestion.vocabulary.hiragana})
-                </p>
+              <div className="mb-4 p-6 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 text-center">
+                {currentPracticeQuestion.questionType === 'character-to-romaji' ? (
+                  <>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">What is the romaji for this character?</p>
+                    <h2 className="text-7xl font-bold text-black dark:text-zinc-50 mb-2">
+                      {currentPracticeQuestion.kana.character}
+                    </h2>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
+                      Hint: {currentPracticeQuestion.kana.mnemonic}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">What is the Hiragana character for this romaji?</p>
+                    <h2 className="text-5xl font-bold text-black dark:text-zinc-50 mb-2">
+                      {currentPracticeQuestion.kana.romaji}
+                    </h2>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
+                      Hint: {currentPracticeQuestion.kana.mnemonic}
+                    </p>
+                  </>
+                )}
               </div>
               
               <div className="space-y-4">
@@ -442,8 +466,12 @@ Key points:
                       handlePracticeSubmit()
                     }
                   }}
-                  placeholder="Type your answer in English..."
-                  className="w-full px-4 py-3 bg-white dark:bg-zinc-800 text-black dark:text-white border-2 border-zinc-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
+                  placeholder={
+                    currentPracticeQuestion.questionType === 'character-to-romaji'
+                      ? 'Type the romaji (e.g., "ka", "ki", "ku")...'
+                      : 'Type the Hiragana character...'
+                  }
+                  className="w-full px-4 py-3 bg-white dark:bg-zinc-800 text-black dark:text-white border-2 border-zinc-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all text-center text-2xl"
                   autoFocus
                 />
                 
@@ -506,15 +534,28 @@ Key points:
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <span className="text-2xl">{q.isCorrect ? '✅' : '❌'}</span>
-                          <p className="font-bold text-lg text-black dark:text-zinc-50">
-                            {q.vocabulary.japanese}
-                          </p>
-                          <p className="text-zinc-600 dark:text-zinc-400">
-                            ({q.vocabulary.hiragana})
-                          </p>
+                          {q.questionType === 'character-to-romaji' ? (
+                            <>
+                              <p className="font-bold text-3xl text-black dark:text-zinc-50">
+                                {q.kana.character}
+                              </p>
+                              <p className="text-zinc-600 dark:text-zinc-400">
+                                = {q.kana.romaji}
+                              </p>
+                            </>
+                          ) : (
+                            <>
+                              <p className="font-bold text-lg text-black dark:text-zinc-50">
+                                {q.kana.romaji}
+                              </p>
+                              <p className="text-zinc-600 dark:text-zinc-400">
+                                = {q.kana.character}
+                              </p>
+                            </>
+                          )}
                         </div>
                         <p className="text-sm text-zinc-700 dark:text-zinc-300 mb-1">
-                          <span className="font-medium">Correct:</span> {q.vocabulary.english}
+                          <span className="font-medium">Correct answer:</span> {q.correctAnswer}
                         </p>
                         {!q.isCorrect && (
                           <p className="text-sm text-red-600 dark:text-red-400">
@@ -541,6 +582,18 @@ Key points:
         )}
       </div>
     </div>
+  )
+}
+
+export default function CoursePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    }>
+      <CoursePageContent />
+    </Suspense>
   )
 }
 
