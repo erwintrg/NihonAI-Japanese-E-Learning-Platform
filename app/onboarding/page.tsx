@@ -82,8 +82,14 @@ export default function OnboardingPage() {
     if (!userInput.trim()) return
 
     const currentQuestion = assessmentQuestions.length > 0 && currentQuestionIndex >= 0 && currentQuestionIndex < assessmentQuestions.length
-    ? assessmentQuestions[currentQuestionIndex]
-    : null
+      ? assessmentQuestions[currentQuestionIndex]
+      : null
+    
+    if (!currentQuestion) {
+      console.error('No current question available')
+      return
+    }
+    
     const userAnswer = userInput.toLowerCase().trim()
     
     // Check if answer is correct
