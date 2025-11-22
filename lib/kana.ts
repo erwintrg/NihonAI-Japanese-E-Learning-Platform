@@ -65,3 +65,24 @@ export function getHiraganaByCharacter(character: string): KanaCharacter | undef
   return getAllHiragana().find((k) => k.character === character)
 }
 
+/**
+ * Get the descriptive name for a Hiragana batch
+ * Returns names like "Vowels", "K-row", "S-row", etc.
+ */
+export function getHiraganaBatchName(batchNumber: number): string {
+  const batchNames: Record<number, string> = {
+    1: 'Vowels',
+    2: 'K-row',
+    3: 'S-row',
+    4: 'T-row',
+    5: 'N-row',
+    6: 'H-row',
+    7: 'M-row',
+    8: 'Y-row',
+    9: 'R-row',
+    10: 'W-row & N',
+  }
+  
+  return batchNames[batchNumber] || `Batch ${batchNumber}`
+}
+

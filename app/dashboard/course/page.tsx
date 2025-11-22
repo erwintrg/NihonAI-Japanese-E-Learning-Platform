@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, useCallback, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { getHiraganaByBatch, getAllHiragana, getTotalHiraganaBatches, type KanaCharacter } from '@/lib/kana'
+import { getHiraganaByBatch, getAllHiragana, getTotalHiraganaBatches, getHiraganaBatchName, type KanaCharacter } from '@/lib/kana'
 import { getAllVocab, type VocabularyItem } from '@/lib/data'
 
 type SessionSection = 'theory' | 'examples' | 'practice'
@@ -291,9 +291,10 @@ Each character has a mnemonic - a visual story connecting its shape to its sound
 Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     }
 
+    const batchName = getHiraganaBatchName(batchNumber)
     const hiraganaSession: CourseSession = {
       id: `hiragana-batch-${batchNumber}`,
-      title: `Hiragana Batch ${batchNumber}`,
+      title: `Hiragana: ${batchName}`,
       description: `Learn ${batchKana.length} Hiragana characters: ${batchKana.map(k => k.character).join(', ')}`,
       batchNumber,
       theory: {
@@ -992,7 +993,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                     }}
                     className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
                   >
-                    Next Batch ({nextBatch})
+                    Next Session
                   </button>
                 ) : null
               })()}
