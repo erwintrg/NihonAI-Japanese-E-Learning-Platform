@@ -349,6 +349,26 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     return Math.round((correctAnswers / session.practice.length) * 100)
   }
 
+  // Auto-focus input field when moving to next textfield question
+  // Must be called before any conditional returns to maintain hook order
+  useEffect(() => {
+    if (
+      session &&
+      sessionStarted &&
+      !sessionCompleted &&
+      currentSection === 'practice' &&
+      currentPracticeIndex < session.practice.length &&
+      session.practice[currentPracticeIndex]?.questionType === 'character-to-romaji' &&
+      answerFeedback === null &&
+      inputRef.current
+    ) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        inputRef.current?.focus()
+      }, 100)
+    }
+  }, [session, currentPracticeIndex, currentSection, sessionStarted, sessionCompleted, answerFeedback])
+
   if (!mounted || !user || !session) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -358,23 +378,6 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
   }
 
   const currentPracticeQuestion = session.practice[currentPracticeIndex]
-
-  // Auto-focus input field when moving to next textfield question
-  useEffect(() => {
-    if (
-      sessionStarted &&
-      !sessionCompleted &&
-      currentSection === 'practice' &&
-      currentPracticeQuestion?.questionType === 'character-to-romaji' &&
-      answerFeedback === null &&
-      inputRef.current
-    ) {
-      // Small delay to ensure DOM is updated
-      setTimeout(() => {
-        inputRef.current?.focus()
-      }, 100)
-    }
-  }, [currentPracticeIndex, currentSection, sessionStarted, sessionCompleted, currentPracticeQuestion?.questionType, answerFeedback])
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
