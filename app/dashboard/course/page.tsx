@@ -579,24 +579,18 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
 
             {/* Question */}
             <div className="mb-6">
-              <div className={`mb-4 p-6 rounded-lg border-2 text-center transition-colors duration-300 ${
-                answerFeedback === 'correct'
-                  ? 'bg-green-100 dark:bg-green-900/30 border-green-400 dark:border-green-600'
-                  : answerFeedback === 'incorrect'
-                  ? 'bg-red-100 dark:bg-red-900/30 border-red-400 dark:border-red-600'
-                  : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700'
-              }`}>
+              <div className="mb-6 text-center">
                 {currentPracticeQuestion.questionType === 'character-to-romaji' ? (
                   <>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">What is the romaji for this character?</p>
-                    <h2 className="text-7xl font-bold text-black dark:text-zinc-50">
+                    <p className="text-lg font-medium text-zinc-600 dark:text-zinc-400 mb-6">What is the romaji for this character?</p>
+                    <h2 className="text-8xl font-bold text-black dark:text-zinc-50">
                       {currentPracticeQuestion.kana.character}
                     </h2>
                   </>
                 ) : (
                   <>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">What is the Hiragana character for this romaji?</p>
-                    <h2 className="text-5xl font-bold text-black dark:text-zinc-50">
+                    <p className="text-lg font-medium text-zinc-600 dark:text-zinc-400 mb-6">What is the Hiragana character for this romaji?</p>
+                    <h2 className="text-7xl font-bold text-black dark:text-zinc-50">
                       {currentPracticeQuestion.kana.romaji}
                     </h2>
                   </>
