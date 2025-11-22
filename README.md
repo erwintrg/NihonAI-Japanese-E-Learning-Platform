@@ -62,7 +62,8 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 5. Set up database schema:
    - Go to Supabase Dashboard → SQL Editor
-   - Run the SQL from `supabase/schema.sql` (or see Database Setup section below)
+   - Run the SQL from `supabase/schema.sql`
+   - Then run `supabase/schema-updates.sql` to add onboarding and roadmap fields
 
 6. Run the development server:
 ```bash
