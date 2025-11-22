@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState, useRef, Suspense } from 'react'
+import { useEffect, useState, useRef, useCallback, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { getHiraganaByBatch, getAllHiragana, type KanaCharacter } from '@/lib/kana'
+import { getHiraganaByBatch, getAllHiragana, getTotalHiraganaBatches, type KanaCharacter } from '@/lib/kana'
 import { getAllVocab, type VocabularyItem } from '@/lib/data'
 
 type SessionSection = 'theory' | 'examples' | 'practice'
@@ -52,26 +52,56 @@ function CoursePageContent() {
   const [showCorrectAnswers, setShowCorrectAnswers] = useState(false)
   const [answerFeedback, setAnswerFeedback] = useState<'correct' | 'incorrect' | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const [completedBatches, setCompletedBatches] = useState<Set<number>>(new Set())
 
   useEffect(() => {
     setMounted(true)
     
     // Check authentication
-    supabase.auth.getUser().then(({ data: { user }, error }) => {
+    supabase.auth.getUser().then(async ({ data: { user }, error }) => {
       if (error || !user) {
         router.push('/auth')
       } else {
         setUser(user)
-        // Load Hiragana session data
-        loadSession()
+        
+        // Load completed batches
+        const { data: batches } = await supabase
+          .from('completed_batches')
+          .select('batch_number')
+          .eq('user_id', user.id)
+          .eq('batch_type', 'hiragana')
+        
+        if (batches) {
+          setCompletedBatches(new Set(batches.map(b => b.batch_number)))
+        }
       }
     })
   }, [router, supabase])
 
+  // Load session when completed batches are loaded and search params change
+  useEffect(() => {
+    if (mounted && user) {
+      loadSession()
+    }
+  }, [mounted, user, completedBatches, searchParams, loadSession])
 
-  const loadSession = () => {
+
+
+  const loadSession = useCallback(() => {
+    if (!searchParams) return
+    
     // Get batch number from URL params, default to batch 1
-    const batchNumber = parseInt(searchParams?.get('batch') || '1', 10)
+    const batchNumber = parseInt(searchParams.get('batch') || '1', 10)
+    
+    // Check if batch is unlocked (batch 1 is always unlocked, others require previous batch completion)
+    if (batchNumber > 1 && !completedBatches.has(batchNumber - 1)) {
+      // Redirect to previous incomplete batch or batch 1
+      const lastCompleted = Array.from(completedBatches).sort((a, b) => b - a)[0] || 0
+      const nextBatch = lastCompleted + 1
+      router.push(`/dashboard/course?batch=${nextBatch}`)
+      return
+    }
+    
     const batchKana = getHiraganaByBatch(batchNumber)
     
     if (batchKana.length === 0) {
@@ -244,7 +274,14 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     }
 
     setSession(hiraganaSession)
-  }
+  }, [searchParams, completedBatches, router])
+
+  // Load session when completed batches are loaded and search params change
+  useEffect(() => {
+    if (mounted && user) {
+      loadSession()
+    }
+  }, [mounted, user, completedBatches, searchParams, loadSession])
 
   const startSession = () => {
     setSessionStarted(true)
@@ -320,7 +357,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
       const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0
       
       // Save to Supabase progress table
-      const { error } = await supabase.from('progress').insert({
+      const { error: progressError } = await supabase.from('progress').insert({
         user_id: user.id,
         quiz_score: percentage,
         quiz_type: 'hiragana_session',
@@ -334,8 +371,28 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
         })),
       })
 
-      if (error) {
-        console.error('Error saving session progress:', error)
+      if (progressError) {
+        console.error('Error saving session progress:', progressError)
+      }
+
+      // Mark batch as completed
+      if (session?.batchNumber) {
+        const { error: batchError } = await supabase.from('completed_batches').upsert({
+          user_id: user.id,
+          batch_type: 'hiragana',
+          batch_number: session.batchNumber,
+          score: percentage,
+          completed_at: new Date().toISOString(),
+        }, {
+          onConflict: 'user_id,batch_type,batch_number'
+        })
+
+        if (batchError) {
+          console.error('Error marking batch as completed:', batchError)
+        } else {
+          // Update local state
+          setCompletedBatches(prev => new Set([...prev, session.batchNumber]))
+        }
       }
     } catch (error) {
       console.error('Error saving session progress:', error)
@@ -800,10 +857,37 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
             <div className="flex gap-4 justify-center">
               <button
                 onClick={() => router.push('/dashboard')}
-                className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
+                className="px-6 py-3 bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 text-black dark:text-white rounded-lg font-medium transition-colors"
               >
                 Back to Dashboard
               </button>
+              {session && (() => {
+                const currentBatch = session.batchNumber
+                const totalBatches = getTotalHiraganaBatches()
+                const nextBatch = currentBatch + 1
+                const canAccessNext = nextBatch <= totalBatches && (nextBatch === 1 || completedBatches.has(nextBatch - 1))
+                
+                return canAccessNext ? (
+                  <button
+                    onClick={() => {
+                      router.push(`/dashboard/course?batch=${nextBatch}`)
+                      // Reset session state
+                      setSessionCompleted(false)
+                      setSessionStarted(false)
+                      setCurrentSection('theory')
+                      setCurrentPracticeIndex(0)
+                      setCorrectAnswers(0)
+                      setUserInput('')
+                      setSelectedOption(null)
+                      setAnswerFeedback(null)
+                      setShowCorrectAnswers(false)
+                    }}
+                    className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
+                  >
+                    Next Batch ({nextBatch})
+                  </button>
+                ) : null
+              })()}
             </div>
           </div>
         )}
