@@ -215,7 +215,7 @@ export default function QuizPage() {
               <div className="w-full bg-zinc-200 dark:bg-zinc-700 rounded-full h-2.5">
                 <div
                   className="bg-pink-500 h-2.5 rounded-full transition-all duration-300"
-                  style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
+                  style={{ width: `${(currentQuestionIndex / questions.length) * 100}%` }}
                 />
               </div>
             </div>
