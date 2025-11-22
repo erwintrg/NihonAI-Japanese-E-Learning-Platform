@@ -124,17 +124,27 @@ export default function OnboardingPage() {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
     } else {
       // All questions answered, complete onboarding
-      console.log('All questions answered, completing onboarding...')
+      console.log('All questions answered, completing onboarding...', {
+        currentQuestionIndex,
+        totalQuestions: assessmentQuestions.length,
+        newScore,
+        updatedQuestionsLength: updatedQuestions.length
+      })
+      // Set loading immediately to show feedback
+      setLoading(true)
       completeOnboarding(updatedQuestions, newScore)
     }
   }
 
   const completeOnboarding = async (finalQuestions: AssessmentQuestion[], finalScore: number) => {
+    console.log('completeOnboarding called with:', { finalQuestions: finalQuestions.length, finalScore, user: !!user })
+    
     if (!user) {
       console.error('User not available for onboarding completion')
       return
     }
 
+    console.log('Setting loading to true...')
     setLoading(true)
 
     try {
@@ -183,6 +193,15 @@ export default function OnboardingPage() {
       setCurrentStep('complete')
       setLoading(false)
       console.log('Set currentStep to complete (catch case)')
+    } finally {
+      // Ensure we always set loading to false and step to complete as fallback
+      setTimeout(() => {
+        if (currentStep === 'assessment' && loading) {
+          console.warn('Assessment step still active after timeout, forcing complete step')
+          setCurrentStep('complete')
+          setLoading(false)
+        }
+      }, 5000)
     }
   }
 
@@ -366,6 +385,17 @@ export default function OnboardingPage() {
           loading ? (
             <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 text-center border border-zinc-200 dark:border-zinc-800">
               <div className="text-lg text-zinc-600 dark:text-zinc-400">Completing onboarding...</div>
+              <div className="mt-4 text-sm text-zinc-500">Please wait...</div>
+            </div>
+          ) : assessmentQuestions.length === 0 ? (
+            <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 text-center border border-zinc-200 dark:border-zinc-800">
+              <div className="text-lg text-zinc-600 dark:text-zinc-400 mb-4">No assessment questions available</div>
+              <button
+                onClick={skipAssessment}
+                className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
+              >
+                Skip Assessment
+              </button>
             </div>
           ) : currentQuestion ? (
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
