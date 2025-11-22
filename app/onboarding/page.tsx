@@ -424,8 +424,7 @@ export default function OnboardingPage() {
             </div>
             <button
               onClick={() => {
-                router.push('/dashboard')
-                router.refresh() // Force refresh to ensure middleware check passes
+                window.location.href = '/dashboard'
               }}
               disabled={loading}
               className="inline-flex items-center gap-2 px-8 py-4 bg-pink-500 hover:bg-pink-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 text-white rounded-lg font-medium transition-colors text-lg"
@@ -433,6 +432,9 @@ export default function OnboardingPage() {
               Go to Dashboard
               <span>→</span>
             </button>
+            {loading && (
+              <p className="mt-4 text-sm text-zinc-500">Saving your preferences...</p>
+            )}
             {loading && (
               <p className="mt-4 text-sm text-zinc-500">Saving your preferences...</p>
             )}
