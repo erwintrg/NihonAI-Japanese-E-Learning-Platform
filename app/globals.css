@@ -72,3 +72,19 @@ select:disabled,
 [aria-disabled="true"] {
   cursor: not-allowed;
 }
+
+/* Success animation for correct answers */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s ease-in-out;
+}

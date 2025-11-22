@@ -50,7 +50,7 @@ function CoursePageContent() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [showCorrectAnswers, setShowCorrectAnswers] = useState(false)
-  const [showSuccessAnimation, setShowSuccessAnimation] = useState(false)
+  const [answerFeedback, setAnswerFeedback] = useState<'correct' | 'incorrect' | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -290,27 +290,23 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     // Update correct answers count
     if (isCorrect) {
       setCorrectAnswers(correctAnswers + 1)
-      // Show success animation
-      setShowSuccessAnimation(true)
-      setTimeout(() => {
-        setShowSuccessAnimation(false)
-      }, 1000)
     }
 
-    // Clear input and selection
-    setUserInput('')
-    setSelectedOption(null)
+    // Show visual feedback
+    setAnswerFeedback(isCorrect ? 'correct' : 'incorrect')
 
-    // Move to next question or complete session (with delay for animation)
+    // Clear input and selection and move to next question
     setTimeout(() => {
+      setAnswerFeedback(null)
+      setUserInput('')
+      setSelectedOption(null)
+      
       if (currentPracticeIndex < session.practice.length - 1) {
         setCurrentPracticeIndex(currentPracticeIndex + 1)
-        setUserInput('')
-        setSelectedOption(null)
       } else {
         completeSession()
       }
-    }, isCorrect ? 1000 : 500) // Wait for animation if correct
+    }, 500) // Quick feedback, then move on
   }
 
   const completeSession = async () => {
@@ -364,7 +360,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-6">
           <button
@@ -581,20 +577,15 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
               </div>
             </div>
 
-            {/* Success Animation Overlay */}
-            {showSuccessAnimation && (
-              <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-                <div className="animate-bounce">
-                  <div className="w-24 h-24 rounded-full bg-green-500 flex items-center justify-center shadow-2xl">
-                    <span className="text-5xl text-white">✓</span>
-                  </div>
-                </div>
-              </div>
-            )}
-
             {/* Question */}
             <div className="mb-6">
-              <div className="mb-4 p-6 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 text-center">
+              <div className={`mb-4 p-6 rounded-lg border-2 text-center transition-colors duration-300 ${
+                answerFeedback === 'correct'
+                  ? 'bg-green-100 dark:bg-green-900/30 border-green-400 dark:border-green-600'
+                  : answerFeedback === 'incorrect'
+                  ? 'bg-red-100 dark:bg-red-900/30 border-red-400 dark:border-red-600'
+                  : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700'
+              }`}>
                 {currentPracticeQuestion.questionType === 'character-to-romaji' ? (
                   <>
                     <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">What is the romaji for this character?</p>
@@ -625,12 +616,19 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                         }
                       }}
                       placeholder='Type the romaji (e.g., "ka", "ki", "ku")...'
-                      className="w-full px-4 py-3 bg-white dark:bg-zinc-800 text-black dark:text-white border-2 border-zinc-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all text-center text-2xl"
+                      disabled={answerFeedback !== null}
+                      className={`w-full px-4 py-3 text-black dark:text-white border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all text-center text-2xl ${
+                        answerFeedback === 'correct'
+                          ? 'bg-green-200 dark:bg-green-800 border-green-400 dark:border-green-600'
+                          : answerFeedback === 'incorrect'
+                          ? 'bg-red-200 dark:bg-red-800 border-red-400 dark:border-red-600'
+                          : 'bg-white dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600'
+                      }`}
                       autoFocus
                     />
                     <button
                       onClick={handlePracticeSubmit}
-                      disabled={!userInput.trim()}
+                      disabled={!userInput.trim() || answerFeedback !== null}
                       className="w-full px-6 py-3 bg-pink-500 hover:bg-pink-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
                     >
                       Submit Answer
@@ -639,23 +637,40 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                 ) : (
                   <>
                     <div className="space-y-2">
-                      {currentPracticeQuestion.options?.map((option, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setSelectedOption(option)}
-                          className={`w-full p-4 text-4xl font-bold rounded-lg border-2 transition-all ${
-                            selectedOption === option
-                              ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300'
-                              : 'border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-black dark:text-zinc-50 hover:border-pink-300 dark:hover:border-pink-700'
-                          }`}
-                        >
-                          {option}
-                        </button>
-                      ))}
+                      {currentPracticeQuestion.options?.map((option, idx) => {
+                        const isSelected = selectedOption === option
+                        const isCorrect = option === currentPracticeQuestion.correctAnswer
+                        const showFeedback = answerFeedback !== null
+                        
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              if (!showFeedback) {
+                                setSelectedOption(option)
+                              }
+                            }}
+                            disabled={showFeedback}
+                            className={`w-full p-4 text-4xl font-bold rounded-lg border-2 transition-all ${
+                              showFeedback && isSelected
+                                ? isCorrect
+                                  ? 'bg-green-200 dark:bg-green-800 border-green-500 dark:border-green-600 text-green-900 dark:text-green-100'
+                                  : 'bg-red-200 dark:bg-red-800 border-red-500 dark:border-red-600 text-red-900 dark:text-red-100'
+                                : showFeedback && isCorrect && !isSelected
+                                ? 'bg-green-100 dark:bg-green-900/30 border-green-300 dark:border-green-700 text-green-800 dark:text-green-200'
+                                : isSelected
+                                ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300'
+                                : 'border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-black dark:text-zinc-50 hover:border-pink-300 dark:hover:border-pink-700'
+                            }`}
+                          >
+                            {option}
+                          </button>
+                        )
+                      })}
                     </div>
                     <button
                       onClick={handlePracticeSubmit}
-                      disabled={!selectedOption}
+                      disabled={!selectedOption || answerFeedback !== null}
                       className="w-full px-6 py-3 bg-pink-500 hover:bg-pink-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
                     >
                       Submit Answer
