@@ -81,7 +81,9 @@ export default function OnboardingPage() {
   const handleAssessmentSubmit = () => {
     if (!userInput.trim()) return
 
-    const currentQuestion = assessmentQuestions[currentQuestionIndex]
+    const currentQuestion = assessmentQuestions.length > 0 && currentQuestionIndex >= 0 && currentQuestionIndex < assessmentQuestions.length
+    ? assessmentQuestions[currentQuestionIndex]
+    : null
     const userAnswer = userInput.toLowerCase().trim()
     
     // Check if answer is correct
@@ -190,7 +192,9 @@ export default function OnboardingPage() {
     )
   }
 
-  const currentQuestion = assessmentQuestions[currentQuestionIndex]
+  const currentQuestion = assessmentQuestions.length > 0 && currentQuestionIndex >= 0 && currentQuestionIndex < assessmentQuestions.length
+    ? assessmentQuestions[currentQuestionIndex]
+    : null
 
   // Debug: Log current step
   console.log('Current step:', currentStep, 'Loading:', loading, 'User:', !!user)
