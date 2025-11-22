@@ -49,6 +49,8 @@ function CoursePageContent() {
   const [userInput, setUserInput] = useState('')
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [showCorrectAnswers, setShowCorrectAnswers] = useState(false)
+  const [showSuccessAnimation, setShowSuccessAnimation] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -145,10 +147,31 @@ function CoursePageContent() {
       })
     })
 
-    // Randomize practice questions
-    for (let i = practiceQuestions.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [practiceQuestions[i], practiceQuestions[j]] = [practiceQuestions[j], practiceQuestions[i]]
+    // Randomize practice questions, but ensure no two identical questions appear consecutively
+    // Shuffle multiple times to ensure good distribution
+    for (let shuffle = 0; shuffle < 10; shuffle++) {
+      for (let i = practiceQuestions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [practiceQuestions[i], practiceQuestions[j]] = [practiceQuestions[j], practiceQuestions[i]]
+      }
+    }
+    
+    // Ensure no consecutive duplicates
+    for (let i = 1; i < practiceQuestions.length; i++) {
+      const prev = practiceQuestions[i - 1]
+      const current = practiceQuestions[i]
+      
+      // If same kana and same question type, swap with a different question
+      if (prev.kana.character === current.kana.character && prev.questionType === current.questionType) {
+        // Find a different question to swap with
+        for (let j = i + 1; j < practiceQuestions.length; j++) {
+          const candidate = practiceQuestions[j]
+          if (candidate.kana.character !== current.kana.character || candidate.questionType !== current.questionType) {
+            [practiceQuestions[i], practiceQuestions[j]] = [practiceQuestions[j], practiceQuestions[i]]
+            break
+          }
+        }
+      }
     }
 
     // Get word examples using the kana being learned
@@ -267,20 +290,27 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     // Update correct answers count
     if (isCorrect) {
       setCorrectAnswers(correctAnswers + 1)
+      // Show success animation
+      setShowSuccessAnimation(true)
+      setTimeout(() => {
+        setShowSuccessAnimation(false)
+      }, 1000)
     }
 
     // Clear input and selection
     setUserInput('')
     setSelectedOption(null)
 
-    // Move to next question or complete session
-    if (currentPracticeIndex < session.practice.length - 1) {
-      setCurrentPracticeIndex(currentPracticeIndex + 1)
-      setUserInput('')
-      setSelectedOption(null)
-    } else {
-      completeSession()
-    }
+    // Move to next question or complete session (with delay for animation)
+    setTimeout(() => {
+      if (currentPracticeIndex < session.practice.length - 1) {
+        setCurrentPracticeIndex(currentPracticeIndex + 1)
+        setUserInput('')
+        setSelectedOption(null)
+      } else {
+        completeSession()
+      }
+    }, isCorrect ? 1000 : 500) // Wait for animation if correct
   }
 
   const completeSession = async () => {
@@ -334,7 +364,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-6">
           <button
@@ -551,28 +581,33 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
               </div>
             </div>
 
+            {/* Success Animation Overlay */}
+            {showSuccessAnimation && (
+              <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+                <div className="animate-bounce">
+                  <div className="w-24 h-24 rounded-full bg-green-500 flex items-center justify-center shadow-2xl">
+                    <span className="text-5xl text-white">✓</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Question */}
             <div className="mb-6">
               <div className="mb-4 p-6 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 text-center">
                 {currentPracticeQuestion.questionType === 'character-to-romaji' ? (
                   <>
                     <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">What is the romaji for this character?</p>
-                    <h2 className="text-7xl font-bold text-black dark:text-zinc-50 mb-2">
+                    <h2 className="text-7xl font-bold text-black dark:text-zinc-50">
                       {currentPracticeQuestion.kana.character}
                     </h2>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
-                      Hint: {currentPracticeQuestion.kana.mnemonic}
-                    </p>
                   </>
                 ) : (
                   <>
                     <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">What is the Hiragana character for this romaji?</p>
-                    <h2 className="text-5xl font-bold text-black dark:text-zinc-50 mb-2">
+                    <h2 className="text-5xl font-bold text-black dark:text-zinc-50">
                       {currentPracticeQuestion.kana.romaji}
                     </h2>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
-                      Hint: {currentPracticeQuestion.kana.mnemonic}
-                    </p>
                   </>
                 )}
               </div>
@@ -658,11 +693,26 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
 
             {/* Review Section */}
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-black dark:text-zinc-50 mb-4">
-                Review Your Answers:
-              </h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-semibold text-black dark:text-zinc-50">
+                  Review Your Answers:
+                </h3>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={showCorrectAnswers}
+                    onChange={(e) => setShowCorrectAnswers(e.target.checked)}
+                    className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
+                  />
+                  <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                    Show correct answers
+                  </span>
+                </label>
+              </div>
               <div className="space-y-3">
-                {session.practice.map((q) => (
+                {session.practice
+                  .filter((q) => !q.isCorrect || showCorrectAnswers)
+                  .map((q) => (
                   <div
                     key={q.id}
                     className={`p-4 rounded-lg border ${
@@ -707,6 +757,12 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                     </div>
                   </div>
                 ))}
+                {session.practice.filter((q) => !q.isCorrect || showCorrectAnswers).length === 0 && (
+                  <div className="text-center py-8 text-zinc-600 dark:text-zinc-400">
+                    <p>No incorrect answers to review! 🎉</p>
+                    <p className="text-sm mt-2">Toggle "Show correct answers" to see all your answers.</p>
+                  </div>
+                )}
               </div>
             </div>
 
