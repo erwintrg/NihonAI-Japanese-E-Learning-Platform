@@ -5,47 +5,57 @@
  */
 
 import {
-  getJLPTN5Vocab,
-  getAnimeTerms,
   getAllVocab,
   getRandomVocab,
   getVocabByType,
+  getVocabByCategory,
   searchVocab,
+  getVocabByLevel,
 } from './data';
 
 export function testDataImport() {
   console.log('=== Testing Japanese Vocabulary Data Import ===\n');
 
-  // Test 1: Get all JLPT N5 vocab
-  const n5Vocab = getJLPTN5Vocab();
-  console.log(`✅ JLPT N5 Vocabulary: ${n5Vocab.length} items`);
-  console.log('Sample:', n5Vocab[0]);
-
-  // Test 2: Get anime terms
-  const anime = getAnimeTerms();
-  console.log(`\n✅ Anime Terms: ${anime.length} items`);
-  console.log('Sample:', anime[0]);
-
-  // Test 3: Get all vocab
+  // Test 1: Get all vocab
   const allVocab = getAllVocab();
-  console.log(`\n✅ Total Vocabulary: ${allVocab.length} items`);
+  console.log(`✅ Total Vocabulary: ${allVocab.length} items`);
 
-  // Test 4: Get random vocab
+  // Test 2: Get by category
+  const verbs = getVocabByCategory('verbs');
+  const nouns = getVocabByCategory('nouns');
+  const adjectives = getVocabByCategory('adjectives');
+  const pronouns = getVocabByCategory('pronouns');
+  const expressions = getVocabByCategory('expressions');
+  const time = getVocabByCategory('time');
+  
+  console.log(`\n✅ Category counts:`);
+  console.log(`  Verbs: ${verbs.length} items`);
+  console.log(`  Nouns: ${nouns.length} items`);
+  console.log(`  Adjectives: ${adjectives.length} items`);
+  console.log(`  Pronouns: ${pronouns.length} items`);
+  console.log(`  Expressions: ${expressions.length} items`);
+  console.log(`  Time: ${time.length} items`);
+
+  // Test 3: Get random vocab
   const random = getRandomVocab(5);
   console.log(`\n✅ Random 5 items:`);
   random.forEach((item, i) => {
     console.log(`  ${i + 1}. ${item.japanese} (${item.hiragana}) - ${item.english}`);
   });
 
-  // Test 5: Get by type
-  const verbs = getVocabByType('verb');
-  console.log(`\n✅ Verbs: ${verbs.length} items`);
-  console.log('Sample verbs:', verbs.slice(0, 3).map((v) => v.japanese));
+  // Test 4: Get by type
+  const wordType = getVocabByType('word');
+  console.log(`\n✅ Words: ${wordType.length} items`);
+  console.log('Sample words:', wordType.slice(0, 3).map((v) => v.japanese));
+
+  // Test 5: Get by level
+  const n5Vocab = getVocabByLevel('N5');
+  console.log(`\n✅ N5 Level Vocabulary: ${n5Vocab.length} items`);
 
   // Test 6: Search
   const searchResults = searchVocab('book');
   console.log(`\n✅ Search "book": ${searchResults.length} results`);
-  searchResults.forEach((item) => {
+  searchResults.slice(0, 5).forEach((item) => {
     console.log(`  - ${item.japanese} (${item.english})`);
   });
 

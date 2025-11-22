@@ -3,10 +3,6 @@
  * Imports and manages categorized vocabulary lists with phrases and sentences
  */
 
-// Legacy imports (will be migrated to categories)
-import jlptN5Vocab from '../data/jlpt-n5-vocab.json';
-import animeTerms from '../data/anime-terms.json';
-
 // Category imports
 import expressions from '../data/categories/expressions.json';
 import pronouns from '../data/categories/pronouns.json';
@@ -64,21 +60,7 @@ export function getVocabByCategory(category: string): VocabularyItem[] {
 }
 
 /**
- * Get all JLPT N5 vocabulary (legacy)
- */
-export function getJLPTN5Vocab(): VocabularyItem[] {
-  return jlptN5Vocab as VocabularyItem[];
-}
-
-/**
- * Get all anime terms (legacy)
- */
-export function getAnimeTerms(): VocabularyItem[] {
-  return animeTerms as VocabularyItem[];
-}
-
-/**
- * Get all vocabulary (combined from all sources)
+ * Get all vocabulary (combined from all categories)
  */
 export function getAllVocab(): VocabularyItem[] {
   return [
@@ -89,8 +71,6 @@ export function getAllVocab(): VocabularyItem[] {
     ...adjectives,
     ...phrases,
     ...time,
-    ...jlptN5Vocab,
-    ...animeTerms,
   ] as VocabularyItem[];
 }
 

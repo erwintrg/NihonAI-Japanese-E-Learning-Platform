@@ -134,6 +134,12 @@
         "hiragana": "しごとのあと、えいがをみた。",
         "romaji": "shigoto no ato, eiga wo mita.",
         "english": "I saw a movie after work."
+      },
+      {
+        "japanese": "ここにタイヤの跡があるわ。",
+        "hiragana": "あと",
+        "romaji": "ato",
+        "english": "There is a tire imprint here."
       }
     ]
   },
@@ -200,6 +206,12 @@
         "hiragana": "しゅくだいはまだおわっていません。",
         "romaji": "shukudai wa mada owatte imasen.",
         "english": "I haven't finished my homework yet."
+      },
+      {
+        "japanese": "宿題は未だ終わっていません。",
+        "hiragana": "まだ",
+        "romaji": "mada",
+        "english": "I haven't finished my homework yet."
       }
     ]
   },
@@ -222,6 +234,1018 @@
         "english": "When is she coming?"
       }
     ]
+  },
+  {
+    "id": 6012,
+    "japanese": "時間",
+    "hiragana": "じかん",
+    "romaji": "jikan",
+    "english": "time, hour",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "今は時間がありません。",
+        "hiragana": "じかん",
+        "romaji": "jikan",
+        "english": "I don't have time now."
+      }
+    ]
+  },
+  {
+    "id": 6013,
+    "japanese": "これまで",
+    "hiragana": "これまで",
+    "romaji": "koremade",
+    "english": "until now, until here",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "これまでの私とは違うんです。",
+        "hiragana": "これまで",
+        "romaji": "koremade",
+        "english": "I am not the same as before."
+      }
+    ]
+  },
+  {
+    "id": 6014,
+    "japanese": "日",
+    "hiragana": "ひ",
+    "romaji": "hi",
+    "english": "sun, sunlight, day",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "夏は日が長い。",
+        "hiragana": "ひ",
+        "romaji": "hi",
+        "english": "The days are long in summer."
+      },
+      {
+        "japanese": "私たちは先月11日に結婚しました。",
+        "hiragana": "にち",
+        "romaji": "nichi",
+        "english": "We got married last month on the 11th."
+      }
+    ]
+  },
+  {
+    "id": 6015,
+    "japanese": "今に",
+    "hiragana": "いまに",
+    "romaji": "imani",
+    "english": "before long, someday",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "あなたも今に分かるでしょう。",
+        "hiragana": "いまに",
+        "romaji": "imani",
+        "english": "You will understand one day."
+      }
+    ]
+  },
+  {
+    "id": 6016,
+    "japanese": "その内",
+    "hiragana": "そのうち",
+    "romaji": "sonouchi",
+    "english": "before long, sooner or later",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "彼女もその内、親の気持ちが分かるだろう。",
+        "hiragana": "そのうち",
+        "romaji": "sonouchi",
+        "english": "Sooner or later, she'll come to understand her parents' feelings."
+      }
+    ]
+  },
+  {
+    "id": 6017,
+    "japanese": "ずっと",
+    "hiragana": "ずっと",
+    "romaji": "zutto",
+    "english": "all day, from start to finish",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "父は休みの日はずっとテレビを見ている。",
+        "hiragana": "ずっと",
+        "romaji": "zutto",
+        "english": "My father spends his days off watching television all the time."
+      }
+    ]
+  },
+  {
+    "id": 6018,
+    "japanese": "初めて",
+    "hiragana": "はじめて",
+    "romaji": "hajimete",
+    "english": "for the first time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "東京に来るのは初めてです。",
+        "hiragana": "はじめて",
+        "romaji": "hajimete",
+        "english": "It's the first time I've been to Tokyo."
+      }
+    ]
+  },
+  {
+    "id": 6019,
+    "japanese": "頃",
+    "hiragana": "ころ",
+    "romaji": "koro",
+    "english": "time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "子供の頃、よくその公園で遊んだ。",
+        "hiragana": "ころ",
+        "romaji": "koro",
+        "english": "I often played in that park when I was a kid."
+      }
+    ]
+  },
+  {
+    "id": 6020,
+    "japanese": "既に",
+    "hiragana": "すでに",
+    "romaji": "sudeni",
+    "english": "already, previously",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "そのことは既にみんな知っています。",
+        "hiragana": "すでに",
+        "romaji": "sudeni",
+        "english": "Everyone already knows that."
+      }
+    ]
+  },
+  {
+    "id": 6021,
+    "japanese": "今度",
+    "hiragana": "こんど",
+    "romaji": "kondo",
+    "english": "this time, next time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "今度はどこに行きたいですか。",
+        "hiragana": "こんど",
+        "romaji": "kondo",
+        "english": "Where do you want to go this time?"
+      }
+    ]
+  },
+  {
+    "id": 6022,
+    "japanese": "今回",
+    "hiragana": "こんかい",
+    "romaji": "konkai",
+    "english": "this time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "まあ今回は許してあげよう。",
+        "hiragana": "こんかい",
+        "romaji": "konkai",
+        "english": "Well, I'll let you off this time."
+      }
+    ]
+  },
+  {
+    "id": 6023,
+    "japanese": "さっき",
+    "hiragana": "さっき",
+    "romaji": "sakki",
+    "english": "some time ago, only a moment ago",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "さっきの話を続けましょう。",
+        "hiragana": "さっき",
+        "romaji": "sakki",
+        "english": "Let's continue the conversation we had earlier."
+      }
+    ]
+  },
+  {
+    "id": 6024,
+    "japanese": "再び",
+    "hiragana": "ふたたび",
+    "romaji": "futatabi",
+    "english": "again, a second time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "彼は再びここに戻ってきた。",
+        "hiragana": "ふたたび",
+        "romaji": "futatabi",
+        "english": "He came back here once again."
+      }
+    ]
+  },
+  {
+    "id": 6025,
+    "japanese": "取り敢えず",
+    "hiragana": "とりあえず",
+    "romaji": "toriaezu",
+    "english": "for now, first of all",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "取り敢えずお知らせしておきます。",
+        "hiragana": "とりあえず",
+        "romaji": "toriaezu",
+        "english": "Here's my report, for now."
+      }
+    ]
+  },
+  {
+    "id": 6026,
+    "japanese": "朝",
+    "hiragana": "あさ",
+    "romaji": "asa",
+    "english": "morning",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "気持ちのいい朝です。",
+        "hiragana": "あさ",
+        "romaji": "asa",
+        "english": "It's a pleasant morning."
+      }
+    ]
+  },
+  {
+    "id": 6027,
+    "japanese": "やっぱり",
+    "hiragana": "やっぱり",
+    "romaji": "yappari",
+    "english": "just as I thought, after all",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "やっぱり旅が大好きだ。",
+        "hiragana": "やっぱり",
+        "romaji": "yappari",
+        "english": "I just love to travel."
+      }
+    ]
+  },
+  {
+    "id": 6028,
+    "japanese": "間",
+    "hiragana": "ま",
+    "romaji": "ma",
+    "english": "interval, duration of time, chamber",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "彼は少し間を置いてから返事した。",
+        "hiragana": "ま",
+        "romaji": "ma",
+        "english": "He responded after a short pause."
+      }
+    ]
+  },
+  {
+    "id": 6029,
+    "japanese": "先程",
+    "hiragana": "さきほど",
+    "romaji": "sakihodo",
+    "english": "some time ago, a little while ago",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "その件でしたら、先程上司から許可を得ております。",
+        "hiragana": "さきほど",
+        "romaji": "sakihodo",
+        "english": "If you're referring to that matter, I obtained permission from my boss a little while ago."
+      }
+    ]
+  },
+  {
+    "id": 6030,
+    "japanese": "以前",
+    "hiragana": "いぜん",
+    "romaji": "izen",
+    "english": "before, ago",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "以前彼はこの町に住んでいたんだ。",
+        "hiragana": "いぜん",
+        "romaji": "izen",
+        "english": "He used to live in this town."
+      }
+    ]
+  },
+  {
+    "id": 6032,
+    "japanese": "際",
+    "hiragana": "さい",
+    "romaji": "sai",
+    "english": "occasion, time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "この際はっきり言っておきます。",
+        "hiragana": "さい",
+        "romaji": "sai",
+        "english": "It's a good opportunity to speak frankly."
+      }
+    ]
+  },
+  {
+    "id": 6033,
+    "japanese": "現在",
+    "hiragana": "げんざい",
+    "romaji": "genzai",
+    "english": "the present, present time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "現在の気温は30度です。",
+        "hiragana": "げんざい",
+        "romaji": "genzai",
+        "english": "The current temperature is 30 degrees."
+      }
+    ]
+  },
+  {
+    "id": 6034,
+    "japanese": "毎日",
+    "hiragana": "まいにち",
+    "romaji": "mainichi",
+    "english": "every day",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "私たちは毎日散歩をします。",
+        "hiragana": "まいにち",
+        "romaji": "mainichi",
+        "english": "We go for a walk every day."
+      }
+    ]
+  },
+  {
+    "id": 6035,
+    "japanese": "やがて",
+    "hiragana": "やがて",
+    "romaji": "yagate",
+    "english": "soon, before long",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "やがて雪も止むでしょう。",
+        "hiragana": "やがて",
+        "romaji": "yagate",
+        "english": "The snow will stop before long."
+      }
+    ]
+  },
+  {
+    "id": 6036,
+    "japanese": "三日",
+    "hiragana": "みっか",
+    "romaji": "mikka",
+    "english": "three days, 3rd of the month",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "手紙が届くのに三日かかりました。",
+        "hiragana": "みっか",
+        "romaji": "mikka",
+        "english": "It took three days for the letter to arrive."
+      }
+    ]
+  },
+  {
+    "id": 6037,
+    "japanese": "次々に",
+    "hiragana": "つぎつぎに",
+    "romaji": "tsugitsugini",
+    "english": "one after another, in succession",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "走者が次々にゴールしました。",
+        "hiragana": "つぎつぎに",
+        "romaji": "tsugitsugini",
+        "english": "Runners reached the goal one after another."
+      }
+    ]
+  },
+  {
+    "id": 6038,
+    "japanese": "今後",
+    "hiragana": "こんご",
+    "romaji": "kongo",
+    "english": "after this, in the future",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "今後ともよろしくお願いします。",
+        "hiragana": "こんご",
+        "romaji": "kongo",
+        "english": "I look forward to working with you in the future."
+      }
+    ]
+  },
+  {
+    "id": 6039,
+    "japanese": "もはや",
+    "hiragana": "もはや",
+    "romaji": "mohaya",
+    "english": "already, no longer",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "もはや彼の助けは必要じゃないの。",
+        "hiragana": "もはや",
+        "romaji": "mohaya",
+        "english": "His help is no longer needed."
+      }
+    ]
+  },
+  {
+    "id": 6040,
+    "japanese": "暇",
+    "hiragana": "ひま",
+    "romaji": "hima",
+    "english": "free time, spare time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "明日は暇ですか。",
+        "hiragana": "ひま",
+        "romaji": "hima",
+        "english": "Are you free tomorrow?"
+      }
+    ]
+  },
+  {
+    "id": 6041,
+    "japanese": "何より",
+    "hiragana": "なにより",
+    "romaji": "naniyori",
+    "english": "above all, before everything else",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "ご無事で何よりです。",
+        "hiragana": "なにより",
+        "romaji": "naniyori",
+        "english": "I'm glad to know you're safe."
+      }
+    ]
+  },
+  {
+    "id": 6042,
+    "japanese": "いつか",
+    "hiragana": "いつか",
+    "romaji": "itsuka",
+    "english": "some time, some day",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "僕はいつかアフリカに行きたい。",
+        "hiragana": "いつか",
+        "romaji": "itsuka",
+        "english": "I want to go to Africa some time."
+      }
+    ]
+  },
+  {
+    "id": 6043,
+    "japanese": "時期",
+    "hiragana": "じき",
+    "romaji": "jiki",
+    "english": "time, season",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "今はあなたにとって大事な時期です。",
+        "hiragana": "じき",
+        "romaji": "jiki",
+        "english": "It's an important time for you now."
+      }
+    ]
+  },
+  {
+    "id": 6044,
+    "japanese": "今更",
+    "hiragana": "いまさら",
+    "romaji": "imasara",
+    "english": "now, too late",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "今更後悔しても、もう遅いよ。",
+        "hiragana": "いまさら",
+        "romaji": "imasara",
+        "english": "It is too late for regrets."
+      }
+    ]
+  },
+  {
+    "id": 6045,
+    "japanese": "年",
+    "hiragana": "とし",
+    "romaji": "toshi",
+    "english": "year, age",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "新しい年が始まりました。",
+        "hiragana": "とし",
+        "romaji": "toshi",
+        "english": "A new year has started."
+      }
+    ]
+  },
+  {
+    "id": 6046,
+    "japanese": "久しぶり",
+    "hiragana": "ひさしぶり",
+    "romaji": "hisashiburi",
+    "english": "after a long time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "明日、久しぶりに友達に会います。",
+        "hiragana": "ひさしぶり",
+        "romaji": "hisashiburi",
+        "english": "Tomorrow I'm meeting a friend I haven't seen for a long time."
+      }
+    ]
+  },
+  {
+    "id": 6047,
+    "japanese": "当時",
+    "hiragana": "とうじ",
+    "romaji": "touji",
+    "english": "at that time, at the present time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "彼女は当時、まだ3才だった。",
+        "hiragana": "とうじ",
+        "romaji": "touji",
+        "english": "She was only three years old at the time."
+      }
+    ]
+  },
+  {
+    "id": 6048,
+    "japanese": "相変わらず",
+    "hiragana": "あいかわらず",
+    "romaji": "aikawarazu",
+    "english": "as usual, as before",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "彼は相変わらず忙しいですね。",
+        "hiragana": "あいかわらず",
+        "romaji": "aikawarazu",
+        "english": "He is busy as usual."
+      }
+    ]
+  },
+  {
+    "id": 6049,
+    "japanese": "今年",
+    "hiragana": "ことし",
+    "romaji": "kotoshi",
+    "english": "this year",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "今年はイタリアに旅行したい。",
+        "hiragana": "ことし",
+        "romaji": "kotoshi",
+        "english": "I want to travel to Italy this year."
+      }
+    ]
+  },
+  {
+    "id": 6050,
+    "japanese": "一日",
+    "hiragana": "ついたち",
+    "romaji": "tsuitachi",
+    "english": "1st of the month",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "来月の一日は空いていますか。",
+        "hiragana": "ついたち",
+        "romaji": "tsuitachi",
+        "english": "Are you free on the 1st of next month?"
+      }
+    ]
+  },
+  {
+    "id": 6051,
+    "japanese": "日々",
+    "hiragana": "ひび",
+    "romaji": "hibi",
+    "english": "daily, every day",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "日々の努力が大切です。",
+        "hiragana": "ひび",
+        "romaji": "hibi",
+        "english": "It's important to make efforts every day."
+      }
+    ]
+  },
+  {
+    "id": 6052,
+    "japanese": "二日",
+    "hiragana": "ふつか",
+    "romaji": "futsuka",
+    "english": "two days, 2nd of the month",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "私は二日待った。",
+        "hiragana": "ふつか",
+        "romaji": "futsuka",
+        "english": "I waited two days."
+      }
+    ]
+  },
+  {
+    "id": 6053,
+    "japanese": "直後",
+    "hiragana": "ちょくご",
+    "romaji": "chokugo",
+    "english": "immediately after",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "食べた直後に寝ないほうがいいよ。",
+        "hiragana": "ちょくご",
+        "romaji": "chokugo",
+        "english": "You should not sleep immediately after having eaten."
+      }
+    ]
+  },
+  {
+    "id": 6054,
+    "japanese": "ぎりぎり",
+    "hiragana": "ぎりぎり",
+    "romaji": "girigiri",
+    "english": "just in time, barely",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "会社の始業時間にぎりぎりで間に合ったよ。",
+        "hiragana": "ぎりぎり",
+        "romaji": "girigiri",
+        "english": "I just made it in time for the start of work."
+      }
+    ]
+  },
+  {
+    "id": 6055,
+    "japanese": "午前",
+    "hiragana": "ごぜん",
+    "romaji": "gozen",
+    "english": "morning, a.m.",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "午前9時のニュースです。",
+        "hiragana": "ごぜん",
+        "romaji": "gozen",
+        "english": "And now for the 9.00 a.m. news."
+      }
+    ]
+  },
+  {
+    "id": 6056,
+    "japanese": "四日",
+    "hiragana": "よっか",
+    "romaji": "yokka",
+    "english": "four days, 4th of the month",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "新学期は来月の四日からです。",
+        "hiragana": "よっか",
+        "romaji": "yokka",
+        "english": "The new school term starts on the fourth of next month."
+      }
+    ]
+  },
+  {
+    "id": 6057,
+    "japanese": "今夜",
+    "hiragana": "こんや",
+    "romaji": "konya",
+    "english": "tonight, this evening",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "今夜は月がとてもきれいです。",
+        "hiragana": "こんや",
+        "romaji": "konya",
+        "english": "The moon is very beautiful tonight."
+      }
+    ]
+  },
+  {
+    "id": 6058,
+    "japanese": "夕方",
+    "hiragana": "ゆうがた",
+    "romaji": "yuugata",
+    "english": "evening",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "夕方そちらに着きます。",
+        "hiragana": "ゆうがた",
+        "romaji": "yuugata",
+        "english": "I'll arrive there in the evening."
+      }
+    ]
+  },
+  {
+    "id": 6059,
+    "japanese": "段々",
+    "hiragana": "だんだん",
+    "romaji": "dandan",
+    "english": "gradually, one after another",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "段々仕事が楽しくなってきました。",
+        "hiragana": "だんだん",
+        "romaji": "dandan",
+        "english": "My work has gradually become more enjoyable."
+      }
+    ]
+  },
+  {
+    "id": 6060,
+    "japanese": "直前",
+    "hiragana": "ちょくぜん",
+    "romaji": "chokuzen",
+    "english": "just before, immediately prior",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "彼は旅行の直前に熱が出たの。",
+        "hiragana": "ちょくぜん",
+        "romaji": "chokuzen",
+        "english": "He got a fever just before going on holiday."
+      }
+    ]
+  },
+  {
+    "id": 6061,
+    "japanese": "昼間",
+    "hiragana": "ひるま",
+    "romaji": "hiruma",
+    "english": "daytime, day",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "昼間は仕事で忙しいです。",
+        "hiragana": "ひるま",
+        "romaji": "hiruma",
+        "english": "I'm busy with work in the daytime."
+      }
+    ]
+  },
+  {
+    "id": 6062,
+    "japanese": "晩",
+    "hiragana": "ばん",
+    "romaji": "ban",
+    "english": "evening (usually from sunset to bedtime)",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "晩ご飯は食べましたか。",
+        "hiragana": "ばん",
+        "romaji": "ban",
+        "english": "Have you had dinner?"
+      }
+    ]
+  },
+  {
+    "id": 6063,
+    "japanese": "前後",
+    "hiragana": "ぜんご",
+    "romaji": "zengo",
+    "english": "before and after, order",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "そちらに着くのは6時前後です。",
+        "hiragana": "ぜんご",
+        "romaji": "zengo",
+        "english": "I will arrive there around 6 o'clock."
+      }
+    ]
+  },
+  {
+    "id": 6065,
+    "japanese": "手間",
+    "hiragana": "てま",
+    "romaji": "tema",
+    "english": "trouble, time",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "これはとても手間のかかる料理です。",
+        "hiragana": "てま",
+        "romaji": "tema",
+        "english": "This is a very time-consuming dish."
+      }
+    ]
+  },
+  {
+    "id": 6066,
+    "japanese": "昨夜",
+    "hiragana": "さくや",
+    "romaji": "sakuya",
+    "english": "last night",
+    "level": "N5",
+    "type": "word",
+    "category": "time",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "昨夜はテレビで喜劇を見たよ。",
+        "hiragana": "さくや",
+        "romaji": "sakuya",
+        "english": "I watched a comedy show on TV last night."
+      }
+    ]
   }
 ]
-

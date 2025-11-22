@@ -170,6 +170,2857 @@
     "frequency": 9,
     "notes": "Very common encouragement phrase in anime and daily life",
     "example_sentences": []
+  },
+  {
+    "id": 1011,
+    "japanese": "子",
+    "hiragana": "こ",
+    "romaji": "ko",
+    "english": "Kid, Child",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it uses the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word:You see a child and walk up to him. Then, you punch him in the face (oh no, how could you!!?). He flies through the air, and he's knocked out. A ref nearby yells that it was a \"\"KO!\"\" (こ). That's a knock out.Make sure you learn this reading pretty well too. Both readings for 子 are going to show up a lot, and this is how you're going to learn the kun'yomi one.\"",
+    "example_sentences": [
+      {
+        "japanese": "あなたは、わたしのほんとうの子ではないの。",
+        "english": "You aren’t my real child."
+      },
+      {
+        "japanese": "そのロシア人の子は、大人になって、さけよりも上手に川を上れるようになりました。",
+        "english": "When that Russian kid grew up she got better than a salmon at swimming upstream."
+      },
+      {
+        "japanese": "わたしの子、ビヨンセににているとおもわない？",
+        "english": "Don’t you think my kid looks similar to Beyoncé?"
+      }
+    ]
+  },
+  {
+    "id": 1012,
+    "japanese": "王",
+    "hiragana": "おう",
+    "romaji": "ou",
+    "english": "King",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading for this word is the same as the one you learned when learning the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "このくにの王はわたしだ。",
+        "english": "I am the king of this country."
+      },
+      {
+        "japanese": "王の刀をみせてください。",
+        "english": "Please show me the King's sword."
+      },
+      {
+        "japanese": "王さまでもカレーをたべるのだ。",
+        "english": "Even kings eat curry."
+      }
+    ]
+  },
+  {
+    "id": 1013,
+    "japanese": "〜円",
+    "hiragana": "えん",
+    "romaji": "en",
+    "english": "Money, Yen",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"The reading is the same as the one you learned with the kanji. Be sure to omit the 〜 in your answer as it is only a placeholder for a number.\"",
+    "example_sentences": [
+      {
+        "japanese": "このきっぷは三千円です。",
+        "english": "This ticket is 3000 yen."
+      },
+      {
+        "japanese": "王女があやしいアメリカ人と、王しつのかね一千まん円をもってよにげしてしまった。",
+        "english": "The princess took 10 million yen from the Royal Family and flitted away with a fishy American into the moonlight."
+      },
+      {
+        "japanese": "円をアメリカドルにりょうがえしたいんです。",
+        "english": "I want to exchange my yen into American dollars."
+      }
+    ]
+  },
+  {
+    "id": 1014,
+    "japanese": "王子",
+    "hiragana": "おうじ",
+    "romaji": "ouji",
+    "english": "Prince",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"A king kid is the prince. Someday he'll be the 王, if he's lucky, but right now he's just the king's child.\" \"This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well. Also take note that the reading for 子 (し) is changed to じ.\"",
+    "example_sentences": [
+      {
+        "japanese": "王子は、じょうばをはじめました。",
+        "english": "The prince started horseback riding."
+      },
+      {
+        "japanese": "あの王子の左手は大きい。",
+        "english": "The Prince's left hand is big."
+      },
+      {
+        "japanese": "王子がかえるにキスをすると、そのかえるは王子をたべてしまった。",
+        "english": "After the prince kissed the frog, the frog ate the prince."
+      }
+    ]
+  },
+  {
+    "id": 1015,
+    "japanese": "王女",
+    "hiragana": "おうじょ",
+    "romaji": "oujo",
+    "english": "Princess",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The \"\"king woman\"\" is the princess. How do you tell this word apart from 女王, which means \"\"queen?\"\" Well, the 女 part comes before the 王 when it's a queen, because the queen always comes before the princess (they're usually pretty selfish in the stories, right?). As for the princess, the 女 comes after the king, because she doesn't have as much power. That's why this one is princess.\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "王子は、王女のうつくしさにうっとりしました。",
+        "english": "The prince was enchanted by the princess’ beauty."
+      },
+      {
+        "japanese": "王は王女に木のつくえをかってあげました。",
+        "english": "The king bought a wooden desk for the princess."
+      },
+      {
+        "japanese": "王女さまはよろこびをバクてんでひょうげんしているようです。",
+        "english": "The princess expresses her joy by doing backward somersaults."
+      }
+    ]
+  },
+  {
+    "id": 1016,
+    "japanese": "女王",
+    "hiragana": "じょおう",
+    "romaji": "joou",
+    "english": "Queen",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The woman who comes before the king is no princess. This is the queen.\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "それは、女王のいすです。",
+        "english": "That is the queen’s chair."
+      },
+      {
+        "japanese": "女王は目が大きくてかわいい王女のことが大きらいです。",
+        "english": "The queen hates the princess because she is cute and has big eyes."
+      },
+      {
+        "japanese": "エリザベス女王と文つうをはじめた。",
+        "english": "I started exchanging letters with Queen Elizabeth."
+      }
+    ]
+  },
+  {
+    "id": 1017,
+    "japanese": "〜才",
+    "hiragana": "さい",
+    "romaji": "sai",
+    "english": "Years Old, Age",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Although this word consists of one kanji that is all alone, it doesn't share its meaning with the parent kanji. The meanings are similar in a way, though. This word means years old or age. With more years comes more genius, right? That's why this word means \"\"years old\"\" and not \"\"genius,\"\" like the parent kanji. Hint: Stick this word onto numbers to say how old someone is!\" \"The reading is the same as the one you learned for the kanji, meaning you should already know it! Don't try to type the 〜 part though.\"\n\nThe kanji and the word are exactly the same. That means they share meanings as well. This is put on the end of numbers to show how old someone is. The reading is the same as the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "わたしは五才です。",
+        "english": "I am five years old."
+      },
+      {
+        "japanese": "らい月二日に、六十七才になります。",
+        "english": "I'll turn 67 on the 2nd of the next month."
+      },
+      {
+        "japanese": "ちちの五十五才のたんじょう日に、ホグワーツへしょうたいされた。",
+        "english": "On my dad’s fifty-fifth birthday, I was invited to Hogwarts School of Witchcraft and Wizardry."
+      },
+      {
+        "japanese": "三十歳を過ぎてから、全身がすごく痒いんだよね。",
+        "english": "Ever since I turned thirty, my whole body has been itchy."
+      }
+    ]
+  },
+  {
+    "id": 1018,
+    "japanese": "〜台",
+    "hiragana": "だい",
+    "romaji": "dai",
+    "english": "Big Machine, Big Device, Machine, Device, Machine Counter, Number Of Machines",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This counter is used with some kind of machine or device, usually a fairly large one (so nothing itty bitty). Cars are a good example of this. But it can also be used for things like computers, which were once the size of rooms, but are now nice and small. Thanks technology!\" \"The reading is the same as the one you learned with the kanji. Be sure to omit the 〜 in your answer as it is only a placeholder for a number.\"",
+    "example_sentences": [
+      {
+        "japanese": "バスはなん台いりますか？",
+        "english": "How many buses do we need?"
+      },
+      {
+        "japanese": "し力がよくなるきかいを三台ちゅうもんしました。",
+        "english": "I ordered three machines that makes your eyesight better."
+      },
+      {
+        "japanese": "あのかねもちしゃちょうはこうきゅうしゃを三台もっています。",
+        "english": "The rich company president has three luxury cars."
+      }
+    ]
+  },
+  {
+    "id": 1019,
+    "japanese": "市",
+    "hiragana": "し",
+    "romaji": "shi",
+    "english": "City",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading for this word is the same as the one you learned when learning the kanji.\n\nThe kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!\n\n\"The kanji means family name because it goes after a family name in very formal situations. So, it's really closely tied to that. Because only men got the respect back in the day, we're calling this vocab word mister. You can call me Mr. Koichi if you'd like, too.\" The reading for this word is the same as the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "大さか市で生まれました。",
+        "english": "I was born in Osaka City."
+      },
+      {
+        "japanese": "市のあたらしいマスコットキャラクターがけっていしました。",
+        "english": "The new mascot of the city has been decided."
+      },
+      {
+        "japanese": "きょうとの市バスの中で、はいてしまった。",
+        "english": "I puked on a Kyoto city bus."
+      },
+      {
+        "japanese": "その死は早すぎました。",
+        "english": "Their death was too soon."
+      },
+      {
+        "japanese": "人は死をのがれることはできない…コウイチい外は。",
+        "english": "People cannot escape death, except for Koichi."
+      },
+      {
+        "japanese": "愛犬の死に打ちひしがれています。",
+        "english": "I’m stricken with grief over the death of my pet dog."
+      },
+      {
+        "japanese": "やはり、アベ氏のはつげんはいつも全くブレませんね。",
+        "english": "As we all know, Mr. Abe’s statements never change."
+      },
+      {
+        "japanese": "コウイチ氏とビエト氏はとても気が合う。",
+        "english": "Mr. Koichi and Mr. Viet have good chemistry."
+      },
+      {
+        "japanese": "おお、ホワイト氏、ちょっと座れば？",
+        "english": "Yo, Mr. White, why don’t you just sit down?"
+      }
+    ]
+  },
+  {
+    "id": 1020,
+    "japanese": "外れ",
+    "hiragana": "はずれ",
+    "romaji": "hazure",
+    "english": "Extremity, Furthest Point, End, Outskirts, Outer Limits, Edge, Miss, Failure",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji 外 alone means \"\"outside.\"\" This word means extremity. How can you remember this? Just think of the れ as a \"\"ray of sunshine.\"\" Where you are, in the extremity of space, even the れs of the sun cannot be seen. So, when 外 is combined with れ just think of this.\" \"Let's continue the previous story: You're off in the extremity of the space. You are at the edge, and you look further. All you can see is a sticky yellow haze (はず) out in the infinite beyond.\"",
+    "example_sentences": [
+      {
+        "japanese": "かれはまち外れの小さないえにすんでいます。",
+        "english": "He lives in the outskirts of town."
+      },
+      {
+        "japanese": "王女は、きせつ外れのドレスをきていた。",
+        "english": "The princess was wearing a dress that doesn't suit the season."
+      },
+      {
+        "japanese": "「あたりが出ると、もう一本」とかかれたアイスをかったが、ぜんぶ外れだった。",
+        "english": "\"I bought some ice cream that had, \"\"If you hit, you get another\"\" written on them, but they were all misses.\""
+      }
+    ]
+  },
+  {
+    "id": 1021,
+    "japanese": "半",
+    "hiragana": "はん",
+    "romaji": "han",
+    "english": "Half",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. Since this word is made up of a single kanji, it's supposed to use the kun'yomi reading. But, there is no useful kun'yomi reading for this kanji, so even the single kanji vocab word version uses the on'yomi reading, which you've already learned!\n\nThe kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as the one you learned with the kanji.\n\nThe kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "わたしはこのえいがを三かい半みました。",
+        "english": "I’ve watched this movie three and a half times."
+      },
+      {
+        "japanese": "JLPTまであと一ヵ月半しかありません。",
+        "english": "There is only a month and a half left until the JLPT."
+      },
+      {
+        "japanese": "かの女は半じゅくたまごのようにかわいいね。",
+        "english": "She is as cute as a half-cooked egg."
+      },
+      {
+        "japanese": "あの班は、五輪の左端の輪っかに間違った色を選びました。",
+        "english": "That group chose the wrong color for the far left Olympic ring."
+      },
+      {
+        "japanese": "江戸時代中期には、どこの藩も財政が苦しくなりました。",
+        "english": "In the middle of the Edo period, fiefdoms also found financial affairs difficult."
+      }
+    ]
+  },
+  {
+    "id": 1022,
+    "japanese": "分",
+    "hiragana": "ふん, ぶん",
+    "romaji": "fun, bun",
+    "english": "Minute, Part, Portion",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This word has two meanings, both of which you learned with the kanji: minute and part/  portion.\" \"This word is almost always attached to something, which is probably why this single kanji vocab word uses the on'yomi reading instead of the kun'yomi one. If you know the kanji reading, you know this vocab's reading as well, but the reading is different depending on the meaning:If it means minute, it's read ふん.If it means part or portion, it's read ぶん. Probably because your buns come in two parts. Ohoho.\"",
+    "example_sentences": [
+      {
+        "japanese": "ここからえきまで、あるいて十五分かかります。",
+        "english": "It’s a fifteen minute walk from here to the station."
+      },
+      {
+        "japanese": "その玉ねぎは女王の分だ。",
+        "english": "That onion is the queen's portion."
+      },
+      {
+        "japanese": "ふぐを七分かんくすぐればどうなるかしっている？",
+        "english": "Do you know what a blowfish would do if you tickled it for seven minutes?"
+      }
+    ]
+  },
+  {
+    "id": 1023,
+    "japanese": "用",
+    "hiragana": "よう",
+    "romaji": "you",
+    "english": "Task, Use, Duty, Service, Business, Purpose, Function",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "なにも用がない。",
+        "english": "I have nothing to do."
+      },
+      {
+        "japanese": "なにかご用ですか？",
+        "english": "Do you need me for something?"
+      },
+      {
+        "japanese": "用もないのにでんわしてくんじゃねーよ。",
+        "english": "Don’t call me unless you have a reason."
+      }
+    ]
+  },
+  {
+    "id": 1024,
+    "japanese": "早々",
+    "hiragana": "そうそう, はやばや",
+    "romaji": "sousou, hayabaya",
+    "english": "As Soon As, Just After, Immediately After, Promptly, Quickly",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Essentially you have the kanji 早 twice, because 々 is just a repeater kanji. When you have something early twice, it obviously has some kind of urgency to it. You'll need to take an action as soon as you finish whatever it is you're doing there.\" The reading is just the on'yomi readings (which you learned with the kanji) twice in a row.",
+    "example_sentences": [
+      {
+        "japanese": "早々におへんじいただきありがとうございます。",
+        "english": "Thank you for your prompt reply."
+      },
+      {
+        "japanese": "年まつだからか、人々が早々とすぎさっていく。",
+        "english": "I wonder if this is because it's the end of year, but people are passing by quickly."
+      },
+      {
+        "japanese": "新年早々、借金を催促されるなんてひどすぎる。",
+        "english": "It’s too cruel to demand money right after the start of the new year."
+      }
+    ]
+  },
+  {
+    "id": 1025,
+    "japanese": "号",
+    "hiragana": "ごう",
+    "romaji": "gou",
+    "english": "Number, Edition, Model",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. This word is made up of a single kanji all alone, but it uses the on'yomi reading. This is probably because you'll usually see this word attached to other things, like numbers. This shows the edition or number of an item. So, even though it's alone, it's usually used like jukugo, which is why the reading for this one is the same as the reading you learned when you learned the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "なん号車にのるよていですか。",
+        "english": "Which train car are you going to ride in?"
+      },
+      {
+        "japanese": "天才かがくしゃと天才こうがくしゃの手によって、われわれのみらいを百パーセントよそうてきちゅうできるうらないロボットだい一号がかんせいしました。",
+        "english": "The first fortune-telling robot with 100% accuracy was made by a genius scientist and a genius engineer."
+      },
+      {
+        "japanese": "日本では新聞の号外は大抵無料で配られます。",
+        "english": "In Japan, we usually hand out an extra issue of the newspaper for free."
+      }
+    ]
+  },
+  {
+    "id": 1026,
+    "japanese": "角",
+    "hiragana": "かく, かど",
+    "romaji": "kaku, kado",
+    "english": "Angle, Corner",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"The kanji and the word are exactly the same. That means they share meanings as well.But this word has two different meanings and each one has its own reading. You should make sure you don't mix them up. The first one is the reading you learned with the kanji. かく means angle.The second reading (かど), is something you haven't learned, and it means corner. Just picture a deck of cards (かど). Now take one card at a time and fold them to make a corner. Now tape those cards into all the corners of your house. Why? Because it's artsy!\"",
+    "example_sentences": [
+      {
+        "japanese": "つぎの角を、左にまがってください。",
+        "english": "Please turn left at the next corner."
+      },
+      {
+        "japanese": "あの先生は、とうふの角にあたまをぶつけて気ぜつしたらしい。",
+        "english": "I heard that the teacher got knocked out from hitting her head on the corner of a block of tofu."
+      },
+      {
+        "japanese": "正三角形では，三つの角の大きさがみんな同じです。",
+        "english": "All three internal angles of an equilateral triangle are equal."
+      }
+    ]
+  },
+  {
+    "id": 1027,
+    "japanese": "〜斤",
+    "hiragana": "きん",
+    "romaji": "kin",
+    "english": "Bread Loaf Counter, Counter for Loaves of Bread, Loaf of bread counter",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This has the 〜 for counters, so you can bet this shares the bread loaf counter meaning with the kanji.\" This has the same reading as the kanji you learned, meaning you know the reading!\n\nThe kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji you would normally think it uses the kun'yomi reading. Not this word, though. It still uses the on'yomi reading, which you learned with the kanji. Don't confuse this one with お金, though. That one uses kun'yomi which you know because it has a hiragana attached.\"",
+    "example_sentences": [
+      {
+        "japanese": "ストレスで4斤のパンを一気に食べてしまった。",
+        "english": "I ate four loaves of bread in one sitting from stress."
+      },
+      {
+        "japanese": "食パンを五斤買うなら、自分で焼いた方が安いよ。",
+        "english": "It'd be cheaper to bake your own bread if you're buying five loaves of white bread at a time."
+      },
+      {
+        "japanese": "8斤のパンで、卵サンドが23個とツナサンドが23個できる予定だ。",
+        "english": "Eight loaves of bread will make twenty-three egg sandwiches and twenty-three tuna sandwiches."
+      },
+      {
+        "japanese": "金のネックレスをプレゼントしました。",
+        "english": "I gave her a gold necklace."
+      },
+      {
+        "japanese": "お金があったら、金正ウンとおそろいの、金のロレックスをかいたいとおもっています。",
+        "english": "If I had money, I would like to buy the gold Rolex that Kim Jong-un has."
+      },
+      {
+        "japanese": "この毛糸は24時間後に金に変わるんだけど、クリスマスプレゼントとして少しあんたにあげるよ。感謝しろよな。",
+        "english": "This yarn will turn into gold in 24 hours and I’ll give you some as a Christmas present, so you should appreciate me more."
+      }
+    ]
+  },
+  {
+    "id": 1028,
+    "japanese": "図",
+    "hiragana": "ず",
+    "romaji": "zu",
+    "english": "Diagram",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. While words that are made up of a single kanji usually take the kun'yomi reading, this one takes the on'yomi reading. Luckily, this is the same reading you learned with the kanji, so it shouldn't be too hard to remember.",
+    "example_sentences": [
+      {
+        "japanese": "下の図を見てください。",
+        "english": "Please look at the diagram below."
+      },
+      {
+        "japanese": "クリックすると、かく大図がひょうじされます。",
+        "english": "If you click it, an enlarged view will appear."
+      },
+      {
+        "japanese": "あなたのお兄さんは、自分と彼女の関係を簡単な図に表しました。",
+        "english": "Your brother drew a simple diagram of the relationship between him and his girlfriend."
+      }
+    ]
+  },
+  {
+    "id": 1029,
+    "japanese": "〜形",
+    "hiragana": "けい",
+    "romaji": "kei",
+    "english": "Form, Tense",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word share one of the same meanings: form. It doesn't just mean form though, it means tense too. Like verb tense.\" This has the same reading as the kanji you learned, meaning you know the reading!\n\n\"When you associate with a certain lineage, you trace yourself back with a group of people. This group of people is your tribe, your lineage, your group.\" The reading is the same as what you learned with the kanji, probably because this word gets stuck onto other things to describe tribes and groups.",
+    "example_sentences": [
+      {
+        "japanese": "です・ます形ではなしをするとていねいにきこえます。",
+        "english": "When you talk using desu and masu forms you sound polite."
+      },
+      {
+        "japanese": "ひてい形から会わに入る人はコミュしょうのかのうせいがたかい。",
+        "english": "A person who starts conversations with negative form sentences is likely to have some difficulties in communicating with others."
+      },
+      {
+        "japanese": "どうして今、過去形で言ったの？",
+        "english": "Why did you just say that in past tense?"
+      },
+      {
+        "japanese": "私、アキバ系のオタッキーな男性に何故か魅力を感じるんだよね。",
+        "english": "Somehow I’m attracted to Akihabara style, nerdy men."
+      }
+    ]
+  },
+  {
+    "id": 1030,
+    "japanese": "〜年来",
+    "hiragana": "ねんらい",
+    "romaji": "nenrai",
+    "english": "For Some Years, For Years",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"When you have years coming and going, you know it is for some years. Don't confuse this one with 来年 which means \"\"next year.\"\" The kanji 来 comes after the kanji for year, so instead of \"\"coming year\"\" it's \"\"years that come (and go).\"\" At least, you can think of it that way to differentiate. You can also add numbers to this word. For example ５年来 means something to the tune of \"\"for five years.\"\" But this is a pretty formal word. Just keep that in mind.\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "かれは、わたしの三十年来の友人です。",
+        "english": "He’s been my friend for thirty years."
+      },
+      {
+        "japanese": "わたしの年来のきぼうがついにかないました。",
+        "english": "My long-cherished wish has finally come true."
+      },
+      {
+        "japanese": "数年来彼女をデートに誘っているんだが、いつも「髪の毛を洗うのに忙しいから」と断られる。",
+        "english": "I’ve been trying to ask her out for a few years now, but she always says she will be busy washing her hair."
+      }
+    ]
+  },
+  {
+    "id": 1032,
+    "japanese": "会",
+    "hiragana": "かい",
+    "romaji": "kai",
+    "english": "Meeting, Assembly, Party",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This is the noun version of the kanji meet. So it means meeting.\" This has the same reading as the kanji you learned, meaning you know the reading!\n\n\"You know that the kanji refers to a floor (as in the \"\"fifth floor\"\"). This word represents the version that comes after a number, shown with a 〜. Essentially, this has the same meaning as the kanji you learned, making it nice and easy.\" \"The reading is the same as the one you learned with the kanji. Don't type in the 〜 or you'll get it wrong!\"",
+    "example_sentences": [
+      {
+        "japanese": "きんようびの夜に、女子会をします。",
+        "english": "I’m having a girls-only party on Friday night."
+      },
+      {
+        "japanese": "そのメンバーの会はとてもおも白そうですね。",
+        "english": "The assembly with those members sounds very interesting."
+      },
+      {
+        "japanese": "この会、また開こうよ！",
+        "english": "Let’s open this meeting again!"
+      },
+      {
+        "japanese": "「何階ですか？」「四階をおねがいします。」「このエレベーターはその階には止まりませんよ。」",
+        "english": "\"\"\"Which floor?\"\" \"\"Fourth please.\"\" \"\"This elevator doesn't stop on that floor.\"\"\""
+      },
+      {
+        "japanese": "コウイチは、九十九階だてのマンションの最上階に住んでいます。",
+        "english": "Koichi lives on the top floor of a ninety-nine story apartment building."
+      },
+      {
+        "japanese": "このアパートの十三階に住んでいます。",
+        "english": "I live on the thirteenth floor of this apartment."
+      }
+    ]
+  },
+  {
+    "id": 1033,
+    "japanese": "音",
+    "hiragana": "おと",
+    "romaji": "oto",
+    "english": "Sound, Noise",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: Did you hear that sound? It's barely audible (おと). Go ahead and say the word \"\"audible\"\" with the pronunciation of おと to help you to remember this.\"",
+    "example_sentences": [
+      {
+        "japanese": "二かいから、大きな音がしました。",
+        "english": "There was a loud noise upstairs."
+      },
+      {
+        "japanese": "となりのいえから、すごく上手なリコーダーの音が聞こえてきます。",
+        "english": "I can hear the sounds of a very good recorder coming from next door."
+      },
+      {
+        "japanese": "金魚が泣いている音を聞いたことはある？",
+        "english": "Have you ever heard the sound that a goldfish makes when it cries?"
+      }
+    ]
+  },
+  {
+    "id": 1034,
+    "japanese": "行き",
+    "hiragana": "ゆき, いき",
+    "romaji": "yuki, iki",
+    "english": "Train Direction, Bound For",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This is a weird word. Call it exceptional. You'll see this at train stations, especially. You know the kanji means go. So, something is going somewhere. Now just use the き to help you to remember that this word means train direction (aka it tells you which direction a train is going), because this word is the key (き) to you knowing what direction you're going in so you don't get lost. You could also remember this word as \"\"bound for\"\" aka \"\"Bound for Tokyo Station.\"\"\" \"The reading is also an exception. It can be いき, but instead we're focusing on the ゆき reading. You have to remember the ゆ portion, so think of it this way: Just think about the train direction that you (ゆ) need to go in. It's all about you. Not your friends or anyone else. You. You are the most important person at this train station.\"",
+    "example_sentences": [
+      {
+        "japanese": "しん大さか行きのしんかんせんのきっぷをください。",
+        "english": "One shinkansen ticket for Shin-Osaka, please."
+      },
+      {
+        "japanese": "行きもかえりもあるくつもりです。",
+        "english": "I'm thinking of walking both ways."
+      },
+      {
+        "japanese": "この電車は、Tofuguオフィス行きです。",
+        "english": "This train is bound for Tofugu Office Station."
+      }
+    ]
+  },
+  {
+    "id": 1035,
+    "japanese": "社長",
+    "hiragana": "しゃちょう",
+    "romaji": "shachou",
+    "english": "Company President, Manager, Director, President Of A Company",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The company leader is the company president, manager, or director. Be sure to greet your 社長 with a hearty good morning when he stumbles in!\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "社長は会ぎ中です。",
+        "english": "The company president is in a meeting."
+      },
+      {
+        "japanese": "あの人気サービスのねだんを下げるなんて、トーフグの社長はどうかしてるよ。",
+        "english": "The president of Tofugu is insane to lower the price of that popular service."
+      },
+      {
+        "japanese": "全社員は社長のことを嫌っているが、私は単に彼は少し意地悪なだけだと思っている。",
+        "english": "All my coworkers hate my boss, but I just think he’s a little mean."
+      }
+    ]
+  },
+  {
+    "id": 1037,
+    "japanese": "前",
+    "hiragana": "まえ",
+    "romaji": "mae",
+    "english": "Front, Before",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: What's in front of you? Think about it. Make it something ridiculous. Now look at a tag that's on it. Who does this thing belong to? Oh, wait, it's my (まえ) thing there in front of me. Say that out loud for better memory.\"",
+    "example_sentences": [
+      {
+        "japanese": "前は花やで、花やのとなりはさかなやです。",
+        "english": "In front is a flower shop and next door to it is a fish shop."
+      },
+      {
+        "japanese": "毎あさ、会社に行く前に、スクワットを五百回します。",
+        "english": "Every morning I do 500 squats before leaving for work."
+      },
+      {
+        "japanese": "赤信号の前にいる時、「もうすぐ青に変わるぞ！」と思うとかなり興奮する。",
+        "english": "When I’m in front of a red light, I get very excited at the thought of it turning green soon."
+      }
+    ]
+  },
+  {
+    "id": 1038,
+    "japanese": "点",
+    "hiragana": "てん",
+    "romaji": "ten",
+    "english": "Point, Decimal, Decimal Point",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading for this word is the same as the reading for the kanji that makes it.",
+    "example_sentences": [
+      {
+        "japanese": "ねつが、三十八点九どあります。",
+        "english": "I have a fever of 38.9 degrees."
+      },
+      {
+        "japanese": "このクローゼットにある二点五ばいのりょうのふくが他のへやにもちらばっています。",
+        "english": "Compared to what's in this closet, I have 2.5 times as many clothes scattered around in the other rooms."
+      },
+      {
+        "japanese": "あの映画が駄作だったという点ではあなたに同意しますが、時間の無駄だったと気づいたのは映画が終わってからでした。",
+        "english": "I agree with your point that the movie was really bad, but I didn’t realize it was such a waste of time until it was over."
+      }
+    ]
+  },
+  {
+    "id": 1039,
+    "japanese": "〜室",
+    "hiragana": "しつ",
+    "romaji": "shitsu",
+    "english": "Room",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"You'll see this attached to other words... like \"\"waiting\"\" or \"\"guest.\"\" When you see this, you'll know it is a ___ room, making this word mean room (same as the kanji).\" \"The reading is the on'yomi reading. Don't type the 〜 out when writing the answer. It's just there to let you know that there's usually something attached to this word.\"\n\nThe kanji and the word are exactly the same. That means they share meanings as well. Reading is the same as the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "きょう室に入ってください。",
+        "english": "Come into the classroom, please."
+      },
+      {
+        "japanese": "このゲーム、むずかしすぎるよ。このめんで、１５６９号室まで行くには、どうがんばってもじかんが足りないんだ。",
+        "english": "This game is too difficult. I never have enough time to get to room number 1569 in this stage no matter how hard I try."
+      },
+      {
+        "japanese": "保健室で眠っていました。",
+        "english": "I was sleeping in the school infirmary."
+      },
+      {
+        "japanese": "外国語指導助手の質は人によって全然違うので、心配です。",
+        "english": "The quality of assistant foreign language teachers varies from person to person and I’m worried about that."
+      }
+    ]
+  },
+  {
+    "id": 1040,
+    "japanese": "曲",
+    "hiragana": "きょく",
+    "romaji": "kyoku",
+    "english": "Tune, Piece Of Music, Song, Melody",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This almost shares the meaning with the kanji. It's essentially the same thing, though when it's alone it refers to a specific piece of music (aka a tune).\" The reading is the same as the one you learned with the kanji as well, so you should be able to read it.\n\nThe kanji and the word are exactly the same. That means they share meanings as well. The kanji and the vocab are exactly the same, even the reading. This one uses the on'yomi probably because it's often attached to other words (specifying a bureau, for example), so that's why it follows jukugo conventions despite being all alone.",
+    "example_sentences": [
+      {
+        "japanese": "その曲の名まえ、何だったっけ。",
+        "english": "What was the name of that song?"
+      },
+      {
+        "japanese": "何かおすすめの曲はありますか？",
+        "english": "Are there any songs you would recommend?"
+      },
+      {
+        "japanese": "彼がピアノで一曲弾いてくれたんですが、何故かそのピアノはギターの様な音がしたんです。",
+        "english": "He played a tune for us on the piano, but for some reason, the piano sounded like a guitar."
+      },
+      {
+        "japanese": "ゆうびん局とびょういんもあります。",
+        "english": "There is a post office and a hospital, too."
+      },
+      {
+        "japanese": "あのテレビ局、のっとっちゃおうぜ！",
+        "english": "Let's take over that TV station!"
+      },
+      {
+        "japanese": "彼は、マクドナルドのドライブスルーで待たされすぎたからといって、アメリカ連邦捜査局に電話をかけようとした。",
+        "english": "He tried calling the Federal Bureau of Investigation because he had to wait too long in the drive-thru at McDonald's."
+      }
+    ]
+  },
+  {
+    "id": 1041,
+    "japanese": "〜札",
+    "hiragana": "さつ",
+    "romaji": "satsu",
+    "english": "Bill, Note",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are almost exactly the same. When you see this word after number, it’s for physical bills of money.\" This is a suffix that takes the on’yomi reading, which you’ve learned already!",
+    "example_sentences": [
+      {
+        "japanese": "一万円札を小ぜににくずしてもらえませんか？",
+        "english": "Could you give me change for a 10,000 yen bill?"
+      },
+      {
+        "japanese": "この二千円札、千円札二枚と両がえしてくれない？",
+        "english": "Can you break this 2,000 yen bill to two 1,000 yen bills, please?"
+      },
+      {
+        "japanese": "トーフグのオフィスのあちこちに、百ドル札が隠されているらしいぜ。",
+        "english": "Apparently, there are many hundred-dollar bills hidden all over the Tofugu office."
+      }
+    ]
+  },
+  {
+    "id": 1042,
+    "japanese": "〜丁目",
+    "hiragana": "ちょうめ",
+    "romaji": "choume",
+    "english": "District Of A Town, City Block, Town District, District",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"A street you can see with your eye isn't soooo big you can't see it (like a town would be), but it's still pretty big because it has a street. This section of the town is the district of a town, or a city block (though specifically one of an irregular size).\" The readings are the ones you learned with the kanji, so use those and you'll be A-Okay.",
+    "example_sentences": [
+      {
+        "japanese": "ぼくのかの女は、同じ町の二丁目にすんでいるミイコちゃんです。",
+        "english": "My girlfriend Miiko lives in 2-chome too."
+      },
+      {
+        "japanese": "その台風で、一丁目と二丁目がしん水してしまいました。",
+        "english": "The typhoon flooded both 1-chome and 2-chome."
+      },
+      {
+        "japanese": "この桃、三丁目の田中さんから頂いたの。",
+        "english": "I got this peach from Tanaka of 3-chome."
+      }
+    ]
+  },
+  {
+    "id": 1043,
+    "japanese": "組",
+    "hiragana": "くみ",
+    "romaji": "kumi",
+    "english": "Group, Team, Class",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: You're part of a special group. It is the cumin group, and they deal with all things cumin (the spice / seed). Smell the cumin. Touch it. Taste it. You live and breathe the stuff, because you are the president of this cumin group.P.S. This can also be spelled 組み (same overall reading: くみ).\"",
+    "example_sentences": [
+      {
+        "japanese": "これから、みなさんを二組に分けます。",
+        "english": "After this, we’ll be splitting into two teams."
+      },
+      {
+        "japanese": "オレたちの組はこの辺じゃ有名なんだぜ。",
+        "english": "Our group is famous around here."
+      },
+      {
+        "japanese": "三年二組のコウイチくん、またこく白されたらしいよ。",
+        "english": "I heard Koichi in grade 3 class 2 was asked out again."
+      }
+    ]
+  },
+  {
+    "id": 1045,
+    "japanese": "〜時",
+    "hiragana": "じ",
+    "romaji": "ji",
+    "english": "\"O&#39;clock, Time, Hour\"",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"If there's a number before it's referring to the hour. For example, if you see １時 it is \"\"1:00.\"\" If you see ２３時 it's 23:00 or 11pm.\" The reading is the same as the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "三時になったらおやつ休けいにしましょう。",
+        "english": "When it’s three o’clock let’s have our afternoon snack break."
+      },
+      {
+        "japanese": "コウイチの家の台どころで二時半にまちあわせね。",
+        "english": "Let's meet up at Koichi's kitchen at 2:30, ok?"
+      },
+      {
+        "japanese": "いつも何時にワニカニのレビューをしますか？",
+        "english": "What time do you usually do your WaniKani reviews?"
+      }
+    ]
+  },
+  {
+    "id": 1046,
+    "japanese": "〜号室",
+    "hiragana": "ごうしつ",
+    "romaji": "goushitsu",
+    "english": "Room Number Counter, Counter For Room Numbers, Suffix For Room Numbers, Room Number",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This is a counter that can be used after numbers to let you know what number room it is. It's a room number counter that you use in apartments and hotels to know exactly which room you're looking for.\" This is a jukugo word that uses the on'yomi readings of the kanji. You should be able to read this on your own.",
+    "example_sentences": [
+      {
+        "japanese": "おきゃくさまのおへやは、302号室になります。",
+        "english": "Your room is 302."
+      },
+      {
+        "japanese": "このマンションの444号室はゆうれいが出ることで有名です。",
+        "english": "The room 444 of this apartment is known for being haunted."
+      },
+      {
+        "japanese": "102号室の坂本と申します。",
+        "english": "I’m Sakamoto from room 102."
+      }
+    ]
+  },
+  {
+    "id": 1047,
+    "japanese": "形",
+    "hiragana": "かたち",
+    "romaji": "katachi",
+    "english": "Shape, Appearance, Form",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. You haven't learned this reading yet, so here's a mnemonic to help you:You really want to eat food that's in neat shapes, so you decide to use a cutter (かた) on your cheese (ち) to make it a new shape. Square cheese is so boring. After you cut it up you have mouse shaped cheese! It just tastes better like that.\"",
+    "example_sentences": [
+      {
+        "japanese": "つまとそうだんして、形より内ようをおもんじたけっか、この形にきめました。",
+        "english": "I spoke with my wife and we decided to go with this shape, because we value substance over form."
+      },
+      {
+        "japanese": "これでなんとか形がつきました。",
+        "english": "With this, I could somehow manage to keep up appearances."
+      },
+      {
+        "japanese": "ねえ、私の、お尻の形をしたお腹、撫でたい？",
+        "english": "Hey, do you want to rub my butt-shaped belly?"
+      }
+    ]
+  },
+  {
+    "id": 1048,
+    "japanese": "〜間",
+    "hiragana": "かん",
+    "romaji": "kan",
+    "english": "Amount Of Time, Interval Of Time, Time Interval, Period Of Time",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"When you stick this onto the end of another word that talks about an interval of time in some way, you're indicating the amount of time that has gone past. For example, 二年間 is \"\"two years.\"\" 一時間 is \"\"one hour.\"\" Any amount of time + 〜間 will make it an \"\"amount of time\"\" instead of just a specific time.\" \"The reading is the same as what you learned with the kanji. This should save you at least 二分間.\"",
+    "example_sentences": [
+      {
+        "japanese": "気がついたら、五時間ぐらいねむっていました。",
+        "english": "When I came to, I had been sleeping for almost five hours."
+      },
+      {
+        "japanese": "たのむから三分間だけだまっててくれないか？",
+        "english": "For heaven's sake, can't you just be quiet for three minutes?"
+      },
+      {
+        "japanese": "試験の中に、一定時間息を止めるというものがありました。一番難しかったのは、三時間息を止めるというものだったけれど、私はなんとかやり切りました。",
+        "english": "The test involved having to hold my breath for fixed intervals of time. The most difficult one was for 3 hours, but I did it."
+      }
+    ]
+  },
+  {
+    "id": 1049,
+    "japanese": "〜君",
+    "hiragana": "くん",
+    "romaji": "kun",
+    "english": "Boy Name Ender, Male Name Ender, Boy Name Suffix, Male Name Suffix",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Add this to the end of someone's name, it's like saying ______buddy. It's generally used as a name ender (like さん) for boys and young men. Don't use this on people who are higher ranked than you (socially or literally). As in, you wouldn't use it on your boss. Use it on your younger male subordinates as well as boys who aren't adults yet.\" \"The reading is the same as the one you learned with the kanji (on'yomi), probably because it usually is attached to other words (aka names, like こういち君) making it act more like jukugo words do.\"",
+    "example_sentences": [
+      {
+        "japanese": "今年の夏、私は山田君と、ディズニーランドの中にあるホテルにとまりました。",
+        "english": "This summer, I stayed in a hotel in Disney Land with Yamada."
+      },
+      {
+        "japanese": "ビエト君って、せんたくきを一日に七十七回も回すらしいよ！",
+        "english": "I heard that Viet runs the laundry machine seventy-seven times a day."
+      },
+      {
+        "japanese": "日本の男の子の名前の後ろには「君」という言葉が付けられるそうだが、ラという名前の男の子があまりいないというのは残念ですね。",
+        "english": "\"\"\"Kun\"\" is used as a suffix for boys’ names in Japan. It’s too bad there aren’t a lot of kids with the name \"\"Ra.\"\"\""
+      }
+    ]
+  },
+  {
+    "id": 1051,
+    "japanese": "〜道",
+    "hiragana": "どう",
+    "romaji": "dou",
+    "english": "Method Of, Way, Style, Way Of",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This is a word that's attached to the end of various other words. Think of a \"\"road\"\" as a way or method of something. For example, the どう in Judo is the soft \"\"way.\"\" There are many words that end with 道, and you'll see them later on. For now, know that this means method of or way.\" \"This word is added to the end of many different words, meaning it's treated like most jukugo (and uses an on'yomi reading). You know the on'yomi reading, so you should be able to read this word. Be sure to drop the 〜 when writing in the reading in the test, though. It's only there to show that it's added onto things and not part of the correct answer.\"",
+    "example_sentences": [
+      {
+        "japanese": "先生が、じゅう道のルールややり方を教えます。",
+        "english": "The teacher is going to teach the rules and the methods of Judo."
+      },
+      {
+        "japanese": "北海道で、けん道をきわめるつもりです。",
+        "english": "I'm gonna master the way of sword in Hokkaido."
+      },
+      {
+        "japanese": "武士道と騎士道の違いについて説明してください。",
+        "english": "Could you please explain the difference between bushido and chivalry?"
+      }
+    ]
+  },
+  {
+    "id": 1052,
+    "japanese": "投手",
+    "hiragana": "とうしゅ",
+    "romaji": "toushu",
+    "english": "Pitcher",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The person who throws with their hand is the pitcher in a baseball game. Other games don't involve throwing with your hand, they've got kicking with feet. So when you picture a hand throwing, picture your favorite pitcher!\" \"This is a jukugo word that uses the on'yomi readings of the kanji. You haven't learned this reading for 手 yet, so here's a mnemonic to help you:To be a good pitcher, all you have to do is put the ball into the chute (しゅ). Pitchers don't actually throw the ball. There is an invisible pitching chute right on the mound. You slide the ball into the chute and off it goes!\"",
+    "example_sentences": [
+      {
+        "japanese": "そのダルビッシュ投手の人形はいくらですか？",
+        "english": "How much is the doll of the pitcher, Darvish?"
+      },
+      {
+        "japanese": "二丁目には、田中投手が住んでいます。",
+        "english": "The pitcher, Tanaka, lives in 2-Chome."
+      },
+      {
+        "japanese": "今日の先発投手は誰になると思いますか？",
+        "english": "Who do you think today's starting pitcher will be?"
+      }
+    ]
+  },
+  {
+    "id": 1053,
+    "japanese": "所",
+    "hiragana": "ところ",
+    "romaji": "tokoro",
+    "english": "Place, Spot, Scene",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: Here's the place! Either you have to talk or row (ところ). If you talk, maybe you can talk your way out of this problem you're in. If you row, you may be able to escape. Either way, this is the place for it.\"",
+    "example_sentences": [
+      {
+        "japanese": "分からない所があれば、手を上げてください。",
+        "english": "If there’s a spot you don’t understand, please raise your hand."
+      },
+      {
+        "japanese": "まだおとし所をさがしていると中です。",
+        "english": "We are still searching for common ground."
+      },
+      {
+        "japanese": "七十二回も同じ所を歩いているので、私達は道に迷ったんだと思います。",
+        "english": "I think we’re lost because we’ve walked by the same place 72 times now."
+      }
+    ]
+  },
+  {
+    "id": 1054,
+    "japanese": "役",
+    "hiragana": "やく",
+    "romaji": "yaku",
+    "english": "Role, Part, Duty, Service",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"If you have a certain duty then it's your job to play that role. You have to play the part. Like in a play!\" The reading is the same as the kanji you learned, meaning you should be able to read this one as well.",
+    "example_sentences": [
+      {
+        "japanese": "コウイチが、クママン役でドラマに出えんすることになりました。",
+        "english": "Koichi played the role of Kumaman in the drama."
+      },
+      {
+        "japanese": "コウイチは役作りのために、一年間ホームレスになってみました。",
+        "english": "In order to prepare for the part, Koichi became a homeless for a year."
+      },
+      {
+        "japanese": "マイケル、めちゃくちゃ役になりきってるじゃん。",
+        "english": "Michael is throwing himself into the role very well, eh?"
+      }
+    ]
+  },
+  {
+    "id": 1055,
+    "japanese": "〜度",
+    "hiragana": "ど",
+    "romaji": "do",
+    "english": "Degrees",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji degree can mean both degree in terms of angles and degree in terms of temperature. This word is how you talk about these things. Just attach it to a number and you have yourself the number of degrees that something is.\" \"The reading is the same as the kanji reading you learned. When writing out the answer to this reading, omit the 〜 as it's only there to let you know that some other word should come before it.\"",
+    "example_sentences": [
+      {
+        "japanese": "弟は、かぜで38度のねつがあります。",
+        "english": "My brother has a cold and a fever of 38 degrees Celsius."
+      },
+      {
+        "japanese": "エアコンのおん度はいつも何度ぐらいにしていますか？",
+        "english": "What temperature do you usually set the AC to?"
+      },
+      {
+        "japanese": "２４度ぐらいがちょうどいいと思うんだけど。",
+        "english": "I think about 24 degrees is just right for me."
+      }
+    ]
+  },
+  {
+    "id": 1056,
+    "japanese": "〜部",
+    "hiragana": "ぶ",
+    "romaji": "bu",
+    "english": "Department, Club, Category",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"You'll see this attached to other words... like \"\"sales\"\" or \"\"tennis.\"\" When you see this, you'll know it is a ___ department, or a ___ club, making this word mean department or club, similar to the kanji meaning.\" \"The reading is the on'yomi reading. Don't type the 〜 out when writing the answer. It's just there to let you know that there's usually something attached to this word.\"",
+    "example_sentences": [
+      {
+        "japanese": "大しきゅう、へんしゅう部の部長をよんでくれないか。",
+        "english": "Could you call the head of the editorial department ASAP?"
+      },
+      {
+        "japanese": "中学の時は、けん道部でした。",
+        "english": "I belonged to a kendo club back in junior high school."
+      },
+      {
+        "japanese": "経理部の部長をしています。",
+        "english": "I’m the head of the accounting department."
+      }
+    ]
+  },
+  {
+    "id": 1057,
+    "japanese": "〜県",
+    "hiragana": "けん",
+    "romaji": "ken",
+    "english": "Prefecture",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Attach this word onto the end of a prefecture place name and you have the prefecture portion of _____ prefecture. These are a lot like states or provinces.\" \"The reading for this is the same as what you learned with the kanji, probably because it's always attached to things (so it's like jukugo). Don't write the 〜 when you're writing in the answer, just the けん portion, and you'll get this one correct.\"\n\nThe kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as what you learned with the kanji. Usually it's attached to things, because it tells you what kind of ticket something is.\n\nThe kanji and the word are exactly the same. That means they share meanings as well. This can be used to count houses and buildings, which is good because you never know which buildings have people living in them like they're houses. This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "何県の出身ですか。",
+        "english": "What prefecture are you from?"
+      },
+      {
+        "japanese": "なら県の小学校では、せい服をきないといけない学校が多いです。",
+        "english": "There are many elementary schools in Nara that require students to wear uniforms."
+      },
+      {
+        "japanese": "今まで日本の何県に行ったことがあるの？",
+        "english": "Which prefectures in Japan have you been to?"
+      },
+      {
+        "japanese": "三ヶ月の定期券をもらえますか？",
+        "english": "Can I get a commuter pass for three consecutive months?"
+      },
+      {
+        "japanese": "この人は、マンションを五軒持っています。",
+        "english": "This guy has five apartments."
+      }
+    ]
+  },
+  {
+    "id": 1058,
+    "japanese": "〜屋",
+    "hiragana": "や",
+    "romaji": "ya",
+    "english": "Store, Shop",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"You'll see this attached to other words... like \"\"meat\"\" or \"\"fish.\"\" When you see this, you'll know it is a ___ store, making this word mean store (same as the kanji).\" \"The reading is the kun'yomi reading. Don't type the 〜 out when writing the answer. It's just there to let you know that there's usually something attached to this word.\"",
+    "example_sentences": [
+      {
+        "japanese": "近くにくすり屋と肉屋もあります。",
+        "english": "There is a pharmacy and a butcher shop nearby too."
+      },
+      {
+        "japanese": "王女にてんしょくする前は花屋ではたらいていました。",
+        "english": "Before I changed my job to being a princess, I was working at a flower shop."
+      },
+      {
+        "japanese": "焼肉屋さんを経営している人と結婚するのが夢です。",
+        "english": "It’s my dream to marry someone who owns yakiniku restaurants."
+      }
+    ]
+  },
+  {
+    "id": 1059,
+    "japanese": "〜病",
+    "hiragana": "びょう",
+    "romaji": "byou",
+    "english": "Disease, Sickness, Illness",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"As you can probably imagine, when you add the kanji sick to another word, you're saying what kind of sickness it is; you are mentioning what disease it is.\" Since this is attached to other words, it's treated like jukugo and gets on'yomi treatment. This is the reading you learned with the kanji.\n\nThe kanji and the word are exactly the same. That means they share meanings as well. \"The reading is the same as you learned with the kanji. It's presumably because it's usually attached to other things, like numbers, making it act more like a jukugo word would. Anyway, you should only need a second to learn this reading, since you should already know it.\"",
+    "example_sentences": [
+      {
+        "japanese": "メニエール病をわずらっているので、よくめまいが起きるんです。",
+        "english": "I suffer from Ménière’s disease, so I often get dizzy."
+      },
+      {
+        "japanese": "ぼくがワニカニレベル1から全ぜん進めないのはきっと外国語できない病にかかったからにちがいない。",
+        "english": "\"The reason I haven't been able to get further than Level 1 on WaniKani must be because I have \"\"can't-learn-foreign-language\"\" syndrome.\""
+      },
+      {
+        "japanese": "彼の言ったことを大袈裟に考えないで。難病で苦しんでるなんて明らかに嘘なんだから。",
+        "english": "Don’t make a big deal out of what he said. It’s definitely a lie that he’s suffering from an incurable disease."
+      },
+      {
+        "japanese": "コウイチにラインしたら秒で返事きてわらえた。",
+        "english": "I sent a LINE message to Koichi and he replied to me in a second. That made me chuckle."
+      },
+      {
+        "japanese": "大体いつも、ふとんに入ったら三秒でねてる。",
+        "english": "When I go to bed, I usually fall asleep in three seconds."
+      },
+      {
+        "japanese": "あなたの発音をたったの十二秒でネイティブレベルにしてみせますよ。",
+        "english": "Your pronunciation can reach native-level in just twelve seconds."
+      }
+    ]
+  },
+  {
+    "id": 1060,
+    "japanese": "線",
+    "hiragana": "せん",
+    "romaji": "sen",
+    "english": "Line",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well. This also works for \"\"train lines\"\" as well. You'll see this attached onto the ends of names describing them.\" The reading you learned with the kanji is the same for this vocab word. Enjoy it!",
+    "example_sentences": [
+      {
+        "japanese": "分数をかく時にまん中に引く線の名前は、かつ線です。",
+        "english": "\"The line in the middle of a fraction is called the \"\"vinculum.\"\"\""
+      },
+      {
+        "japanese": "しぶ谷で山手線に乗ってください。",
+        "english": "Please get on the Yamanote Line at Shibuya."
+      },
+      {
+        "japanese": "本当にこの線が完璧だって思ったの？しかも、全然真っ直ぐじゃないじゃない！",
+        "english": "You really thought this line was perfect? It’s not even close to straight!"
+      }
+    ]
+  },
+  {
+    "id": 1061,
+    "japanese": "〜向け",
+    "hiragana": "むけ",
+    "romaji": "muke",
+    "english": "Made For, Intended For, Aimed At",
+    "level": "N5",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"You've hopefully seen 向く and 向ける by now. They mean \"\"to face\"\" and \"\"to turn toward.\"\" This has a similar idea. When you add 向け to something imagine you're turning it, aiming it at someone. It's aimed at them, meaning it's made for them. Turn a book toward someone, now it's aimed at them, it's made for them. See the connection?\" \"The reading is the same as the word 向く so work off of that word to be able to read this one.\"",
+    "example_sentences": [
+      {
+        "japanese": "これは子ども向けの作ひんではないですよね。",
+        "english": "This work isn’t intended for children."
+      },
+      {
+        "japanese": "このカレーは、日本人向けのあじですね。",
+        "english": "This curry was made for Japanese tastes."
+      },
+      {
+        "japanese": "コウイチが履いてるパンツは、子供向けなんじゃないのか？ツンツルテンだよ。",
+        "english": "Aren’t the underpants Koichi is wearing for children? He’s outgrown his clothes."
+      }
+    ]
+  },
+  {
+    "id": 1062,
+    "japanese": "〜付き",
+    "hiragana": "つき",
+    "romaji": "tsuki",
+    "english": "Including, Included, Furnished With, Attached To",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"You know that the kanji 付 means attach and words like 付く mean \"\"to be attached.\"\" This has the same idea. When you see this attached to another word, for example, you might know that something is attached to something else, or perhaps included with it. For example, if you stay at a hotel room, maybe it is a breakfast付き, i.e. \"\"including breakfast.\"\"\" \"The reading comes from the reading of the kanji as well as from words like 付く and 付ける.\"",
+    "example_sentences": [
+      {
+        "japanese": "このそうじきは、一年間のほしょうしょ付きですよ。",
+        "english": "This vacuum cleaner comes with one year warranty."
+      },
+      {
+        "japanese": "一ぱく二食付きのりょかんをさがしています。",
+        "english": "I'm looking for a Japanese style hotel that includes dinner and breakfast."
+      },
+      {
+        "japanese": "この部屋は冷蔵庫、洗濯機付きです。",
+        "english": "This room is furnished with a refrigerator and a washing machine."
+      }
+    ]
+  },
+  {
+    "id": 1063,
+    "japanese": "〜位",
+    "hiragana": "い",
+    "romaji": "i",
+    "english": "Rank",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the on'yomi reading, which you learned. This is probably because you'll see this word attached to other words, showing the rank of that thing.",
+    "example_sentences": [
+      {
+        "japanese": "今年は何位だろう？",
+        "english": "I wonder where I'll rank this year."
+      },
+      {
+        "japanese": "コウイチは黒ニンニクのしょうひりょうにかんしては、ポートランドで一位かもしれない。",
+        "english": "In terms of black garlic consumption, Koichi might be number one in Portland."
+      },
+      {
+        "japanese": "マラソン大会で一位になったので、両親がマウンテンバイクを買ってくれた。",
+        "english": "I came in first at the marathon rally, so my parents bought me a mountain bike."
+      }
+    ]
+  },
+  {
+    "id": 1066,
+    "japanese": "〜倍",
+    "hiragana": "ばい",
+    "romaji": "bai",
+    "english": "Times, Fold",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Throw this onto a number and you have yourself the number of times something has increased. For example, ３倍 means something increased \"\"three fold.\"\"\" \"The reading is the same as the one you learned with the kanji. Omit the 〜 when writing out the answer, though. That just represents that there should be something before the kanji in this word when being used.\"",
+    "example_sentences": [
+      {
+        "japanese": "ワニカニのレビューの数が四倍になってしまった。",
+        "english": "WaniKani's review count has quadrupled."
+      },
+      {
+        "japanese": "クリスマスの日ぐらい、きゅうりょうを十倍にしてくれたっていいじゃないか！",
+        "english": "Why not just pay me ten times more than usual on Christmas day at least?"
+      },
+      {
+        "japanese": "回転寿司の普及に伴い、日本におけるサーモンの消費量は輸入開始から三倍となった。",
+        "english": "Since the introduction and subsequent spread of conveyer belt sushi shops, salmon consumption in Japan has tripled."
+      }
+    ]
+  },
+  {
+    "id": 1067,
+    "japanese": "〜放題",
+    "hiragana": "ほうだい",
+    "romaji": "houdai",
+    "english": "As Much As You Want, All You Can",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Just release the topic... let it go free! Let it do whatever it wants. Sometimes the topic will be food... if that's the case, just release yourself and do whatever you want with the food (eat it all!). If it's drinks, drink it all! This word has to do with doing whatever you want and as much as you want. You'll see this attached to \"\"all you can ____\"\" words, so look out for them in the next  couple levels.\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "食べ放題に行くといつも食べすぎてしまいます。",
+        "english": "Every time I go to an all-you-can-eat restaurant, I end up eating too much."
+      },
+      {
+        "japanese": "カラオケに行くなら、朝まで歌い放題のプランにしようよ。",
+        "english": "If we go to karaoke, why don't we choose the plan where we can sing as much as we want until the morning?"
+      },
+      {
+        "japanese": "もしテキストフグの永久購読権を購読されるのであれば、日本語の学習がし放題ですよ。",
+        "english": "If you purchase a lifetime subscription to Textfugu you can study Japanese as much as you want."
+      }
+    ]
+  },
+  {
+    "id": 1068,
+    "japanese": "〜様",
+    "hiragana": "さま",
+    "romaji": "sama",
+    "english": "Formal Name Ender, Formal Name Title, Sama, Very Formal Name Ender, Formal Name Suffix",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "Add this onto the end of someone's name. It's probably too polite, to be honest, unless you're talking to one of your customers or something. It's good to know, but you're probably not going to use it, despite seeing and hearing it fairly often. The reading is the same as what you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "コウイチ様は、何もかもが自分の思い通りにならないと気がすまないんですよ。",
+        "english": "Koichi-sama can't stand it if everything isn't exactly the way he wants."
+      },
+      {
+        "japanese": "日本で手紙を送る時には相手の名前に様をつけないと失礼になります。",
+        "english": "It would be rude if you don't attach the formal name ender, sama, to the recipient's name when you send letters in Japan."
+      },
+      {
+        "japanese": "トーフグのコウイチ様御一行九名様ですね。お席のご用意ができましたのでどうぞ。",
+        "english": "Mr. Koichi from Tofugu, party of nine. Your table is ready."
+      }
+    ]
+  },
+  {
+    "id": 1069,
+    "japanese": "課長",
+    "hiragana": "かちょう",
+    "romaji": "kachou",
+    "english": "Section Manager, Section Chief",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Remember how 社長 is the company president? This uses the same 長 meaning (where it means something like \"\"boss\"\"). Since 課 means section, this is the section manager.\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "先月、課長にしょう進しました。",
+        "english": "I got promoted to section manager last month."
+      },
+      {
+        "japanese": "課長になれたのはうれしいんだけど、ざん業代が出ないから実はきゅう料が下がったんだよね。",
+        "english": "I'm glad I was able to become a section chief, but my pay has actually decreased because I don't get paid for overtime."
+      },
+      {
+        "japanese": "課長が少しうざいんだよね。他の社員に良い印象を与えようといつも頑張っちゃってさ。",
+        "english": "My section manager is kind of annoying. He is always trying to impress the other workers."
+      }
+    ]
+  },
+  {
+    "id": 1070,
+    "japanese": "駅",
+    "hiragana": "えき",
+    "romaji": "eki",
+    "english": "Station, Train Station",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. Usually this refers to a train station in particular, but can be any kind of station. \"The kanji here uses えき as both its on'yomi and kun'yomi, so no worries here. You can go to this station or that station, and both stations will use the same reading as the kanji it comes from.\"",
+    "example_sentences": [
+      {
+        "japanese": "新宿駅でおりて下さい。",
+        "english": "Please get off the train at Shinjuku Station."
+      },
+      {
+        "japanese": "上野駅の駅の前にはコウイチが一億円かけて出店したトーフグやきぎょうざの店があります。",
+        "english": "There is a Tofugu pot sticker shop in front of Ueno Station that Koichi opened with one hundred million yen."
+      },
+      {
+        "japanese": "ようやく直接お話することができてよかったです。まさか駅でバッタリお会いするなんて思ってもいませんでしたよ。",
+        "english": "It was nice finally talking to you in person. I never thought I would run into you at a station."
+      }
+    ]
+  },
+  {
+    "id": 1071,
+    "japanese": "周年",
+    "hiragana": "しゅうねん",
+    "romaji": "shuunen",
+    "english": "Anniversary",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"When you wrap around the entire  circumference of the year you've come back around to the start of it. This is the anniversary.\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "トーフグは、来年で十周年になるので、コウイチは周年プロジェクトをけい画しています。",
+        "english": "The next year is Tofugu's 10th anniversary, so Koichi is planning an anniversary project."
+      },
+      {
+        "japanese": "うちの実家は、にゅう牛の周年放ぼくをしています。今年は、放ぼく事業を始めてから、ちょうど二十周年です。",
+        "english": "My family grazes dairy cow herds year round. This year is the 20th anniversary of their grazing business."
+      },
+      {
+        "japanese": "今度の日曜日に、私達はマクドナルドでTofuguの五周年記念を祝います。",
+        "english": "Next Sunday we’ll celebrate Tofugu’s fifth anniversary at McDonald’s."
+      }
+    ]
+  },
+  {
+    "id": 1072,
+    "japanese": "束",
+    "hiragana": "たば",
+    "romaji": "taba",
+    "english": "Bundle, Bunch",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: You are counting your bundles. There are a lot of them, so you have to create tabs (たば) in your notebook to properly categorize everything. Imagine yourself doing this (physically creating the tabs in your notebook, even though your notebook didn't come with tabs).\"",
+    "example_sentences": [
+      {
+        "japanese": "コウイチは札束にうもれるほど金を持っている。",
+        "english": "Koichi has so much money that he can swim in it."
+      },
+      {
+        "japanese": "記おくが正しければ、たしかブロッコリーは束で売ってたと思うよ。",
+        "english": "If I remember correctly, I think they sell broccoli in bunches."
+      },
+      {
+        "japanese": "どうしてもコピー用紙がいるんだけど、この花束とそのコピー用紙一束を交換してもらえないかな？",
+        "english": "I have to get some copy paper. Could you exchange a bundle of copy paper for this bouquet of flowers?"
+      }
+    ]
+  },
+  {
+    "id": 1073,
+    "japanese": "周り",
+    "hiragana": "まわり",
+    "romaji": "mawari",
+    "english": "Circumference, Perimeter, Edge, Surroundings, Locality, Neighborhood",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This is the noun version of the kanji circumference, so it means circumference too.\" \"Since this word consists of a kanji with hiragana attached, you can bet that it will use the kun'yomi reading. You didn't learn that reading with this kanji, so here's a mnemonic to help you: You really want to measure the circumference of something but there doesn't seem to be anything round around. That's when you remember, \"\"Mah Walnuts! (まわ).\"\" The walnuts in your pocket have an easy edge to measure.\"",
+    "example_sentences": [
+      {
+        "japanese": "周りがギザギザになっているコインを集めています。",
+        "english": "I'm collecting coins with serrated edges."
+      },
+      {
+        "japanese": "大好きな事やむ中になれる事があるなら、周りが何と言おうと、それをやりつづけるべきだよ。",
+        "english": "If there's something you love or are passionate about, you should stick with it regardless what the other people say."
+      },
+      {
+        "japanese": "周りの目が気になるんです。",
+        "english": "I'm worried about what other people are thinking about me."
+      }
+    ]
+  },
+  {
+    "id": 1074,
+    "japanese": "性",
+    "hiragana": "せい",
+    "romaji": "sei",
+    "english": "Gender, Nature, Sex",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "性はんざいをゆるしてはいけません。",
+        "english": "We must not forgive sex crimes."
+      },
+      {
+        "japanese": "性による違いをはあくしたうえで、男女平どうを考えることが大事だと思います。",
+        "english": "I think it's important to consider gender equality in order to understand actual gender differences."
+      },
+      {
+        "japanese": "性のところの、男性、女性、その他のいずれかにチェックをしてください。",
+        "english": "Please mark whether you are a man, woman, or other under gender."
+      }
+    ]
+  },
+  {
+    "id": 1075,
+    "japanese": "軍",
+    "hiragana": "ぐん",
+    "romaji": "gun",
+    "english": "Army, Troops, Force",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "トーフグ軍のしんの指きかんはコウイチじゃなくてビエトだ。",
+        "english": "The true commander of the Tofugu army is not Koichi, but Viet."
+      },
+      {
+        "japanese": "どうやっててき軍の追げきをかわせばいいんだ。",
+        "english": "How could we evade the enemy troops' pursuit?"
+      },
+      {
+        "japanese": "とりあえず軍の拠点に戻ってみましょう。",
+        "english": "Let’s go back to the army base for now."
+      },
+      {
+        "japanese": "この遺跡には、竪穴住居郡があります。",
+        "english": "These historic ruins contain a district of pit dwellings."
+      }
+    ]
+  },
+  {
+    "id": 1076,
+    "japanese": "式",
+    "hiragana": "しき",
+    "romaji": "shiki",
+    "english": "Ceremony, Ritual, Equation",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"The reading is the same as what you learned with the kanji. In fact, this kanji's on'yomi AND kun'yomi are しき, so you can never go wrong.\"",
+    "example_sentences": [
+      {
+        "japanese": "いったい式場はどこなんだ？",
+        "english": "Where the heck is the ceremony being held?"
+      },
+      {
+        "japanese": "開会式は九時にスタートする予定です。",
+        "english": "The opening ceremony is scheduled for 9 a.m."
+      },
+      {
+        "japanese": "その儀式は退屈だったので、たくさん方程式を解いて時間を潰しました。",
+        "english": "The ritual was boring, so I killed time by solving a bunch of equations."
+      }
+    ]
+  },
+  {
+    "id": 1077,
+    "japanese": "箱",
+    "hiragana": "はこ",
+    "romaji": "hako",
+    "english": "Box",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "コウイチは、大切にしていたダンボール箱がすてられたことを知って、顔面そう白になりました。",
+        "english": "Koichi turned pale when he learned that his precious cardboard box had been thrown away."
+      },
+      {
+        "japanese": "夫がトマトを箱で買ってきて、食べきれなくてこまっています。",
+        "english": "My husband bought tomatoes by the crate and we're having trouble eating them all."
+      },
+      {
+        "japanese": "トーフグのオフィスに届いた箱の中には、辞書と死んだフグが詰まっていた。",
+        "english": "The box that arrived at the Tofugu office was crammed with dictionaries and dead puffer fish."
+      }
+    ]
+  },
+  {
+    "id": 1078,
+    "japanese": "〜弁",
+    "hiragana": "べん",
+    "romaji": "ben",
+    "english": "Dialect",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well. The 〜 is there to show this attaches onto things, like 東京弁, meaning \"\"Tokyo Dialect.\"\"\" The reading is the same as the one you learned with the kanji. Because it's normally attached to other words it uses the on'yomi reading like a jukugo word normally would.",
+    "example_sentences": [
+      {
+        "japanese": "日本語で一番面白い方言は東北弁でしょうか？",
+        "english": "Is Tohoku dialect the most interesting Japanese dialect?"
+      },
+      {
+        "japanese": "私は日本語の共通語も関西弁も話せるからバイリンガルなんですよ。",
+        "english": "I am bilingual because I can speak standard Japanese as well as the Kansai dialect."
+      },
+      {
+        "japanese": "博多弁で喋る女性はとても可愛いと思います。",
+        "english": "I think women who speak with a Hakata accent are really cute."
+      }
+    ]
+  },
+  {
+    "id": 1079,
+    "japanese": "園",
+    "hiragana": "えん, その",
+    "romaji": "en, sono",
+    "english": "Garden, Park",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. Lucky you, the word garden is read the same way as the kanji is read. Kind of a Garden of Eden for kanji and vocab, no?",
+    "example_sentences": [
+      {
+        "japanese": "保育園を建てる前に、労働者たちが地面を固めました。",
+        "english": "Laborers hardened the ground before building a daycare."
+      },
+      {
+        "japanese": "リンゴ農園でリンゴを箱づめするアルバイトをしていました。",
+        "english": "I had a part-time job where I packed apples in boxes at an apple orchard."
+      },
+      {
+        "japanese": "私は植物園の近くに住んでいます。",
+        "english": "I live near the botanical garden."
+      }
+    ]
+  },
+  {
+    "id": 1080,
+    "japanese": "愛",
+    "hiragana": "あい",
+    "romaji": "ai",
+    "english": "Love",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"The reading is the same as the kanji. Now that is true kanji love.\"",
+    "example_sentences": [
+      {
+        "japanese": "サボテンの花は、母性愛のしょうちょうです。",
+        "english": "The cactus flower is a symbol of maternal love."
+      },
+      {
+        "japanese": "社内恋愛をもう想するのが好きなんですけど、一番最近の私のもう想の中ではコウイチとビエトの間に愛がめ生えちゃったんです！",
+        "english": "I like fantasizing about office romance and in my latest fantasy, love grew between Koichi and Viet."
+      },
+      {
+        "japanese": "私はお金は愛より大切だと思います。よく「愛があれば山でも動かせる」なんて言いますが、実際はお金が無いとそんなことできないでしょ。",
+        "english": "\"I think money is more important than love. They often say, \"\"love can move mountains,\"\" but in reality you can’t do that without money.\""
+      }
+    ]
+  },
+  {
+    "id": 1081,
+    "japanese": "側",
+    "hiragana": "がわ, そば",
+    "romaji": "gawa, soba",
+    "english": "Side, Side Of Something, Part",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "もう少しだけ、側にいてもいい？",
+        "english": "Can I be with you a little longer?"
+      },
+      {
+        "japanese": "お母さんの側をはなれちゃだめよ！",
+        "english": "Don't drift away from mom, okay?"
+      },
+      {
+        "japanese": "ソファの右側に植木を置こうかなと思ってるの。",
+        "english": "I'm thinking about putting a potted plant on the right side of the sofa."
+      }
+    ]
+  },
+  {
+    "id": 1082,
+    "japanese": "〜達",
+    "hiragana": "たち",
+    "romaji": "tachi",
+    "english": "Pluralizing Suffix",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"You'll see this attached to other words to make them plural. That's why it's called a pluralizing suffix. \" \"This is almost the same reading you learned with the kanji. Remember たつ? Well this is read たち. Here's a mnemonic to help you remember it:If you want to pluralize something, touch (たち) it to something else. One egg touches another egg, well now they're eggs. Plural eggs! One friend? No. Touch them! Touch them right on the face. Now there are two friends. Plural friends! Thanks to the good ol' pluralizing suffix touch!Oh, and don't type the 〜 out when writing the answer. It's just there to let you know that there's usually something attached to this word.\"",
+    "example_sentences": [
+      {
+        "japanese": "コウイチ達、一体どこに行ったんだろう。",
+        "english": "I wonder where Koichi and the others went."
+      },
+      {
+        "japanese": "あそこのギャング達は、みんなビエトの兄弟分です。",
+        "english": "Those gangs are all Viet's sworn brethren."
+      },
+      {
+        "japanese": "あなた達はまだ未成年でしょう。",
+        "english": "Aren’t you still minors?"
+      }
+    ]
+  },
+  {
+    "id": 1083,
+    "japanese": "穴",
+    "hiragana": "あな",
+    "romaji": "ana",
+    "english": "Hole",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"The reading you learned with the kanji is the same as the reading for this word. No holes in your knowledge!\"",
+    "example_sentences": [
+      {
+        "japanese": "はずかしくて、穴があったら入りたいよ！",
+        "english": "I am so embarrassed, I wished I could sink into the floor!"
+      },
+      {
+        "japanese": "あそこのほら穴には、コウモリが住んでいるらしいよ。",
+        "english": "I heard that bats are living in the cave."
+      },
+      {
+        "japanese": "彼が深くて素晴らしい穴を掘れるのは、持って生まれた才能です。",
+        "english": "He has the natural ability to dig deep, magnificent holes."
+      }
+    ]
+  },
+  {
+    "id": 1084,
+    "japanese": "理論",
+    "hiragana": "りろん",
+    "romaji": "riron",
+    "english": "Theory",
+    "level": "N4",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"You have reason behind your theory, making it a real theory (unlike those that don't have reason, I guess?).\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "コウイチの理論はだれからも支持されませんでした。",
+        "english": "Koichi's theory was not supported by anyone."
+      },
+      {
+        "japanese": "コウイチはよい会社の社長になるために、リーダーシップ理論を学んでいます。",
+        "english": "Koichi is learning leadership theories in order to become a good company president."
+      },
+      {
+        "japanese": "理論的に説明するのは苦手です。",
+        "english": "I’m bad at giving theoretical explanations."
+      }
+    ]
+  },
+  {
+    "id": 1085,
+    "japanese": "主義",
+    "hiragana": "しゅぎ",
+    "romaji": "shugi",
+    "english": "Ism, Principle, Policy",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The main cause behind someone's righteousness is usually what isms or principles they believe in. Buddhism, Shintoism, socialism, communism, you name it. If you believe in one of those it's the main driving factor behind what you believe righteousness to be.\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "フグは肉を食べないよ。菜食主義者だからさ。",
+        "english": "Fugu doesn’t eat meat. He’s a vegetarian."
+      }
+    ]
+  },
+  {
+    "id": 1086,
+    "japanese": "〜務省",
+    "hiragana": "むしょう",
+    "romaji": "mushou",
+    "english": "Ministry Of",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Let us conserve our tasks. We will give it to the Ministry Of Tasks!\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "ビエト財務省国際局次長は現在ダイエット中であり、砂糖の代わりにサッカリンを用いているため、彼の食事には砂糖を使用しないでください。",
+        "english": "Mr. Viet, Senior Deputy Director General, International Bureau, Ministry of Finance, is on a diet right now and substitutes sugar with saccharin, so don’t use sugar in his meal."
+      }
+    ]
+  },
+  {
+    "id": 1087,
+    "japanese": "際",
+    "hiragana": "きわ",
+    "romaji": "kiwa",
+    "english": "Side, Edge, Brink",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Even though the kanji mainly means  occasion, for some reason this word means side or edge. I suppose on occasion kanji takes you to the edge of what ought to make sense when it comes to kanji.\" \"You're on the very edge of the world. You heard that at the edge of the world are the key words (きわ) written there in big fiery letters, telling you the meaning of life. Supposedly these are the words of God himself. They say: \"\"We apologize for the inconvenience.\"\" WHAT? THESE ARE THE KEY WORDS???\"",
+    "example_sentences": [
+      {
+        "japanese": "小さい頃、友人達と毎日水際で遊んでいました。",
+        "english": "When I was little, I would play by the water’s edge every day with my friends."
+      }
+    ]
+  },
+  {
+    "id": 1088,
+    "japanese": "策",
+    "hiragana": "さく",
+    "romaji": "saku",
+    "english": "A Plan, Plan, Scheme",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. Lucky for you, even though this word is a single kanji, it uses the same reading you learned, meaning you know how to read it already. Time to plan and scheme for your next vocab/kanji.",
+    "example_sentences": [
+      {
+        "japanese": "本日のプレゼンでは、主に3つの策を取り上げます。",
+        "english": "In my presentation today, I will cover three main plans."
+      }
+    ]
+  },
+  {
+    "id": 1089,
+    "japanese": "各〜",
+    "hiragana": "かく",
+    "romaji": "kaku",
+    "english": "Each, Every, Various",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"The reading is the same as the kanji, though it's kind of like an add-on for other words in a sense, which makes it behave like jukugo, I think. Don't confuse this with 各々 though. That one does use the kun'yomi reading, which is strange when you consider this one doesn't. Every kanji has its own \"\"perks\"\" I suppose.\"",
+    "example_sentences": [
+      {
+        "japanese": "まず始めに、各チームの代表者を決めて下さい。",
+        "english": "First, choose a representative for each team."
+      }
+    ]
+  },
+  {
+    "id": 1090,
+    "japanese": "罰",
+    "hiragana": "ばつ",
+    "romaji": "batsu",
+    "english": "Penalty, Punishment",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as the reading you learned with the kanji... and you thought I was about to punish you because it was a single kanji vocab word. Now get over here. Time for a dirty spanking for thinking such a thing.",
+    "example_sentences": [
+      {
+        "japanese": "クラスの生徒全員がカンニングで罰を受けたなんて、信じられない。",
+        "english": "I can’t believe that all the students in the class received punishment for cheating."
+      }
+    ]
+  },
+  {
+    "id": 1091,
+    "japanese": "額",
+    "hiragana": "がく",
+    "romaji": "gaku",
+    "english": "Framed Picture, Picture, Frame",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "この絵に合う額を探しています。",
+        "english": "I’m searching for a frame to match this picture."
+      }
+    ]
+  },
+  {
+    "id": 1092,
+    "japanese": "〜層",
+    "hiragana": "そう",
+    "romaji": "sou",
+    "english": "Layer Of, Layer, Demographic",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This is a word that's attached to other things indicating the layer of something (or just layer). It has essentially the same meaning as the kanji it comes from, layer.\" The reading is the reading you learned with the kanji. It's treated like a jukugo reading because it's normally attached to things.\n\nThe kanji and the word are exactly the same. That means they share meanings as well. \"The reading you learned with the kanji is the same as the one used here. They're a pair, you know?\"",
+    "example_sentences": [
+      {
+        "japanese": "ホッケーの競技場さえも、オゾン層の破壊に関係しているって、知ってたかい？",
+        "english": "Did you know hockey arenas are related to the destruction of the ozone layer?"
+      },
+      {
+        "japanese": "妹と私は二卵性双生児ですが、外見がすごく似ています。",
+        "english": "My sister and I are fraternal twins, but we look very similar."
+      }
+    ]
+  },
+  {
+    "id": 1093,
+    "japanese": "管",
+    "hiragana": "くだ",
+    "romaji": "kuda",
+    "english": "Pipe, Tube",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"\"\"That's coo' だ,\"\" you like to say in response to pipes. You've never seen pipes before, which makes them pretty cool to you. You've been using an outhouse your whole life, so pipes are pretty neat.\"",
+    "example_sentences": [
+      {
+        "japanese": "妹は二歳の時に甘い咳止めシロップを一気飲みしてしまい、鼻から管を通して胃を洗浄するはめになった。",
+        "english": "My sister chugged a bottle of the sweet kind of cough syrup when she was two and she had to get a tube shoved through her nose and into her stomach to pump it out."
+      }
+    ]
+  },
+  {
+    "id": 1095,
+    "japanese": "量",
+    "hiragana": "りょう",
+    "romaji": "ryou",
+    "english": "Quantity, Amount",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "仕事の量を考えると、この給料じゃ割りに合わない。",
+        "english": "Given the amount of work, we’re being badly paid."
+      }
+    ]
+  },
+  {
+    "id": 1096,
+    "japanese": "過ぎ",
+    "hiragana": "すぎ",
+    "romaji": "sugi",
+    "english": "Too Much, After, Past",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"過ぎる is to surpass. When you surpass what is needed, what are you left with? Just this word: too much.\" \"The reading comes from 過ぎる. Know that and you know too much. Dial it down to get 過ぎ.\"",
+    "example_sentences": [
+      {
+        "japanese": "短時間の仕事で良い給料をもらい過ぎだよ。",
+        "english": "You get paid way too well for working such short hours."
+      }
+    ]
+  },
+  {
+    "id": 1097,
+    "japanese": "票",
+    "hiragana": "ひょう",
+    "romaji": "hyou",
+    "english": "Ballot, A Vote, Vote",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well. It can also be a vote, because that's what ballots tend to do.\" The reading is the same as the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "コウイチは票の大半を得て相手候補者に圧勝し、アメリカ合衆国の大統領となった。",
+        "english": "Koichi defeated the other candidate with a majority of the votes and became the President of the United States of America."
+      }
+    ]
+  },
+  {
+    "id": 1098,
+    "japanese": "程度",
+    "hiragana": "ていど",
+    "romaji": "teido",
+    "english": "Degree, Extent, Level",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The extent degrees show to what degree or extent you're willing to take something.\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "彼は実際は35歳だが、3歳児と同程度の知能水準しかない。",
+        "english": "He is actually 35 years old, but has no more intelligence than a three year old kid."
+      }
+    ]
+  },
+  {
+    "id": 1099,
+    "japanese": "並",
+    "hiragana": "なみ",
+    "romaji": "nami",
+    "english": "Ordinary, Average",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The things that line up are the ordinary and average things. The extraordinary things skip the line, because they don't have to wait. Sad for all the ordinaries.\" \"Since this word is made up of a single kanji, it probably uses the kun'yomi reading. You did not learn this reading, so here's a mnemonic to help you to remember: All the people who went off to fight in Nam (なみ) were just ordinary, average folk.\"",
+    "example_sentences": [
+      {
+        "japanese": "運動神経は並だったが、頭はすこぶる良かった。",
+        "english": "He had ordinary reflexes, but a great mind."
+      }
+    ]
+  },
+  {
+    "id": 1100,
+    "japanese": "〜隊",
+    "hiragana": "たい",
+    "romaji": "tai",
+    "english": "Squad, Party, Team",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as the kanji reading you learned, probably because this is stuck onto things, describing various squads.",
+    "example_sentences": [
+      {
+        "japanese": "海上自衛隊音楽隊に採用された時、彼女は他の自衛隊員と同様に肉体的にも厳しいトレーニングを受けなくてはいけないことを知らなかった。",
+        "english": "When she was hired by the Japan Maritime Self-Defense Force Band, she didn’t know that she had to physically work out as hard as them as well."
+      }
+    ]
+  },
+  {
+    "id": 1102,
+    "japanese": "猛〜",
+    "hiragana": "もう",
+    "romaji": "mou",
+    "english": "Fierce, Energetic",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well. You can put this on other words to say that it's a \"\"Fierce ____\"\" or \"\"Energetic _____,\"\" or something along those lines. If you see this, you know that something is done fiercely or really energetically.\" The reading is the same as what you learned with the kanji, probably because it's stuck onto things making it all jukugo and such.",
+    "example_sentences": [
+      {
+        "japanese": "バイクが猛スピードで突っ込んできた。",
+        "english": "The motorcycle came rushing forward at breakneck speed."
+      }
+    ]
+  },
+  {
+    "id": 1103,
+    "japanese": "恐怖症",
+    "hiragana": "きょうふしょう",
+    "romaji": "kyoufushou",
+    "english": "Phobia",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"You have a fear, this fear is scary, oh, and it's a symptom, so it's kind of just in your head. What kind of symptoms occur when you are scared and have fear? How about when you have a phobia.\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "example_sentences": [
+      {
+        "japanese": "私も父も高所恐怖症です。",
+        "english": "My dad and I are both afraid of heights."
+      }
+    ]
+  },
+  {
+    "id": 1104,
+    "japanese": "枕",
+    "hiragana": "まくら",
+    "romaji": "makura",
+    "english": "Pillow",
+    "level": "N3",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as the one you learned with the kanji, huzzah!",
+    "example_sentences": [
+      {
+        "japanese": "結局夫のために高い枕を買うはめになりました。",
+        "english": "I ended up buying an expensive pillow for my husband."
+      }
+    ]
+  },
+  {
+    "id": 1106,
+    "japanese": "飾り",
+    "hiragana": "かざり",
+    "romaji": "kazari",
+    "english": "Decoration, Ornament",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This is the noun version of the kanji decorate, so it means decoration.\" Since this word consists of a kanji with hiragana attached, you can bet that it will use the kun'yomi reading. You learned this reading already so you should be able to read it!",
+    "example_sentences": [
+      {
+        "japanese": "そろそろ正月飾りの準備をしておかなくちゃ。",
+        "english": "We have to slowly start preparations for the New Year’s decorations."
+      }
+    ]
+  },
+  {
+    "id": 1107,
+    "japanese": "諸〜",
+    "hiragana": "しょ",
+    "romaji": "sho",
+    "english": "Various",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This has the same meaning as the kanji. Stick this onto another word and you have \"\"various _____.\"\"\" The reading is the same as what you learned with the kanji as well.",
+    "example_sentences": [
+      {
+        "japanese": "各出席者の方に、まず諸書類をお配り致します。",
+        "english": "We are going to pass out various documents to each person present first."
+      }
+    ]
+  },
+  {
+    "id": 1108,
+    "japanese": "鍋",
+    "hiragana": "なべ",
+    "romaji": "nabe",
+    "english": "Pot, Hotpot",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as you learned with the kanji.\n\n\"A ____pot is any kind of food that's made inside the pot, put together, and cooked. This refers to a type of pot, stew or hotpot, and is attached onto the names of said pots, stews, and hotpots.\" This is a jukugo word that uses the readings of the kanji. You should be able to read this on your own.",
+    "example_sentences": [
+      {
+        "japanese": "彼女が彼氏にキムチ鍋を作らせた。",
+        "english": "His girlfriend got him to cook kimchi casserole."
+      },
+      {
+        "japanese": "豆乳鍋を食べてみたことはありますか？",
+        "english": "Have you ever tried soy milk hotpot?"
+      }
+    ]
+  },
+  {
+    "id": 1109,
+    "japanese": "超〜",
+    "hiragana": "ちょう",
+    "romaji": "chou",
+    "english": "Ultra, Super, Really",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"This has the same meaning as the kanji. Stick this onto another word and you have \"\"ultra _____.\"\"\" The reading is the same as what you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "今超貧乏でさ〜。砂糖も切らしてるんだけど、それすら新しいの買えないんだわ。",
+        "english": "I’m super broke right now. I’ve run out of sugar and I can’t even buy more."
+      }
+    ]
+  },
+  {
+    "id": 1110,
+    "japanese": "陣",
+    "hiragana": "じん",
+    "romaji": "jin",
+    "english": "Army Base, Army Camp, Group",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as what you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "コウイチ大統領は、報道陣と会見をする予定でしたが、食中毒にかかってしまったため中止となりました。",
+        "english": "President Koichi was supposed to meet with the press corps, but he got food poisoning and it was canceled."
+      }
+    ]
+  },
+  {
+    "id": 1111,
+    "japanese": "湾",
+    "hiragana": "わん",
+    "romaji": "wan",
+    "english": "Gulf, Bay, Inlet",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well, though it contains some extra similar meanings as well, like a bay or inlet.\" Same reading as what you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "伯父は、殺されて、ドラム缶の中でコンクリート詰めにされて東京湾に沈められました。",
+        "english": "My uncle was killed, put in a concrete drum filled with cement, and sunk in Tokyo Bay."
+      }
+    ]
+  },
+  {
+    "id": 1113,
+    "japanese": "盤",
+    "hiragana": "ばん",
+    "romaji": "ban",
+    "english": "Tray, Board, Disc",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are the same! This word also means board and disc, which makes sense if you think about it. Boards you play games on are basically just trays for the pieces, and discs go inside boards (like records) for storage.\" The reading is the same as the one you learned with the kanji!",
+    "example_sentences": [
+      {
+        "japanese": "私はビートルズのビニール盤を収集しています。",
+        "english": "I’m collecting the Beatles’ vinyl records."
+      }
+    ]
+  },
+  {
+    "id": 1114,
+    "japanese": "片〜",
+    "hiragana": "かた",
+    "romaji": "kata",
+    "english": "Fragment, One Of A Pair, Incomplete",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Something that is one-sided has only one side and not the whole. That's just one of a pair or a fragment of the whole. Stick this onto another word and you have one of a pair or an \"\"incomplete_____.\"\"\" The reading is the same as the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "片目だけ視力が悪いんです。",
+        "english": "I have a hard time seeing out of one of my eyes."
+      }
+    ]
+  },
+  {
+    "id": 1115,
+    "japanese": "枠",
+    "hiragana": "わく",
+    "romaji": "waku",
+    "english": "Frame, Limit",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "窓枠を木からステンレスのものに取り替えたい。",
+        "english": "I want to exchange the window frames from wood to stainless steel."
+      }
+    ]
+  },
+  {
+    "id": 1116,
+    "japanese": "〜殿",
+    "hiragana": "どの",
+    "romaji": "dono",
+    "english": "Lord, Master, Milord",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well. This is put on people's names, though most likely you'll only see this when someone is being sarcastic or if you're watching a samurai TV show. \"\"おはようございます！こういち殿！\"\"\" \"Since this word is made up of a single kanji, it probably uses the kun'yomi reading. You did not learn this reading, so here's a mnemonic to help you to remember: Who is your great lord? Imagine it being someone named Don (どの). If you know a Don, that's great, imagine that person. If you don't, think of a famous Don that's out there.\"",
+    "example_sentences": [
+      {
+        "japanese": "信長殿にお伝え頂きたい。",
+        "english": "Please tell Lord Nobunaga."
+      }
+    ]
+  },
+  {
+    "id": 1117,
+    "japanese": "〜剤",
+    "hiragana": "ざい",
+    "romaji": "zai",
+    "english": "Medicine, Dose",
+    "level": "N2",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"If you take a dose of something, you are taking a dose of medicine. Take your cough syrup, child!\" The reading is the same one you learned with the kanji, probably because it's attached to things usually, so it's treated like on'yomi.",
+    "example_sentences": [
+      {
+        "japanese": "解毒剤の極秘開発を行う予定だとちょいと小耳に挟みましたよ。",
+        "english": "I heard it through the grapevine that you guys are going to do some hush-hush antidote experiments."
+      }
+    ]
+  },
+  {
+    "id": 1118,
+    "japanese": "〜畑",
+    "hiragana": "はたけ, はた",
+    "romaji": "hatake, hata",
+    "english": "Field, Crop",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. Stick this onto a type of crop, and you have a ____field or ____crop. The reading is the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "私は、苺畑づたいにヨロヨロと歩いている老人を見かけました。",
+        "english": "I saw an old man stumble along the strawberry field."
+      }
+    ]
+  },
+  {
+    "id": 1119,
+    "japanese": "軸",
+    "hiragana": "じく",
+    "romaji": "jiku",
+    "english": "Axis",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "地軸の延長が北方で天球と交わる点で会いましょう。",
+        "english": "Let’s meet up at the intersection of the earth’s axis and the celestial sphere in the Arctic."
+      }
+    ]
+  },
+  {
+    "id": 1121,
+    "japanese": "柄",
+    "hiragana": "がら",
+    "romaji": "gara",
+    "english": "Pattern, Design",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. The reading is the one you learned with the kanji, you lucky duck. Follow that reading pattern to here, and you should be okay.",
+    "example_sentences": [
+      {
+        "japanese": "彼女は私にヒョウ柄の名刺をくれました。",
+        "english": "She gave me her leopard print business card."
+      }
+    ]
+  },
+  {
+    "id": 1122,
+    "japanese": "沼",
+    "hiragana": "ぬま",
+    "romaji": "numa",
+    "english": "Bog, Swamp",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"The reading is the one you learned with the kanji, ぬま.\"",
+    "example_sentences": [
+      {
+        "japanese": "どっちにしろ沼に飛び込まなきゃいけないと思うしね。",
+        "english": "I guess I have to jump into the swamp anyway."
+      }
+    ]
+  },
+  {
+    "id": 1123,
+    "japanese": "岳",
+    "hiragana": "たけ",
+    "romaji": "take",
+    "english": "Peak, Mountain",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The peak of the mountain is a peak or mountain.\" \"Since this word is made up of a single kanji, it probably uses the kun'yomi reading. You did not learn this reading, so here's a mnemonic to help you: When you climb to the top of the peak, you're so amazed to find vegetation at this altitude. The only thing that grows here, and in thick amounts, is 竹 (たけ). It is impeding your progress to the very top of the peak, in fact, which is a bother. It's as if it's guarding something...\"",
+    "example_sentences": [
+      {
+        "japanese": "富山県には、剣の山という意味の、剣岳と呼ばれる山があります。",
+        "english": "There is a mountain called Tsurugidake, which literally means Mt. Sword, in Toyama prefecture."
+      }
+    ]
+  },
+  {
+    "id": 1124,
+    "japanese": "揚げ",
+    "hiragana": "あげ",
+    "romaji": "age",
+    "english": "Fried",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Remember how 揚げる can sometimes mean \"\"to fry\"\"? This is the noun version of that meaning of that word, making it fried... delicious fried...\" \"The reading comes from 揚げる as well.\"",
+    "example_sentences": [
+      {
+        "japanese": "どんな食べ物でも、彼女の手にかかれば、美しく美味しい金色の揚げ物になるんです。",
+        "english": "Every food she touches turns into beautiful, delicious fried food."
+      }
+    ]
+  },
+  {
+    "id": 1125,
+    "japanese": "粒",
+    "hiragana": "つぶ",
+    "romaji": "tsubu",
+    "english": "Grain, Bead, Counter For Grains",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Grains are made of single grains. You can also use this to refer to a bead or use it as a counter for grains.\" \"You take all the grain and put it in a tube (つぶ). Just imagine doing this, grain by grain.\"",
+    "example_sentences": [
+      {
+        "japanese": "私は一粒の岩塩をオブラートで包みました。",
+        "english": "I wrapped a single grain of sea salt in a wafer."
+      }
+    ]
+  },
+  {
+    "id": 1126,
+    "japanese": "寸前",
+    "hiragana": "すんぜん",
+    "romaji": "sunzen",
+    "english": "On The Brink, On The Verge, Just In Front Of, Just Before",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Before you take the last measurement, you know you're on the brink of something.\" This is a jukugo word, which usually means on'yomi readings from the kanji. As long as you know the readings for these kanji, you should be able to read this word just fine.",
+    "example_sentences": [
+      {
+        "japanese": "私の会社は破産寸前である。",
+        "english": "My company is on the verge of bankruptcy."
+      }
+    ]
+  },
+  {
+    "id": 1127,
+    "japanese": "塔",
+    "hiragana": "とう",
+    "romaji": "tou",
+    "english": "Tower, Pagoda",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well. Can also be a pagoda. If you think about it, pagodas were the towers of the olden days.\" The reading is the same as the one you learned with the kanji. You should be able to read this on your own.",
+    "example_sentences": [
+      {
+        "japanese": "五重の塔の売買契約の手付金を支払いました。",
+        "english": "I paid the deposit on a contract for a five-storied pagoda."
+      }
+    ]
+  },
+  {
+    "id": 1128,
+    "japanese": "頃",
+    "hiragana": "ころ, ごろ",
+    "romaji": "koro, goro",
+    "english": "Approximate Time, Around, About, Approximate",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well. Also means approximate time and around (as in \"\"around 3:00\"\").\" The reading is the same as what you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "今日のお昼の三時頃、この公園でツキノワグマが目撃されました。",
+        "english": "Around three o’clock this afternoon, a moon bear was seen in this park."
+      }
+    ]
+  },
+  {
+    "id": 1129,
+    "japanese": "暦",
+    "hiragana": "こよみ",
+    "romaji": "koyomi",
+    "english": "Calendar, Almanac",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"When looking at a calendar, the 子読み (こよみ) of it is to... well... not be able to read it at all. Because, children can't really read. So, when you look at a calendar you have to explain it to a child, since they cannot read it.\"",
+    "example_sentences": [
+      {
+        "japanese": "うちの会社は暦通りの営業になります。",
+        "english": "Our company’s business days follow the regular calendar."
+      }
+    ]
+  },
+  {
+    "id": 1130,
+    "japanese": "肌",
+    "hiragana": "はだ",
+    "romaji": "hada",
+    "english": "Human Skin, Skin",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well, though you'll want to know that this refers most specifically to human skin.\" The reading is the same as the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "その温泉に入った後は、お肌がツルツルになるよ。",
+        "english": "Your skin will be really smooth after bathing in the hot spring."
+      }
+    ]
+  },
+  {
+    "id": 1131,
+    "japanese": "〜魂",
+    "hiragana": "こん",
+    "romaji": "kon",
+    "english": "Spirit",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "When attached to a word, this refers to a ____ spirit. It's  the same meaning as the kanji, too. This word is made up of a single kanji, but it uses the on'yomi reading, not the kun'yomi reading. Luckily, you've learned this reading already. Yay!",
+    "example_sentences": [
+      {
+        "japanese": "死者の霊魂に捧げる為のイラストを描いてほしいとアヤに頼みました。",
+        "english": "I asked Aya to draw an illustration to offer to the souls of the dead."
+      }
+    ]
+  },
+  {
+    "id": 1133,
+    "japanese": "〜狩り",
+    "hiragana": "かり, がり",
+    "romaji": "kari, gari",
+    "english": "Hunting",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"You know that 狩り is hunting already. This is the same thing (hunting). Difference is this one is attached to other words to specify what kind of hunting you're doing.\" \"The reading is the same as 狩り, so if you know that you'll know this, no need to hunt for the reading of this word.\"",
+    "example_sentences": [
+      {
+        "japanese": "鹿狩り用の見張り台は、今は大きなブルーシートで覆われています。",
+        "english": "The lookout platform we use for deer hunting is covered in a big blue tarp now."
+      }
+    ]
+  },
+  {
+    "id": 1134,
+    "japanese": "紛れ",
+    "hiragana": "まぐれ, まぎれ",
+    "romaji": "magure, magire",
+    "english": "Fluke, Chance",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"紛れる means \"\"to be diverted.\"\" A thing that is diverted goes in another weird direction. It's just a fluke or chance.\" \"One reading does follow the 紛れる reading. But the more common reading is まぐれ. Very similar to まぎれる, but the ぎ goes to ぐ.\"",
+    "example_sentences": [
+      {
+        "japanese": "そのクイズの答えが当たったのはただの紛れです。",
+        "english": "It was just a fluke that I was able to answer the questions on the quiz."
+      }
+    ]
+  },
+  {
+    "id": 1136,
+    "japanese": "陛下",
+    "hiragana": "へいか",
+    "romaji": "heika",
+    "english": "Your Majesty, His Majesty, Her Majesty",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"Your highness I am so below you because your majesty is so great and amazing!\" This is a jukugo word that uses the on'yomi readings of the kanji. You should be able to read this on your own.",
+    "example_sentences": [
+      {
+        "japanese": "陛下、恐れ入りますが会議にご出席のご予定だったのでは。",
+        "english": "Your Majesty, I’m sorry to impose but you were supposed to attend the meeting."
+      }
+    ]
+  },
+  {
+    "id": 1137,
+    "japanese": "〜亭",
+    "hiragana": "てい",
+    "romaji": "tei",
+    "english": "Restaurant, Traditional Japanese Restaurant",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"If you see the kanji restaurant attached to a place name, there's a good chance that it's a restaurant. Usually refers to a traditional Japanese restaurant, though.\" The reading is the same as the one you learned with the kanji.",
+    "example_sentences": [
+      {
+        "japanese": "多くの人が、コウイチは最初のレストランを「Tofugu亭」と名付けるのではないかと踏んでいる。",
+        "english": "Many people think that Koichi would name his first restaurant Tofugutei."
+      }
+    ]
+  },
+  {
+    "id": 1138,
+    "japanese": "隅",
+    "hiragana": "すみ",
+    "romaji": "sumi",
+    "english": "Corner, Nook, Recess",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "この部屋の隅に、少女の霊がいます。",
+        "english": "There is a girl’s ghost in the corner of the room."
+      }
+    ]
+  },
+  {
+    "id": 1141,
+    "japanese": "没",
+    "hiragana": "ぼつ",
+    "romaji": "botsu",
+    "english": "Discard, Reject, Death",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"When a plant or an animal dies you have to discard it. You can't just keep it sitting around the house, that's weird.\" This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "こないだの原稿は没になってしまった。",
+        "english": "The manuscript was rejected the other day."
+      }
+    ]
+  },
+  {
+    "id": 1142,
+    "japanese": "総帥",
+    "hiragana": "そうすい",
+    "romaji": "sousui",
+    "english": "Commander, Leader, Fuhrer",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The commander of the whole army is just called \"\" the commander.\"\" No one knows his real name and everyone is too afraid to ask. \" This is a jukugo word that uses the on'yomi readings of the kanji. You should be able to read this on your own.",
+    "example_sentences": [
+      {
+        "japanese": "それは、ヒトラー総帥の指令だったのです。",
+        "english": "That was Fuhrer Hitler’s order."
+      }
+    ]
+  },
+  {
+    "id": 1143,
+    "japanese": "本舗",
+    "hiragana": "ほんぽ",
+    "romaji": "honpo",
+    "english": "Head Office, Main Shop, Shop Name Suffix",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"The main shop is the main shop or the head office.\" This is a jukugo word that uses the on'yomi readings of the kanji. You should be able to read this on your own.",
+    "example_sentences": [
+      {
+        "japanese": "ベビー用品は、いつも赤ちゃん本舗で買います。",
+        "english": "I always buy baby things at the main baby shop."
+      }
+    ]
+  },
+  {
+    "id": 1145,
+    "japanese": "忌",
+    "hiragana": "き",
+    "romaji": "ki",
+    "english": "Mourning, Mourning Period",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "忌が明けたら、みんなで旅行でも行きましょうか。",
+        "english": "When the mourning is over, shall we all go on a trip?"
+      }
+    ]
+  },
+  {
+    "id": 1146,
+    "japanese": "〜漬け",
+    "hiragana": "づけ",
+    "romaji": "zuke",
+    "english": "Pickled, Preserved In, Marinated In",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "\"You already learned that 漬ける means \"\"to pickle,\"\" so if you add that to the end of a food word (and leave off the る) it means that food as been pickled.\" \"You already learned 漬ける meaning \"\"to pickle\"\" so just take the る off and you've picked whatever comes next! Easy peasy.\"",
+    "example_sentences": [
+      {
+        "japanese": "胡瓜の浅漬けならありますよ。",
+        "english": "These are lightly pickled cucumbers."
+      }
+    ]
+  },
+  {
+    "id": 1147,
+    "japanese": "峠",
+    "hiragana": "とうげ",
+    "romaji": "touge",
+    "english": "Ridge, Mountain Pass, Peak, Climax",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"You climb the ridge and see adorable little Tokyo geckos (とうげ) climbing all over the place. They use the mountain pass too! They're climbing with you now!\"",
+    "example_sentences": [
+      {
+        "japanese": "この峠で転ぶと、三年だけしか生きられないという言い伝えがあります。",
+        "english": "Legends says, if you fall off this ridge you’ll only have three years left to live."
+      }
+    ]
+  },
+  {
+    "id": 1148,
+    "japanese": "某",
+    "hiragana": "ぼう",
+    "romaji": "bou",
+    "english": "Certain, One",
+    "level": "N1",
+    "type": "expression",
+    "category": "expressions",
+    "frequency": 0,
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!",
+    "example_sentences": [
+      {
+        "japanese": "某私立高校に伝わる、奇妙な噂があるんだ。",
+        "english": "A strange rumor is circulating at a certain private high school."
+      }
+    ]
   }
 ]
-

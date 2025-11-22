@@ -22,6 +22,12 @@
         "hiragana": "わたしもそうおもいます。",
         "romaji": "watashi mo sou omoimasu.",
         "english": "I think so too."
+      },
+      {
+        "japanese": "私は北海道の出身です。",
+        "hiragana": "わたくし",
+        "romaji": "watakushi",
+        "english": "I'm from Hokkaido."
       }
     ]
   },
@@ -101,7 +107,7 @@
     "type": "word",
     "category": "pronouns",
     "frequency": 10,
-    "notes": "Demonstrative pronoun for something close to the speaker.",
+    "notes": "Demonstrative pronoun for something close to the speaker.\n\nThe kanji and the word are exactly the same. That means they share meanings as well. This has the same reading as the kanji you learned, meaning you know the reading!",
     "example_sentences": [
       {
         "japanese": "これをください。",
@@ -114,6 +120,10 @@
         "hiragana": "これはいくらですか？",
         "romaji": "kore wa ikura desu ka?",
         "english": "How much is this?"
+      },
+      {
+        "japanese": "よかったら之も持って行きなさい。",
+        "english": "Take this too, if you want."
       }
     ]
   },
@@ -194,6 +204,12 @@
         "hiragana": "そこにすわってください。",
         "romaji": "soko ni suwatte kudasai.",
         "english": "Please sit there."
+      },
+      {
+        "japanese": "コップの底が濡れていますよ。",
+        "hiragana": "そこ",
+        "romaji": "soko",
+        "english": "The bottom of the glass is wet."
       }
     ]
   },
@@ -355,6 +371,156 @@
         "english": "The reception desk is this way."
       }
     ]
+  },
+  {
+    "id": 2018,
+    "japanese": "よう",
+    "hiragana": "よう",
+    "romaji": "you",
+    "english": "way, like, kind",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "彼女は眠いようです。",
+        "hiragana": "よう",
+        "romaji": "you",
+        "english": "It looks like she's sleepy."
+      },
+      {
+        "japanese": "私に何か用ですか。",
+        "hiragana": "よう",
+        "romaji": "you",
+        "english": "Do you need me for something?"
+      },
+      {
+        "japanese": "みんなかなり酔っていたの。",
+        "hiragana": "よう",
+        "romaji": "you",
+        "english": "Everyone got considerably drunk."
+      }
+    ]
+  },
+  {
+    "id": 2019,
+    "japanese": "そう",
+    "hiragana": "そう",
+    "romaji": "sou",
+    "english": "in such manner, that way",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "私もそう思います。",
+        "hiragana": "そう",
+        "romaji": "sou",
+        "english": "That's what I think too."
+      }
+    ]
+  },
+  {
+    "id": 2020,
+    "japanese": "どう",
+    "hiragana": "どう",
+    "romaji": "dou",
+    "english": "how, what",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "あなたはどう思いますか。",
+        "hiragana": "どう",
+        "romaji": "dou",
+        "english": "What do you think?"
+      }
+    ]
+  },
+  {
+    "id": 2021,
+    "japanese": "こう",
+    "hiragana": "こう",
+    "romaji": "kou",
+    "english": "like this, this kind of",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "こう小さい字は読めない。",
+        "hiragana": "こう",
+        "romaji": "kou",
+        "english": "I can't read such small letters."
+      }
+    ]
+  },
+  {
+    "id": 2022,
+    "japanese": "お前",
+    "hiragana": "おまえ",
+    "romaji": "omae",
+    "english": "you, darling",
+    "level": "N5",
+    "type": "word",
+    "category": "pronouns",
+    "frequency": 5,
+    "example_sentences": [
+      {
+        "japanese": "お前の言うことは信じられない。",
+        "hiragana": "おまえ",
+        "romaji": "omae",
+        "english": "I can't believe what you say."
+      }
+    ]
+  },
+  {
+    "id": 2028,
+    "japanese": "君",
+    "hiragana": "きみ",
+    "romaji": "kimi",
+    "english": "You, Buddy",
+    "level": "N5",
+    "type": "pronoun",
+    "category": "pronouns",
+    "frequency": 0,
+    "notes": "\"Okay, so the kanji itself means buddy and so does the word, but it also means you as well. This is one of the several ways to say \"\"you\"\" in Japanese, and this one is kind of an \"\"affectionate\"\" you. Maybe you'd say it with someone you're close to. Maybe you'd say it with a girlfriend or boyfriend. You wouldn't want to use it with your boss or teacher, though. Make sure to keep that in mind. It's kind of like saying \"\"hey buddy\"\" or \"\"hey you,\"\" after all.\" \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: Who's your buddy? It's Kimmy (きみ)! If you know a Kimmy, imagine her. If you don't, find a famous Kimmy or make up a Kimmy to imagine. You ask... is it you?? Wait, you're my buddy?\"",
+    "example_sentences": [
+      {
+        "japanese": "君とぼくは、いつもいっしょだよ。",
+        "english": "You and I will always be together."
+      },
+      {
+        "japanese": "君はけっこうせがひくいから、シャワーヘッドをフックから外せるか心ぱいです。",
+        "english": "You're pretty short, so I'm worried if you'll be able to reach the shower head and take it off the hook."
+      },
+      {
+        "japanese": "君は、エレベーターで一緒に閉じ込められたくない人ナンバーワンだ。",
+        "english": "You are the worst person to be stuck with in an elevator."
+      }
+    ]
+  },
+  {
+    "id": 2029,
+    "japanese": "俺たち",
+    "hiragana": "おれたち",
+    "romaji": "oretachi",
+    "english": "We",
+    "level": "N1",
+    "type": "pronoun",
+    "category": "pronouns",
+    "frequency": 0,
+    "notes": "\"I plus たち is we. Remember 私達? It's just like that. Remember, 俺 is going to be much more casual and rough sounding, so be careful to only use it amongst friends / when you're shaking someone down.\" The reading is the same as the one you learned with the kanji. You should be able to read this on your own.",
+    "example_sentences": [
+      {
+        "japanese": "俺たち、生き別れになっていた妹に会いに、来月北海道に行くんだ。",
+        "english": "We’ll go to Hokkaido next month to meet our younger sister, who has been separated from us for all these years."
+      }
+    ]
   }
 ]
-
