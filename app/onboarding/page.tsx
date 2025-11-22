@@ -59,8 +59,21 @@ export default function OnboardingPage() {
   }
 
   const startAssessment = () => {
+    console.log('Starting assessment...')
     // Get 5 random vocabulary items for assessment
     const vocabItems = getRandomVocab(5)
+    console.log('Got vocab items:', vocabItems.length)
+    
+    if (vocabItems.length === 0) {
+      console.error('No vocabulary items available for assessment!')
+      // Still allow user to skip
+      setCurrentStep('assessment')
+      setAssessmentQuestions([])
+      setCurrentQuestionIndex(0)
+      setAssessmentScore(0)
+      setUserInput('')
+      return
+    }
     
     const questions: AssessmentQuestion[] = vocabItems.map((vocab, index) => ({
       id: index + 1,
@@ -71,11 +84,13 @@ export default function OnboardingPage() {
       isCorrect: null,
     }))
     
+    console.log('Created assessment questions:', questions.length)
     setAssessmentQuestions(questions)
     setCurrentQuestionIndex(0)
     setAssessmentScore(0)
     setUserInput('')
     setCurrentStep('assessment')
+    console.log('Assessment step set, current question:', questions[0])
   }
 
   const handleAssessmentSubmit = () => {
@@ -370,7 +385,7 @@ export default function OnboardingPage() {
                 Back
               </button>
               <button
-                onClick={() => setCurrentStep('assessment')}
+                onClick={startAssessment}
                 className="flex-1 px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
                 disabled={selectedGoals.length === 0}
               >
