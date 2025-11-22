@@ -50,15 +50,15 @@ export default async function DashboardPage() {
 
         {/* Main Action Cards - Inspired by WaniKani */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {/* Vocabulary Quiz Card */}
+          {/* Learning Course Card */}
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 hover:shadow-xl transition-shadow">
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h2 className="text-xl font-semibold text-black dark:text-zinc-50 mb-1">
-                  Today's Quiz
+                  Learning Course
                 </h2>
                 <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  Test your vocabulary knowledge
+                  Structured lessons: Theory → Examples → Practice
                 </p>
               </div>
               <div className="w-12 h-12 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center">
@@ -66,8 +66,32 @@ export default async function DashboardPage() {
               </div>
             </div>
             <Link
-              href="/dashboard/quiz"
+              href="/dashboard/course"
               className="inline-flex items-center gap-2 w-full justify-center px-4 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
+            >
+              Start Course Session
+              <span>→</span>
+            </Link>
+          </div>
+
+          {/* Vocabulary Quiz Card (Legacy - keeping for now) */}
+          <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 hover:shadow-xl transition-shadow opacity-75">
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h2 className="text-xl font-semibold text-black dark:text-zinc-50 mb-1">
+                  Vocabulary Quiz
+                </h2>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                  Quick practice (legacy)
+                </p>
+              </div>
+              <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                <span className="text-xl">⚡</span>
+              </div>
+            </div>
+            <Link
+              href="/dashboard/quiz"
+              className="inline-flex items-center gap-2 w-full justify-center px-4 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors"
             >
               Start Quiz
               <span>→</span>

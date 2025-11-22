@@ -42,3 +42,6 @@ next-env.d.ts
 
 # scripts (import/utility scripts - not needed in production)
 /scripts/
+
+# design references (local documentation)
+DESIGN_REFERENCES.md
