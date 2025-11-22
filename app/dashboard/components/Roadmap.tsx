@@ -93,13 +93,7 @@ export default function Roadmap() {
         Follow your personalized path to Japanese mastery
       </p>
 
-      <div className="relative pl-14">
-        {/* Vertical connector line - centered on icons (icon is 3rem wide, center at 1.5rem) */}
-        <div 
-          className="absolute left-6 top-6 bottom-6 w-0.5 bg-zinc-200 dark:bg-zinc-700"
-          style={{ transform: 'translateX(-50%)' }}
-        />
-        
+      <div className="relative">
         <div className="space-y-6">
           {roadmapSegments.map((segment, index) => {
             const isCurrent = segment.status === 'current'
@@ -107,14 +101,12 @@ export default function Roadmap() {
             const isLocked = segment.status === 'locked'
             const isLast = index === roadmapSegments.length - 1
             const prevCompleted = index > 0 && (roadmapSegments[index - 1].status === 'completed' || roadmapSegments[index - 1].status === 'current')
-            
-            // Determine if line segment should be colored
-            const shouldColorLine = (isCompleted || isCurrent) && !isLast
 
             return (
-              <div key={segment.id} className="relative flex items-start gap-4">
-                {/* Icon container - fixed width, centered */}
-                <div className="absolute left-0 top-0 flex-shrink-0" style={{ width: '3rem' }}>
+              <div key={segment.id} className="relative flex items-start">
+                {/* Icon column - fixed width */}
+                <div className="flex-shrink-0 w-14 flex flex-col items-center">
+                  {/* Icon */}
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm relative z-10 ${
                       isCurrent
@@ -123,7 +115,6 @@ export default function Roadmap() {
                         ? 'bg-green-500 text-white'
                         : 'bg-zinc-300 dark:bg-zinc-600 text-zinc-600 dark:text-zinc-400'
                     }`}
-                    style={{ marginLeft: '0.5rem' }} // Center icon: (3rem - 3rem) / 2 = 0, but we want it at 1.5rem from left edge
                   >
                     {isCurrent ? (
                       <span className="text-xl">📍</span>
@@ -134,20 +125,21 @@ export default function Roadmap() {
                     )}
                   </div>
                   
-                  {/* Colored progress line segment */}
-                  {shouldColorLine && (
+                  {/* Connector line below icon */}
+                  {!isLast && (
                     <div
-                      className="absolute left-1/2 top-12 w-0.5 bg-pink-500"
-                      style={{ 
-                        transform: 'translateX(-50%)',
-                        height: 'calc(6rem + 1.5rem)' // space-y-6 (1.5rem) + card height approximation
-                      }}
+                      className={`flex-1 w-0.5 mt-2 ${
+                        (isCompleted || isCurrent) || (prevCompleted && (isCompleted || isCurrent))
+                          ? 'bg-pink-500'
+                          : 'bg-zinc-200 dark:bg-zinc-700'
+                      }`}
+                      style={{ minHeight: '1.5rem' }}
                     />
                   )}
                 </div>
 
                 {/* Content card */}
-                <div className="flex-1 ml-14">
+                <div className="flex-1 ml-4">
                   <div
                     className={`p-4 rounded-lg border-2 transition-all ${
                       isCurrent
