@@ -105,9 +105,8 @@ export default function OnboardingPage() {
     setAssessmentQuestions(updatedQuestions)
 
     // Update score
-    if (isCorrect) {
-      setAssessmentScore(assessmentScore + 1)
-    }
+    const newScore = isCorrect ? assessmentScore + 1 : assessmentScore
+    setAssessmentScore(newScore)
 
     // Clear input
     setUserInput('')
@@ -116,7 +115,9 @@ export default function OnboardingPage() {
     if (currentQuestionIndex < assessmentQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
     } else {
-      completeOnboarding(updatedQuestions, isCorrect ? assessmentScore + 1 : assessmentScore)
+      // All questions answered, complete onboarding
+      console.log('All questions answered, completing onboarding...')
+      completeOnboarding(updatedQuestions, newScore)
     }
   }
 
@@ -351,7 +352,12 @@ export default function OnboardingPage() {
         )}
 
         {/* Assessment Step */}
-        {currentStep === 'assessment' && currentQuestion && (
+        {currentStep === 'assessment' && (
+          loading ? (
+            <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 text-center border border-zinc-200 dark:border-zinc-800">
+              <div className="text-lg text-zinc-600 dark:text-zinc-400">Completing onboarding...</div>
+            </div>
+          ) : currentQuestion ? (
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
             <div className="mb-4">
               <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-2">
@@ -420,6 +426,11 @@ export default function OnboardingPage() {
               </div>
             </div>
           </div>
+          ) : (
+            <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 text-center border border-zinc-200 dark:border-zinc-800">
+              <div className="text-lg text-zinc-600 dark:text-zinc-400">Loading assessment...</div>
+            </div>
+          )
         )}
 
         {/* Complete Step */}
