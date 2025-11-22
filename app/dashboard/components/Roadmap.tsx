@@ -128,12 +128,12 @@ export default function Roadmap() {
                   {/* Connector line below icon */}
                   {!isLast && (
                     <div
-                      className={`flex-1 w-0.5 mt-2 ${
+                      className={`w-0.5 mt-2 ${
                         (isCompleted || isCurrent) || (prevCompleted && (isCompleted || isCurrent))
                           ? 'bg-pink-500'
                           : 'bg-zinc-200 dark:bg-zinc-700'
                       }`}
-                      style={{ minHeight: '1.5rem' }}
+                      style={{ height: '6rem' }}
                     />
                   )}
                 </div>
