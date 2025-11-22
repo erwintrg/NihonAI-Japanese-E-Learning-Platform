@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import Roadmap from './components/Roadmap'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -46,6 +47,11 @@ export default async function DashboardPage() {
               Ready to continue your Japanese learning journey?
             </p>
           </div>
+        </div>
+
+        {/* Learning Roadmap */}
+        <div className="mb-8">
+          <Roadmap />
         </div>
 
         {/* Main Action Cards - Inspired by WaniKani */}

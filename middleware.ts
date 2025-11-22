@@ -48,6 +48,32 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  // Check onboarding status for authenticated users accessing dashboard
+  if (user && request.nextUrl.pathname.startsWith('/dashboard') && request.nextUrl.pathname !== '/onboarding') {
+    try {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('onboarding_completed')
+        .eq('id', user.id)
+        .single()
+
+      // Redirect to onboarding if not completed
+      if (profile && !profile.onboarding_completed) {
+        const url = request.nextUrl.clone()
+        url.pathname = '/onboarding'
+        return NextResponse.redirect(url)
+      }
+    } catch (error) {
+      // If profile doesn't exist or error, allow access (will be handled by page)
+      console.error('Error checking onboarding status:', error)
+    }
+  }
+
+  // Allow access to onboarding page for authenticated users
+  if (user && request.nextUrl.pathname === '/onboarding') {
+    return supabaseResponse
+  }
+
   return supabaseResponse
 }
 
