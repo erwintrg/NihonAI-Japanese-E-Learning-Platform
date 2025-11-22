@@ -4,6 +4,8 @@ import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { getHiraganaByBatch, type KanaCharacter } from '@/lib/kana'
+import { convertRomajiToHiragana } from '@/lib/romaji-to-hiragana'
+import { getAllVocab, type VocabularyItem } from '@/lib/data'
 
 type SessionSection = 'theory' | 'examples' | 'practice'
 
@@ -26,6 +28,7 @@ type CourseSession = {
     title: string
     content: string
     kana: KanaCharacter[]
+    wordExamples?: VocabularyItem[]
   }
   examples: KanaCharacter[]
   practice: KanaPracticeQuestion[]
@@ -46,6 +49,7 @@ function CoursePageContent() {
   const [practiceScore, setPracticeScore] = useState(0)
   const [currentPracticeIndex, setCurrentPracticeIndex] = useState(0)
   const [userInput, setUserInput] = useState('')
+  const [convertedInput, setConvertedInput] = useState('')
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -115,20 +119,65 @@ function CoursePageContent() {
       },
     ])
 
+    // Randomize practice questions
+    for (let i = practiceQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [practiceQuestions[i], practiceQuestions[j]] = [practiceQuestions[j], practiceQuestions[i]]
+    }
+
+    // Get word examples using the kana being learned
+    const allVocab = getAllVocab()
+    const kanaCharacters = batchKana.map(k => k.character)
+    const wordExamples = allVocab
+      .filter(vocab => {
+        // Check if the word contains any of the kana being learned
+        return kanaCharacters.some(kana => vocab.hiragana.includes(kana))
+      })
+      .slice(0, 5) // Limit to 5 examples
+
+    // Enhanced theory content
+    let theoryContent = ''
+    if (batchNumber === 1) {
+      theoryContent = `Welcome to Hiragana! This is your first step into reading Japanese.
+
+**Why do we need Kana?**
+Japanese uses three writing systems: Hiragana, Katakana, and Kanji. Hiragana is the foundation - it's used for:
+- Native Japanese words (not borrowed from other languages)
+- Grammatical particles and endings
+- Words that don't have Kanji or when Kanji is too formal
+- Furigana (small characters above Kanji to show pronunciation)
+
+**What is Hiragana?**
+Hiragana consists of 46 basic characters, each representing a syllable (like "ka", "ki", "ku"). Unlike English letters, each Hiragana character represents a complete sound. This makes it perfect for beginners because once you learn Hiragana, you can read and write any Japanese word phonetically.
+
+**How to use Mnemonics:**
+Each character below has a mnemonic - a memory aid that connects the character's shape to its sound. For example, "あ" (a) looks like a capital "A" with a loop. Visualize the mnemonic story as you look at each character. The more vivid you make the mental image, the easier it will be to remember!
+
+In this batch, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
+    } else {
+      theoryContent = `In this session, you'll learn ${batchKana.length} more Hiragana characters. Each character has a mnemonic to help you remember its shape and sound.
+
+**About Mnemonics:**
+The mnemonics below are visual stories that connect each character's shape to its sound. For example, if a character looks like something familiar, the mnemonic will help you remember that connection. Try to visualize each mnemonic as you study the characters - the more vivid your mental image, the better you'll remember!
+
+**Remember:**
+- Each character represents a syllable
+- Use the mnemonics to remember the character shapes
+- Practice writing and recognizing each character
+
+Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
+    }
+
     const hiraganaSession: CourseSession = {
       id: `hiragana-batch-${batchNumber}`,
       title: `Hiragana Batch ${batchNumber}`,
       description: `Learn ${batchKana.length} Hiragana characters: ${batchKana.map(k => k.character).join(', ')}`,
       batchNumber,
       theory: {
-        title: `Hiragana Characters: Batch ${batchNumber}`,
-        content: `In this session, you'll learn ${batchKana.length} Hiragana characters. Each character has a mnemonic to help you remember its shape and sound.
-
-Remember:
-- Each character represents a syllable
-- Use the mnemonics to remember the character shapes
-- Practice writing and recognizing each character`,
+        title: batchNumber === 1 ? 'Introduction to Hiragana' : `Hiragana Characters: Batch ${batchNumber}`,
+        content: theoryContent,
         kana: batchKana,
+        wordExamples: wordExamples,
       },
       examples: batchKana,
       practice: practiceQuestions,
@@ -167,14 +216,19 @@ Remember:
   }
 
   const handlePracticeSubmit = () => {
-    if (!userInput.trim() || !session) return
+    if ((!userInput.trim() && !convertedInput.trim()) || !session) return
 
     const currentQuestion = session.practice[currentPracticeIndex]
-    const userAnswer = userInput.trim().toLowerCase()
-    const correctAnswer = currentQuestion.correctAnswer.toLowerCase()
+    // Use converted input if it's a romaji-to-character question, otherwise use regular input
+    const userAnswer = currentQuestion.questionType === 'romaji-to-character' 
+      ? (convertedInput.trim() || userInput.trim())
+      : userInput.trim().toLowerCase()
+    const correctAnswer = currentQuestion.correctAnswer
     
-    // Check if answer is correct
-    const isCorrect = userAnswer === correctAnswer
+    // Check if answer is correct (case-insensitive for romaji)
+    const isCorrect = currentQuestion.questionType === 'character-to-romaji'
+      ? userAnswer.toLowerCase() === correctAnswer.toLowerCase()
+      : userAnswer === correctAnswer
 
     // Update question with user answer
     const updatedPractice = [...session.practice]
@@ -193,12 +247,26 @@ Remember:
 
     // Clear input
     setUserInput('')
+    setConvertedInput('')
 
     // Move to next question or complete session
     if (currentPracticeIndex < session.practice.length - 1) {
       setCurrentPracticeIndex(currentPracticeIndex + 1)
+      setUserInput('')
+      setConvertedInput('')
     } else {
       completeSession()
+    }
+  }
+
+  // Handle input change with romaji-to-hiragana conversion
+  const handleInputChange = (value: string) => {
+    setUserInput(value)
+    if (currentPracticeQuestion?.questionType === 'romaji-to-character') {
+      const converted = convertRomajiToHiragana(value)
+      setConvertedInput(converted)
+    } else {
+      setConvertedInput('')
     }
   }
 
@@ -350,14 +418,41 @@ Remember:
                         {kana.romaji}
                       </span>
                     </div>
-                    <div className="text-sm text-zinc-700 dark:text-zinc-300 text-center">
-                      <p className="font-medium mb-1">Mnemonic:</p>
-                      <p>{kana.mnemonic}</p>
+                    <div className="text-xs text-zinc-500 dark:text-zinc-400 text-center italic">
+                      {kana.mnemonic}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
+
+            {session.theory.wordExamples && session.theory.wordExamples.length > 0 && (
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
+                  Words using these characters:
+                </h3>
+                <div className="space-y-2">
+                  {session.theory.wordExamples.map((word, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-xl font-bold text-black dark:text-zinc-50">
+                          {word.japanese}
+                        </span>
+                        <span className="text-zinc-600 dark:text-zinc-400">
+                          ({word.hiragana})
+                        </span>
+                        <span className="text-zinc-700 dark:text-zinc-300">
+                          - {word.english}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <button
               onClick={nextSection}
@@ -372,10 +467,10 @@ Remember:
         {sessionStarted && !sessionCompleted && currentSection === 'examples' && (
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
             <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-4">
-              Character Recognition
+              Character Recognition & Word Examples
             </h2>
             <p className="text-zinc-600 dark:text-zinc-400 mb-6">
-              Review the characters you just learned. Try to recall the mnemonic for each:
+              Review the characters you just learned and see them used in real words:
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
@@ -390,12 +485,40 @@ Remember:
                   <div className="text-lg font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
                     {kana.romaji}
                   </div>
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                  <div className="text-xs text-zinc-500 dark:text-zinc-400 italic">
                     {kana.mnemonic}
                   </div>
                 </div>
               ))}
             </div>
+
+            {session.theory.wordExamples && session.theory.wordExamples.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
+                  Words using these characters:
+                </h3>
+                <div className="space-y-3">
+                  {session.theory.wordExamples.map((word, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
+                    >
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <span className="text-2xl font-bold text-black dark:text-zinc-50">
+                          {word.japanese}
+                        </span>
+                        <span className="text-lg text-zinc-600 dark:text-zinc-400">
+                          ({word.hiragana})
+                        </span>
+                        <span className="text-zinc-700 dark:text-zinc-300">
+                          - {word.english}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <button
               onClick={nextSection}
@@ -457,10 +580,16 @@ Remember:
               </div>
               
               <div className="space-y-4">
+                {currentPracticeQuestion.questionType === 'romaji-to-character' && convertedInput && (
+                  <div className="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg text-center">
+                    <p className="text-sm text-blue-600 dark:text-blue-400 mb-1">Converted to Hiragana:</p>
+                    <p className="text-4xl font-bold text-blue-700 dark:text-blue-300">{convertedInput}</p>
+                  </div>
+                )}
                 <input
                   type="text"
                   value={userInput}
-                  onChange={(e) => setUserInput(e.target.value)}
+                  onChange={(e) => handleInputChange(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       handlePracticeSubmit()
@@ -469,15 +598,20 @@ Remember:
                   placeholder={
                     currentPracticeQuestion.questionType === 'character-to-romaji'
                       ? 'Type the romaji (e.g., "ka", "ki", "ku")...'
-                      : 'Type the Hiragana character...'
+                      : 'Type romaji (e.g., "a" for あ, "ka" for か)...'
                   }
                   className="w-full px-4 py-3 bg-white dark:bg-zinc-800 text-black dark:text-white border-2 border-zinc-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all text-center text-2xl"
                   autoFocus
                 />
+                {currentPracticeQuestion.questionType === 'romaji-to-character' && (
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 text-center">
+                    💡 Tip: Type romaji (like "a", "ka") and it will convert to Hiragana automatically
+                  </p>
+                )}
                 
                 <button
                   onClick={handlePracticeSubmit}
-                  disabled={!userInput.trim()}
+                  disabled={!userInput.trim() && !convertedInput.trim()}
                   className="w-full px-6 py-3 bg-pink-500 hover:bg-pink-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
                 >
                   Submit Answer
