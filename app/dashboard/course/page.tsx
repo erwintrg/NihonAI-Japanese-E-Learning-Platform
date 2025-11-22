@@ -263,6 +263,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
   const handleInputChange = (value: string) => {
     setUserInput(value)
     if (currentPracticeQuestion?.questionType === 'romaji-to-character') {
+      // Convert full word to Hiragana
       const converted = convertRomajiToHiragana(value)
       setConvertedInput(converted)
     } else {
@@ -384,6 +385,44 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
           </div>
         )}
 
+        {/* Tabs Navigation */}
+        {sessionStarted && !sessionCompleted && (
+          <div className="mb-4 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+            <div className="flex">
+              <button
+                onClick={() => setCurrentSection('theory')}
+                className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                  currentSection === 'theory'
+                    ? 'bg-pink-500 text-white'
+                    : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+                }`}
+              >
+                Theory
+              </button>
+              <button
+                onClick={() => setCurrentSection('examples')}
+                className={`flex-1 px-4 py-3 text-sm font-medium transition-colors border-l border-r border-zinc-200 dark:border-zinc-700 ${
+                  currentSection === 'examples'
+                    ? 'bg-pink-500 text-white'
+                    : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+                }`}
+              >
+                Examples
+              </button>
+              <button
+                onClick={() => setCurrentSection('practice')}
+                className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                  currentSection === 'practice'
+                    ? 'bg-pink-500 text-white'
+                    : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+                }`}
+              >
+                Practice
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Theory Section */}
         {sessionStarted && !sessionCompleted && currentSection === 'theory' && (
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
@@ -392,9 +431,14 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                 {session.theory.title}
               </h2>
               <div className="prose dark:prose-invert max-w-none">
-                <p className="text-zinc-700 dark:text-zinc-300 whitespace-pre-line">
-                  {session.theory.content}
-                </p>
+                <div 
+                  className="text-zinc-700 dark:text-zinc-300 whitespace-pre-line"
+                  dangerouslySetInnerHTML={{
+                    __html: session.theory.content
+                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                      .replace(/\n/g, '<br />')
+                  }}
+                />
               </div>
             </div>
 
@@ -425,41 +469,6 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                 ))}
               </div>
             </div>
-
-            {session.theory.wordExamples && session.theory.wordExamples.length > 0 && (
-              <div className="mt-6">
-                <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
-                  Words using these characters:
-                </h3>
-                <div className="space-y-2">
-                  {session.theory.wordExamples.map((word, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl font-bold text-black dark:text-zinc-50">
-                          {word.japanese}
-                        </span>
-                        <span className="text-zinc-600 dark:text-zinc-400">
-                          ({word.hiragana})
-                        </span>
-                        <span className="text-zinc-700 dark:text-zinc-300">
-                          - {word.english}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <button
-              onClick={nextSection}
-              className="mt-6 w-full px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
-            >
-              Continue to Examples →
-            </button>
           </div>
         )}
 
@@ -519,13 +528,6 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                 </div>
               </div>
             )}
-
-            <button
-              onClick={nextSection}
-              className="w-full px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
-            >
-              Continue to Practice →
-            </button>
           </div>
         )}
 
@@ -598,14 +600,14 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                   placeholder={
                     currentPracticeQuestion.questionType === 'character-to-romaji'
                       ? 'Type the romaji (e.g., "ka", "ki", "ku")...'
-                      : 'Type romaji (e.g., "a" for あ, "ka" for か)...'
+                      : 'Type romaji (e.g., "a" for あ, "hoteru" for ほてる)...'
                   }
                   className="w-full px-4 py-3 bg-white dark:bg-zinc-800 text-black dark:text-white border-2 border-zinc-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all text-center text-2xl"
                   autoFocus
                 />
                 {currentPracticeQuestion.questionType === 'romaji-to-character' && (
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 text-center">
-                    💡 Tip: Type romaji (like "a", "ka") and it will convert to Hiragana automatically
+                    💡 Tip: Type romaji (like "a", "ka", "hoteru", "kyoto") and it will convert to Hiragana automatically
                   </p>
                 )}
                 
