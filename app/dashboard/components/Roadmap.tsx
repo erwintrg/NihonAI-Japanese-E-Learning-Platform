@@ -93,55 +93,37 @@ export default function Roadmap() {
         Follow your personalized path to Japanese mastery
       </p>
 
-      <div className="relative">
-        {/* Vertical connector line - positioned to run through icon centers */}
+      <div className="relative pl-14">
+        {/* Vertical connector line - centered on icons (icon is 3rem wide, center at 1.5rem) */}
         <div 
-          className="absolute left-6 top-0 bottom-0 w-0.5 bg-zinc-200 dark:bg-zinc-700"
-          style={{ 
-            top: '1.5rem', // Start after first icon center
-            bottom: '1.5rem' // End before last icon center
-          }}
+          className="absolute left-6 top-6 bottom-6 w-0.5 bg-zinc-200 dark:bg-zinc-700"
+          style={{ transform: 'translateX(-50%)' }}
         />
         
-        {/* Colored progress line */}
-        {roadmapSegments.map((segment, index) => {
-          const isCurrent = segment.status === 'current'
-          const isCompleted = segment.status === 'completed'
-          const isLast = index === roadmapSegments.length - 1
-          const shouldColorLine = isCompleted || isCurrent
-          
-          if (!shouldColorLine || isLast) return null
-          
-          return (
-            <div
-              key={`line-${segment.id}`}
-              className="absolute left-6 w-0.5 bg-pink-500"
-              style={{
-                top: `${(index + 1) * 6.5}rem`, // Approximate position based on card height
-                height: '6.5rem' // Height between cards
-              }}
-            />
-          )
-        })}
-
         <div className="space-y-6">
           {roadmapSegments.map((segment, index) => {
             const isCurrent = segment.status === 'current'
             const isCompleted = segment.status === 'completed'
             const isLocked = segment.status === 'locked'
+            const isLast = index === roadmapSegments.length - 1
+            const prevCompleted = index > 0 && (roadmapSegments[index - 1].status === 'completed' || roadmapSegments[index - 1].status === 'current')
+            
+            // Determine if line segment should be colored
+            const shouldColorLine = (isCompleted || isCurrent) && !isLast
 
             return (
               <div key={segment.id} className="relative flex items-start gap-4">
-                {/* Icon positioned to align with vertical line */}
-                <div className="relative flex-shrink-0" style={{ width: '3rem' }}>
+                {/* Icon container - fixed width, centered */}
+                <div className="absolute left-0 top-0 flex-shrink-0" style={{ width: '3rem' }}>
                   <div
-                    className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm mx-auto ${
+                    className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm relative z-10 ${
                       isCurrent
                         ? 'bg-pink-500 text-white'
                         : isCompleted
                         ? 'bg-green-500 text-white'
                         : 'bg-zinc-300 dark:bg-zinc-600 text-zinc-600 dark:text-zinc-400'
                     }`}
+                    style={{ marginLeft: '0.5rem' }} // Center icon: (3rem - 3rem) / 2 = 0, but we want it at 1.5rem from left edge
                   >
                     {isCurrent ? (
                       <span className="text-xl">📍</span>
@@ -151,10 +133,21 @@ export default function Roadmap() {
                       <span className="text-xl">🔒</span>
                     )}
                   </div>
+                  
+                  {/* Colored progress line segment */}
+                  {shouldColorLine && (
+                    <div
+                      className="absolute left-1/2 top-12 w-0.5 bg-pink-500"
+                      style={{ 
+                        transform: 'translateX(-50%)',
+                        height: 'calc(6rem + 1.5rem)' // space-y-6 (1.5rem) + card height approximation
+                      }}
+                    />
+                  )}
                 </div>
 
                 {/* Content card */}
-                <div className="flex-1">
+                <div className="flex-1 ml-14">
                   <div
                     className={`p-4 rounded-lg border-2 transition-all ${
                       isCurrent
