@@ -76,13 +76,19 @@ export default function Roadmap() {
     },
   ]
 
-  // Calculate progress line color - pink up to current/completed items
+  // Calculate progress line height - pink up to current/completed items
   const getProgressLineHeight = () => {
     const currentItemIndex = roadmapSegments.findIndex(s => s.status === 'current' || s.status === 'completed')
     if (currentItemIndex === -1) return 0
-    // Calculate height: (currentItemIndex + 1) items * (icon height + spacing)
-    // Each item: icon (3rem) + spacing (1rem) = 4rem per item
-    return `${(currentItemIndex + 1) * 4}rem`
+    // Calculate height: 
+    // - First icon center: 1.5rem (half of icon height)
+    // - Each subsequent item: 1rem spacing + 1.5rem (half of icon) + 1.5rem (half of next icon) = 4rem
+    // - Last item: just to center of icon
+    if (currentItemIndex === 0) {
+      return '3rem' // Just the first icon height
+    }
+    // First icon center (1.5rem) + spacing and items (currentItemIndex * 4rem) + half of current icon (1.5rem)
+    return `${1.5 + (currentItemIndex * 4) + 1.5}rem`
   }
 
   if (loading) {
@@ -102,13 +108,14 @@ export default function Roadmap() {
         Follow your personalized path to Japanese mastery
       </p>
 
-      <div className="relative">
+      <div className="relative pl-0">
         {/* Single vertical line from first to last icon center */}
-        <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-zinc-200 dark:bg-zinc-700" />
+        {/* Line positioned at center of w-14 column: left-7 (1.75rem = center of 3.5rem) */}
+        <div className="absolute left-7 top-0 bottom-0 w-0.5 bg-zinc-200 dark:bg-zinc-700" />
         
         {/* Colored progress line */}
         <div 
-          className="absolute left-6 top-6 w-0.5 bg-pink-500"
+          className="absolute left-7 top-0 w-0.5 bg-pink-500"
           style={{ height: getProgressLineHeight() }}
         />
 
@@ -119,8 +126,9 @@ export default function Roadmap() {
             const isLocked = segment.status === 'locked'
 
             return (
-              <div key={segment.id} className="relative flex items-start">
+              <div key={segment.id} className="relative flex items-center">
                 {/* Icon - positioned to align with vertical line */}
+                {/* w-14 = 3.5rem, center at 1.75rem = left-7 */}
                 <div className="flex-shrink-0 w-14 flex items-center justify-center relative z-10">
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm ${
