@@ -93,74 +93,81 @@ export default function Roadmap() {
         Follow your personalized path to Japanese mastery
       </p>
 
-      <div className="space-y-4">
+      <div className="space-y-0">
         {roadmapSegments.map((segment, index) => {
           const isCurrent = segment.status === 'current'
           const isCompleted = segment.status === 'completed'
           const isLocked = segment.status === 'locked'
+          const isLast = index === roadmapSegments.length - 1
+          const prevCompleted = index > 0 && (roadmapSegments[index - 1].status === 'completed' || roadmapSegments[index - 1].status === 'current')
 
           return (
-            <div
-              key={segment.id}
-              className={`relative p-4 rounded-lg border-2 transition-all ${
-                isCurrent
-                  ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20'
-                  : isCompleted
-                  ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
-                  : 'border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800'
-              }`}
-            >
-              {/* Connector line */}
-              {index < roadmapSegments.length - 1 && (
-                <div
-                  className={`absolute left-6 top-12 w-0.5 h-8 ${
-                    isCompleted || isCurrent
-                      ? 'bg-pink-500'
-                      : 'bg-zinc-300 dark:bg-zinc-600'
-                  }`}
-                />
-              )}
-
-              <div className="flex items-start gap-4">
-                {/* Status indicator */}
-                <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 ${
-                    isCurrent
-                      ? 'bg-pink-500 text-white'
-                      : isCompleted
-                      ? 'bg-green-500 text-white'
-                      : 'bg-zinc-300 dark:bg-zinc-600 text-zinc-600 dark:text-zinc-400'
-                  }`}
-                >
-                  {isCurrent ? (
-                    <span className="text-xl">📍</span>
-                  ) : isCompleted ? (
-                    <span className="text-xl">✓</span>
-                  ) : (
-                    <span className="text-xl">🔒</span>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-lg font-semibold text-black dark:text-zinc-50">
-                      {segment.title}
-                    </h3>
-                    {isCurrent && (
-                      <span className="px-2 py-0.5 text-xs font-medium bg-pink-500 text-white rounded-full">
-                        You are here
-                      </span>
+            <div key={segment.id} className="relative">
+              <div
+                className={`relative p-4 rounded-lg border-2 transition-all ${
+                  isCurrent
+                    ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20'
+                    : isCompleted
+                    ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
+                    : 'border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800'
+                }`}
+              >
+                <div className="flex items-start gap-4">
+                  {/* Status indicator with connector */}
+                  <div className="relative flex-shrink-0">
+                    <div
+                      className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm ${
+                        isCurrent
+                          ? 'bg-pink-500 text-white'
+                          : isCompleted
+                          ? 'bg-green-500 text-white'
+                          : 'bg-zinc-300 dark:bg-zinc-600 text-zinc-600 dark:text-zinc-400'
+                      }`}
+                    >
+                      {isCurrent ? (
+                        <span className="text-xl">📍</span>
+                      ) : isCompleted ? (
+                        <span className="text-xl">✓</span>
+                      ) : (
+                        <span className="text-xl">🔒</span>
+                      )}
+                    </div>
+                    {/* Vertical connector line from icon to next item */}
+                    {!isLast && (
+                      <div
+                        className={`absolute left-1/2 top-full w-0.5 ${
+                          (isCompleted || isCurrent) && (roadmapSegments[index + 1].status === 'completed' || roadmapSegments[index + 1].status === 'current')
+                            ? 'bg-pink-500'
+                            : prevCompleted && (isCompleted || isCurrent)
+                            ? 'bg-pink-500'
+                            : 'bg-zinc-300 dark:bg-zinc-600'
+                        }`}
+                        style={{ height: '1rem' }}
+                      />
                     )}
                   </div>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-2">
-                    {segment.description}
-                  </p>
-                  {isLocked && segment.unlocksAt && (
-                    <p className="text-xs text-zinc-500 dark:text-zinc-500">
-                      Unlocks: {segment.unlocksAt}
+
+                  {/* Content */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-lg font-semibold text-black dark:text-zinc-50">
+                        {segment.title}
+                      </h3>
+                      {isCurrent && (
+                        <span className="px-2 py-0.5 text-xs font-medium bg-pink-500 text-white rounded-full">
+                          You are here
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-2">
+                      {segment.description}
                     </p>
-                  )}
+                    {isLocked && segment.unlocksAt && (
+                      <p className="text-xs text-zinc-500 dark:text-zinc-500">
+                        Unlocks: {segment.unlocksAt}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
