@@ -146,6 +146,13 @@ export default function OnboardingPage() {
 
     console.log('Setting loading to true...')
     setLoading(true)
+    
+    // Fallback timeout to ensure we don't get stuck
+    const fallbackTimeout = setTimeout(() => {
+      console.warn('Onboarding completion taking too long - forcing complete step')
+      setCurrentStep('complete')
+      setLoading(false)
+    }, 5000)
 
     try {
       // Determine level based on assessment score
@@ -178,6 +185,7 @@ export default function OnboardingPage() {
         console.log('Set currentStep to complete (error case)')
       } else {
         console.log('Onboarding completed successfully, setting step to complete')
+        clearTimeout(fallbackTimeout)
         setCurrentStep('complete')
         setLoading(false)
         console.log('Current step set to:', 'complete')
@@ -189,19 +197,11 @@ export default function OnboardingPage() {
       }
     } catch (error) {
       console.error('Error completing onboarding:', error)
+      clearTimeout(fallbackTimeout)
       // Show complete step even on error so user isn't stuck
       setCurrentStep('complete')
       setLoading(false)
       console.log('Set currentStep to complete (catch case)')
-    } finally {
-      // Ensure we always set loading to false and step to complete as fallback
-      setTimeout(() => {
-        if (currentStep === 'assessment' && loading) {
-          console.warn('Assessment step still active after timeout, forcing complete step')
-          setCurrentStep('complete')
-          setLoading(false)
-        }
-      }, 5000)
     }
   }
 
