@@ -76,6 +76,15 @@ export default function Roadmap() {
     },
   ]
 
+  // Calculate progress line color - pink up to current/completed items
+  const getProgressLineHeight = () => {
+    const currentItemIndex = roadmapSegments.findIndex(s => s.status === 'current' || s.status === 'completed')
+    if (currentItemIndex === -1) return 0
+    // Calculate height: (currentItemIndex + 1) items * (icon height + spacing)
+    // Each item: icon (3rem) + spacing (1rem) = 4rem per item
+    return `${(currentItemIndex + 1) * 4}rem`
+  }
+
   if (loading) {
     return (
       <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
@@ -94,34 +103,25 @@ export default function Roadmap() {
       </p>
 
       <div className="relative">
-        <div className="space-y-4">
+        {/* Single vertical line from first to last icon center */}
+        <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-zinc-200 dark:bg-zinc-700" />
+        
+        {/* Colored progress line */}
+        <div 
+          className="absolute left-6 top-6 w-0.5 bg-pink-500"
+          style={{ height: getProgressLineHeight() }}
+        />
+
+        <div className="space-y-4 relative">
           {roadmapSegments.map((segment, index) => {
             const isCurrent = segment.status === 'current'
             const isCompleted = segment.status === 'completed'
             const isLocked = segment.status === 'locked'
-            const isLast = index === roadmapSegments.length - 1
-            const prevCompleted = index > 0 && (roadmapSegments[index - 1].status === 'completed' || roadmapSegments[index - 1].status === 'current')
 
             return (
               <div key={segment.id} className="relative flex items-start">
-                {/* Connector line - positioned to connect from this icon to next */}
-                {!isLast && (
-                  <div
-                    className={`absolute left-7 top-12 w-0.5 ${
-                      (isCompleted || isCurrent) || (prevCompleted && (isCompleted || isCurrent))
-                        ? 'bg-pink-500'
-                        : 'bg-zinc-200 dark:bg-zinc-700'
-                    }`}
-                    style={{ 
-                      height: 'calc(100% + 1rem)', // Extends through spacing to next item
-                      zIndex: 0
-                    }}
-                  />
-                )}
-                
-                {/* Icon column - fixed width */}
-                <div className="flex-shrink-0 w-14 flex flex-col items-center relative z-10">
-                  {/* Icon */}
+                {/* Icon - positioned to align with vertical line */}
+                <div className="flex-shrink-0 w-14 flex items-center justify-center relative z-10">
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm ${
                       isCurrent
@@ -142,7 +142,7 @@ export default function Roadmap() {
                 </div>
 
                 {/* Content card */}
-                <div className="flex-1 ml-4">
+                <div className="flex-1 ml-4 relative z-10">
                   <div
                     className={`p-4 rounded-lg border-2 transition-all ${
                       isCurrent
