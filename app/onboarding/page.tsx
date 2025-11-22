@@ -23,7 +23,7 @@ export default function OnboardingPage() {
   const [user, setUser] = useState<any>(null)
   const [currentStep, setCurrentStep] = useState<OnboardingStep>('welcome')
   const [selectedLevel, setSelectedLevel] = useState<string>('beginner')
-  const [selectedGoal, setSelectedGoal] = useState<string>('')
+  const [selectedGoals, setSelectedGoals] = useState<string[]>([])
   const [assessmentQuestions, setAssessmentQuestions] = useState<AssessmentQuestion[]>([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [userInput, setUserInput] = useState('')
@@ -139,7 +139,7 @@ export default function OnboardingPage() {
         .from('profiles')
         .update({
           current_level: determinedLevel,
-          learning_goal: selectedGoal,
+          learning_goal: selectedGoals.join(','), // Store multiple goals as comma-separated
           roadmap_position: 'hiragana-basics',
           onboarding_completed: true,
           updated_at: new Date().toISOString(),
@@ -150,6 +150,10 @@ export default function OnboardingPage() {
         console.error('Error updating profile:', error)
       } else {
         setCurrentStep('complete')
+        // Redirect to dashboard after a brief delay
+        setTimeout(() => {
+          router.push('/dashboard')
+        }, 2000)
       }
     } catch (error) {
       console.error('Error completing onboarding:', error)
@@ -268,20 +272,40 @@ export default function OnboardingPage() {
                 { value: 'academic', label: 'Academic Study', desc: 'Formal learning and JLPT preparation' },
                 { value: 'conversation', label: 'Daily Conversation', desc: 'Speak naturally with native speakers' },
                 { value: 'reading', label: 'Reading & Literature', desc: 'Read books, articles, and novels' },
-              ].map((goal) => (
-                <button
-                  key={goal.value}
-                  onClick={() => setSelectedGoal(goal.value)}
-                  className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                    selectedGoal === goal.value
-                      ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20'
-                      : 'border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
-                  }`}
-                >
-                  <div className="font-semibold text-black dark:text-zinc-50">{goal.label}</div>
-                  <div className="text-sm text-zinc-600 dark:text-zinc-400">{goal.desc}</div>
-                </button>
-              ))}
+              ].map((goal) => {
+                const isSelected = selectedGoals.includes(goal.value)
+                return (
+                  <button
+                    key={goal.value}
+                    onClick={() => {
+                      if (isSelected) {
+                        setSelectedGoals(selectedGoals.filter(g => g !== goal.value))
+                      } else {
+                        setSelectedGoals([...selectedGoals, goal.value])
+                      }
+                    }}
+                    className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                      isSelected
+                        ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20'
+                        : 'border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                        isSelected
+                          ? 'border-pink-500 bg-pink-500'
+                          : 'border-zinc-300 dark:border-zinc-600'
+                      }`}>
+                        {isSelected && <span className="text-white text-xs">✓</span>}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-semibold text-black dark:text-zinc-50">{goal.label}</div>
+                        <div className="text-sm text-zinc-600 dark:text-zinc-400">{goal.desc}</div>
+                      </div>
+                    </div>
+                  </button>
+                )
+              })}
             </div>
 
             <div className="flex gap-4">
@@ -294,7 +318,7 @@ export default function OnboardingPage() {
               <button
                 onClick={() => setCurrentStep('assessment')}
                 className="flex-1 px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
-                disabled={!selectedGoal}
+                disabled={selectedGoals.length === 0}
               >
                 Continue →
               </button>
