@@ -18,7 +18,7 @@ export default function KanaDrillsCard({ userId }: { userId: string }) {
         .eq('batch_type', 'hiragana')
         .eq('batch_number', 1)
       
-      setIsUnlocked(batches && batches.length > 0)
+      setIsUnlocked(Boolean(batches && batches.length > 0))
       setLoading(false)
     }
     checkUnlock()
