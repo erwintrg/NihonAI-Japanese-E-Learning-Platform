@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Roadmap from './components/Roadmap'
 import { Suspense } from 'react'
 import CourseLink from './components/CourseLink'
+import KanaDrillsCard from './components/KanaDrillsCard'
 
 // Disable caching for this page to ensure fresh data
 export const revalidate = 0
@@ -114,6 +115,9 @@ export default async function DashboardPage({
                 Coming Soon
               </button>
             </div>
+
+            {/* Kana Drills Card */}
+            <KanaDrillsCard userId={user.id} />
 
             {/* AI Chat Card (Placeholder for future) */}
             <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 hover:shadow-xl transition-shadow opacity-60">
