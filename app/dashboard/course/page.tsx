@@ -248,6 +248,9 @@ function CoursePageContent() {
       })
       .slice(0, 5) // Limit to 5 examples
 
+    // Get batch name once for use in theory content and session title
+    const batchName = getHiraganaBatchName(batchNumber)
+    
     // Enhanced theory content
     let theoryContent = ''
     if (batchNumber === 1) {
@@ -268,10 +271,6 @@ Each character below has a mnemonic - a memory aid that connects the character's
 
 In this batch, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
     } else {
-      // Get the row name (a-row, ka-row, etc.)
-      const firstKana = batchKana[0]
-      const rowName = firstKana.romaji.slice(-1).toUpperCase() + '-row'
-      
       // Check if this is a noteworthy batch (e.g., special patterns)
       let batchNote = ''
       if (batchNumber === 2) {
@@ -283,15 +282,13 @@ In this batch, you'll learn ${batchKana.length} characters: ${batchKana.map(k =>
       }
       
       theoryContent = `**Hiragana Ordering:**
-Hiragana is organized in a specific order called "gojūon" (五十音, "fifty sounds"). Characters are grouped by their consonant sound and vowel. This batch continues the ${rowName} pattern.${batchNote}
+Hiragana is organized in a specific order called "gojūon" (五十音, "fifty sounds"). Characters are grouped by their consonant sound and vowel. This batch covers the ${batchName}${batchNote}
 
 **About Mnemonics:**
 Each character has a mnemonic - a visual story connecting its shape to its sound. Visualize each mnemonic as you study: the more vivid your mental image, the better you'll remember!
 
 Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     }
-
-    const batchName = getHiraganaBatchName(batchNumber)
     const hiraganaSession: CourseSession = {
       id: `hiragana-batch-${batchNumber}`,
       title: `Hiragana: ${batchName}`,
