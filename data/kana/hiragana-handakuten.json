@@ -1,0 +1,43 @@
+[
+  {
+    "character": "ぱ",
+    "romaji": "pa",
+    "mnemonic": "PA is HA with a handakuten mark (small circle)",
+    "mnemonicImage": "The character は with a small circle added",
+    "batch": 1,
+    "baseCharacter": "は"
+  },
+  {
+    "character": "ぴ",
+    "romaji": "pi",
+    "mnemonic": "PI is HI with a handakuten mark (small circle)",
+    "mnemonicImage": "The character ひ with a small circle added",
+    "batch": 1,
+    "baseCharacter": "ひ"
+  },
+  {
+    "character": "ぷ",
+    "romaji": "pu",
+    "mnemonic": "PU is FU with a handakuten mark (small circle)",
+    "mnemonicImage": "The character ふ with a small circle added",
+    "batch": 1,
+    "baseCharacter": "ふ"
+  },
+  {
+    "character": "ぺ",
+    "romaji": "pe",
+    "mnemonic": "PE is HE with a handakuten mark (small circle)",
+    "mnemonicImage": "The character へ with a small circle added",
+    "batch": 1,
+    "baseCharacter": "へ"
+  },
+  {
+    "character": "ぽ",
+    "romaji": "po",
+    "mnemonic": "PO is HO with a handakuten mark (small circle)",
+    "mnemonicImage": "The character ほ with a small circle added",
+    "batch": 1,
+    "baseCharacter": "ほ"
+  }
+]
+

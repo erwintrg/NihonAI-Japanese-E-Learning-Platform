@@ -3,7 +3,19 @@
 import { useEffect, useState, useRef, useCallback, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { getHiraganaByBatch, getAllHiragana, getTotalHiraganaBatches, getHiraganaBatchName, type KanaCharacter } from '@/lib/kana'
+import { 
+  getHiraganaByBatch, 
+  getAllHiragana, 
+  getTotalHiraganaBatches, 
+  getHiraganaBatchName,
+  getKanaByBatchAndType,
+  getAllKanaByType,
+  getTotalBatches,
+  getBatchName,
+  getNextCourseType,
+  type KanaCharacter,
+  type KanaType
+} from '@/lib/kana'
 import { getAllVocab, type VocabularyItem } from '@/lib/data'
 
 type SessionSection = 'theory' | 'examples' | 'practice'
@@ -54,6 +66,7 @@ function CoursePageContent() {
   const inputRef = useRef<HTMLInputElement>(null)
   const [completedBatches, setCompletedBatches] = useState<Set<number>>(new Set())
   const [batchesLoaded, setBatchesLoaded] = useState(false)
+  const [kanaType, setKanaType] = useState<KanaType>('hiragana')
 
   useEffect(() => {
     setMounted(true)
@@ -65,12 +78,22 @@ function CoursePageContent() {
       } else {
         setUser(user)
         
-        // Load completed batches - ensure we're filtering by the correct user_id
+        // Get kana type from URL params, default to 'hiragana'
+        const typeParam = searchParams?.get('type') as KanaType
+        const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+          ? typeParam
+          : 'hiragana'
+        
+        if (currentType !== kanaType) {
+          setKanaType(currentType)
+        }
+        
+        // Load completed batches - ensure we're filtering by the correct user_id and batch_type
         const { data: batches, error: batchesError } = await supabase
           .from('completed_batches')
           .select('batch_number')
           .eq('user_id', user.id)
-          .eq('batch_type', 'hiragana')
+          .eq('batch_type', currentType)
         
         if (batchesError) {
           console.error('Error loading completed batches on mount:', batchesError)
@@ -101,13 +124,19 @@ function CoursePageContent() {
     // Don't load if batches aren't loaded yet (prevents race condition)
     if (!batchesLoaded) return
     
+    // Get kana type from URL params
+    const typeParam = searchParams.get('type') as KanaType
+    const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+      ? typeParam
+      : 'hiragana'
+    
     // Always reload batches from Supabase to ensure we have the latest data
     // This prevents issues where local state is stale
     const { data: batches, error: batchesError } = await supabase
       .from('completed_batches')
       .select('batch_number')
       .eq('user_id', user.id)
-      .eq('batch_type', 'hiragana')
+      .eq('batch_type', currentType)
     
     if (batchesError) {
       console.error('Error loading completed batches in loadSession:', batchesError)
@@ -122,29 +151,63 @@ function CoursePageContent() {
     
     // Get batch number from URL params, default to batch 1
     // Ignore timestamp parameter if present
-    const batchParam = searchParams.get('batch') || '1'
-    const batchNumber = parseInt(batchParam, 10)
+    const batchParam = searchParams.get('batch')
+    const batchNumber = batchParam ? parseInt(batchParam, 10) : 1
     
-    // Check if batch is unlocked (batch 1 is always unlocked, others require previous batch completion)
-    if (batchNumber > 1 && !freshCompletedBatches.has(batchNumber - 1)) {
-      // Redirect to previous incomplete batch or batch 1
-      const lastCompleted = Array.from(freshCompletedBatches).sort((a, b) => b - a)[0] || 0
-      const nextBatch = lastCompleted + 1
-      // Use window.location to force full reload and prevent caching
-      window.location.href = `/dashboard/course?batch=${nextBatch}`
+    // Validate batch number
+    if (isNaN(batchNumber) || batchNumber < 1) {
+      window.location.href = `/dashboard/course?batch=1&type=${currentType}&t=${Date.now()}`
       return
     }
     
-    const batchKana = getHiraganaByBatch(batchNumber)
+    // Check if batch is unlocked (batch 1 is always unlocked, others require previous batch completion)
+    // Only redirect if the batch is explicitly locked (user hasn't completed the previous batch)
+    if (batchNumber > 1) {
+      const previousBatchCompleted = freshCompletedBatches.has(batchNumber - 1)
+      
+      if (!previousBatchCompleted) {
+        // User is trying to access a batch they haven't unlocked yet
+        // Find the last completed batch and redirect to the next one they should work on
+        const lastCompleted = Array.from(freshCompletedBatches).sort((a, b) => b - a)[0] || 0
+        const nextBatch = lastCompleted + 1
+        
+        // Only redirect if the requested batch is beyond what they've unlocked
+        if (batchNumber > nextBatch) {
+          window.location.href = `/dashboard/course?batch=${nextBatch}&type=${currentType}&t=${Date.now()}`
+          return
+        }
+        // If batchNumber === nextBatch, they're trying to access the next batch they should work on
+        // This is allowed - they may have just completed the previous batch
+      }
+      // If previousBatchCompleted is true, the batch is unlocked, proceed normally
+    }
+    
+    const batchKana = getKanaByBatchAndType(batchNumber, currentType)
     
     if (batchKana.length === 0) {
-      console.error(`No Hiragana found for batch ${batchNumber}`)
+      console.error(`No kana found for batch ${batchNumber} of type ${currentType}`)
+      
+      // If we're trying to load a batch that doesn't exist, check if we should transition to next type
+      const totalBatches = getTotalBatches(currentType)
+      if (batchNumber > totalBatches) {
+        // Determine next course type in sequence (works for all current and future types)
+        const nextType = getNextCourseType(currentType)
+        
+        if (nextType) {
+          // Redirect to first batch of next type
+          window.location.href = `/dashboard/course?batch=1&type=${nextType}&t=${Date.now()}`
+          return
+        }
+      }
+      
+      // If no next type or other error, redirect to dashboard
+      window.location.href = `/dashboard?t=${Date.now()}`
       return
     }
 
     // Create practice questions - each kana appears twice
     // For romaji-to-character, use multiple choice
-    const allKana = getAllHiragana()
+    const allKana = getAllKanaByType(currentType)
     const practiceQuestions: KanaPracticeQuestion[] = []
     
     batchKana.forEach((kana, index) => {
@@ -249,11 +312,11 @@ function CoursePageContent() {
       .slice(0, 5) // Limit to 5 examples
 
     // Get batch name once for use in theory content and session title
-    const batchName = getHiraganaBatchName(batchNumber)
+    const batchName = getBatchName(batchNumber, currentType)
     
     // Enhanced theory content
     let theoryContent = ''
-    if (batchNumber === 1) {
+    if (currentType === 'hiragana' && batchNumber === 1) {
       theoryContent = `Welcome to Hiragana! This is your first step into reading Japanese.
 
 **Why do we need Kana?**
@@ -269,33 +332,127 @@ Hiragana consists of 46 basic characters, each representing a syllable (like "ka
 **How to use Mnemonics:**
 Each character below has a mnemonic - a memory aid that connects the character's shape to its sound. For example, "あ" (a) looks like a capital "A" with a loop. Visualize the mnemonic story as you look at each character. The more vivid you make the mental image, the easier it will be to remember!
 
-In this batch, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
+In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
+    } else if (currentType === 'hiragana_dakuten' && batchNumber === 1) {
+      theoryContent = `**Dakuten (゛) - Voiced Sounds**
+
+Dakuten (also called "ten-ten") are two small marks (゛) added to certain Hiragana characters to create voiced sounds. When you add dakuten, the sound becomes "voiced":
+
+- K-row (か, き, く, け, こ) → G-row (が, ぎ, ぐ, げ, ご)
+- S-row (さ, し, す, せ, そ) → Z-row (ざ, じ, ず, ぜ, ぞ)
+- T-row (た, ち, つ, て, と) → D-row (だ, ぢ, づ, で, ど)
+- H-row (は, ひ, ふ, へ, ほ) → B-row (ば, び, ぶ, べ, ぼ)
+
+**Pronunciation Note:**
+Dakuten creates a "voiced" sound by adding vibration to the vocal cords. The key difference is that voiced sounds use your vocal cords, while unvoiced sounds don't. For example:
+- "そ" (so) is unvoiced, like the "s" in "sun" - no vocal cord vibration
+- "ぞ" (zo) is voiced, like the "z" in "zoo" - vocal cords vibrate
+- "た" (ta) is unvoiced, like the "t" in "top" - no vocal cord vibration
+- "だ" (da) is voiced, like the "d" in "dog" - vocal cords vibrate
+
+The difference is subtle but important. Practice saying pairs like "so/zo" and "ta/da" to feel the vibration in your throat when producing the voiced sounds!
+
+**How to remember:**
+Think of dakuten as "activating" the character - the two dots make the sound voiced by adding vocal cord vibration. Visualize the base character you already know, then add the two dots on top!
+
+In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
+    } else if (currentType === 'hiragana_handakuten' && batchNumber === 1) {
+      theoryContent = `**Handakuten (゜) - Semi-Voiced Sounds**
+
+Handakuten (also called "maru") is a small circle (゜) added to H-row characters to create P-sounds. Unlike dakuten which uses two dots, handakuten uses a circle:
+
+- H-row (は, ひ, ふ, へ, ほ) → P-row (ぱ, ぴ, ぷ, ぺ, ぽ)
+
+**Pronunciation Note:**
+Handakuten creates a "p" sound that is aspirated (with a puff of air) compared to the base H-row sounds. Notice the difference:
+- "は" (ha) is a soft "h" sound (unvoiced fricative)
+- "ぱ" (pa) is an aspirated "p" sound (unvoiced plosive with a puff of air), like the "p" in "pop"
+
+The handakuten mark transforms the H-row into clear P-sounds, making them distinct from both the original H-row (h sounds) and the B-row (b sounds from dakuten).
+
+**How to remember:**
+Think of the circle as a "puff" of air - the handakuten mark creates a "p" sound. Visualize the base H-row character you already know, then add the small circle on top!
+
+In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
+    } else if (currentType === 'hiragana_combo' && batchNumber === 1) {
+      theoryContent = `**Kana Combinations (Yōon) - Contracted Sounds**
+
+Kana combinations are created by combining certain base characters with small versions of や (ya), ゆ (yu), or よ (yo). The small kana (ゃ, ゅ, ょ) combine with the base character to create a new sound:
+
+- き (ki) + ゃ (small ya) = きゃ (kya)
+- き (ki) + ゅ (small yu) = きゅ (kyu)
+- き (ki) + ょ (small yo) = きょ (kyo)
+
+**How to remember:**
+Think of the small kana as "attaching" to the base character. The base character provides the consonant, and the small kana provides the vowel sound. Visualize the base character you already know, then add the small version of や, ゆ, or よ!
+
+In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
     } else {
-      // Check if this is a noteworthy batch (e.g., special patterns)
+      // Check if this is a noteworthy batch (e.g., special patterns or pronunciation notes)
       let batchNote = ''
-      if (batchNumber === 2) {
+      if (currentType === 'hiragana' && batchNumber === 2) {
         batchNote = `\n\n**Note:** This is the K-row (か行). Notice how each character starts with "k" followed by the five vowels (a, i, u, e, o). This pattern continues for other consonant rows.`
-      } else if (batchNumber === 3) {
-        batchNote = `\n\n**Note:** This is the S-row (さ行). Pay attention to "shi" (し) - it's the only character in this row that doesn't follow the "s + vowel" pattern.`
-      } else if (batchNumber === 4) {
-        batchNote = `\n\n**Note:** This is the T-row (た行). Notice "chi" (ち) and "tsu" (つ) - they don't follow the standard "t + vowel" pattern.`
+      } else if (currentType === 'hiragana' && batchNumber === 3) {
+        batchNote = `\n\n**Note:** This is the S-row (さ行). Pay attention to "shi" (し) - it's the only character in this row that doesn't follow the "s + vowel" pattern. Instead of "si", Japanese uses "shi" because the "si" sound doesn't exist naturally in Japanese.`
+      } else if (currentType === 'hiragana' && batchNumber === 4) {
+        batchNote = `\n\n**Note:** This is the T-row (た行). Notice "chi" (ち) and "tsu" (つ) - they don't follow the standard "t + vowel" pattern. Instead of "ti" and "tu", Japanese uses "chi" and "tsu" because these sounds are more natural in Japanese pronunciation.`
+      } else if (currentType === 'hiragana' && batchNumber === 6) {
+        batchNote = `\n\n**Pronunciation Notes:** 
+- "ふ" (fu): This character is pronounced more like "fu" than "hu". The sound is made by blowing air through slightly pursed lips, similar to blowing out a candle.
+- "は" (ha): When used as a grammatical particle (topic marker), "は" is pronounced as "wa" even though it's written with the "ha" character. For example, in "こんにちは" (konnichiwa - hello), the last character is written as "は" but pronounced "wa". This is a common grammatical exception you'll encounter frequently.`
+      } else if (currentType === 'hiragana' && batchNumber === 8) {
+        batchNote = `\n\n**Note:** The Y-row (や行) only has three characters: や (ya), ゆ (yu), and よ (yo). The sounds "yi" and "ye" don't exist in Japanese, so they're skipped.`
+      } else if (currentType === 'hiragana' && batchNumber === 9) {
+        batchNote = `\n\n**Pronunciation Note:** The Japanese "R" sound (ら, り, る, れ, ろ) is unique! It's not like the English "R" in "Russia" or "red". Instead, it's a sound between "R" and "L" - like a light tap of the tongue against the roof of your mouth. Try saying "ら" (ra) by quickly tapping your tongue up, almost like a very soft "la" sound. This R-row sound is one of the most distinctive features of Japanese pronunciation.`
+      } else if (currentType === 'hiragana' && batchNumber === 10) {
+        batchNote = `\n\n**Special Characters:**
+- "ん" (n): This is the only standalone consonant in Hiragana (besides the vowels). It's pronounced as a nasal sound, like the "n" in "sing" or "m" in "camp" depending on what comes after it. It can appear anywhere in a word and changes its pronunciation slightly based on context.
+- "を" (wo): This character is almost always pronounced as "o" (like the vowel), not "wo". It's primarily used as a grammatical particle (object marker) and is rarely used in modern Japanese words.
+- "は" (ha) as "wa": Remember that "は" is pronounced "wa" when used as the topic particle, even though it's written with the "ha" character.`
+      } else if (currentType === 'hiragana_dakuten' && batchNumber === 2) {
+        batchNote = `\n\n**Important Exception:** Notice that "じ" (ji) comes from "し" (shi), not "さ" (sa). This is because "shi" (し) doesn't follow the standard "s + vowel" pattern, so when adding dakuten, it becomes "ji" (じ) instead of "zhi". This is one of the most common dakuten characters you'll encounter!`
+      } else if (currentType === 'hiragana_dakuten' && batchNumber === 3) {
+        batchNote = `\n\n**Special Notes:**
+- "だ" (da), "で" (de), "ど" (do): These follow the standard pattern from "た" (ta), "て" (te), "と" (to).
+- "ぢ" (ji) and "づ" (zu): These come from "ち" (chi) and "つ" (tsu) respectively. However, in modern Japanese, "ぢ" and "づ" are rarely used - they're usually replaced by "じ" (ji) and "ず" (zu) from the S-row dakuten. You'll mostly see "じ" and "ず" in practice, but it's good to know "ぢ" and "づ" exist!`
       }
       
-      theoryContent = `**Hiragana Ordering:**
-Hiragana is organized in a specific order called "gojūon" (五十音, "fifty sounds"). Characters are grouped by their consonant sound and vowel. This batch covers the ${batchName}${batchNote}
+      const typeLabel = currentType === 'hiragana' ? 'Hiragana' 
+        : currentType === 'hiragana_dakuten' ? 'Hiragana Dakuten'
+        : currentType === 'hiragana_handakuten' ? 'Hiragana Handakuten'
+        : 'Hiragana Combos'
+      
+      theoryContent = `**${typeLabel} Ordering:**
+Characters are organized in batches to help you learn systematically. This session covers the ${batchName}.${batchNote}
 
 **About Mnemonics:**
 Each character has a mnemonic - a visual story connecting its shape to its sound. Visualize each mnemonic as you study: the more vivid your mental image, the better you'll remember!
 
-Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
+Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
     }
+    
+    const typeLabel = currentType === 'hiragana' ? 'Hiragana' 
+      : currentType === 'hiragana_dakuten' ? 'Hiragana Dakuten'
+      : currentType === 'hiragana_handakuten' ? 'Hiragana Handakuten'
+      : 'Hiragana Combos'
+    
+    const sessionTitle = batchNumber === 1 && currentType === 'hiragana' 
+      ? 'Introduction to Hiragana'
+      : batchNumber === 1 && currentType === 'hiragana_dakuten'
+      ? 'Introduction to Dakuten'
+      : batchNumber === 1 && currentType === 'hiragana_handakuten'
+      ? 'Introduction to Handakuten'
+      : batchNumber === 1 && currentType === 'hiragana_combo'
+      ? 'Introduction to Kana Combinations'
+      : `${typeLabel} Characters: ${batchName}`
+    
     const hiraganaSession: CourseSession = {
-      id: `hiragana-batch-${batchNumber}`,
-      title: `Hiragana: ${batchName}`,
-      description: `Learn ${batchKana.length} Hiragana characters: ${batchKana.map(k => k.character).join(', ')}`,
+      id: `${currentType}-batch-${batchNumber}`,
+      title: `${typeLabel}: ${batchName}`,
+      description: `Learn ${batchKana.length} ${typeLabel} characters: ${batchKana.map(k => k.character).join(', ')}`,
       batchNumber,
       theory: {
-        title: batchNumber === 1 ? 'Introduction to Hiragana' : `Hiragana Characters: Batch ${batchNumber}`,
+        title: sessionTitle,
         content: theoryContent,
         kana: batchKana,
         wordExamples: wordExamples,
@@ -305,13 +462,19 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
     }
 
     setSession(hiraganaSession)
-  }, [searchParams, user, router, sessionCompleted, batchesLoaded, supabase])
+  }, [searchParams, user, router, sessionCompleted, batchesLoaded, supabase, kanaType])
 
   // Load session when completed batches are loaded and search params change
   // Don't reload if session is completed (to preserve review state)
   // Wait for batches to be loaded before checking unlock status
   useEffect(() => {
     if (mounted && user && searchParams && batchesLoaded && !sessionCompleted) {
+      // Update kana type from URL params
+      const typeParam = searchParams.get('type') as KanaType
+      if (typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)) {
+        setKanaType(typeParam)
+      }
+      
       loadSession().catch(error => {
         console.error('Error loading session:', error)
       })
@@ -391,11 +554,17 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
       const totalQuestions = session?.practice.length || 0
       const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0
       
+      // Get kana type from URL params
+      const typeParam = searchParams?.get('type') as KanaType
+      const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+        ? typeParam
+        : 'hiragana'
+      
       // Save to Supabase progress table
       const { error: progressError } = await supabase.from('progress').insert({
         user_id: user.id,
         quiz_score: percentage,
-        quiz_type: 'hiragana_session',
+        quiz_type: `${currentType}_session`,
         vocabulary_items: session?.practice.map((q) => ({
           kana: q.kana.character,
           romaji: q.kana.romaji,
@@ -414,7 +583,7 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
       if (session?.batchNumber) {
         const { error: batchError } = await supabase.from('completed_batches').upsert({
           user_id: user.id,
-          batch_type: 'hiragana',
+          batch_type: currentType,
           batch_number: session.batchNumber,
           score: percentage,
           completed_at: new Date().toISOString(),
@@ -425,9 +594,26 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
         if (batchError) {
           console.error('Error marking batch as completed:', batchError)
         } else {
-          // Update local state
+          // Update local state - add the completed batch
           console.log(`Batch ${session.batchNumber} marked as completed for user ${user.id}`)
-          setCompletedBatches(prev => new Set([...prev, session.batchNumber]))
+          setCompletedBatches(prev => {
+            const newSet = new Set(prev)
+            newSet.add(session.batchNumber)
+            return newSet
+          })
+          
+          // Reload completed batches from database to ensure we have the latest state
+          // This is important for determining if we can transition to the next type
+          const { data: freshBatches } = await supabase
+            .from('completed_batches')
+            .select('batch_number')
+            .eq('user_id', user.id)
+            .eq('batch_type', currentType)
+          
+          if (freshBatches) {
+            const freshBatchNumbers = freshBatches.map(b => b.batch_number)
+            setCompletedBatches(new Set(freshBatchNumbers))
+          }
         }
       }
     } catch (error) {
@@ -909,30 +1095,54 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
               <button
                 type="button"
                 onClick={async () => {
-                  // Since the session is completed, use the next available batch
+                  // Since the session is completed, determine the next available batch/type
                   // Reload batches from Supabase to ensure we have the latest state
                   const currentBatch = session?.batchNumber || 1
                   
                   try {
+                    // Get kana type from URL params
+                    const typeParam = searchParams?.get('type') as KanaType
+                    const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+                      ? typeParam
+                      : 'hiragana'
+                    
                     const { data: batches } = await supabase
                       .from('completed_batches')
                       .select('batch_number')
                       .eq('user_id', user.id)
-                      .eq('batch_type', 'hiragana')
+                      .eq('batch_type', currentType)
                     
                     const completedSet = new Set(batches?.map(b => b.batch_number) || [])
-                    const totalBatches = getTotalHiraganaBatches()
+                    const totalBatches = getTotalBatches(currentType)
                     const nextBatch = currentBatch + 1
-                    const canAccessNext = nextBatch <= totalBatches && (nextBatch === 1 || completedSet.has(nextBatch - 1))
                     
-                    // Use the next batch if available, otherwise use the current batch
-                    const returnBatch = canAccessNext ? nextBatch : currentBatch
+                    // Check if we should transition to next type
+                    let returnBatch = currentBatch
+                    let returnType = currentType
+                    
+                    if (nextBatch > totalBatches) {
+                      // All batches of current type are completed, transition to next type
+                      const nextType = getNextCourseType(currentType)
+                      if (nextType) {
+                        returnType = nextType
+                        returnBatch = 1
+                      } else {
+                        // No more course types, just go to dashboard
+                        window.location.href = `/dashboard?t=${Date.now()}`
+                        return
+                      }
+                    } else {
+                      // Check if next batch is unlocked
+                      const canAccessNext = nextBatch <= totalBatches && (nextBatch === 1 || completedSet.has(nextBatch - 1))
+                      returnBatch = canAccessNext ? nextBatch : currentBatch
+                    }
+                    
                     // Use window.location for full page reload to ensure state is reset
-                    window.location.href = `/dashboard?returnBatch=${returnBatch}&t=${Date.now()}`
+                    window.location.href = `/dashboard?returnBatch=${returnBatch}&type=${returnType}&t=${Date.now()}`
                   } catch (error) {
                     console.error('Error determining return batch:', error)
                     // Fallback to current batch
-                    window.location.href = `/dashboard?returnBatch=${currentBatch}&t=${Date.now()}`
+                    window.location.href = `/dashboard?returnBatch=${currentBatch}&type=${currentType}&t=${Date.now()}`
                   }
                 }}
                 className="px-6 py-3 bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 text-black dark:text-white rounded-lg font-medium transition-colors"
@@ -940,10 +1150,42 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                 Back to Dashboard
               </button>
               {session && (() => {
+                // Get kana type from URL params
+                const typeParam = searchParams?.get('type') as KanaType
+                const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+                  ? typeParam
+                  : 'hiragana'
+                
                 const currentBatch = session.batchNumber
-                const totalBatches = getTotalHiraganaBatches()
+                const totalBatches = getTotalBatches(currentType)
                 const nextBatch = currentBatch + 1
-                const canAccessNext = nextBatch <= totalBatches && (nextBatch === 1 || completedBatches.has(nextBatch - 1))
+                
+                // Check if there's a next batch in the current type
+                const hasNextBatchInType = nextBatch <= totalBatches && (nextBatch === 1 || completedBatches.has(nextBatch - 1))
+                
+                // If we're at the last batch of current type, check if there's a next course type
+                let nextType: KanaType | string | null = null
+                let nextTypeBatch = 1
+                if (!hasNextBatchInType && currentBatch === totalBatches) {
+                  // Check if all batches of current type are completed
+                  // Note: completedBatches should include the just-completed batch since it's saved in completeSession
+                  const allBatchesCompleted = completedBatches.size >= totalBatches
+                  
+                  if (allBatchesCompleted) {
+                    // Determine next course type in sequence using helper function
+                    // This works for all current and future course types
+                    const nextCourseType = getNextCourseType(currentType)
+                    if (nextCourseType) {
+                      nextType = nextCourseType
+                      nextTypeBatch = 1
+                    } else {
+                      // No more course types available
+                      nextType = null
+                    }
+                  }
+                }
+                
+                const canAccessNext = hasNextBatchInType || (nextType !== null)
                 
                 return canAccessNext ? (
                   <button
@@ -953,37 +1195,64 @@ Characters in this batch: ${batchKana.map(k => k.character).join(', ')}`
                       e.stopPropagation()
                       
                       try {
-                        // Ensure the current batch completion is saved and loaded
-                        // Reload completed batches to ensure we have the latest state
-                        const { data: batches, error: batchesError } = await supabase
-                          .from('completed_batches')
-                          .select('batch_number')
-                          .eq('user_id', user.id)
-                          .eq('batch_type', 'hiragana')
+                        // Get kana type from URL params
+                        const typeParam = searchParams?.get('type') as KanaType
+                        const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+                          ? typeParam
+                          : 'hiragana'
                         
-                        if (batchesError) {
-                          console.error('Error loading completed batches:', batchesError)
-                          return
-                        }
+                        const currentBatch = session.batchNumber
+                        const totalBatches = getTotalBatches(currentType)
+                        const nextBatch = currentBatch + 1
                         
-                        if (batches) {
-                          const completedSet = new Set(batches.map(b => b.batch_number))
-                          setCompletedBatches(completedSet)
-                          
-                          // Verify the next batch is actually unlocked
-                          if (nextBatch > 1 && !completedSet.has(nextBatch - 1)) {
-                            console.error(`Next batch ${nextBatch} is not unlocked yet. Completed batches:`, Array.from(completedSet))
-                            // Instead of returning, redirect to the last completed batch + 1
-                            const lastCompleted = Array.from(completedSet).sort((a, b) => b - a)[0] || 0
-                            const actualNext = lastCompleted + 1
-                            window.location.href = `/dashboard/course?batch=${actualNext}&t=${Date.now()}`
+                        // Check if we're transitioning to a new course type
+                        let targetType: KanaType | string = currentType
+                        let targetBatch = nextBatch
+                        
+                        if (nextBatch > totalBatches) {
+                          // We're at the last batch of current type, transition to next type
+                          // This works for all current and future course types
+                          const nextCourseType = getNextCourseType(currentType)
+                          if (nextCourseType) {
+                            targetType = nextCourseType
+                            targetBatch = 1
+                          } else {
+                            // No more course types available
+                            window.location.href = `/dashboard?t=${Date.now()}`
                             return
+                          }
+                        } else {
+                          // Stay in current type, verify the next batch is unlocked
+                          // Ensure the current batch completion is saved and loaded
+                          const { data: batches, error: batchesError } = await supabase
+                            .from('completed_batches')
+                            .select('batch_number')
+                            .eq('user_id', user.id)
+                            .eq('batch_type', currentType)
+                          
+                          if (batchesError) {
+                            console.error('Error loading completed batches:', batchesError)
+                            return
+                          }
+                          
+                          if (batches) {
+                            const completedSet = new Set(batches.map(b => b.batch_number))
+                            setCompletedBatches(completedSet)
+                            
+                            // Verify the next batch is actually unlocked
+                            if (nextBatch > 1 && !completedSet.has(nextBatch - 1)) {
+                              console.error(`Next batch ${nextBatch} is not unlocked yet. Completed batches:`, Array.from(completedSet))
+                              // Instead of returning, redirect to the last completed batch + 1
+                              const lastCompleted = Array.from(completedSet).sort((a, b) => b - a)[0] || 0
+                              const actualNext = lastCompleted + 1
+                              window.location.href = `/dashboard/course?batch=${actualNext}&type=${currentType}&t=${Date.now()}`
+                              return
+                            }
                           }
                         }
                         
-                        // Navigate to next batch with full page reload and cache busting
-                        // Add timestamp to prevent browser caching
-                        window.location.href = `/dashboard/course?batch=${nextBatch}&t=${Date.now()}`
+                        // Navigate to next batch/type with full page reload and cache busting
+                        window.location.href = `/dashboard/course?batch=${targetBatch}&type=${targetType}&t=${Date.now()}`
                       } catch (error) {
                         console.error('Error navigating to next batch:', error)
                       }

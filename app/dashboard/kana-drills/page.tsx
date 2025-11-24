@@ -3,7 +3,15 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { getAllHiragana, getAllHiraganaBatches, getHiraganaBatchName, type KanaCharacter } from '@/lib/kana'
+import { 
+  getAllHiragana, 
+  getAllHiraganaBatches, 
+  getHiraganaBatchName,
+  getAllHiraganaDakuten,
+  getAllHiraganaHandakuten,
+  getAllHiraganaCombo,
+  type KanaCharacter 
+} from '@/lib/kana'
 
 type QuizType = 'character-to-romaji'
 type KanaType = 'hiragana' | 'katakana'
@@ -121,6 +129,26 @@ export default function KanaDrillsPage() {
           setSelectedKana(prevKana => {
             const newKanaSet = new Set(prevKana)
             batch.kana.forEach(k => newKanaSet.delete(k.character))
+            
+            // Check if extension options should be unchecked
+            const dakutenBaseChars = new Set(['か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'は', 'ひ', 'ふ', 'へ', 'ほ'])
+            const handakutenBaseChars = new Set(['は', 'ひ', 'ふ', 'へ', 'ほ'])
+            const comboBaseChars = new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
+            
+            const hasDakutenBase = Array.from(newKanaSet).some(char => dakutenBaseChars.has(char))
+            const hasHandakutenBase = Array.from(newKanaSet).some(char => handakutenBaseChars.has(char))
+            const hasComboBase = Array.from(newKanaSet).some(char => comboBaseChars.has(char))
+            
+            if (includeDakuten && !hasDakutenBase) {
+              setIncludeDakuten(false)
+            }
+            if (includeHandakuten && !hasHandakutenBase) {
+              setIncludeHandakuten(false)
+            }
+            if (includeCombos && !hasComboBase) {
+              setIncludeCombos(false)
+            }
+            
             return newKanaSet
           })
         }
@@ -171,6 +199,26 @@ export default function KanaDrillsPage() {
         }
       }
       
+      // Check if extension options should be unchecked based on remaining selected kana
+      const selectedBaseChars = newSet
+      const dakutenBaseChars = new Set(['か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'は', 'ひ', 'ふ', 'へ', 'ほ'])
+      const handakutenBaseChars = new Set(['は', 'ひ', 'ふ', 'へ', 'ほ'])
+      const comboBaseChars = new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
+      
+      const hasDakutenBase = Array.from(selectedBaseChars).some(char => dakutenBaseChars.has(char))
+      const hasHandakutenBase = Array.from(selectedBaseChars).some(char => handakutenBaseChars.has(char))
+      const hasComboBase = Array.from(selectedBaseChars).some(char => comboBaseChars.has(char))
+      
+      if (includeDakuten && !hasDakutenBase) {
+        setIncludeDakuten(false)
+      }
+      if (includeHandakuten && !hasHandakutenBase) {
+        setIncludeHandakuten(false)
+      }
+      if (includeCombos && !hasComboBase) {
+        setIncludeCombos(false)
+      }
+      
       return newSet
     })
   }
@@ -178,6 +226,17 @@ export default function KanaDrillsPage() {
   const clearSelection = () => {
     setSelectedKana(new Set())
     setSelectedBatches(new Set())
+    setIncludeDakuten(false)
+    setIncludeHandakuten(false)
+    setIncludeCombos(false)
+  }
+
+  const selectAllBatches = () => {
+    const allBatchNumbers = allBatches.map(b => b.batchNumber)
+    setSelectedBatches(new Set(allBatchNumbers))
+    // Also select all kana from all batches
+    const allKanaChars = new Set(allKana.map(k => k.character))
+    setSelectedKana(allKanaChars)
   }
 
   const generateQuestion = useCallback((kanaList: KanaCharacter[], progressMap: Map<string, KanaProgress>): DrillQuestion | null => {
@@ -207,6 +266,7 @@ export default function KanaDrillsPage() {
   const startDrill = () => {
     // Get all selected kana - use only the final selection (selectedKana), not batches
     const kanaList: KanaCharacter[] = []
+    const selectedBaseCharacters = new Set(selectedKana)
     
     // Add individually selected kana (this is the final decision)
     selectedKana.forEach(char => {
@@ -216,10 +276,38 @@ export default function KanaDrillsPage() {
       }
     })
 
-    // TODO: Add Dakuten, Handakuten, and Combo kana when data is available
-    // if (includeDakuten) { ... }
-    // if (includeHandakuten) { ... }
-    // if (includeCombos) { ... }
+    // Add Dakuten kana if selected - only for selected base characters
+    if (includeDakuten) {
+      const dakutenKana = getAllHiraganaDakuten()
+      dakutenKana.forEach(kana => {
+        // Only include if the base character is selected
+        if (kana.baseCharacter && selectedBaseCharacters.has(kana.baseCharacter)) {
+          kanaList.push(kana)
+        }
+      })
+    }
+
+    // Add Handakuten kana if selected - only for selected base characters
+    if (includeHandakuten) {
+      const handakutenKana = getAllHiraganaHandakuten()
+      handakutenKana.forEach(kana => {
+        // Only include if the base character is selected
+        if (kana.baseCharacter && selectedBaseCharacters.has(kana.baseCharacter)) {
+          kanaList.push(kana)
+        }
+      })
+    }
+
+    // Add Combo kana if selected - only for selected base characters
+    if (includeCombos) {
+      const comboKana = getAllHiraganaCombo()
+      comboKana.forEach(kana => {
+        // Only include if the base character is selected
+        if (kana.baseCharacter && selectedBaseCharacters.has(kana.baseCharacter)) {
+          kanaList.push(kana)
+        }
+      })
+    }
 
     if (kanaList.length === 0) {
       return // Button should be disabled, but just in case
@@ -624,12 +712,20 @@ export default function KanaDrillsPage() {
                   <h2 className="text-xl font-semibold text-black dark:text-zinc-50">
                     Select Kana Groups
                   </h2>
-                  <button
-                    onClick={clearSelection}
-                    className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 underline"
-                  >
-                    Clear Selection
-                  </button>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={selectAllBatches}
+                      className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 underline"
+                    >
+                      Select All
+                    </button>
+                    <button
+                      onClick={clearSelection}
+                      className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 underline"
+                    >
+                      Clear Selection
+                    </button>
+                  </div>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                   {allBatches.map(batch => (
@@ -654,46 +750,84 @@ export default function KanaDrillsPage() {
               </div>
 
               {/* Extension Options */}
-              <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 mb-6">
-                <h2 className="text-xl font-semibold text-black dark:text-zinc-50 mb-4">
-                  Additional Options
-                </h2>
-                <div className="space-y-3">
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={includeDakuten}
-                      onChange={(e) => setIncludeDakuten(e.target.checked)}
-                      className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
-                    />
-                    <span className="text-zinc-700 dark:text-zinc-300">
-                      Include Dakuten (が, ぎ, ぐ, げ, ご, etc.)
-                    </span>
-                  </label>
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={includeHandakuten}
-                      onChange={(e) => setIncludeHandakuten(e.target.checked)}
-                      className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
-                    />
-                    <span className="text-zinc-700 dark:text-zinc-300">
-                      Include Handakuten (ぱ, ぴ, ぷ, ぺ, ぽ)
-                    </span>
-                  </label>
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={includeCombos}
-                      onChange={(e) => setIncludeCombos(e.target.checked)}
-                      className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
-                    />
-                    <span className="text-zinc-700 dark:text-zinc-300">
-                      Include Kana Combos (きゃ, きゅ, きょ, にゃ, にゅ, にょ, etc.)
-                    </span>
-                  </label>
-                </div>
-              </div>
+              {(() => {
+                // Determine which extension options are available based on selected kana
+                const selectedBaseChars = new Set(selectedKana)
+                
+                // Check which rows can have dakuten (K, S, T, H rows)
+                const dakutenBaseChars = new Set(['か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'は', 'ひ', 'ふ', 'へ', 'ほ'])
+                const hasDakutenBase = Array.from(selectedBaseChars).some(char => dakutenBaseChars.has(char))
+                
+                // Check which rows can have handakuten (H row only)
+                const handakutenBaseChars = new Set(['は', 'ひ', 'ふ', 'へ', 'ほ'])
+                const hasHandakutenBase = Array.from(selectedBaseChars).some(char => handakutenBaseChars.has(char))
+                
+                // Check which rows can have combos (K, S, T, N, H, M, R rows, and their dakuten/handakuten variants)
+                const comboBaseChars = new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
+                const hasComboBase = Array.from(selectedBaseChars).some(char => comboBaseChars.has(char))
+                
+                // Only show this section if there are selected kana
+                if (selectedKana.size === 0) {
+                  return null
+                }
+                
+                return (
+                  <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 mb-6">
+                    <h2 className="text-xl font-semibold text-black dark:text-zinc-50 mb-4">
+                      Additional Options
+                    </h2>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+                      These options apply only to your selected kana groups.
+                    </p>
+                    <div className="space-y-3">
+                      {hasDakutenBase ? (
+                        <label className="flex items-center gap-3 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={includeDakuten}
+                            onChange={(e) => setIncludeDakuten(e.target.checked)}
+                            className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
+                          />
+                          <span className="text-zinc-700 dark:text-zinc-300">
+                            Include Dakuten (が, ぎ, ぐ, げ, ご, etc.)
+                          </span>
+                        </label>
+                      ) : null}
+                      {hasHandakutenBase ? (
+                        <label className="flex items-center gap-3 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={includeHandakuten}
+                            onChange={(e) => setIncludeHandakuten(e.target.checked)}
+                            className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
+                          />
+                          <span className="text-zinc-700 dark:text-zinc-300">
+                            Include Handakuten (ぱ, ぴ, ぷ, ぺ, ぽ)
+                          </span>
+                        </label>
+                      ) : null}
+                      {hasComboBase ? (
+                        <label className="flex items-center gap-3 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={includeCombos}
+                            onChange={(e) => setIncludeCombos(e.target.checked)}
+                            className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
+                          />
+                          <span className="text-zinc-700 dark:text-zinc-300">
+                            Include Kana Combos (きゃ, きゅ, きょ, にゃ, にゅ, にょ, etc.)
+                          </span>
+                        </label>
+                      ) : null}
+                      {!hasDakutenBase && !hasHandakutenBase && !hasComboBase && (
+                        <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
+                          No extension options available for the selected kana groups (vowels don't have dakuten, handakuten, or combos).
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )
+              })()}
 
               {/* Individual Kana Selection - Organized in Chart Layout */}
               <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 mb-6">

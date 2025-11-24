@@ -2,6 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { 
+  getTotalHiraganaBatches,
+  getTotalHiraganaDakutenBatches,
+  getTotalHiraganaHandakutenBatches,
+  getTotalHiraganaComboBatches
+} from '@/lib/kana'
 
 type RoadmapSegment = {
   id: string
@@ -9,70 +15,181 @@ type RoadmapSegment = {
   description: string
   status: 'completed' | 'current' | 'locked'
   unlocksAt?: string
+  type?: 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo'
+  batchCount?: number
+  completedBatches?: number
 }
 
 export default function Roadmap() {
   const supabase = createClient()
-  const [userPosition, setUserPosition] = useState<string>('hiragana-basics')
   const [loading, setLoading] = useState(true)
+  const [completedBatches, setCompletedBatches] = useState<Record<string, Set<number>>>({
+    hiragana: new Set(),
+    hiragana_dakuten: new Set(),
+    hiragana_handakuten: new Set(),
+    hiragana_combo: new Set(),
+    // Future course types will be added dynamically
+  })
 
   useEffect(() => {
-    fetchUserPosition()
+    fetchCompletedBatches()
   }, [])
 
-  const fetchUserPosition = async () => {
+  const fetchCompletedBatches = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser()
-      if (!user) return
+      if (!user) {
+        setLoading(false)
+        return
+      }
 
+      // Fetch all completed batches for all course types
+      // This will automatically include future course types (vocabulary, grammar, phrases, etc.)
       const { data, error } = await supabase
-        .from('profiles')
-        .select('roadmap_position')
-        .eq('id', user.id)
-        .single()
+        .from('completed_batches')
+        .select('batch_type, batch_number')
+        .eq('user_id', user.id)
+        // Note: For future course types, they will be automatically included in the query
+        // We only filter by user_id, so all batch_types are returned
 
-      if (data?.roadmap_position) {
-        setUserPosition(data.roadmap_position)
+      if (error) {
+        console.error('Error fetching completed batches:', error)
+      } else if (data) {
+        // Initialize with known types, but allow dynamic addition of future types
+        const batches: Record<string, Set<number>> = {
+          hiragana: new Set(),
+          hiragana_dakuten: new Set(),
+          hiragana_handakuten: new Set(),
+          hiragana_combo: new Set(),
+        }
+        
+        // Dynamically organize batches by type
+        // This handles both current kana types and future course types (vocabulary, grammar, phrases, etc.)
+        data.forEach(batch => {
+          const batchType = batch.batch_type as string
+          if (!batches[batchType]) {
+            batches[batchType] = new Set()
+          }
+          batches[batchType].add(batch.batch_number)
+        })
+        
+        setCompletedBatches(batches)
       }
     } catch (error) {
-      console.error('Error fetching roadmap position:', error)
+      console.error('Error fetching completed batches:', error)
     } finally {
       setLoading(false)
     }
   }
 
-  // Define roadmap segments in order
-  const segmentOrder = ['hiragana-basics', 'vocab-foundation', 'basic-grammar', 'listening-practice']
-  const currentIndex = segmentOrder.indexOf(userPosition)
-  
+  // Helper function to get total batches for any course type
+  const getTotalBatchesForType = (type: string): number => {
+    switch (type) {
+      case 'hiragana':
+        return getTotalHiraganaBatches()
+      case 'hiragana_dakuten':
+        return getTotalHiraganaDakutenBatches()
+      case 'hiragana_handakuten':
+        return getTotalHiraganaHandakutenBatches()
+      case 'hiragana_combo':
+        return getTotalHiraganaComboBatches()
+      // Future course types will be added here
+      // case 'vocabulary':
+      //   return getTotalVocabularyBatches()
+      // case 'grammar':
+      //   return getTotalGrammarBatches()
+      // case 'phrases':
+      //   return getTotalPhrasesBatches()
+      default:
+        return 0
+    }
+  }
+
+  // Determine status for each segment
+  const getSegmentStatus = (type: string, totalBatches: number, requiresPrevious?: string): 'completed' | 'current' | 'locked' => {
+    const completed = completedBatches[type as keyof typeof completedBatches] || new Set()
+    const completedCount = completed.size
+    
+    // Check if previous requirement is met
+    if (requiresPrevious) {
+      const prevCompleted = completedBatches[requiresPrevious as keyof typeof completedBatches] || new Set()
+      const prevTotal = getTotalBatchesForType(requiresPrevious)
+      
+      // Need to complete ALL batches of previous type to unlock the next type
+      if (prevCompleted.size < prevTotal) {
+        return 'locked'
+      }
+    }
+    
+    if (completedCount === 0) {
+      // If no batches completed, check if it's unlocked (previous type completed)
+      if (requiresPrevious) {
+        const prevCompleted = completedBatches[requiresPrevious as keyof typeof completedBatches] || new Set()
+        const prevTotal = getTotalBatchesForType(requiresPrevious)
+        
+        // If previous type is fully completed, this type is unlocked (current, not locked)
+        if (prevCompleted.size >= prevTotal) {
+          return 'current'
+        }
+      }
+      return 'locked'
+    } else if (completedCount >= totalBatches) {
+      return 'completed'
+    } else {
+      return 'current'
+    }
+  }
+
   // Define roadmap segments
+  const hiraganaTotal = getTotalHiraganaBatches()
+  const dakutenTotal = getTotalHiraganaDakutenBatches()
+  const handakutenTotal = getTotalHiraganaHandakutenBatches()
+  const combosTotal = getTotalHiraganaComboBatches()
+  
+  const hiraganaCompleted = completedBatches.hiragana.size
+  const dakutenCompleted = completedBatches.hiragana_dakuten.size
+  const handakutenCompleted = completedBatches.hiragana_handakuten.size
+  const combosCompleted = completedBatches.hiragana_combo.size
+
   const roadmapSegments: RoadmapSegment[] = [
     {
       id: 'hiragana-basics',
       title: 'Hiragana Basics',
-      description: 'Learn the hiragana writing system',
-      status: userPosition === 'hiragana-basics' ? 'current' : currentIndex > 0 ? 'completed' : 'locked',
+      description: `Learn the 46 basic Hiragana characters (${hiraganaCompleted}/${hiraganaTotal} batches completed)`,
+      status: getSegmentStatus('hiragana', hiraganaTotal),
+      type: 'hiragana',
+      batchCount: hiraganaTotal,
+      completedBatches: hiraganaCompleted,
     },
     {
-      id: 'vocab-foundation',
-      title: 'Vocabulary Foundation',
-      description: 'Build your first 100 words',
-      status: userPosition === 'vocab-foundation' ? 'current' : currentIndex > 1 ? 'completed' : currentIndex === 0 ? 'locked' : 'locked',
-      unlocksAt: 'Complete Hiragana Basics with 80%+',
+      id: 'hiragana-dakuten',
+      title: 'Hiragana Dakuten',
+      description: `Learn voiced sounds with dakuten marks (゛) (${dakutenCompleted}/${dakutenTotal} batches completed)`,
+      status: getSegmentStatus('hiragana_dakuten', dakutenTotal, 'hiragana'),
+      type: 'hiragana_dakuten',
+      batchCount: dakutenTotal,
+      completedBatches: dakutenCompleted,
+      unlocksAt: 'Complete all Hiragana Basics batches',
     },
     {
-      id: 'basic-grammar',
-      title: 'Basic Grammar',
-      description: 'Essential sentence patterns',
-      status: userPosition === 'basic-grammar' ? 'current' : currentIndex > 2 ? 'completed' : currentIndex < 2 ? 'locked' : 'locked',
-      unlocksAt: 'Complete Vocabulary Foundation with 80%+',
+      id: 'hiragana-handakuten',
+      title: 'Hiragana Handakuten',
+      description: `Learn semi-voiced sounds with handakuten marks (゜) (${handakutenCompleted}/${handakutenTotal} batches completed)`,
+      status: getSegmentStatus('hiragana_handakuten', handakutenTotal, 'hiragana_dakuten'),
+      type: 'hiragana_handakuten',
+      batchCount: handakutenTotal,
+      completedBatches: handakutenCompleted,
+      unlocksAt: 'Complete all Hiragana Dakuten batches',
     },
     {
-      id: 'listening-practice',
-      title: 'Listening Practice',
-      description: 'Improve your comprehension',
-      status: userPosition === 'listening-practice' ? 'current' : currentIndex > 3 ? 'completed' : 'locked',
-      unlocksAt: 'Complete Basic Grammar with 80%+',
+      id: 'hiragana-combos',
+      title: 'Hiragana Combinations',
+      description: `Learn kana combinations (きゃ, きゅ, きょ, etc.) (${combosCompleted}/${combosTotal} batches completed)`,
+      status: getSegmentStatus('hiragana_combo', combosTotal, 'hiragana_handakuten'),
+      type: 'hiragana_combo',
+      batchCount: combosTotal,
+      completedBatches: combosCompleted,
+      unlocksAt: 'Complete all Hiragana Handakuten batches',
     },
   ]
 
@@ -133,6 +250,16 @@ export default function Roadmap() {
               <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-2">
                 {segment.description}
               </p>
+              {segment.batchCount !== undefined && segment.completedBatches !== undefined && (
+                <div className="mt-2 mb-2">
+                  <div className="w-full bg-zinc-200 dark:bg-zinc-700 rounded-full h-2">
+                    <div
+                      className="bg-pink-500 h-2 rounded-full transition-all"
+                      style={{ width: `${(segment.completedBatches / segment.batchCount) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              )}
               {isLocked && segment.unlocksAt && (
                 <p className="text-xs text-zinc-500 dark:text-zinc-500">
                   Unlocks: {segment.unlocksAt}

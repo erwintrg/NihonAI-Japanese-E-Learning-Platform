@@ -3,9 +3,20 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useEffect, useState } from 'react'
+import { getTotalBatches, type KanaType } from '@/lib/kana'
 
-export default function CourseLink({ returnBatch }: { returnBatch?: string }) {
+// Course type sequence for determining next session
+const COURSE_TYPE_SEQUENCE: KanaType[] = [
+  'hiragana',
+  'hiragana_dakuten',
+  'hiragana_handakuten',
+  'hiragana_combo',
+  // Future: 'vocabulary', 'grammar', 'phrases' will be added here
+]
+
+export default function CourseLink({ returnBatch, returnType }: { returnBatch?: string; returnType?: string }) {
   const [nextBatch, setNextBatch] = useState<number | null>(null)
+  const [nextType, setNextType] = useState<KanaType>('hiragana')
   const supabase = createClient()
 
   useEffect(() => {
@@ -13,23 +24,33 @@ export default function CourseLink({ returnBatch }: { returnBatch?: string }) {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
 
-      // If returnBatch is provided, use it
-      if (returnBatch) {
+      // If returnBatch and returnType are provided, use them
+      if (returnBatch && returnType) {
         setNextBatch(parseInt(returnBatch, 10))
+        setNextType(returnType as KanaType)
         return
       }
 
-      // Otherwise, find the next incomplete batch
-      const { data: batches } = await supabase
-        .from('completed_batches')
-        .select('batch_number')
-        .eq('user_id', user.id)
-        .eq('batch_type', 'hiragana')
-        .order('batch_number', { ascending: true })
+      // Otherwise, find the next incomplete batch across all course types
+      // Check each course type in sequence
+      for (const courseType of COURSE_TYPE_SEQUENCE) {
+        const { data: batches } = await supabase
+          .from('completed_batches')
+          .select('batch_number')
+          .eq('user_id', user.id)
+          .eq('batch_type', courseType)
+          .order('batch_number', { ascending: true })
 
-      if (batches && batches.length > 0) {
-        // Find the first gap or next batch
-        const completedNumbers = batches.map(b => b.batch_number).sort((a, b) => a - b)
+        const totalBatches = getTotalBatches(courseType)
+        const completedNumbers = batches?.map(b => b.batch_number).sort((a, b) => a - b) || []
+        
+        // Check if all batches of this type are completed
+        if (completedNumbers.length >= totalBatches && totalBatches > 0) {
+          // All batches completed, check next type
+          continue
+        }
+
+        // Find the first incomplete batch in this type
         let next = 1
         for (const num of completedNumbers) {
           if (num === next) {
@@ -38,16 +59,24 @@ export default function CourseLink({ returnBatch }: { returnBatch?: string }) {
             break
           }
         }
+
+        // Found the next batch to work on
         setNextBatch(next)
-      } else {
-        setNextBatch(1) // Start with batch 1
+        setNextType(courseType)
+        return
       }
+
+      // All course types completed, default to first batch of first type
+      setNextBatch(1)
+      setNextType('hiragana')
     }
 
     getNextBatch()
-  }, [returnBatch, supabase])
+  }, [returnBatch, returnType, supabase])
 
-  const href = nextBatch ? `/dashboard/course?batch=${nextBatch}` : '/dashboard/course'
+  const href = nextBatch 
+    ? `/dashboard/course?batch=${nextBatch}&type=${nextType}` 
+    : '/dashboard/course?batch=1&type=hiragana'
 
   return (
     <Link

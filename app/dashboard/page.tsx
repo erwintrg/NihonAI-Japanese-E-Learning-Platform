@@ -14,11 +14,12 @@ export const dynamic = 'force-dynamic'
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ returnBatch?: string }>
+  searchParams?: Promise<{ returnBatch?: string; type?: string }>
 }) {
   // Await searchParams in Next.js 16
   const params = await searchParams
   const returnBatch = params?.returnBatch
+  const returnType = params?.type
   
   const supabase = await createClient()
   const {
@@ -89,7 +90,7 @@ export default async function DashboardPage({
                   <span>→</span>
                 </div>
               }>
-                <CourseLink returnBatch={returnBatch} />
+                <CourseLink returnBatch={returnBatch} returnType={returnType} />
               </Suspense>
             </div>
 
