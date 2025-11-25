@@ -11,6 +11,10 @@ const COURSE_TYPE_SEQUENCE: KanaType[] = [
   'hiragana_dakuten',
   'hiragana_handakuten',
   'hiragana_combo',
+  'katakana',
+  'katakana_dakuten',
+  'katakana_handakuten',
+  'katakana_combo',
   // Future: 'vocabulary', 'grammar', 'phrases' will be added here
 ]
 

@@ -2,6 +2,10 @@ import hiraganaData from '@/data/kana/hiragana.json'
 import hiraganaDakutenData from '@/data/kana/hiragana-dakuten.json'
 import hiraganaHandakutenData from '@/data/kana/hiragana-handakuten.json'
 import hiraganaComboData from '@/data/kana/hiragana-combo.json'
+import katakanaData from '@/data/kana/katakana.json'
+import katakanaDakutenData from '@/data/kana/katakana-dakuten.json'
+import katakanaHandakutenData from '@/data/kana/katakana-handakuten.json'
+import katakanaComboData from '@/data/kana/katakana-combo.json'
 
 export type KanaCharacter = {
   character: string
@@ -17,7 +21,7 @@ export type KanaBatch = {
   kana: KanaCharacter[]
 }
 
-export type KanaType = 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo'
+export type KanaType = 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo' | 'katakana' | 'katakana_dakuten' | 'katakana_handakuten' | 'katakana_combo'
 
 // Course type sequence for determining next session
 // This sequence defines the order of all course types (current and future)
@@ -26,6 +30,10 @@ export const COURSE_TYPE_SEQUENCE: (KanaType | string)[] = [
   'hiragana_dakuten',
   'hiragana_handakuten',
   'hiragana_combo',
+  'katakana',
+  'katakana_dakuten',
+  'katakana_handakuten',
+  'katakana_combo',
   // Future course types will be added here:
   // 'vocabulary',
   // 'grammar',
@@ -276,17 +284,255 @@ export function getTotalHiraganaComboBatches(): number {
  */
 export function getHiraganaComboBatchName(batchNumber: number): string {
   const batchNames: Record<number, string> = {
-    1: 'KYA-row Combos',
-    2: 'SHA-row Combos',
-    3: 'CHA-row Combos',
-    4: 'NYA-row Combos',
-    5: 'HYA-row Combos',
-    6: 'MYA-row Combos',
-    7: 'RYA-row Combos',
-    8: 'GYA-row Combos',
-    9: 'JA-row Combos',
-    10: 'BYA-row Combos',
-    11: 'PYA-row Combos',
+    1: 'Ki-row Combos',
+    2: 'Shi-row Combos',
+    3: 'Chi-row Combos',
+    4: 'Ni-row Combos',
+    5: 'Hi-row Combos',
+    6: 'Mi-row Combos',
+    7: 'Ri-row Combos',
+    8: 'Gi-row Combos',
+    9: 'Ji-row Combos',
+    10: 'Bi-row Combos',
+    11: 'Pi-row Combos',
+  }
+  
+  return batchNames[batchNumber] || `Combo Batch ${batchNumber}`
+}
+
+/**
+ * Get all Katakana characters
+ */
+export function getAllKatakana(): KanaCharacter[] {
+  return katakanaData as KanaCharacter[]
+}
+
+/**
+ * Get Katakana characters by batch number
+ */
+export function getKatakanaByBatch(batchNumber: number): KanaCharacter[] {
+  return getAllKatakana().filter((kana) => kana.batch === batchNumber)
+}
+
+/**
+ * Get all Katakana batches
+ */
+export function getAllKatakanaBatches(): KanaBatch[] {
+  const allKana = getAllKatakana()
+  const batches: KanaBatch[] = []
+  
+  const maxBatch = Math.max(...allKana.map((k) => k.batch), 0)
+  
+  for (let i = 1; i <= maxBatch; i++) {
+    const batchKana = getKatakanaByBatch(i)
+    if (batchKana.length > 0) {
+      batches.push({
+        batchNumber: i,
+        kana: batchKana,
+      })
+    }
+  }
+  
+  return batches
+}
+
+/**
+ * Get total number of Katakana batches
+ */
+export function getTotalKatakanaBatches(): number {
+  const allKana = getAllKatakana()
+  return Math.max(...allKana.map((k) => k.batch), 0)
+}
+
+/**
+ * Get the descriptive name for a Katakana batch
+ */
+export function getKatakanaBatchName(batchNumber: number): string {
+  const batchNames: Record<number, string> = {
+    1: 'Vowels',
+    2: 'K-row',
+    3: 'S-row',
+    4: 'T-row',
+    5: 'N-row',
+    6: 'H-row',
+    7: 'M-row',
+    8: 'Y-row',
+    9: 'R-row',
+    10: 'W-row & N',
+  }
+  
+  return batchNames[batchNumber] || `Batch ${batchNumber}`
+}
+
+/**
+ * Get all Katakana Dakuten characters
+ */
+export function getAllKatakanaDakuten(): KanaCharacter[] {
+  return katakanaDakutenData as KanaCharacter[]
+}
+
+/**
+ * Get Katakana Dakuten characters by batch number
+ */
+export function getKatakanaDakutenByBatch(batchNumber: number): KanaCharacter[] {
+  return getAllKatakanaDakuten().filter((kana) => kana.batch === batchNumber)
+}
+
+/**
+ * Get all Katakana Dakuten batches
+ */
+export function getAllKatakanaDakutenBatches(): KanaBatch[] {
+  const allKana = getAllKatakanaDakuten()
+  const batches: KanaBatch[] = []
+  
+  const maxBatch = Math.max(...allKana.map((k) => k.batch), 0)
+  
+  for (let i = 1; i <= maxBatch; i++) {
+    const batchKana = getKatakanaDakutenByBatch(i)
+    if (batchKana.length > 0) {
+      batches.push({
+        batchNumber: i,
+        kana: batchKana,
+      })
+    }
+  }
+  
+  return batches
+}
+
+/**
+ * Get total number of Katakana Dakuten batches
+ */
+export function getTotalKatakanaDakutenBatches(): number {
+  const allKana = getAllKatakanaDakuten()
+  return Math.max(...allKana.map((k) => k.batch), 0)
+}
+
+/**
+ * Get the descriptive name for a Katakana Dakuten batch
+ */
+export function getKatakanaDakutenBatchName(batchNumber: number): string {
+  const batchNames: Record<number, string> = {
+    1: 'G-row (K-row Dakuten)',
+    2: 'Z-row (S-row Dakuten)',
+    3: 'D-row (T-row Dakuten)',
+    4: 'B-row (H-row Dakuten)',
+  }
+  
+  return batchNames[batchNumber] || `Dakuten Batch ${batchNumber}`
+}
+
+/**
+ * Get all Katakana Handakuten characters
+ */
+export function getAllKatakanaHandakuten(): KanaCharacter[] {
+  return katakanaHandakutenData as KanaCharacter[]
+}
+
+/**
+ * Get Katakana Handakuten characters by batch number
+ */
+export function getKatakanaHandakutenByBatch(batchNumber: number): KanaCharacter[] {
+  return getAllKatakanaHandakuten().filter((kana) => kana.batch === batchNumber)
+}
+
+/**
+ * Get all Katakana Handakuten batches
+ */
+export function getAllKatakanaHandakutenBatches(): KanaBatch[] {
+  const allKana = getAllKatakanaHandakuten()
+  const batches: KanaBatch[] = []
+  
+  const maxBatch = Math.max(...allKana.map((k) => k.batch), 0)
+  
+  for (let i = 1; i <= maxBatch; i++) {
+    const batchKana = getKatakanaHandakutenByBatch(i)
+    if (batchKana.length > 0) {
+      batches.push({
+        batchNumber: i,
+        kana: batchKana,
+      })
+    }
+  }
+  
+  return batches
+}
+
+/**
+ * Get total number of Katakana Handakuten batches
+ */
+export function getTotalKatakanaHandakutenBatches(): number {
+  const allKana = getAllKatakanaHandakuten()
+  return Math.max(...allKana.map((k) => k.batch), 0)
+}
+
+/**
+ * Get the descriptive name for a Katakana Handakuten batch
+ */
+export function getKatakanaHandakutenBatchName(batchNumber: number): string {
+  return 'P-row (H-row Handakuten)'
+}
+
+/**
+ * Get all Katakana Combo characters
+ */
+export function getAllKatakanaCombo(): KanaCharacter[] {
+  return katakanaComboData as KanaCharacter[]
+}
+
+/**
+ * Get Katakana Combo characters by batch number
+ */
+export function getKatakanaComboByBatch(batchNumber: number): KanaCharacter[] {
+  return getAllKatakanaCombo().filter((kana) => kana.batch === batchNumber)
+}
+
+/**
+ * Get all Katakana Combo batches
+ */
+export function getAllKatakanaComboBatches(): KanaBatch[] {
+  const allKana = getAllKatakanaCombo()
+  const batches: KanaBatch[] = []
+  
+  const maxBatch = Math.max(...allKana.map((k) => k.batch), 0)
+  
+  for (let i = 1; i <= maxBatch; i++) {
+    const batchKana = getKatakanaComboByBatch(i)
+    if (batchKana.length > 0) {
+      batches.push({
+        batchNumber: i,
+        kana: batchKana,
+      })
+    }
+  }
+  
+  return batches
+}
+
+/**
+ * Get total number of Katakana Combo batches
+ */
+export function getTotalKatakanaComboBatches(): number {
+  const allKana = getAllKatakanaCombo()
+  return Math.max(...allKana.map((k) => k.batch), 0)
+}
+
+/**
+ * Get the descriptive name for a Katakana Combo batch
+ */
+export function getKatakanaComboBatchName(batchNumber: number): string {
+  const batchNames: Record<number, string> = {
+    1: 'Ki-row Combos',
+    2: 'Shi-row Combos',
+    3: 'Chi-row Combos',
+    4: 'Ni-row Combos',
+    5: 'Hi-row Combos',
+    6: 'Mi-row Combos',
+    7: 'Ri-row Combos',
+    8: 'Gi-row Combos',
+    9: 'Ji-row Combos',
+    10: 'Bi-row Combos',
+    11: 'Pi-row Combos',
   }
   
   return batchNames[batchNumber] || `Combo Batch ${batchNumber}`
@@ -305,6 +551,14 @@ export function getAllKanaByType(type: KanaType): KanaCharacter[] {
       return getAllHiraganaHandakuten()
     case 'hiragana_combo':
       return getAllHiraganaCombo()
+    case 'katakana':
+      return getAllKatakana()
+    case 'katakana_dakuten':
+      return getAllKatakanaDakuten()
+    case 'katakana_handakuten':
+      return getAllKatakanaHandakuten()
+    case 'katakana_combo':
+      return getAllKatakanaCombo()
     default:
       return []
   }
@@ -323,6 +577,14 @@ export function getKanaByBatchAndType(batchNumber: number, type: KanaType): Kana
       return getHiraganaHandakutenByBatch(batchNumber)
     case 'hiragana_combo':
       return getHiraganaComboByBatch(batchNumber)
+    case 'katakana':
+      return getKatakanaByBatch(batchNumber)
+    case 'katakana_dakuten':
+      return getKatakanaDakutenByBatch(batchNumber)
+    case 'katakana_handakuten':
+      return getKatakanaHandakutenByBatch(batchNumber)
+    case 'katakana_combo':
+      return getKatakanaComboByBatch(batchNumber)
     default:
       return []
   }
@@ -341,6 +603,14 @@ export function getBatchName(batchNumber: number, type: KanaType): string {
       return getHiraganaHandakutenBatchName(batchNumber)
     case 'hiragana_combo':
       return getHiraganaComboBatchName(batchNumber)
+    case 'katakana':
+      return getKatakanaBatchName(batchNumber)
+    case 'katakana_dakuten':
+      return getKatakanaDakutenBatchName(batchNumber)
+    case 'katakana_handakuten':
+      return getKatakanaHandakutenBatchName(batchNumber)
+    case 'katakana_combo':
+      return getKatakanaComboBatchName(batchNumber)
     default:
       return `Batch ${batchNumber}`
   }
@@ -359,6 +629,14 @@ export function getTotalBatches(type: KanaType): number {
       return getTotalHiraganaHandakutenBatches()
     case 'hiragana_combo':
       return getTotalHiraganaComboBatches()
+    case 'katakana':
+      return getTotalKatakanaBatches()
+    case 'katakana_dakuten':
+      return getTotalKatakanaDakutenBatches()
+    case 'katakana_handakuten':
+      return getTotalKatakanaHandakutenBatches()
+    case 'katakana_combo':
+      return getTotalKatakanaComboBatches()
     default:
       return 0
   }

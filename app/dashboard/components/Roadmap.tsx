@@ -6,7 +6,11 @@ import {
   getTotalHiraganaBatches,
   getTotalHiraganaDakutenBatches,
   getTotalHiraganaHandakutenBatches,
-  getTotalHiraganaComboBatches
+  getTotalHiraganaComboBatches,
+  getTotalKatakanaBatches,
+  getTotalKatakanaDakutenBatches,
+  getTotalKatakanaHandakutenBatches,
+  getTotalKatakanaComboBatches
 } from '@/lib/kana'
 
 type RoadmapSegment = {
@@ -15,7 +19,7 @@ type RoadmapSegment = {
   description: string
   status: 'completed' | 'current' | 'locked'
   unlocksAt?: string
-  type?: 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo'
+  type?: 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo' | 'katakana' | 'katakana_dakuten' | 'katakana_handakuten' | 'katakana_combo'
   batchCount?: number
   completedBatches?: number
 }
@@ -28,6 +32,10 @@ export default function Roadmap() {
     hiragana_dakuten: new Set(),
     hiragana_handakuten: new Set(),
     hiragana_combo: new Set(),
+    katakana: new Set(),
+    katakana_dakuten: new Set(),
+    katakana_handakuten: new Set(),
+    katakana_combo: new Set(),
     // Future course types will be added dynamically
   })
 
@@ -61,6 +69,10 @@ export default function Roadmap() {
           hiragana_dakuten: new Set(),
           hiragana_handakuten: new Set(),
           hiragana_combo: new Set(),
+          katakana: new Set(),
+          katakana_dakuten: new Set(),
+          katakana_handakuten: new Set(),
+          katakana_combo: new Set(),
         }
         
         // Dynamically organize batches by type
@@ -93,6 +105,14 @@ export default function Roadmap() {
         return getTotalHiraganaHandakutenBatches()
       case 'hiragana_combo':
         return getTotalHiraganaComboBatches()
+      case 'katakana':
+        return getTotalKatakanaBatches()
+      case 'katakana_dakuten':
+        return getTotalKatakanaDakutenBatches()
+      case 'katakana_handakuten':
+        return getTotalKatakanaHandakutenBatches()
+      case 'katakana_combo':
+        return getTotalKatakanaComboBatches()
       // Future course types will be added here
       // case 'vocabulary':
       //   return getTotalVocabularyBatches()
@@ -145,11 +165,19 @@ export default function Roadmap() {
   const dakutenTotal = getTotalHiraganaDakutenBatches()
   const handakutenTotal = getTotalHiraganaHandakutenBatches()
   const combosTotal = getTotalHiraganaComboBatches()
+  const katakanaTotal = getTotalKatakanaBatches()
+  const katakanaDakutenTotal = getTotalKatakanaDakutenBatches()
+  const katakanaHandakutenTotal = getTotalKatakanaHandakutenBatches()
+  const katakanaCombosTotal = getTotalKatakanaComboBatches()
   
   const hiraganaCompleted = completedBatches.hiragana.size
   const dakutenCompleted = completedBatches.hiragana_dakuten.size
   const handakutenCompleted = completedBatches.hiragana_handakuten.size
   const combosCompleted = completedBatches.hiragana_combo.size
+  const katakanaCompleted = completedBatches.katakana.size
+  const katakanaDakutenCompleted = completedBatches.katakana_dakuten.size
+  const katakanaHandakutenCompleted = completedBatches.katakana_handakuten.size
+  const katakanaCombosCompleted = completedBatches.katakana_combo.size
 
   const roadmapSegments: RoadmapSegment[] = [
     {
@@ -190,6 +218,46 @@ export default function Roadmap() {
       batchCount: combosTotal,
       completedBatches: combosCompleted,
       unlocksAt: 'Complete all Hiragana Handakuten batches',
+    },
+    {
+      id: 'katakana-basics',
+      title: 'Katakana Basics',
+      description: `Learn the 46 basic Katakana characters (${katakanaCompleted}/${katakanaTotal} batches completed)`,
+      status: getSegmentStatus('katakana', katakanaTotal, 'hiragana_combo'),
+      type: 'katakana',
+      batchCount: katakanaTotal,
+      completedBatches: katakanaCompleted,
+      unlocksAt: 'Complete all Hiragana Combinations batches',
+    },
+    {
+      id: 'katakana-dakuten',
+      title: 'Katakana Dakuten',
+      description: `Learn voiced sounds with dakuten marks (゛) (${katakanaDakutenCompleted}/${katakanaDakutenTotal} batches completed)`,
+      status: getSegmentStatus('katakana_dakuten', katakanaDakutenTotal, 'katakana'),
+      type: 'katakana_dakuten',
+      batchCount: katakanaDakutenTotal,
+      completedBatches: katakanaDakutenCompleted,
+      unlocksAt: 'Complete all Katakana Basics batches',
+    },
+    {
+      id: 'katakana-handakuten',
+      title: 'Katakana Handakuten',
+      description: `Learn semi-voiced sounds with handakuten marks (゜) (${katakanaHandakutenCompleted}/${katakanaHandakutenTotal} batches completed)`,
+      status: getSegmentStatus('katakana_handakuten', katakanaHandakutenTotal, 'katakana_dakuten'),
+      type: 'katakana_handakuten',
+      batchCount: katakanaHandakutenTotal,
+      completedBatches: katakanaHandakutenCompleted,
+      unlocksAt: 'Complete all Katakana Dakuten batches',
+    },
+    {
+      id: 'katakana-combos',
+      title: 'Katakana Combinations',
+      description: `Learn kana combinations (キャ, キュ, キョ, etc.) (${katakanaCombosCompleted}/${katakanaCombosTotal} batches completed)`,
+      status: getSegmentStatus('katakana_combo', katakanaCombosTotal, 'katakana_handakuten'),
+      type: 'katakana_combo',
+      batchCount: katakanaCombosTotal,
+      completedBatches: katakanaCombosCompleted,
+      unlocksAt: 'Complete all Katakana Handakuten batches',
     },
   ]
 

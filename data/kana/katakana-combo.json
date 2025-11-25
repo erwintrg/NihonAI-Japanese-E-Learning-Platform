@@ -1,0 +1,267 @@
+[
+  {
+    "character": "キャ",
+    "romaji": "kya",
+    "mnemonic": "KYA is KI + small YA (キ + ャ)",
+    "mnemonicImage": "The character キ with a small ヤ",
+    "batch": 1,
+    "baseCharacter": "キ"
+  },
+  {
+    "character": "キュ",
+    "romaji": "kyu",
+    "mnemonic": "KYU is KI + small YU (キ + ュ)",
+    "mnemonicImage": "The character キ with a small ユ",
+    "batch": 1,
+    "baseCharacter": "キ"
+  },
+  {
+    "character": "キョ",
+    "romaji": "kyo",
+    "mnemonic": "KYO is KI + small YO (キ + ョ)",
+    "mnemonicImage": "The character キ with a small ヨ",
+    "batch": 1,
+    "baseCharacter": "キ"
+  },
+  {
+    "character": "シャ",
+    "romaji": "sha",
+    "mnemonic": "SHA is SHI + small YA (シ + ャ)",
+    "mnemonicImage": "The character シ with a small ヤ",
+    "batch": 2,
+    "baseCharacter": "シ"
+  },
+  {
+    "character": "シュ",
+    "romaji": "shu",
+    "mnemonic": "SHU is SHI + small YU (シ + ュ)",
+    "mnemonicImage": "The character シ with a small ユ",
+    "batch": 2,
+    "baseCharacter": "シ"
+  },
+  {
+    "character": "ショ",
+    "romaji": "sho",
+    "mnemonic": "SHO is SHI + small YO (シ + ョ)",
+    "mnemonicImage": "The character シ with a small ヨ",
+    "batch": 2,
+    "baseCharacter": "シ"
+  },
+  {
+    "character": "チャ",
+    "romaji": "cha",
+    "mnemonic": "CHA is CHI + small YA (チ + ャ)",
+    "mnemonicImage": "The character チ with a small ヤ",
+    "batch": 3,
+    "baseCharacter": "チ"
+  },
+  {
+    "character": "チュ",
+    "romaji": "chu",
+    "mnemonic": "CHU is CHI + small YU (チ + ュ)",
+    "mnemonicImage": "The character チ with a small ユ",
+    "batch": 3,
+    "baseCharacter": "チ"
+  },
+  {
+    "character": "チョ",
+    "romaji": "cho",
+    "mnemonic": "CHO is CHI + small YO (チ + ョ)",
+    "mnemonicImage": "The character チ with a small ヨ",
+    "batch": 3,
+    "baseCharacter": "チ"
+  },
+  {
+    "character": "ニャ",
+    "romaji": "nya",
+    "mnemonic": "NYA is NI + small YA (ニ + ャ)",
+    "mnemonicImage": "The character ニ with a small ヤ",
+    "batch": 4,
+    "baseCharacter": "ニ"
+  },
+  {
+    "character": "ニュ",
+    "romaji": "nyu",
+    "mnemonic": "NYU is NI + small YU (ニ + ュ)",
+    "mnemonicImage": "The character ニ with a small ユ",
+    "batch": 4,
+    "baseCharacter": "ニ"
+  },
+  {
+    "character": "ニョ",
+    "romaji": "nyo",
+    "mnemonic": "NYO is NI + small YO (ニ + ョ)",
+    "mnemonicImage": "The character ニ with a small ヨ",
+    "batch": 4,
+    "baseCharacter": "ニ"
+  },
+  {
+    "character": "ヒャ",
+    "romaji": "hya",
+    "mnemonic": "HYA is HI + small YA (ヒ + ャ)",
+    "mnemonicImage": "The character ヒ with a small ヤ",
+    "batch": 5,
+    "baseCharacter": "ヒ"
+  },
+  {
+    "character": "ヒュ",
+    "romaji": "hyu",
+    "mnemonic": "HYU is HI + small YU (ヒ + ュ)",
+    "mnemonicImage": "The character ヒ with a small ユ",
+    "batch": 5,
+    "baseCharacter": "ヒ"
+  },
+  {
+    "character": "ヒョ",
+    "romaji": "hyo",
+    "mnemonic": "HYO is HI + small YO (ヒ + ョ)",
+    "mnemonicImage": "The character ヒ with a small ヨ",
+    "batch": 5,
+    "baseCharacter": "ヒ"
+  },
+  {
+    "character": "ミャ",
+    "romaji": "mya",
+    "mnemonic": "MYA is MI + small YA (ミ + ャ)",
+    "mnemonicImage": "The character ミ with a small ヤ",
+    "batch": 6,
+    "baseCharacter": "ミ"
+  },
+  {
+    "character": "ミュ",
+    "romaji": "myu",
+    "mnemonic": "MYU is MI + small YU (ミ + ュ)",
+    "mnemonicImage": "The character ミ with a small ユ",
+    "batch": 6,
+    "baseCharacter": "ミ"
+  },
+  {
+    "character": "ミョ",
+    "romaji": "myo",
+    "mnemonic": "MYO is MI + small YO (ミ + ョ)",
+    "mnemonicImage": "The character ミ with a small ヨ",
+    "batch": 6,
+    "baseCharacter": "ミ"
+  },
+  {
+    "character": "リャ",
+    "romaji": "rya",
+    "mnemonic": "RYA is RI + small YA (リ + ャ)",
+    "mnemonicImage": "The character リ with a small ヤ",
+    "batch": 7,
+    "baseCharacter": "リ"
+  },
+  {
+    "character": "リュ",
+    "romaji": "ryu",
+    "mnemonic": "RYU is RI + small YU (リ + ュ)",
+    "mnemonicImage": "The character リ with a small ユ",
+    "batch": 7,
+    "baseCharacter": "リ"
+  },
+  {
+    "character": "リョ",
+    "romaji": "ryo",
+    "mnemonic": "RYO is RI + small YO (リ + ョ)",
+    "mnemonicImage": "The character リ with a small ヨ",
+    "batch": 7,
+    "baseCharacter": "リ"
+  },
+  {
+    "character": "ギャ",
+    "romaji": "gya",
+    "mnemonic": "GYA is GI (dakuten) + small YA (ギ + ャ)",
+    "mnemonicImage": "The character ギ with a small ヤ",
+    "batch": 8,
+    "baseCharacter": "ギ"
+  },
+  {
+    "character": "ギュ",
+    "romaji": "gyu",
+    "mnemonic": "GYU is GI (dakuten) + small YU (ギ + ュ)",
+    "mnemonicImage": "The character ギ with a small ユ",
+    "batch": 8,
+    "baseCharacter": "ギ"
+  },
+  {
+    "character": "ギョ",
+    "romaji": "gyo",
+    "mnemonic": "GYO is GI (dakuten) + small YO (ギ + ョ)",
+    "mnemonicImage": "The character ギ with a small ヨ",
+    "batch": 8,
+    "baseCharacter": "ギ"
+  },
+  {
+    "character": "ジャ",
+    "romaji": "ja",
+    "mnemonic": "JA is JI (dakuten) + small YA (ジ + ャ)",
+    "mnemonicImage": "The character ジ with a small ヤ",
+    "batch": 9,
+    "baseCharacter": "ジ"
+  },
+  {
+    "character": "ジュ",
+    "romaji": "ju",
+    "mnemonic": "JU is JI (dakuten) + small YU (ジ + ュ)",
+    "mnemonicImage": "The character ジ with a small ユ",
+    "batch": 9,
+    "baseCharacter": "ジ"
+  },
+  {
+    "character": "ジョ",
+    "romaji": "jo",
+    "mnemonic": "JO is JI (dakuten) + small YO (ジ + ョ)",
+    "mnemonicImage": "The character ジ with a small ヨ",
+    "batch": 9,
+    "baseCharacter": "ジ"
+  },
+  {
+    "character": "ビャ",
+    "romaji": "bya",
+    "mnemonic": "BYA is BI (dakuten) + small YA (ビ + ャ)",
+    "mnemonicImage": "The character ビ with a small ヤ",
+    "batch": 10,
+    "baseCharacter": "ビ"
+  },
+  {
+    "character": "ビュ",
+    "romaji": "byu",
+    "mnemonic": "BYU is BI (dakuten) + small YU (ビ + ュ)",
+    "mnemonicImage": "The character ビ with a small ユ",
+    "batch": 10,
+    "baseCharacter": "ビ"
+  },
+  {
+    "character": "ビョ",
+    "romaji": "byo",
+    "mnemonic": "BYO is BI (dakuten) + small YO (ビ + ョ)",
+    "mnemonicImage": "The character ビ with a small ヨ",
+    "batch": 10,
+    "baseCharacter": "ビ"
+  },
+  {
+    "character": "ピャ",
+    "romaji": "pya",
+    "mnemonic": "PYA is PI (handakuten) + small YA (ピ + ャ)",
+    "mnemonicImage": "The character ピ with a small ヤ",
+    "batch": 11,
+    "baseCharacter": "ピ"
+  },
+  {
+    "character": "ピュ",
+    "romaji": "pyu",
+    "mnemonic": "PYU is PI (handakuten) + small YU (ピ + ュ)",
+    "mnemonicImage": "The character ピ with a small ユ",
+    "batch": 11,
+    "baseCharacter": "ピ"
+  },
+  {
+    "character": "ピョ",
+    "romaji": "pyo",
+    "mnemonic": "PYO is PI (handakuten) + small YO (ピ + ョ)",
+    "mnemonicImage": "The character ピ with a small ヨ",
+    "batch": 11,
+    "baseCharacter": "ピ"
+  }
+]
+

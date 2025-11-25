@@ -10,6 +10,12 @@ import {
   getAllHiraganaDakuten,
   getAllHiraganaHandakuten,
   getAllHiraganaCombo,
+  getAllKatakana,
+  getAllKatakanaBatches,
+  getKatakanaBatchName,
+  getAllKatakanaDakuten,
+  getAllKatakanaHandakuten,
+  getAllKatakanaCombo,
   type KanaCharacter 
 } from '@/lib/kana'
 
@@ -58,13 +64,14 @@ export default function KanaDrillsPage() {
   const [drillKanaList, setDrillKanaList] = useState<KanaCharacter[]>([])
   const [allQuestions, setAllQuestions] = useState<DrillQuestion[]>([])
 
-  const allBatches = getAllHiraganaBatches()
-  const allKana = getAllHiragana()
+  // Get kana and batches based on active tab
+  const allBatches = activeTab === 'hiragana' ? getAllHiraganaBatches() : getAllKatakanaBatches()
+  const allKana = activeTab === 'hiragana' ? getAllHiragana() : getAllKatakana()
 
   // Organize kana in typical chart layout (rows)
   const organizeKanaInRows = (kana: KanaCharacter[]): KanaCharacter[][] => {
     const rows: KanaCharacter[][] = []
-    const batches = getAllHiraganaBatches()
+    const batches = activeTab === 'hiragana' ? getAllHiraganaBatches() : getAllKatakanaBatches()
     
     batches.forEach(batch => {
       rows.push(batch.kana)
@@ -103,6 +110,13 @@ export default function KanaDrillsPage() {
     })
   }, [router, supabase])
 
+  // Clear selection when tab changes
+  useEffect(() => {
+    if (mounted) {
+      clearSelection()
+    }
+  }, [activeTab])
+
   // Auto-focus input field for textfield questions
   useEffect(() => {
     if (
@@ -131,9 +145,15 @@ export default function KanaDrillsPage() {
             batch.kana.forEach(k => newKanaSet.delete(k.character))
             
             // Check if extension options should be unchecked
-            const dakutenBaseChars = new Set(['か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'は', 'ひ', 'ふ', 'へ', 'ほ'])
-            const handakutenBaseChars = new Set(['は', 'ひ', 'ふ', 'へ', 'ほ'])
-            const comboBaseChars = new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
+            const dakutenBaseChars = activeTab === 'hiragana' 
+              ? new Set(['か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'は', 'ひ', 'ふ', 'へ', 'ほ'])
+              : new Set(['カ', 'キ', 'ク', 'ケ', 'コ', 'サ', 'シ', 'ス', 'セ', 'ソ', 'タ', 'チ', 'ツ', 'テ', 'ト', 'ハ', 'ヒ', 'フ', 'ヘ', 'ホ'])
+            const handakutenBaseChars = activeTab === 'hiragana'
+              ? new Set(['は', 'ひ', 'ふ', 'へ', 'ほ'])
+              : new Set(['ハ', 'ヒ', 'フ', 'ヘ', 'ホ'])
+            const comboBaseChars = activeTab === 'hiragana'
+              ? new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
+              : new Set(['キ', 'シ', 'チ', 'ニ', 'ヒ', 'ミ', 'リ', 'ギ', 'ジ', 'ビ', 'ピ'])
             
             const hasDakutenBase = Array.from(newKanaSet).some(char => dakutenBaseChars.has(char))
             const hasHandakutenBase = Array.from(newKanaSet).some(char => handakutenBaseChars.has(char))
@@ -201,9 +221,15 @@ export default function KanaDrillsPage() {
       
       // Check if extension options should be unchecked based on remaining selected kana
       const selectedBaseChars = newSet
-      const dakutenBaseChars = new Set(['か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'は', 'ひ', 'ふ', 'へ', 'ほ'])
-      const handakutenBaseChars = new Set(['は', 'ひ', 'ふ', 'へ', 'ほ'])
-      const comboBaseChars = new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
+      const dakutenBaseChars = activeTab === 'hiragana' 
+        ? new Set(['か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'は', 'ひ', 'ふ', 'へ', 'ほ'])
+        : new Set(['カ', 'キ', 'ク', 'ケ', 'コ', 'サ', 'シ', 'ス', 'セ', 'ソ', 'タ', 'チ', 'ツ', 'テ', 'ト', 'ハ', 'ヒ', 'フ', 'ヘ', 'ホ'])
+      const handakutenBaseChars = activeTab === 'hiragana'
+        ? new Set(['は', 'ひ', 'ふ', 'へ', 'ほ'])
+        : new Set(['ハ', 'ヒ', 'フ', 'ヘ', 'ホ'])
+      const comboBaseChars = activeTab === 'hiragana'
+        ? new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
+        : new Set(['キ', 'シ', 'チ', 'ニ', 'ヒ', 'ミ', 'リ', 'ギ', 'ジ', 'ビ', 'ピ'])
       
       const hasDakutenBase = Array.from(selectedBaseChars).some(char => dakutenBaseChars.has(char))
       const hasHandakutenBase = Array.from(selectedBaseChars).some(char => handakutenBaseChars.has(char))
@@ -278,7 +304,7 @@ export default function KanaDrillsPage() {
 
     // Add Dakuten kana if selected - only for selected base characters
     if (includeDakuten) {
-      const dakutenKana = getAllHiraganaDakuten()
+      const dakutenKana = activeTab === 'hiragana' ? getAllHiraganaDakuten() : getAllKatakanaDakuten()
       dakutenKana.forEach(kana => {
         // Only include if the base character is selected
         if (kana.baseCharacter && selectedBaseCharacters.has(kana.baseCharacter)) {
@@ -289,7 +315,7 @@ export default function KanaDrillsPage() {
 
     // Add Handakuten kana if selected - only for selected base characters
     if (includeHandakuten) {
-      const handakutenKana = getAllHiraganaHandakuten()
+      const handakutenKana = activeTab === 'hiragana' ? getAllHiraganaHandakuten() : getAllKatakanaHandakuten()
       handakutenKana.forEach(kana => {
         // Only include if the base character is selected
         if (kana.baseCharacter && selectedBaseCharacters.has(kana.baseCharacter)) {
@@ -300,7 +326,7 @@ export default function KanaDrillsPage() {
 
     // Add Combo kana if selected - only for selected base characters
     if (includeCombos) {
-      const comboKana = getAllHiraganaCombo()
+      const comboKana = activeTab === 'hiragana' ? getAllHiraganaCombo() : getAllKatakanaCombo()
       comboKana.forEach(kana => {
         // Only include if the base character is selected
         if (kana.baseCharacter && selectedBaseCharacters.has(kana.baseCharacter)) {
@@ -705,190 +731,184 @@ export default function KanaDrillsPage() {
           </div>
 
           {/* Batch Selection */}
-          {activeTab === 'hiragana' && (
-            <>
-              <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 mb-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-semibold text-black dark:text-zinc-50">
-                    Select Kana Groups
-                  </h2>
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={selectAllBatches}
-                      className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 underline"
-                    >
-                      Select All
-                    </button>
-                    <button
-                      onClick={clearSelection}
-                      className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 underline"
-                    >
-                      Clear Selection
-                    </button>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                  {allBatches.map(batch => (
-                    <button
-                      key={batch.batchNumber}
-                      onClick={() => handleBatchToggle(batch.batchNumber)}
-                      className={`p-4 rounded-lg border-2 transition-colors ${
-                        selectedBatches.has(batch.batchNumber)
-                          ? 'bg-pink-100 dark:bg-pink-900/30 border-pink-500 text-pink-700 dark:text-pink-300'
-                          : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-600'
-                      }`}
-                    >
-                      <div className="text-sm font-medium mb-1">
-                        {getHiraganaBatchName(batch.batchNumber)}
-                      </div>
-                      <div className="text-xs text-zinc-500 dark:text-zinc-400">
-                        {batch.kana[0].character}-{batch.kana[batch.kana.length - 1].character}
-                      </div>
-                    </button>
-                  ))}
-                </div>
+          <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-black dark:text-zinc-50">
+                Select Kana Groups
+              </h2>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={selectAllBatches}
+                  className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 underline"
+                >
+                  Select All
+                </button>
+                <button
+                  onClick={clearSelection}
+                  className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 underline"
+                >
+                  Clear Selection
+                </button>
               </div>
-
-              {/* Extension Options */}
-              {(() => {
-                // Determine which extension options are available based on selected kana
-                const selectedBaseChars = new Set(selectedKana)
-                
-                // Check which rows can have dakuten (K, S, T, H rows)
-                const dakutenBaseChars = new Set(['か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'は', 'ひ', 'ふ', 'へ', 'ほ'])
-                const hasDakutenBase = Array.from(selectedBaseChars).some(char => dakutenBaseChars.has(char))
-                
-                // Check which rows can have handakuten (H row only)
-                const handakutenBaseChars = new Set(['は', 'ひ', 'ふ', 'へ', 'ほ'])
-                const hasHandakutenBase = Array.from(selectedBaseChars).some(char => handakutenBaseChars.has(char))
-                
-                // Check which rows can have combos (K, S, T, N, H, M, R rows, and their dakuten/handakuten variants)
-                const comboBaseChars = new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
-                const hasComboBase = Array.from(selectedBaseChars).some(char => comboBaseChars.has(char))
-                
-                // Only show this section if there are selected kana
-                if (selectedKana.size === 0) {
-                  return null
-                }
-                
-                return (
-                  <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 mb-6">
-                    <h2 className="text-xl font-semibold text-black dark:text-zinc-50 mb-4">
-                      Additional Options
-                    </h2>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
-                      These options apply only to your selected kana groups.
-                    </p>
-                    <div className="space-y-3">
-                      {hasDakutenBase ? (
-                        <label className="flex items-center gap-3 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={includeDakuten}
-                            onChange={(e) => setIncludeDakuten(e.target.checked)}
-                            className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
-                          />
-                          <span className="text-zinc-700 dark:text-zinc-300">
-                            Include Dakuten (が, ぎ, ぐ, げ, ご, etc.)
-                          </span>
-                        </label>
-                      ) : null}
-                      {hasHandakutenBase ? (
-                        <label className="flex items-center gap-3 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={includeHandakuten}
-                            onChange={(e) => setIncludeHandakuten(e.target.checked)}
-                            className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
-                          />
-                          <span className="text-zinc-700 dark:text-zinc-300">
-                            Include Handakuten (ぱ, ぴ, ぷ, ぺ, ぽ)
-                          </span>
-                        </label>
-                      ) : null}
-                      {hasComboBase ? (
-                        <label className="flex items-center gap-3 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={includeCombos}
-                            onChange={(e) => setIncludeCombos(e.target.checked)}
-                            className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
-                          />
-                          <span className="text-zinc-700 dark:text-zinc-300">
-                            Include Kana Combos (きゃ, きゅ, きょ, にゃ, にゅ, にょ, etc.)
-                          </span>
-                        </label>
-                      ) : null}
-                      {!hasDakutenBase && !hasHandakutenBase && !hasComboBase && (
-                        <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
-                          No extension options available for the selected kana groups (vowels don't have dakuten, handakuten, or combos).
-                        </p>
-                      )}
-                    </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              {allBatches.map(batch => (
+                <button
+                  key={batch.batchNumber}
+                  onClick={() => handleBatchToggle(batch.batchNumber)}
+                  className={`p-4 rounded-lg border-2 transition-colors ${
+                    selectedBatches.has(batch.batchNumber)
+                      ? 'bg-pink-100 dark:bg-pink-900/30 border-pink-500 text-pink-700 dark:text-pink-300'
+                      : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-600'
+                  }`}
+                >
+                  <div className="text-sm font-medium mb-1">
+                    {activeTab === 'hiragana' ? getHiraganaBatchName(batch.batchNumber) : getKatakanaBatchName(batch.batchNumber)}
                   </div>
-                )
-              })()}
+                  <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                    {batch.kana[0].character}-{batch.kana[batch.kana.length - 1].character}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
 
-              {/* Individual Kana Selection - Organized in Chart Layout */}
+          {/* Extension Options */}
+          {(() => {
+            // Determine which extension options are available based on selected kana
+            const selectedBaseChars = new Set(selectedKana)
+            
+            // Check which rows can have dakuten (K, S, T, H rows)
+            const dakutenBaseChars = activeTab === 'hiragana' 
+              ? new Set(['か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と', 'は', 'ひ', 'ふ', 'へ', 'ほ'])
+              : new Set(['カ', 'キ', 'ク', 'ケ', 'コ', 'サ', 'シ', 'ス', 'セ', 'ソ', 'タ', 'チ', 'ツ', 'テ', 'ト', 'ハ', 'ヒ', 'フ', 'ヘ', 'ホ'])
+            const hasDakutenBase = Array.from(selectedBaseChars).some(char => dakutenBaseChars.has(char))
+            
+            // Check which rows can have handakuten (H row only)
+            const handakutenBaseChars = activeTab === 'hiragana'
+              ? new Set(['は', 'ひ', 'ふ', 'へ', 'ほ'])
+              : new Set(['ハ', 'ヒ', 'フ', 'ヘ', 'ホ'])
+            const hasHandakutenBase = Array.from(selectedBaseChars).some(char => handakutenBaseChars.has(char))
+            
+            // Check which rows can have combos (K, S, T, N, H, M, R rows, and their dakuten/handakuten variants)
+            const comboBaseChars = activeTab === 'hiragana'
+              ? new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
+              : new Set(['キ', 'シ', 'チ', 'ニ', 'ヒ', 'ミ', 'リ', 'ギ', 'ジ', 'ビ', 'ピ'])
+            const hasComboBase = Array.from(selectedBaseChars).some(char => comboBaseChars.has(char))
+            
+            // Only show this section if there are selected kana
+            if (selectedKana.size === 0) {
+              return null
+            }
+            
+            return (
               <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 mb-6">
                 <h2 className="text-xl font-semibold text-black dark:text-zinc-50 mb-4">
-                  And/Or Select Individual Kana
+                  Additional Options
                 </h2>
-                <div className="grid grid-cols-2 gap-6">
-                  {/* Left Column */}
-                  <div className="space-y-4">
-                    {kanaRows.slice(0, Math.ceil(kanaRows.length / 2)).map((row, rowIdx) => (
-                      <div key={rowIdx} className="flex gap-2 flex-wrap">
-                        {row.map(kana => (
-                          <button
-                            key={kana.character}
-                            onClick={() => handleKanaToggle(kana.character)}
-                            className={`p-3 rounded-lg border-2 transition-colors text-center min-w-[60px] ${
-                              selectedKana.has(kana.character)
-                                ? 'bg-pink-100 dark:bg-pink-900/30 border-pink-500 text-pink-700 dark:text-pink-300'
-                                : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-600'
-                            }`}
-                          >
-                            <div className="text-2xl mb-1">{kana.character}</div>
-                            <div className="text-xs text-zinc-500 dark:text-zinc-400">{kana.romaji}</div>
-                          </button>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                  {/* Right Column */}
-                  <div className="space-y-4">
-                    {kanaRows.slice(Math.ceil(kanaRows.length / 2)).map((row, rowIdx) => (
-                      <div key={rowIdx + Math.ceil(kanaRows.length / 2)} className="flex gap-2 flex-wrap">
-                        {row.map(kana => (
-                          <button
-                            key={kana.character}
-                            onClick={() => handleKanaToggle(kana.character)}
-                            className={`p-3 rounded-lg border-2 transition-colors text-center min-w-[60px] ${
-                              selectedKana.has(kana.character)
-                                ? 'bg-pink-100 dark:bg-pink-900/30 border-pink-500 text-pink-700 dark:text-pink-300'
-                                : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-600'
-                            }`}
-                          >
-                            <div className="text-2xl mb-1">{kana.character}</div>
-                            <div className="text-xs text-zinc-500 dark:text-zinc-400">{kana.romaji}</div>
-                          </button>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+                  These options apply only to your selected kana groups.
+                </p>
+                <div className="space-y-3">
+                  {hasDakutenBase ? (
+                    <label className="flex items-center gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={includeDakuten}
+                        onChange={(e) => setIncludeDakuten(e.target.checked)}
+                        className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
+                      />
+                      <span className="text-zinc-700 dark:text-zinc-300">
+                        Include Dakuten ({activeTab === 'hiragana' ? 'が, ぎ, ぐ, げ, ご' : 'ガ, ギ, グ, ゲ, ゴ'}, etc.)
+                      </span>
+                    </label>
+                  ) : null}
+                  {hasHandakutenBase ? (
+                    <label className="flex items-center gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={includeHandakuten}
+                        onChange={(e) => setIncludeHandakuten(e.target.checked)}
+                        className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
+                      />
+                      <span className="text-zinc-700 dark:text-zinc-300">
+                        Include Handakuten ({activeTab === 'hiragana' ? 'ぱ, ぴ, ぷ, ぺ, ぽ' : 'パ, ピ, プ, ペ, ポ'})
+                      </span>
+                    </label>
+                  ) : null}
+                  {hasComboBase ? (
+                    <label className="flex items-center gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={includeCombos}
+                        onChange={(e) => setIncludeCombos(e.target.checked)}
+                        className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
+                      />
+                      <span className="text-zinc-700 dark:text-zinc-300">
+                        Include Kana Combos ({activeTab === 'hiragana' ? 'きゃ, きゅ, きょ, にゃ, にゅ, にょ' : 'キャ, キュ, キョ, ニャ, ニュ, ニョ'}, etc.)
+                      </span>
+                    </label>
+                  ) : null}
+                  {!hasDakutenBase && !hasHandakutenBase && !hasComboBase && (
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
+                      No extension options available for the selected kana groups (vowels don't have dakuten, handakuten, or combos).
+                    </p>
+                  )}
                 </div>
               </div>
-            </>
-          )}
+            )
+          })()}
 
-          {activeTab === 'katakana' && (
-            <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 mb-6">
-              <p className="text-zinc-600 dark:text-zinc-400 text-center py-8">
-                Katakana support coming soon. Your Hiragana selections are remembered.
-              </p>
+          {/* Individual Kana Selection - Organized in Chart Layout */}
+          <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800 mb-6">
+            <h2 className="text-xl font-semibold text-black dark:text-zinc-50 mb-4">
+              And/Or Select Individual Kana
+            </h2>
+            <div className="grid grid-cols-2 gap-6">
+              {/* Left Column */}
+              <div className="space-y-4">
+                {kanaRows.slice(0, Math.ceil(kanaRows.length / 2)).map((row, rowIdx) => (
+                  <div key={rowIdx} className="flex gap-2 flex-wrap">
+                    {row.map(kana => (
+                      <button
+                        key={kana.character}
+                        onClick={() => handleKanaToggle(kana.character)}
+                        className={`p-3 rounded-lg border-2 transition-colors text-center min-w-[60px] ${
+                          selectedKana.has(kana.character)
+                            ? 'bg-pink-100 dark:bg-pink-900/30 border-pink-500 text-pink-700 dark:text-pink-300'
+                            : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-600'
+                        }`}
+                      >
+                        <div className="text-2xl mb-1">{kana.character}</div>
+                        <div className="text-xs text-zinc-500 dark:text-zinc-400">{kana.romaji}</div>
+                      </button>
+                    ))}
+                  </div>
+                ))}
+              </div>
+              {/* Right Column */}
+              <div className="space-y-4">
+                {kanaRows.slice(Math.ceil(kanaRows.length / 2)).map((row, rowIdx) => (
+                  <div key={rowIdx + Math.ceil(kanaRows.length / 2)} className="flex gap-2 flex-wrap">
+                    {row.map(kana => (
+                      <button
+                        key={kana.character}
+                        onClick={() => handleKanaToggle(kana.character)}
+                        className={`p-3 rounded-lg border-2 transition-colors text-center min-w-[60px] ${
+                          selectedKana.has(kana.character)
+                            ? 'bg-pink-100 dark:bg-pink-900/30 border-pink-500 text-pink-700 dark:text-pink-300'
+                            : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-600'
+                        }`}
+                      >
+                        <div className="text-2xl mb-1">{kana.character}</div>
+                        <div className="text-xs text-zinc-500 dark:text-zinc-400">{kana.romaji}</div>
+                      </button>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
-          )}
+          </div>
 
           <button
             onClick={startDrill}

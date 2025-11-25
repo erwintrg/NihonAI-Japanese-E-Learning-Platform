@@ -1,0 +1,325 @@
+[
+  {
+    "character": "ア",
+    "romaji": "a",
+    "mnemonic": "FIND THE CAPITAL A IN ア",
+    "mnemonicImage": "A capital letter 'A' with a small loop",
+    "batch": 1
+  },
+  {
+    "character": "イ",
+    "romaji": "i",
+    "mnemonic": "TWO EELS",
+    "mnemonicImage": "Two eels swimming",
+    "batch": 1
+  },
+  {
+    "character": "ウ",
+    "romaji": "u",
+    "mnemonic": "FIND THE U IN ウ",
+    "mnemonicImage": "The Katakana 'ウ' with an arrow pointing to the 'U' shape",
+    "batch": 1
+  },
+  {
+    "character": "エ",
+    "romaji": "e",
+    "mnemonic": "AN EXOTIC BIRD LAYING EGGS",
+    "mnemonicImage": "An exotic bird laying eggs",
+    "batch": 1
+  },
+  {
+    "character": "オ",
+    "romaji": "o",
+    "mnemonic": "TWO LETTER O SYMBOLS",
+    "mnemonicImage": "Two letter 'O' symbols",
+    "batch": 1
+  },
+  {
+    "character": "カ",
+    "romaji": "ka",
+    "mnemonic": "KA IS JAPANESE FOR 'MOSQUITO'",
+    "mnemonicImage": "A mosquito",
+    "batch": 2
+  },
+  {
+    "character": "キ",
+    "romaji": "ki",
+    "mnemonic": "A KEY",
+    "mnemonicImage": "A key",
+    "batch": 2
+  },
+  {
+    "character": "ク",
+    "romaji": "ku",
+    "mnemonic": "THE MOUTH OF A CUCKOO BIRD SAYING 'KU KU!'",
+    "mnemonicImage": "A cuckoo bird with its mouth open",
+    "batch": 2
+  },
+  {
+    "character": "ケ",
+    "romaji": "ke",
+    "mnemonic": "SOME WIGGLY KELP",
+    "mnemonicImage": "Some wiggly kelp",
+    "batch": 2
+  },
+  {
+    "character": "コ",
+    "romaji": "ko",
+    "mnemonic": "A COUPLE OF CO-HABITATION WORMS",
+    "mnemonicImage": "Two worms",
+    "batch": 2
+  },
+  {
+    "character": "サ",
+    "romaji": "sa",
+    "mnemonic": "CHUNKY SALSA",
+    "mnemonicImage": "A spoon scooping something chunky",
+    "batch": 3
+  },
+  {
+    "character": "シ",
+    "romaji": "shi",
+    "mnemonic": "SHEPHERD'S CROOK TO HERD SHEEP",
+    "mnemonicImage": "A shepherd's crook",
+    "batch": 3
+  },
+  {
+    "character": "ス",
+    "romaji": "su",
+    "mnemonic": "A SWING DOING A LOOP-DE-LOOP AND THROWING THAT POOR KID OFF OF IT",
+    "mnemonicImage": "A person on a swing doing a loop-de-loop",
+    "batch": 3
+  },
+  {
+    "character": "セ",
+    "romaji": "se",
+    "mnemonic": "A SET OF SEXY VAMPIRE TEETH",
+    "mnemonicImage": "A set of vampire teeth",
+    "batch": 3
+  },
+  {
+    "character": "ソ",
+    "romaji": "so",
+    "mnemonic": "A MOUTH SLURPING SODA",
+    "mnemonicImage": "A mouth slurping soda",
+    "batch": 3
+  },
+  {
+    "character": "タ",
+    "romaji": "ta",
+    "mnemonic": "A TACO (THAT YOU'RE EATING WITH A FORK)",
+    "mnemonicImage": "A fork with a piece of food",
+    "batch": 4
+  },
+  {
+    "character": "チ",
+    "romaji": "chi",
+    "mnemonic": "'SAY CHEESE!' THAT FORCED SMILE YOU HAVE TO MAKE",
+    "mnemonicImage": "A face with a forced smile",
+    "batch": 4
+  },
+  {
+    "character": "ツ",
+    "romaji": "tsu",
+    "mnemonic": "A BIG WAVE LIKE A TSUNAMI",
+    "mnemonicImage": "A large wave",
+    "batch": 4
+  },
+  {
+    "character": "テ",
+    "romaji": "te",
+    "mnemonic": "A HAND-HELD TELESCOPE",
+    "mnemonicImage": "A hand-held telescope",
+    "batch": 4
+  },
+  {
+    "character": "ト",
+    "romaji": "to",
+    "mnemonic": "A TOE WITH A LITTLE SPLINTER IN IT",
+    "mnemonicImage": "A toe with a splinter",
+    "batch": 4
+  },
+  {
+    "character": "ナ",
+    "romaji": "na",
+    "mnemonic": "THE NUN PRAYING IN FRONT OF THE CROSS ASKING FOR NACHOS",
+    "mnemonicImage": "A nun praying in front of a cross",
+    "batch": 5
+  },
+  {
+    "character": "ニ",
+    "romaji": "ni",
+    "mnemonic": "A NEEDLE PULLING A THREAD",
+    "mnemonicImage": "A needle pulling a thread",
+    "batch": 5
+  },
+  {
+    "character": "ヌ",
+    "romaji": "nu",
+    "mnemonic": "SOME NOODLES",
+    "mnemonicImage": "Some noodles",
+    "batch": 5
+  },
+  {
+    "character": "ネ",
+    "romaji": "ne",
+    "mnemonic": "IT'S NELLY, THE NEKO (JAPANESE FOR 'CAT')",
+    "mnemonicImage": "A cat (neko)",
+    "batch": 5
+  },
+  {
+    "character": "ノ",
+    "romaji": "no",
+    "mnemonic": "A PIG NOSE",
+    "mnemonicImage": "A pig nose",
+    "batch": 5
+  },
+  {
+    "character": "ハ",
+    "romaji": "ha",
+    "mnemonic": "ハ LOOKS LIKE H + a",
+    "mnemonicImage": "The letter 'H' and the Katakana 'ア' (A)",
+    "batch": 6
+  },
+  {
+    "character": "ヒ",
+    "romaji": "hi",
+    "mnemonic": "HE HAS A BIG NOSE",
+    "mnemonicImage": "A face with a large nose",
+    "batch": 6
+  },
+  {
+    "character": "フ",
+    "romaji": "fu",
+    "mnemonic": "A DANCING FOOL HULA HOOPING",
+    "mnemonicImage": "A dancing fool hula hooping",
+    "batch": 6
+  },
+  {
+    "character": "ヘ",
+    "romaji": "he",
+    "mnemonic": "THE FAMOUS MOUNTAIN MT. SAINT HELENS",
+    "mnemonicImage": "A mountain",
+    "batch": 6
+  },
+  {
+    "character": "ホ",
+    "romaji": "ho",
+    "mnemonic": "A MUTATED SANTA CLAUS UTTERING 'HO HO HO'",
+    "mnemonicImage": "A mutated Santa Claus",
+    "batch": 6
+  },
+  {
+    "character": "マ",
+    "romaji": "ma",
+    "mnemonic": "IMAGINE YOUR MA LOOKING LIKE THIS. AGHH!",
+    "mnemonicImage": "A person with a shocked expression",
+    "batch": 7
+  },
+  {
+    "character": "ミ",
+    "romaji": "mi",
+    "mnemonic": "WHO JUST TURNED 21? ME!",
+    "mnemonicImage": "A person with a party hat",
+    "batch": 7
+  },
+  {
+    "character": "ム",
+    "romaji": "mu",
+    "mnemonic": "'MOOOOO' SAYS THE COW",
+    "mnemonicImage": "A cow",
+    "batch": 7
+  },
+  {
+    "character": "メ",
+    "romaji": "me",
+    "mnemonic": "ME IS JAPANESE FOR 'EYE'",
+    "mnemonicImage": "An eye",
+    "batch": 7
+  },
+  {
+    "character": "モ",
+    "romaji": "mo",
+    "mnemonic": "TO CATCH MORE FISH, ADD MORE WORMS TO YOUR HOOK",
+    "mnemonicImage": "A fishing hook with worms",
+    "batch": 7
+  },
+  {
+    "character": "ヤ",
+    "romaji": "ya",
+    "mnemonic": "A YACHT",
+    "mnemonicImage": "A yacht",
+    "batch": 8
+  },
+  {
+    "character": "ユ",
+    "romaji": "yu",
+    "mnemonic": "A UNIQUE LOOKING FISH",
+    "mnemonicImage": "A unique-looking fish",
+    "batch": 8
+  },
+  {
+    "character": "ヨ",
+    "romaji": "yo",
+    "mnemonic": "YO! FIND THE Y & O IN ヨ",
+    "mnemonicImage": "The letters 'Y' and 'O'",
+    "batch": 8
+  },
+  {
+    "character": "ラ",
+    "romaji": "ra",
+    "mnemonic": "A RABBIT",
+    "mnemonicImage": "A rabbit",
+    "batch": 9
+  },
+  {
+    "character": "リ",
+    "romaji": "ri",
+    "mnemonic": "THE REEDS ARE SWAYING IN THE WIND",
+    "mnemonicImage": "Reeds swaying in the wind",
+    "batch": 9
+  },
+  {
+    "character": "ル",
+    "romaji": "ru",
+    "mnemonic": "ル IS A CRAZIER ROUTE",
+    "mnemonicImage": "A winding road",
+    "batch": 9
+  },
+  {
+    "character": "レ",
+    "romaji": "re",
+    "mnemonic": "THIS GUY IS RETCHING UP HIS DINNER",
+    "mnemonicImage": "A person retching",
+    "batch": 9
+  },
+  {
+    "character": "ロ",
+    "romaji": "ro",
+    "mnemonic": "A PLAIN OLD ROAD ESPECIALLY WHEN COMPARED TO ル",
+    "mnemonicImage": "A plain old road",
+    "batch": 9
+  },
+  {
+    "character": "ワ",
+    "romaji": "wa",
+    "mnemonic": "A WASP FLYING STRAIGHT UP",
+    "mnemonicImage": "A wasp flying straight up",
+    "batch": 10
+  },
+  {
+    "character": "ヲ",
+    "romaji": "wo",
+    "mnemonic": "WHOA! THERE'S A BOOMERANG IN HIS MOUTH",
+    "mnemonicImage": "A person with a boomerang in their mouth",
+    "batch": 10
+  },
+  {
+    "character": "ン",
+    "romaji": "n",
+    "mnemonic": "ン LOOKS JUST LIKE n, THE LOWERCASE 'N'",
+    "mnemonicImage": "The lowercase 'n'",
+    "batch": 10
+  }
+]
+

@@ -80,7 +80,8 @@ function CoursePageContent() {
         
         // Get kana type from URL params, default to 'hiragana'
         const typeParam = searchParams?.get('type') as KanaType
-        const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+        const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+        const currentType: KanaType = typeParam && validTypes.includes(typeParam)
           ? typeParam
           : 'hiragana'
         
@@ -126,7 +127,8 @@ function CoursePageContent() {
     
     // Get kana type from URL params
     const typeParam = searchParams.get('type') as KanaType
-    const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+    const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+    const currentType: KanaType = typeParam && validTypes.includes(typeParam)
       ? typeParam
       : 'hiragana'
     
@@ -387,6 +389,72 @@ Kana combinations are created by combining certain base characters with small ve
 Think of the small kana as "attaching" to the base character. The base character provides the consonant, and the small kana provides the vowel sound. Visualize the base character you already know, then add the small version of や, ゆ, or よ!
 
 In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
+    } else if (currentType === 'katakana' && batchNumber === 1) {
+      theoryContent = `**What is Katakana?**
+Katakana consists of 46 basic characters, each representing the same syllables as Hiragana (like "ka", "ki", "ku"). While Hiragana is used for native Japanese words and grammar, Katakana is primarily used for:
+- Foreign words and loanwords (e.g., コーヒー "koohii" = coffee)
+- Onomatopoeia (sound words)
+- Emphasis (similar to italics in English)
+- Scientific names and technical terms
+
+**How to use Mnemonics:**
+Each character below has a mnemonic - a memory aid that connects the character's shape to its sound. Katakana characters are more angular and sharp compared to Hiragana's curved shapes. Visualize the mnemonic story as you look at each character. The more vivid you make the mental image, the easier it will be to remember!
+
+In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
+    } else if (currentType === 'katakana_dakuten' && batchNumber === 1) {
+      theoryContent = `**Dakuten (゛) - Voiced Sounds (Katakana)**
+
+Dakuten (also called "ten-ten") are two small marks (゛) added to certain Katakana characters to create voiced sounds, just like in Hiragana. When you add dakuten, the sound becomes "voiced":
+
+- K-row (カ, キ, ク, ケ, コ) → G-row (ガ, ギ, グ, ゲ, ゴ)
+- S-row (サ, シ, ス, セ, ソ) → Z-row (ザ, ジ, ズ, ゼ, ゾ)
+- T-row (タ, チ, ツ, テ, ト) → D-row (ダ, ヂ, ヅ, デ, ド)
+- H-row (ハ, ヒ, フ, ヘ, ホ) → B-row (バ, ビ, ブ, ベ, ボ)
+
+**Pronunciation Note:**
+Dakuten creates a "voiced" sound by adding vibration to the vocal cords. The key difference is that voiced sounds use your vocal cords, while unvoiced sounds don't. For example:
+- "ソ" (so) is unvoiced, like the "s" in "sun" - no vocal cord vibration
+- "ゾ" (zo) is voiced, like the "z" in "zoo" - vocal cords vibrate
+- "タ" (ta) is unvoiced, like the "t" in "top" - no vocal cord vibration
+- "ダ" (da) is voiced, like the "d" in "dog" - vocal cords vibrate
+
+The difference is subtle but important. Practice saying pairs like "so/zo" and "ta/da" to feel the vibration in your throat when producing the voiced sounds!
+
+**How to remember:**
+Think of dakuten as "activating" the character - the two dots make the sound voiced by adding vocal cord vibration. Visualize the base Katakana character you already know, then add the two dots on top!
+
+In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
+    } else if (currentType === 'katakana_handakuten' && batchNumber === 1) {
+      theoryContent = `**Handakuten (゜) - Semi-Voiced Sounds (Katakana)**
+
+Handakuten (also called "maru") is a small circle (゜) added to H-row Katakana characters to create P-sounds. Unlike dakuten which uses two dots, handakuten uses a circle:
+
+- H-row (ハ, ヒ, フ, ヘ, ホ) → P-row (パ, ピ, プ, ペ, ポ)
+
+**Pronunciation Note:**
+Handakuten creates a "p" sound that is aspirated (with a puff of air) compared to the base H-row sounds. Notice the difference:
+- "ハ" (ha) is a soft "h" sound (unvoiced fricative)
+- "パ" (pa) is an aspirated "p" sound (unvoiced plosive with a puff of air), like the "p" in "pop"
+
+The handakuten mark transforms the H-row into clear P-sounds, making them distinct from both the original H-row (h sounds) and the B-row (b sounds from dakuten).
+
+**How to remember:**
+Think of the circle as a "puff" of air - the handakuten mark creates a "p" sound. Visualize the base H-row Katakana character you already know, then add the small circle on top!
+
+In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
+    } else if (currentType === 'katakana_combo' && batchNumber === 1) {
+      theoryContent = `**Kana Combinations (Yōon) - Contracted Sounds (Katakana)**
+
+Katakana combinations are created by combining certain base characters with small versions of ヤ (ya), ユ (yu), or ヨ (yo). The small kana (ャ, ュ, ョ) combine with the base character to create a new sound:
+
+- キ (ki) + ャ (small ya) = キャ (kya)
+- キ (ki) + ュ (small yu) = キュ (kyu)
+- キ (ki) + ョ (small yo) = キョ (kyo)
+
+**How to remember:**
+Think of the small kana as "attaching" to the base character. The base character provides the consonant, and the small kana provides the vowel sound. Visualize the base Katakana character you already know, then add the small version of ヤ, ユ, or ヨ!
+
+In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
     } else {
       // Check if this is a noteworthy batch (e.g., special patterns or pronunciation notes)
       let batchNote = ''
@@ -415,12 +483,40 @@ In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k 
         batchNote = `\n\n**Special Notes:**
 - "だ" (da), "で" (de), "ど" (do): These follow the standard pattern from "た" (ta), "て" (te), "と" (to).
 - "ぢ" (ji) and "づ" (zu): These come from "ち" (chi) and "つ" (tsu) respectively. However, in modern Japanese, "ぢ" and "づ" are rarely used - they're usually replaced by "じ" (ji) and "ず" (zu) from the S-row dakuten. You'll mostly see "じ" and "ず" in practice, but it's good to know "ぢ" and "づ" exist!`
+      } else if (currentType === 'katakana' && batchNumber === 2) {
+        batchNote = `\n\n**Note:** This is the K-row (カ行). Notice how each character starts with "k" followed by the five vowels (a, i, u, e, o). This pattern continues for other consonant rows.`
+      } else if (currentType === 'katakana' && batchNumber === 3) {
+        batchNote = `\n\n**Note:** This is the S-row (サ行). Pay attention to "shi" (シ) - it's the only character in this row that doesn't follow the "s + vowel" pattern. Instead of "si", Japanese uses "shi" because the "si" sound doesn't exist naturally in Japanese.`
+      } else if (currentType === 'katakana' && batchNumber === 4) {
+        batchNote = `\n\n**Note:** This is the T-row (タ行). Notice "chi" (チ) and "tsu" (ツ) - they don't follow the standard "t + vowel" pattern. Instead of "ti" and "tu", Japanese uses "chi" and "tsu" because these sounds are more natural in Japanese pronunciation.`
+      } else if (currentType === 'katakana' && batchNumber === 6) {
+        batchNote = `\n\n**Pronunciation Notes:** 
+- "フ" (fu): This character is pronounced more like "fu" than "hu". The sound is made by blowing air through slightly pursed lips, similar to blowing out a candle.
+- "ハ" (ha): When used as a grammatical particle (topic marker), "ハ" is pronounced as "wa" even though it's written with the "ha" character.`
+      } else if (currentType === 'katakana' && batchNumber === 8) {
+        batchNote = `\n\n**Note:** The Y-row (ヤ行) only has three characters: ヤ (ya), ユ (yu), and ヨ (yo). The sounds "yi" and "ye" don't exist in Japanese, so they're skipped.`
+      } else if (currentType === 'katakana' && batchNumber === 9) {
+        batchNote = `\n\n**Pronunciation Note:** The Japanese "R" sound (ラ, リ, ル, レ, ロ) is unique! It's not like the English "R" in "Russia" or "red". Instead, it's a sound between "R" and "L" - like a light tap of the tongue against the roof of your mouth. Try saying "ラ" (ra) by quickly tapping your tongue up, almost like a very soft "la" sound. This R-row sound is one of the most distinctive features of Japanese pronunciation.`
+      } else if (currentType === 'katakana' && batchNumber === 10) {
+        batchNote = `\n\n**Special Characters:**
+- "ン" (n): This is the only standalone consonant in Katakana (besides the vowels). It's pronounced as a nasal sound, like the "n" in "sing" or "m" in "camp" depending on what comes after it. It can appear anywhere in a word and changes its pronunciation slightly based on context.
+- "ヲ" (wo): This character is almost always pronounced as "o" (like the vowel), not "wo". It's primarily used as a grammatical particle (object marker) and is rarely used in modern Japanese words.`
+      } else if (currentType === 'katakana_dakuten' && batchNumber === 2) {
+        batchNote = `\n\n**Important Exception:** Notice that "ジ" (ji) comes from "シ" (shi), not "サ" (sa). This is because "shi" (シ) doesn't follow the standard "s + vowel" pattern, so when adding dakuten, it becomes "ji" (ジ) instead of "zhi". This is one of the most common dakuten characters you'll encounter!`
+      } else if (currentType === 'katakana_dakuten' && batchNumber === 3) {
+        batchNote = `\n\n**Special Notes:**
+- "ダ" (da), "デ" (de), "ド" (do): These follow the standard pattern from "タ" (ta), "テ" (te), "ト" (to).
+- "ヂ" (ji) and "ヅ" (zu): These come from "チ" (chi) and "ツ" (tsu) respectively. However, in modern Japanese, "ヂ" and "ヅ" are rarely used - they're usually replaced by "ジ" (ji) and "ズ" (zu) from the S-row dakuten. You'll mostly see "ジ" and "ズ" in practice, but it's good to know "ヂ" and "ヅ" exist!`
       }
       
       const typeLabel = currentType === 'hiragana' ? 'Hiragana' 
         : currentType === 'hiragana_dakuten' ? 'Hiragana Dakuten'
         : currentType === 'hiragana_handakuten' ? 'Hiragana Handakuten'
-        : 'Hiragana Combos'
+        : currentType === 'hiragana_combo' ? 'Hiragana Combos'
+        : currentType === 'katakana' ? 'Katakana'
+        : currentType === 'katakana_dakuten' ? 'Katakana Dakuten'
+        : currentType === 'katakana_handakuten' ? 'Katakana Handakuten'
+        : 'Katakana Combos'
       
       theoryContent = `**${typeLabel} Ordering:**
 Characters are organized in batches to help you learn systematically. This session covers the ${batchName}.${batchNote}
@@ -434,7 +530,11 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
     const typeLabel = currentType === 'hiragana' ? 'Hiragana' 
       : currentType === 'hiragana_dakuten' ? 'Hiragana Dakuten'
       : currentType === 'hiragana_handakuten' ? 'Hiragana Handakuten'
-      : 'Hiragana Combos'
+      : currentType === 'hiragana_combo' ? 'Hiragana Combos'
+      : currentType === 'katakana' ? 'Katakana'
+      : currentType === 'katakana_dakuten' ? 'Katakana Dakuten'
+      : currentType === 'katakana_handakuten' ? 'Katakana Handakuten'
+      : 'Katakana Combos'
     
     const sessionTitle = batchNumber === 1 && currentType === 'hiragana' 
       ? 'Introduction to Hiragana'
@@ -444,6 +544,14 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
       ? 'Introduction to Handakuten'
       : batchNumber === 1 && currentType === 'hiragana_combo'
       ? 'Introduction to Kana Combinations'
+      : batchNumber === 1 && currentType === 'katakana'
+      ? 'Introduction to Katakana'
+      : batchNumber === 1 && currentType === 'katakana_dakuten'
+      ? 'Introduction to Katakana Dakuten'
+      : batchNumber === 1 && currentType === 'katakana_handakuten'
+      ? 'Introduction to Katakana Handakuten'
+      : batchNumber === 1 && currentType === 'katakana_combo'
+      ? 'Introduction to Katakana Combinations'
       : `${typeLabel} Characters: ${batchName}`
     
     const hiraganaSession: CourseSession = {
@@ -471,7 +579,8 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
     if (mounted && user && searchParams && batchesLoaded && !sessionCompleted) {
       // Update kana type from URL params
       const typeParam = searchParams.get('type') as KanaType
-      if (typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)) {
+      const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+      if (typeParam && validTypes.includes(typeParam)) {
         setKanaType(typeParam)
       }
       
@@ -556,7 +665,8 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
       
       // Get kana type from URL params
       const typeParam = searchParams?.get('type') as KanaType
-      const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+      const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+      const currentType: KanaType = typeParam && validTypes.includes(typeParam)
         ? typeParam
         : 'hiragana'
       
@@ -1102,7 +1212,8 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                   try {
                     // Get kana type from URL params
                     const typeParam = searchParams?.get('type') as KanaType
-                    const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+                    const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+                    const currentType: KanaType = typeParam && validTypes.includes(typeParam)
                       ? typeParam
                       : 'hiragana'
                     
@@ -1152,7 +1263,8 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
               {session && (() => {
                 // Get kana type from URL params
                 const typeParam = searchParams?.get('type') as KanaType
-                const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+                const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+                const currentType: KanaType = typeParam && validTypes.includes(typeParam)
                   ? typeParam
                   : 'hiragana'
                 
@@ -1197,7 +1309,8 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                       try {
                         // Get kana type from URL params
                         const typeParam = searchParams?.get('type') as KanaType
-                        const currentType: KanaType = typeParam && ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo'].includes(typeParam)
+                        const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+                        const currentType: KanaType = typeParam && validTypes.includes(typeParam)
                           ? typeParam
                           : 'hiragana'
                         

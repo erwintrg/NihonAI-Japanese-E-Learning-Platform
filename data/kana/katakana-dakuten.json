@@ -1,0 +1,163 @@
+[
+  {
+    "character": "ガ",
+    "romaji": "ga",
+    "mnemonic": "GA is KA with a dakuten mark (two dots)",
+    "mnemonicImage": "The character カ with two dots added",
+    "batch": 1,
+    "baseCharacter": "カ"
+  },
+  {
+    "character": "ギ",
+    "romaji": "gi",
+    "mnemonic": "GI is KI with a dakuten mark (two dots)",
+    "mnemonicImage": "The character キ with two dots added",
+    "batch": 1,
+    "baseCharacter": "キ"
+  },
+  {
+    "character": "グ",
+    "romaji": "gu",
+    "mnemonic": "GU is KU with a dakuten mark (two dots)",
+    "mnemonicImage": "The character ク with two dots added",
+    "batch": 1,
+    "baseCharacter": "ク"
+  },
+  {
+    "character": "ゲ",
+    "romaji": "ge",
+    "mnemonic": "GE is KE with a dakuten mark (two dots)",
+    "mnemonicImage": "The character ケ with two dots added",
+    "batch": 1,
+    "baseCharacter": "ケ"
+  },
+  {
+    "character": "ゴ",
+    "romaji": "go",
+    "mnemonic": "GO is KO with a dakuten mark (two dots)",
+    "mnemonicImage": "The character コ with two dots added",
+    "batch": 1,
+    "baseCharacter": "コ"
+  },
+  {
+    "character": "ザ",
+    "romaji": "za",
+    "mnemonic": "ZA is SA with a dakuten mark (two dots)",
+    "mnemonicImage": "The character サ with two dots added",
+    "batch": 2,
+    "baseCharacter": "サ"
+  },
+  {
+    "character": "ジ",
+    "romaji": "ji",
+    "mnemonic": "JI is SHI with a dakuten mark (two dots)",
+    "mnemonicImage": "The character シ with two dots added",
+    "batch": 2,
+    "baseCharacter": "シ"
+  },
+  {
+    "character": "ズ",
+    "romaji": "zu",
+    "mnemonic": "ZU is SU with a dakuten mark (two dots)",
+    "mnemonicImage": "The character ス with two dots added",
+    "batch": 2,
+    "baseCharacter": "ス"
+  },
+  {
+    "character": "ゼ",
+    "romaji": "ze",
+    "mnemonic": "ZE is SE with a dakuten mark (two dots)",
+    "mnemonicImage": "The character セ with two dots added",
+    "batch": 2,
+    "baseCharacter": "セ"
+  },
+  {
+    "character": "ゾ",
+    "romaji": "zo",
+    "mnemonic": "ZO is SO with a dakuten mark (two dots)",
+    "mnemonicImage": "The character ソ with two dots added",
+    "batch": 2,
+    "baseCharacter": "ソ"
+  },
+  {
+    "character": "ダ",
+    "romaji": "da",
+    "mnemonic": "DA is TA with a dakuten mark (two dots)",
+    "mnemonicImage": "The character タ with two dots added",
+    "batch": 3,
+    "baseCharacter": "タ"
+  },
+  {
+    "character": "ヂ",
+    "romaji": "ji",
+    "mnemonic": "JI (dakuten) is CHI with a dakuten mark (two dots)",
+    "mnemonicImage": "The character チ with two dots added",
+    "batch": 3,
+    "baseCharacter": "チ"
+  },
+  {
+    "character": "ヅ",
+    "romaji": "zu",
+    "mnemonic": "ZU (dakuten) is TSU with a dakuten mark (two dots)",
+    "mnemonicImage": "The character ツ with two dots added",
+    "batch": 3,
+    "baseCharacter": "ツ"
+  },
+  {
+    "character": "デ",
+    "romaji": "de",
+    "mnemonic": "DE is TE with a dakuten mark (two dots)",
+    "mnemonicImage": "The character テ with two dots added",
+    "batch": 3,
+    "baseCharacter": "テ"
+  },
+  {
+    "character": "ド",
+    "romaji": "do",
+    "mnemonic": "DO is TO with a dakuten mark (two dots)",
+    "mnemonicImage": "The character ト with two dots added",
+    "batch": 3,
+    "baseCharacter": "ト"
+  },
+  {
+    "character": "バ",
+    "romaji": "ba",
+    "mnemonic": "BA is HA with a dakuten mark (two dots)",
+    "mnemonicImage": "The character ハ with two dots added",
+    "batch": 4,
+    "baseCharacter": "ハ"
+  },
+  {
+    "character": "ビ",
+    "romaji": "bi",
+    "mnemonic": "BI is HI with a dakuten mark (two dots)",
+    "mnemonicImage": "The character ヒ with two dots added",
+    "batch": 4,
+    "baseCharacter": "ヒ"
+  },
+  {
+    "character": "ブ",
+    "romaji": "bu",
+    "mnemonic": "BU is FU with a dakuten mark (two dots)",
+    "mnemonicImage": "The character フ with two dots added",
+    "batch": 4,
+    "baseCharacter": "フ"
+  },
+  {
+    "character": "ベ",
+    "romaji": "be",
+    "mnemonic": "BE is HE with a dakuten mark (two dots)",
+    "mnemonicImage": "The character ヘ with two dots added",
+    "batch": 4,
+    "baseCharacter": "ヘ"
+  },
+  {
+    "character": "ボ",
+    "romaji": "bo",
+    "mnemonic": "BO is HO with a dakuten mark (two dots)",
+    "mnemonicImage": "The character ホ with two dots added",
+    "batch": 4,
+    "baseCharacter": "ホ"
+  }
+]
+
