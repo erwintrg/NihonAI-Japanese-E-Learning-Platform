@@ -1209,14 +1209,14 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                   // Reload batches from Supabase to ensure we have the latest state
                   const currentBatch = session?.batchNumber || 1
                   
+                  // Get kana type from URL params (declare outside try for catch block access)
+                  const typeParam = searchParams?.get('type') as KanaType
+                  const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+                  const currentType: KanaType = typeParam && validTypes.includes(typeParam)
+                    ? typeParam
+                    : 'hiragana'
+                  
                   try {
-                    // Get kana type from URL params
-                    const typeParam = searchParams?.get('type') as KanaType
-                    const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
-                    const currentType: KanaType = typeParam && validTypes.includes(typeParam)
-                      ? typeParam
-                      : 'hiragana'
-                    
                     const { data: batches } = await supabase
                       .from('completed_batches')
                       .select('batch_number')
@@ -1229,13 +1229,13 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                     
                     // Check if we should transition to next type
                     let returnBatch = currentBatch
-                    let returnType = currentType
+                    let returnType: KanaType | string = currentType
                     
                     if (nextBatch > totalBatches) {
                       // All batches of current type are completed, transition to next type
                       const nextType = getNextCourseType(currentType)
                       if (nextType) {
-                        returnType = nextType
+                        returnType = nextType as KanaType
                         returnBatch = 1
                       } else {
                         // No more course types, just go to dashboard

@@ -65,7 +65,12 @@ export default async function DashboardPage({
           </div>
         </div>
 
-        {/* Main Content Grid - Left: Learning Tools, Right: Roadmap & Progress */}
+        {/* Learning Roadmap - Full Width Horizontal Section */}
+        <div className="mb-8">
+          <Roadmap />
+        </div>
+
+        {/* Main Content Grid - Left: Learning Tools, Right: Progress */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Left Column: Learning Tools */}
           <div className="space-y-6">
@@ -144,11 +149,8 @@ export default async function DashboardPage({
             </div>
           </div>
 
-          {/* Right Column: Roadmap & Progress */}
+          {/* Right Column: Progress */}
           <div className="space-y-6">
-            {/* Learning Roadmap */}
-            <Roadmap />
-
             {/* Progress Card */}
             <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
               <div className="flex items-start justify-between mb-4">

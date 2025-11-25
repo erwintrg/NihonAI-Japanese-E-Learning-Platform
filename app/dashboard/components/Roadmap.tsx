@@ -19,7 +19,7 @@ type RoadmapSegment = {
   description: string
   status: 'completed' | 'current' | 'locked'
   unlocksAt?: string
-  type?: 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo' | 'katakana' | 'katakana_dakuten' | 'katakana_handakuten' | 'katakana_combo'
+  type?: 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo' | 'katakana' | 'katakana_dakuten' | 'katakana_handakuten' | 'katakana_combo' | 'vocabulary_top100' | 'grammar' | 'phrases' | 'vocabulary' | 'output'
   batchCount?: number
   completedBatches?: number
 }
@@ -36,6 +36,7 @@ export default function Roadmap() {
     katakana_dakuten: new Set(),
     katakana_handakuten: new Set(),
     katakana_combo: new Set(),
+    vocabulary_top100: new Set(),
     // Future course types will be added dynamically
   })
 
@@ -52,13 +53,10 @@ export default function Roadmap() {
       }
 
       // Fetch all completed batches for all course types
-      // This will automatically include future course types (vocabulary, grammar, phrases, etc.)
       const { data, error } = await supabase
         .from('completed_batches')
         .select('batch_type, batch_number')
         .eq('user_id', user.id)
-        // Note: For future course types, they will be automatically included in the query
-        // We only filter by user_id, so all batch_types are returned
 
       if (error) {
         console.error('Error fetching completed batches:', error)
@@ -73,10 +71,10 @@ export default function Roadmap() {
           katakana_dakuten: new Set(),
           katakana_handakuten: new Set(),
           katakana_combo: new Set(),
+          vocabulary_top100: new Set(),
         }
         
         // Dynamically organize batches by type
-        // This handles both current kana types and future course types (vocabulary, grammar, phrases, etc.)
         data.forEach(batch => {
           const batchType = batch.batch_type as string
           if (!batches[batchType]) {
@@ -113,13 +111,9 @@ export default function Roadmap() {
         return getTotalKatakanaHandakutenBatches()
       case 'katakana_combo':
         return getTotalKatakanaComboBatches()
+      case 'vocabulary_top100':
+        return 20 // 20 sessions for Top 100 Vocabulary (5 per session)
       // Future course types will be added here
-      // case 'vocabulary':
-      //   return getTotalVocabularyBatches()
-      // case 'grammar':
-      //   return getTotalGrammarBatches()
-      // case 'phrases':
-      //   return getTotalPhrasesBatches()
       default:
         return 0
     }
@@ -160,7 +154,7 @@ export default function Roadmap() {
     }
   }
 
-  // Define roadmap segments
+  // Define all roadmap segments (beginner roadmap + post-top-100 pattern)
   const hiraganaTotal = getTotalHiraganaBatches()
   const dakutenTotal = getTotalHiraganaDakutenBatches()
   const handakutenTotal = getTotalHiraganaHandakutenBatches()
@@ -169,6 +163,7 @@ export default function Roadmap() {
   const katakanaDakutenTotal = getTotalKatakanaDakutenBatches()
   const katakanaHandakutenTotal = getTotalKatakanaHandakutenBatches()
   const katakanaCombosTotal = getTotalKatakanaComboBatches()
+  const vocabularyTop100Total = 20
   
   const hiraganaCompleted = completedBatches.hiragana.size
   const dakutenCompleted = completedBatches.hiragana_dakuten.size
@@ -178,8 +173,10 @@ export default function Roadmap() {
   const katakanaDakutenCompleted = completedBatches.katakana_dakuten.size
   const katakanaHandakutenCompleted = completedBatches.katakana_handakuten.size
   const katakanaCombosCompleted = completedBatches.katakana_combo.size
+  const vocabularyTop100Completed = completedBatches.vocabulary_top100.size
 
-  const roadmapSegments: RoadmapSegment[] = [
+  const allRoadmapSegments: RoadmapSegment[] = [
+    // Beginner Roadmap (one-time only)
     {
       id: 'hiragana-basics',
       title: 'Hiragana Basics',
@@ -259,96 +256,262 @@ export default function Roadmap() {
       completedBatches: katakanaCombosCompleted,
       unlocksAt: 'Complete all Katakana Handakuten batches',
     },
+    {
+      id: 'vocabulary-top100',
+      title: 'Top 100 Vocabulary',
+      description: `Learn the most essential 100 vocabulary words (${vocabularyTop100Completed}/${vocabularyTop100Total} sessions completed)`,
+      status: getSegmentStatus('vocabulary_top100', vocabularyTop100Total, 'katakana_combo'),
+      type: 'vocabulary_top100',
+      batchCount: vocabularyTop100Total,
+      completedBatches: vocabularyTop100Completed,
+      unlocksAt: 'Complete all Katakana Combinations batches',
+    },
+    // Post-Top-100 Pattern (repeating cycle) - To be implemented in Phases 6, 7, and 8
+    // Pattern: (a) Grammar → (b) Phrases → (c) Vocabulary → (d) Output
+    // These segments will be dynamically generated based on user progress and JLPT level
+    // For now, the roadmap will show Top 100 Vocabulary as the final segment until post-top-100 sessions are implemented
   ]
+
+  // Determine which segments to display (3 items: previous, current, future OR 2 items for new users)
+  const getDisplaySegments = (): RoadmapSegment[] => {
+    // Find the current segment (first segment with status 'current')
+    const currentIndex = allRoadmapSegments.findIndex(seg => seg.status === 'current')
+    
+    if (currentIndex === -1) {
+      // No current segment - user hasn't started or has completed everything
+      // Show first 2 segments (first one will be current, second will be locked)
+      return allRoadmapSegments.slice(0, 2)
+    }
+
+    // Find the last completed segment before current
+    let previousIndex = -1
+    for (let i = currentIndex - 1; i >= 0; i--) {
+      if (allRoadmapSegments[i].status === 'completed') {
+        previousIndex = i
+        break
+      }
+    }
+
+    // Determine segments to show
+    if (previousIndex === -1) {
+      // New user: show 2 items (current and next)
+      return allRoadmapSegments.slice(currentIndex, currentIndex + 2).filter(seg => seg !== undefined)
+    } else {
+      // Show 3 items: previous completed, current, and next
+      const segments: RoadmapSegment[] = []
+      segments.push(allRoadmapSegments[previousIndex]) // Previous completed
+      segments.push(allRoadmapSegments[currentIndex]) // Current
+      
+      // Find next segment (first locked or future segment after current)
+      const nextIndex = currentIndex + 1
+      if (nextIndex < allRoadmapSegments.length) {
+        segments.push(allRoadmapSegments[nextIndex])
+      }
+      
+      return segments
+    }
+  }
+
+  const displaySegments = getDisplaySegments()
 
   if (loading) {
     return (
-      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
-        <div className="text-center text-zinc-600 dark:text-zinc-400">Loading roadmap...</div>
+      <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-4 border border-zinc-200 dark:border-zinc-800">
+        <div className="text-center text-zinc-600 dark:text-zinc-400 text-sm">Loading roadmap...</div>
       </div>
     )
   }
 
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
-      <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-4">
-        Your Learning Roadmap
-      </h2>
-      <p className="text-zinc-600 dark:text-zinc-400 mb-6">
-        Follow your personalized path to Japanese mastery
-      </p>
-
-      <div className="space-y-4">
-        {roadmapSegments.map((segment) => {
-          const isCurrent = segment.status === 'current'
-          const isCompleted = segment.status === 'completed'
-          const isLocked = segment.status === 'locked'
-
-          return (
-            <div
-              key={segment.id}
-              className={`p-4 rounded-lg border-2 transition-all ${
-                isCurrent
-                  ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20'
-                  : isCompleted
-                  ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
-                  : 'border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800'
-              }`}
-            >
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="text-lg font-semibold text-black dark:text-zinc-50">
-                  {segment.title}
-                </h3>
-                {isCurrent && (
-                  <span className="px-2 py-0.5 text-xs font-medium bg-pink-500 text-white rounded-full">
-                    You are here
-                  </span>
-                )}
-                {isCompleted && (
-                  <span className="px-2 py-0.5 text-xs font-medium bg-green-500 text-white rounded-full">
-                    Completed
-                  </span>
-                )}
-                {isLocked && (
-                  <span className="px-2 py-0.5 text-xs font-medium bg-zinc-400 dark:bg-zinc-600 text-white rounded-full">
-                    Locked
-                  </span>
-                )}
-              </div>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-2">
-                {segment.description}
-              </p>
-              {segment.batchCount !== undefined && segment.completedBatches !== undefined && (
-                <div className="mt-2 mb-2">
-                  <div className="w-full bg-zinc-200 dark:bg-zinc-700 rounded-full h-2">
-                    <div
-                      className="bg-pink-500 h-2 rounded-full transition-all"
-                      style={{ width: `${(segment.completedBatches / segment.batchCount) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              )}
-              {isLocked && segment.unlocksAt && (
-                <p className="text-xs text-zinc-500 dark:text-zinc-500">
-                  Unlocks: {segment.unlocksAt}
-                </p>
-              )}
-            </div>
-          )
-        })}
+    <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-4 border border-zinc-200 dark:border-zinc-800">
+      <div className="mb-4">
+        <h2 className="text-lg font-semibold text-black dark:text-zinc-50 mb-0.5">
+          Your Learning Roadmap
+        </h2>
+        <p className="text-xs text-zinc-500 dark:text-zinc-400">
+          Follow your personalized path to Japanese mastery
+        </p>
       </div>
 
-      {/* Next Goal Highlight */}
-      {roadmapSegments.find((s) => s.status === 'current') && (
-        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-          <p className="text-sm font-medium text-blue-900 dark:text-blue-200 mb-1">
-            Next Goal:
-          </p>
-          <p className="text-sm text-blue-700 dark:text-blue-300">
-            {roadmapSegments.find((s) => s.status === 'current')?.description}
-          </p>
+      {/* Horizontal Timeline Layout - Single Line Design */}
+      <div className="w-full">
+        {/* Desktop: Full horizontal timeline */}
+        <div className="hidden md:flex items-center justify-between gap-4 relative">
+          {/* Timeline connector line */}
+          {displaySegments.length > 1 && (
+            <div 
+              className="absolute top-4 left-0 right-0 h-px bg-zinc-200 dark:bg-zinc-700 -z-10" 
+              style={{ 
+                left: 'calc(50% / 3)',
+                right: 'calc(50% / 3)',
+                width: 'calc(100% - 2 * (50% / 3))'
+              }} 
+            />
+          )}
+          
+          {displaySegments.map((segment, index) => {
+            const isCurrent = segment.status === 'current'
+            const isCompleted = segment.status === 'completed'
+            const isLocked = segment.status === 'locked'
+            const progressPercent = segment.batchCount && segment.completedBatches !== undefined 
+              ? (segment.completedBatches / segment.batchCount) * 100 
+              : 0
+
+            return (
+              <div key={segment.id} className="flex-1 flex items-center gap-3 relative">
+                {/* Timeline node */}
+                <div className={`w-3 h-3 rounded-full flex-shrink-0 flex items-center justify-center z-10 ${
+                  isCompleted
+                    ? 'bg-green-500'
+                    : isCurrent
+                    ? 'bg-pink-500'
+                    : 'bg-zinc-300 dark:bg-zinc-600'
+                }`}>
+                  {isCompleted && (
+                    <svg className="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                  {isCurrent && (
+                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                  )}
+                </div>
+
+                {/* Single line content */}
+                <div className="flex-1 flex items-center gap-3 min-w-0">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-sm font-medium text-black dark:text-zinc-50 truncate">
+                        {segment.title}
+                      </h3>
+                      {isCurrent && (
+                        <span className="px-1.5 py-0.5 text-xs font-medium bg-pink-500 text-white rounded-full flex-shrink-0">
+                          Current
+                        </span>
+                      )}
+                      {isCompleted && (
+                        <span className="px-1.5 py-0.5 text-xs font-medium bg-green-500 text-white rounded-full flex-shrink-0">
+                          Done
+                        </span>
+                      )}
+                      {isLocked && (
+                        <span className="px-1.5 py-0.5 text-xs font-medium bg-zinc-400 dark:bg-zinc-600 text-white rounded-full flex-shrink-0">
+                          Locked
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 bg-zinc-200 dark:bg-zinc-700 rounded-full h-1 overflow-hidden">
+                        <div
+                          className={`h-1 rounded-full transition-all ${
+                            isCompleted ? 'bg-green-500' : isCurrent ? 'bg-pink-500' : 'bg-zinc-300 dark:bg-zinc-600'
+                          }`}
+                          style={{ width: `${progressPercent}%` }}
+                        />
+                      </div>
+                      {segment.batchCount !== undefined && segment.completedBatches !== undefined && (
+                        <span className={`text-xs font-medium flex-shrink-0 ${
+                          isCompleted ? 'text-green-600 dark:text-green-400' : 
+                          isCurrent ? 'text-pink-600 dark:text-pink-400' : 
+                          'text-zinc-500 dark:text-zinc-400'
+                        }`}>
+                          {segment.completedBatches}/{segment.batchCount}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
         </div>
-      )}
+
+        {/* Mobile: Scrollable horizontal timeline */}
+        <div className="md:hidden overflow-x-auto pb-2 -mx-4 px-4">
+          <div className="flex items-center gap-4 min-w-max relative">
+            {/* Timeline connector line */}
+            {displaySegments.length > 1 && (
+              <div className="absolute top-4 left-0 right-0 h-px bg-zinc-200 dark:bg-zinc-700 -z-10" />
+            )}
+            
+            {displaySegments.map((segment, index) => {
+              const isCurrent = segment.status === 'current'
+              const isCompleted = segment.status === 'completed'
+              const isLocked = segment.status === 'locked'
+              const progressPercent = segment.batchCount && segment.completedBatches !== undefined 
+                ? (segment.completedBatches / segment.batchCount) * 100 
+                : 0
+
+              return (
+                <div key={segment.id} className="w-56 flex-shrink-0 flex items-center gap-3 relative">
+                  {/* Timeline node */}
+                  <div className={`w-3 h-3 rounded-full flex-shrink-0 flex items-center justify-center z-10 ${
+                    isCompleted
+                      ? 'bg-green-500'
+                      : isCurrent
+                      ? 'bg-pink-500'
+                      : 'bg-zinc-300 dark:bg-zinc-600'
+                  }`}>
+                    {isCompleted && (
+                      <svg className="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                    {isCurrent && (
+                      <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                    )}
+                  </div>
+
+                  {/* Single line content */}
+                  <div className="flex-1 flex items-center gap-3 min-w-0">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-sm font-medium text-black dark:text-zinc-50 truncate">
+                          {segment.title}
+                        </h3>
+                        {isCurrent && (
+                          <span className="px-1.5 py-0.5 text-xs font-medium bg-pink-500 text-white rounded-full flex-shrink-0">
+                            Current
+                          </span>
+                        )}
+                        {isCompleted && (
+                          <span className="px-1.5 py-0.5 text-xs font-medium bg-green-500 text-white rounded-full flex-shrink-0">
+                            Done
+                          </span>
+                        )}
+                        {isLocked && (
+                          <span className="px-1.5 py-0.5 text-xs font-medium bg-zinc-400 dark:bg-zinc-600 text-white rounded-full flex-shrink-0">
+                            Locked
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 bg-zinc-200 dark:bg-zinc-700 rounded-full h-1 overflow-hidden">
+                          <div
+                            className={`h-1 rounded-full transition-all ${
+                              isCompleted ? 'bg-green-500' : isCurrent ? 'bg-pink-500' : 'bg-zinc-300 dark:bg-zinc-600'
+                            }`}
+                            style={{ width: `${progressPercent}%` }}
+                          />
+                        </div>
+                        {segment.batchCount !== undefined && segment.completedBatches !== undefined && (
+                          <span className={`text-xs font-medium flex-shrink-0 ${
+                            isCompleted ? 'text-green-600 dark:text-green-400' : 
+                            isCurrent ? 'text-pink-600 dark:text-pink-400' : 
+                            'text-zinc-500 dark:text-zinc-400'
+                          }`}>
+                            {segment.completedBatches}/{segment.batchCount}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
