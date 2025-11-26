@@ -36,20 +36,38 @@ body {
   color: #000000 !important;
 }
 
-/* Fix input text visibility in dark mode */
-[data-theme="dark"] input,
-.dark input,
-[data-theme="dark"] input[type="email"],
-.dark input[type="email"],
-[data-theme="dark"] input[type="password"],
-.dark input[type="password"],
-[data-theme="dark"] input[type="text"],
-.dark input[type="text"] {
+/* Fix input text visibility in dark mode - exclude Supabase Auth UI */
+[data-theme="dark"] input:not([class*="supabase-auth-ui"]),
+.dark input:not([class*="supabase-auth-ui"]),
+[data-theme="dark"] input[type="email"]:not([class*="supabase-auth-ui"]),
+.dark input[type="email"]:not([class*="supabase-auth-ui"]),
+[data-theme="dark"] input[type="password"]:not([class*="supabase-auth-ui"]),
+.dark input[type="password"]:not([class*="supabase-auth-ui"]),
+[data-theme="dark"] input[type="text"]:not([class*="supabase-auth-ui"]),
+.dark input[type="text"]:not([class*="supabase-auth-ui"]) {
   color: #ffffff !important;
 }
 
-[data-theme="dark"] input::placeholder,
-.dark input::placeholder {
+[data-theme="dark"] input:not([class*="supabase-auth-ui"])::placeholder,
+.dark input:not([class*="supabase-auth-ui"])::placeholder {
+  color: #a1a1aa !important;
+}
+
+/* Supabase Auth UI input styling - ensure proper contrast and visibility */
+[data-theme="dark"] [class*="supabase-auth-ui"] input,
+.dark [class*="supabase-auth-ui"] input,
+[data-theme="dark"] [class*="supabase-auth-ui"] input[type="email"],
+.dark [class*="supabase-auth-ui"] input[type="email"],
+[data-theme="dark"] [class*="supabase-auth-ui"] input[type="password"],
+.dark [class*="supabase-auth-ui"] input[type="password"],
+[data-theme="dark"] [class*="supabase-auth-ui"] input[type="text"],
+.dark [class*="supabase-auth-ui"] input[type="text"] {
+  color: #fafafa !important;
+  background-color: #18181b !important;
+}
+
+[data-theme="dark"] [class*="supabase-auth-ui"] input::placeholder,
+.dark [class*="supabase-auth-ui"] input::placeholder {
   color: #a1a1aa !important;
 }
 
