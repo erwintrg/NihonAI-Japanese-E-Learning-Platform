@@ -34,6 +34,35 @@ export default function Header() {
       }
     }
     getUser()
+
+    // Listen for auth state changes (login, logout, etc.)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+      
+      if (session?.user) {
+        // Fetch profile data when user logs in
+        supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', session.user.id)
+          .single()
+          .then(({ data: profileData }) => {
+            setProfile(profileData)
+          })
+        
+        setSubscriptionTier('Free')
+      } else {
+        // Clear profile when user logs out
+        setProfile(null)
+        setSubscriptionTier('Free')
+      }
+    })
+
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [supabase])
 
   // Check initial dark mode preference
