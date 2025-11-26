@@ -143,6 +143,12 @@ export default function Header() {
             {user ? (
               <>
                 <Link
+                  href="/dashboard/archive"
+                  className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
+                >
+                  Archive
+                </Link>
+                <Link
                   href="/dashboard/vocabulary"
                   className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
                 >

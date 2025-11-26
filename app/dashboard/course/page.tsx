@@ -467,45 +467,47 @@ Think of the small kana as "attaching" to the base character. The base character
 
 In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
     } else if (currentType === 'hiragana_special' && batchNumber === 1) {
-      theoryContent = `**Hiragana Special Cases - Important Pronunciation Rules**
+      theoryContent = `**1. Double Consonants (Small っ or Regular ん)**
 
-Now that you've learned all the basic Hiragana characters, it's time to understand some special pronunciation rules that will help you read Japanese correctly.
+Double consonants create a pause or emphasis in pronunciation. They are essential for distinguishing between words and creating natural-sounding Japanese.
 
-**1. Double Consonants (Small っ or Regular ん)**
+**Small っ (tsu):**
+The small っ (tsu) creates a double consonant sound. The consonant that follows is held for a moment, creating a brief pause. The small っ is written half the size of regular characters and appears before the consonant that is doubled.
 
-Double consonants create a pause or emphasis in pronunciation:
-- Small っ (tsu): Creates a double consonant sound. The consonant that follows is held for a moment.
-  - Example: がっこう (gakkou) = "school" - the "k" sound is doubled
-  - Example: きっぷ (kippu) = "ticket" - the "p" sound is doubled
-  - The small っ is written half the size of regular characters
-  
-- Regular ん (n): Can also create a double consonant effect when followed by certain consonants.
-  - Example: ほんとう (hontou) = "really" - the "n" sound is emphasized
+- Example: がっこう (gakkou) = "school" - the "k" sound is doubled
+- Example: きっぷ (kippu) = "ticket" - the "p" sound is doubled
 
-**2. Long Vowels**
+**Regular ん (n):**
+The regular ん (n) can also create a double consonant effect when followed by certain consonants, adding emphasis to the sound.
 
-Long vowels extend the sound of a vowel:
-- Long "aa" sound: Written as ああ or あー (in some cases)
-  - Example: おばあさん (obaasan) = "grandmother" (long "aa")
-  - vs. おばさん (obasan) = "aunt" (short "a")
-  
-- Long "ee" sound: Often written as えい (ei) instead of ええ
-  - Example: せんせい (sensei) = "teacher" - the "ei" is pronounced as a long "ee"
-  - Example: えいご (eigo) = "English" - long "ee" sound
-  
-- Long "ii" sound: Written as いい
-  - Example: いいえ (iie) = "no"
-  
-- Long "oo" sound: Written as おお or おう
-  - Example: おおきい (ookii) = "big"
-  - Example: おとうさん (otousan) = "father" - the "ou" is pronounced as long "oo"
-  
-- Long "uu" sound: Written as うう
-  - Example: すうがく (suugaku) = "mathematics"
+- Example: ほんとう (hontou) = "really" - the "n" sound is emphasized
 
-**3. Dropped Vowels (i and u)**
+**2. Long Vowels & Dropped Vowels**
 
-In Japanese, the vowels "i" (い) and "u" (う) are often dropped or barely pronounced, especially when they appear between unvoiced consonants:
+**Long Vowels:**
+Long vowels extend the sound of a vowel, making it twice as long. This is crucial for distinguishing words in Japanese.
+
+Long "aa" sound is written as ああ or あー (in some cases):
+- Example: おばあさん (obaasan) = "grandmother" (long "aa")
+- vs. おばさん (obasan) = "aunt" (short "a")
+
+Long "ee" sound is often written as えい (ei) instead of ええ:
+- Example: せんせい (sensei) = "teacher" - the "ei" is pronounced as a long "ee"
+- Example: えいご (eigo) = "English" - long "ee" sound
+
+Long "ii" sound is written as いい:
+- Example: いいえ (iie) = "no"
+
+Long "oo" sound is written as おお or おう:
+- Example: おおきい (ookii) = "big"
+- Example: おとうさん (otousan) = "father" - the "ou" is pronounced as long "oo"
+
+Long "uu" sound is written as うう:
+- Example: すうがく (suugaku) = "mathematics"
+
+**Dropped Vowels (i and u):**
+In Japanese, the vowels "i" (い) and "u" (う) are often dropped or barely pronounced, especially when they appear between unvoiced consonants. This is a natural part of Japanese pronunciation - don't try to force every vowel to be clearly pronounced!
+
 - Example: すきです (sukidesu) = "I like it"
   - The "u" in "su" and "i" in "desu" are often barely audible
   - It sounds more like "skides" than "sukidesu"
@@ -514,38 +516,37 @@ In Japanese, the vowels "i" (い) and "u" (う) are often dropped or barely pron
   - The "i" in "ki" and "u" in "masu" are often dropped
   - It sounds more like "kkimas" than "kikimasu"
 
-This is a natural part of Japanese pronunciation - don't try to force every vowel to be clearly pronounced!
+**3. Special Pronunciation of ん (n)**
 
-**4. Special Pronunciation of ん (n)**
+The character ん (n) has special pronunciation rules that change based on what sound follows it. Understanding these variations is essential for natural pronunciation.
 
-The character ん (n) has special pronunciation rules:
-- Before "m", "b", or "p" sounds: Pronounced like "m"
-  - Example: しんぶん (shinbun) = "newspaper" - the ん sounds like "m"
-  
-- Before "k" or "g" sounds: Pronounced like "ng" (as in "sing")
-  - Example: ほんご (honggo) = "Japanese language" - the ん sounds like "ng"
-  
-- Before "t", "d", "n", "r" sounds: Pronounced like "n"
-  - Example: ほんとう (hontou) = "really" - the ん sounds like "n"
-  
-- At the end of words: Often nasalized (pronounced through the nose)
-  - Example: にほん (nihon) = "Japan" - the final ん is nasalized
+Before "m", "b", or "p" sounds, ん is pronounced like "m":
+- Example: しんぶん (shinbun) = "newspaper" - the ん sounds like "m"
 
-**Key Takeaway:**
-These special cases are essential for natural Japanese pronunciation. Pay attention to them when listening to native speakers, and practice reading words with these patterns!`
+Before "k" or "g" sounds, ん is pronounced like "ng" (as in "sing"):
+- Example: ほんご (honggo) = "Japanese language" - the ん sounds like "ng"
+
+Before "t", "d", "n", "r" sounds, ん is pronounced like "n":
+- Example: ほんとう (hontou) = "really" - the ん sounds like "n"
+
+At the end of words, ん is often nasalized (pronounced through the nose):
+- Example: にほん (nihon) = "Japan" - the final ん is nasalized
+
+`
     } else if (currentType === 'katakana_special' && batchNumber === 1) {
-      theoryContent = `**Katakana Special Cases - Important Pronunciation Rules**
+      theoryContent = `**1. Long Vowels (Long Dash ー) & Dropped Vowels**
 
-Now that you've learned all the basic Katakana characters, it's time to understand some special pronunciation rules and additional characters used for foreign words.
-
-**1. Long Vowels (Long Dash ー)**
-
+**Long Vowels:**
 In Katakana, long vowels are written with a long dash (ー), unlike Hiragana:
 - Example: コーヒー (koohii) = "coffee" - the ー extends the "o" and "i" sounds
 - Example: ケーキ (keeki) = "cake" - the ー extends the "e" sound
 - Example: テーブル (teeburu) = "table" - the ー extends the "e" sound
 
 **Important:** The long dash (ー) is always written horizontally, regardless of the direction of the text.
+
+**Dropped Vowels:**
+Just like in Hiragana, the vowels "i" (イ) and "u" (ウ) are often dropped or barely pronounced:
+- Example: デスク (desuku) = "desk" - the "u" is often barely audible
 
 **2. Double Consonants (Small ッ or Regular ン)**
 
@@ -590,13 +591,7 @@ The "v" sound doesn't exist in Japanese, so it's often transcribed using:
 - ビ (bi) or ビィ (bii) - Example: ビデオ (bideo) = "video"
 - Sometimes written as ヴ (vu) in modern Japanese, but ビ is more common
 
-**5. Dropped Vowels (Same as Hiragana)**
-
-Just like in Hiragana, the vowels "i" (イ) and "u" (ウ) are often dropped or barely pronounced:
-- Example: デスク (desuku) = "desk" - the "u" is often barely audible
-
-**Key Takeaway:**
-These special cases are essential for reading foreign words in Katakana. Pay attention to the long dash (ー) and practice recognizing the foreign sound combinations!`
+`
     } else {
       // Check if this is a noteworthy batch (e.g., special patterns or pronunciation notes)
       let batchNote = ''
@@ -706,9 +701,11 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
     
     const hiraganaSession: CourseSession = {
       id: `${currentType}-batch-${batchNumber}`,
-      title: `${typeLabel}: ${batchName}`,
+      title: isSpecialCase 
+        ? typeLabel  // For special cases, just use the type label (e.g., "Hiragana Special Cases")
+        : `${typeLabel}: ${batchName}`,
       description: isSpecialCase 
-        ? `Learn about ${typeLabel} pronunciation rules and special cases`
+        ? `Learn about ${typeLabel} pronunciation rules`
         : `Learn ${batchKana.length} ${typeLabel} characters: ${batchKana.map(k => k.character).join(', ')}`,
       batchNumber,
       theory: {
@@ -737,15 +734,26 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
       for (const line of lines) {
         const match = line.match(/^\*\*(\d+\.\s*)?([^*]+)\*\*/)
         if (match) {
-          // Save previous section if exists
-          if (currentSection) {
-            currentSection.content = currentContent.join('\n').trim()
-            sections.push(currentSection)
+          const hasNumber = match[1] !== undefined // Check if it starts with a number like "1."
+          if (hasNumber) {
+            // This is a main section (numbered) - save previous section and start new one
+            if (currentSection) {
+              currentSection.content = currentContent.join('\n').trim()
+              sections.push(currentSection)
+            }
+            // Start new section - remove trailing colon from title
+            const title = match[2].trim().replace(/:$/, '')
+            currentSection = { title, content: '' }
+            currentContent = []
+          } else {
+            // This is a subsection (no number) - include it in current section's content
+            if (currentSection) {
+              currentContent.push(line)
+            } else {
+              // No main section yet, treat as content before first section
+              currentContent.push(line)
+            }
           }
-          // Start new section
-          const title = match[2].trim()
-          currentSection = { title, content: '' }
-          currentContent = []
         } else if (currentSection) {
           currentContent.push(line)
         } else {
@@ -762,8 +770,26 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
         sections.push(currentSection)
       }
       
-      // If no sections found, treat entire content as one section
-      if (sections.length === 0) {
+      // Filter out intro sections, empty sections, and "Key Takeaway" sections
+      const filteredSections = sections.filter(section => {
+        // Remove "Key Takeaway" sections (they contain no actual learning content)
+        if (section.title.toLowerCase().includes('key takeaway')) {
+          return false
+        }
+        // Remove sections with empty or whitespace-only content
+        const trimmedContent = section.content.trim()
+        if (!trimmedContent || trimmedContent.length === 0) {
+          return false
+        }
+        // Skip sections that are just intro sentences (less than 100 chars and no examples)
+        const contentLength = trimmedContent.length
+        const hasExamples = trimmedContent.includes('Example:') || trimmedContent.includes('example') || trimmedContent.includes('=')
+        // Filter out very short sections without examples
+        return contentLength > 50 && (contentLength > 100 || hasExamples)
+      })
+      
+      // If no sections found after filtering, treat entire content as one section
+      if (filteredSections.length === 0) {
         const typeLabel = currentType === 'hiragana' ? 'Hiragana' 
           : currentType === 'hiragana_dakuten' ? 'Hiragana Dakuten'
           : currentType === 'hiragana_handakuten' ? 'Hiragana Handakuten'
@@ -774,12 +800,12 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
           : currentType === 'katakana_handakuten' ? 'Katakana Handakuten'
           : currentType === 'katakana_combo' ? 'Katakana Combos'
           : 'Katakana Special Cases'
-        sections.push({ title: typeLabel, content: theoryContent })
+        filteredSections.push({ title: typeLabel, content: theoryContent })
       }
       
-      setTheorySections(sections)
-      if (sections.length > 0) {
-        setCurrentTheoryTab(sections[0].title)
+      setTheorySections(filteredSections)
+      if (filteredSections.length > 0) {
+        setCurrentTheoryTab(filteredSections[0].title)
       }
     } else {
       // For practice sessions, don't parse into sections - show raw content
@@ -1109,12 +1135,14 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
               {/* Theory Tabs - Only show if there are multiple sections AND this is a theory-only session */}
               {theorySections.length > 1 && session.practice.length === 0 && (
                 <div className="mb-6 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-hidden">
-                  <div className="flex overflow-x-auto">
+                  <div className="flex">
                     {theorySections.map((section, idx) => (
                       <button
                         key={idx}
                         onClick={() => setCurrentTheoryTab(section.title)}
-                        className={`flex-shrink-0 px-4 py-3 text-sm font-medium transition-colors border-r border-zinc-200 dark:border-zinc-700 ${
+                        className={`flex-1 px-4 py-3 text-sm font-medium transition-colors text-center ${
+                          idx < theorySections.length - 1 ? 'border-r border-zinc-200 dark:border-zinc-700' : ''
+                        } ${
                           currentTheoryTab === section.title
                             ? 'bg-pink-500 text-white'
                             : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
@@ -1150,23 +1178,38 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                             formattedLines.push('</div>')
                             inExampleBlock = false
                           }
-                          // Add heading
-                          const headingText = trimmed.replace(/\*\*/g, '').trim()
+                          // Add heading - remove trailing colon
+                          const headingText = trimmed.replace(/\*\*/g, '').trim().replace(/:$/, '')
                           formattedLines.push(`<h3 class="text-xl font-bold text-black dark:text-zinc-50 mt-6 mb-3">${headingText}</h3>`)
                         }
-                        // Check if this is an example line (starts with "- Example:")
+                        // Check if this is an example line (starts with "- Example:" or contains "Example:")
                         else if (trimmed.startsWith('- Example:') || trimmed.match(/^-\s*Example/)) {
                           if (!inExampleBlock) {
                             formattedLines.push('<div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4 border border-zinc-200 dark:border-zinc-700 my-3">')
-                            formattedLines.push('<p class="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Examples:</p>')
+                            formattedLines.push('<p class="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Example:</p>')
                             inExampleBlock = true
                           }
-                          // Remove "- Example:" prefix and format
+                          // Remove "- Example:" prefix and format (no bullet point)
                           const exampleText = trimmed.replace(/^-\s*Example:?\s*/, '').trim()
-                          formattedLines.push(`<p class="text-zinc-700 dark:text-zinc-300 mb-1">• ${exampleText}</p>`)
+                          formattedLines.push(`<p class="text-zinc-700 dark:text-zinc-300 mb-1">${exampleText}</p>`)
+                        }
+                        // Check if this is a nested example (indented bullet with "Example:" or contains "=" which indicates an example)
+                        else if (trimmed.startsWith('  - ') && (trimmed.includes('Example:') || trimmed.includes('='))) {
+                          if (!inExampleBlock) {
+                            formattedLines.push('<div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4 border border-zinc-200 dark:border-zinc-700 my-3">')
+                            formattedLines.push('<p class="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Example:</p>')
+                            inExampleBlock = true
+                          }
+                          const exampleText = trimmed.replace(/^\s*-\s*/, '').trim()
+                          formattedLines.push(`<p class="text-zinc-700 dark:text-zinc-300 mb-1">${exampleText}</p>`)
                         }
                         // Check if this is a regular bullet point
                         else if (trimmed.startsWith('- ')) {
+                          // Close example block if we're starting a new non-example bullet
+                          if (inExampleBlock && !trimmed.includes('Example:') && !trimmed.includes('=')) {
+                            formattedLines.push('</div>')
+                            inExampleBlock = false
+                          }
                           if (!inExampleBlock) {
                             formattedLines.push('<div class="my-2">')
                             inExampleBlock = true
