@@ -336,19 +336,7 @@ export default function Roadmap() {
       {/* Horizontal Timeline Layout - Single Line Design */}
       <div className="w-full">
         {/* Desktop: Full horizontal timeline */}
-        <div className="hidden md:flex items-center justify-between gap-4 relative">
-          {/* Timeline connector line */}
-          {displaySegments.length > 1 && (
-            <div 
-              className="absolute top-4 left-0 right-0 h-px bg-zinc-200 dark:bg-zinc-700 -z-10" 
-              style={{ 
-                left: 'calc(50% / 3)',
-                right: 'calc(50% / 3)',
-                width: 'calc(100% - 2 * (50% / 3))'
-              }} 
-            />
-          )}
-          
+        <div className="hidden md:flex items-center justify-between gap-4">
           {displaySegments.map((segment, index) => {
             const isCurrent = segment.status === 'current'
             const isCompleted = segment.status === 'completed'
@@ -356,27 +344,10 @@ export default function Roadmap() {
             const progressPercent = segment.batchCount && segment.completedBatches !== undefined 
               ? (segment.completedBatches / segment.batchCount) * 100 
               : 0
+            const isLast = index === displaySegments.length - 1
 
             return (
-              <div key={segment.id} className="flex-1 flex items-center gap-3 relative">
-                {/* Timeline node */}
-                <div className={`w-3 h-3 rounded-full flex-shrink-0 flex items-center justify-center z-10 ${
-                  isCompleted
-                    ? 'bg-green-500'
-                    : isCurrent
-                    ? 'bg-pink-500'
-                    : 'bg-zinc-300 dark:bg-zinc-600'
-                }`}>
-                  {isCompleted && (
-                    <svg className="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                  )}
-                  {isCurrent && (
-                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-                  )}
-                </div>
-
+              <div key={segment.id} className="flex-1 flex items-center gap-3">
                 {/* Single line content */}
                 <div className="flex-1 flex items-center gap-3 min-w-0">
                   <div className="flex-1 min-w-0">
@@ -421,6 +392,20 @@ export default function Roadmap() {
                     </div>
                   </div>
                 </div>
+                
+                {/* Flow direction arrow */}
+                {!isLast && (
+                  <div className="flex-shrink-0 px-2">
+                    <svg 
+                      className="w-4 h-4 text-zinc-400 dark:text-zinc-600" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                )}
               </div>
             )
           })}
@@ -428,12 +413,7 @@ export default function Roadmap() {
 
         {/* Mobile: Scrollable horizontal timeline */}
         <div className="md:hidden overflow-x-auto pb-2 -mx-4 px-4">
-          <div className="flex items-center gap-4 min-w-max relative">
-            {/* Timeline connector line */}
-            {displaySegments.length > 1 && (
-              <div className="absolute top-4 left-0 right-0 h-px bg-zinc-200 dark:bg-zinc-700 -z-10" />
-            )}
-            
+          <div className="flex items-center gap-4 min-w-max">
             {displaySegments.map((segment, index) => {
               const isCurrent = segment.status === 'current'
               const isCompleted = segment.status === 'completed'
@@ -441,27 +421,10 @@ export default function Roadmap() {
               const progressPercent = segment.batchCount && segment.completedBatches !== undefined 
                 ? (segment.completedBatches / segment.batchCount) * 100 
                 : 0
+              const isLast = index === displaySegments.length - 1
 
               return (
-                <div key={segment.id} className="w-56 flex-shrink-0 flex items-center gap-3 relative">
-                  {/* Timeline node */}
-                  <div className={`w-3 h-3 rounded-full flex-shrink-0 flex items-center justify-center z-10 ${
-                    isCompleted
-                      ? 'bg-green-500'
-                      : isCurrent
-                      ? 'bg-pink-500'
-                      : 'bg-zinc-300 dark:bg-zinc-600'
-                  }`}>
-                    {isCompleted && (
-                      <svg className="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                      </svg>
-                    )}
-                    {isCurrent && (
-                      <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-                    )}
-                  </div>
-
+                <div key={segment.id} className="w-56 flex-shrink-0 flex items-center gap-3">
                   {/* Single line content */}
                   <div className="flex-1 flex items-center gap-3 min-w-0">
                     <div className="flex-1 min-w-0">
@@ -506,6 +469,20 @@ export default function Roadmap() {
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Flow direction arrow */}
+                  {!isLast && (
+                    <div className="flex-shrink-0 px-2">
+                      <svg 
+                        className="w-4 h-4 text-zinc-400 dark:text-zinc-600" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
               )
             })}

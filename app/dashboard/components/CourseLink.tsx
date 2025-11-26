@@ -85,7 +85,7 @@ export default function CourseLink({ returnBatch, returnType }: { returnBatch?: 
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-2 w-full justify-center px-4 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
+      className="inline-flex items-center gap-2 w-full justify-center px-6 py-4 bg-pink-500 hover:bg-pink-600 text-white rounded-xl font-semibold text-base transition-colors shadow-lg hover:shadow-xl"
     >
       Start Course Session
       <span>→</span>
