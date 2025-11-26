@@ -6,6 +6,7 @@ import katakanaData from '@/data/kana/katakana.json'
 import katakanaDakutenData from '@/data/kana/katakana-dakuten.json'
 import katakanaHandakutenData from '@/data/kana/katakana-handakuten.json'
 import katakanaComboData from '@/data/kana/katakana-combo.json'
+import katakanaForeignComboData from '@/data/kana/katakana-foreign-combo.json'
 
 export type KanaCharacter = {
   character: string
@@ -21,7 +22,7 @@ export type KanaBatch = {
   kana: KanaCharacter[]
 }
 
-export type KanaType = 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo' | 'katakana' | 'katakana_dakuten' | 'katakana_handakuten' | 'katakana_combo'
+export type KanaType = 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo' | 'hiragana_special' | 'katakana' | 'katakana_dakuten' | 'katakana_handakuten' | 'katakana_combo' | 'katakana_special'
 
 // Course type sequence for determining next session
 // This sequence defines the order of all course types (current and future)
@@ -30,10 +31,12 @@ export const COURSE_TYPE_SEQUENCE: (KanaType | string)[] = [
   'hiragana_dakuten',
   'hiragana_handakuten',
   'hiragana_combo',
+  'hiragana_special',
   'katakana',
   'katakana_dakuten',
   'katakana_handakuten',
   'katakana_combo',
+  'katakana_special',
   // Future course types will be added here:
   // 'vocabulary',
   // 'grammar',
@@ -481,6 +484,50 @@ export function getAllKatakanaCombo(): KanaCharacter[] {
 }
 
 /**
+ * Get all Katakana Foreign Combo characters (for foreign sounds)
+ */
+export function getAllKatakanaForeignCombo(): KanaCharacter[] {
+  return katakanaForeignComboData as KanaCharacter[]
+}
+
+/**
+ * Get Katakana Foreign Combo characters by batch number
+ */
+export function getKatakanaForeignComboByBatch(batchNumber: number): KanaCharacter[] {
+  return getAllKatakanaForeignCombo().filter((kana) => kana.batch === batchNumber)
+}
+
+/**
+ * Get all Katakana Foreign Combo batches
+ */
+export function getAllKatakanaForeignComboBatches(): KanaBatch[] {
+  const allKana = getAllKatakanaForeignCombo()
+  const batches: KanaBatch[] = []
+  
+  const maxBatch = Math.max(...allKana.map((k) => k.batch), 0)
+  
+  for (let i = 1; i <= maxBatch; i++) {
+    const batchKana = getKatakanaForeignComboByBatch(i)
+    if (batchKana.length > 0) {
+      batches.push({
+        batchNumber: i,
+        kana: batchKana,
+      })
+    }
+  }
+  
+  return batches
+}
+
+/**
+ * Get total number of Katakana Foreign Combo batches
+ */
+export function getTotalKatakanaForeignComboBatches(): number {
+  const allKana = getAllKatakanaForeignCombo()
+  return Math.max(...allKana.map((k) => k.batch), 0)
+}
+
+/**
  * Get Katakana Combo characters by batch number
  */
 export function getKatakanaComboByBatch(batchNumber: number): KanaCharacter[] {
@@ -551,6 +598,8 @@ export function getAllKanaByType(type: KanaType): KanaCharacter[] {
       return getAllHiraganaHandakuten()
     case 'hiragana_combo':
       return getAllHiraganaCombo()
+    case 'hiragana_special':
+      return [] // Special cases are theory-only, no characters
     case 'katakana':
       return getAllKatakana()
     case 'katakana_dakuten':
@@ -559,6 +608,8 @@ export function getAllKanaByType(type: KanaType): KanaCharacter[] {
       return getAllKatakanaHandakuten()
     case 'katakana_combo':
       return getAllKatakanaCombo()
+    case 'katakana_special':
+      return [] // Special cases are theory-only, no characters
     default:
       return []
   }
@@ -577,6 +628,8 @@ export function getKanaByBatchAndType(batchNumber: number, type: KanaType): Kana
       return getHiraganaHandakutenByBatch(batchNumber)
     case 'hiragana_combo':
       return getHiraganaComboByBatch(batchNumber)
+    case 'hiragana_special':
+      return [] // Special cases are theory-only, no characters
     case 'katakana':
       return getKatakanaByBatch(batchNumber)
     case 'katakana_dakuten':
@@ -585,6 +638,8 @@ export function getKanaByBatchAndType(batchNumber: number, type: KanaType): Kana
       return getKatakanaHandakutenByBatch(batchNumber)
     case 'katakana_combo':
       return getKatakanaComboByBatch(batchNumber)
+    case 'katakana_special':
+      return [] // Special cases are theory-only, no characters
     default:
       return []
   }
@@ -603,6 +658,8 @@ export function getBatchName(batchNumber: number, type: KanaType): string {
       return getHiraganaHandakutenBatchName(batchNumber)
     case 'hiragana_combo':
       return getHiraganaComboBatchName(batchNumber)
+    case 'hiragana_special':
+      return 'Special Cases'
     case 'katakana':
       return getKatakanaBatchName(batchNumber)
     case 'katakana_dakuten':
@@ -611,6 +668,8 @@ export function getBatchName(batchNumber: number, type: KanaType): string {
       return getKatakanaHandakutenBatchName(batchNumber)
     case 'katakana_combo':
       return getKatakanaComboBatchName(batchNumber)
+    case 'katakana_special':
+      return 'Special Cases'
     default:
       return `Batch ${batchNumber}`
   }
@@ -629,6 +688,8 @@ export function getTotalBatches(type: KanaType): number {
       return getTotalHiraganaHandakutenBatches()
     case 'hiragana_combo':
       return getTotalHiraganaComboBatches()
+    case 'hiragana_special':
+      return 1 // Special cases are a single theory session
     case 'katakana':
       return getTotalKatakanaBatches()
     case 'katakana_dakuten':
@@ -637,6 +698,8 @@ export function getTotalBatches(type: KanaType): number {
       return getTotalKatakanaHandakutenBatches()
     case 'katakana_combo':
       return getTotalKatakanaComboBatches()
+    case 'katakana_special':
+      return 1 // Special cases are a single theory session
     default:
       return 0
   }

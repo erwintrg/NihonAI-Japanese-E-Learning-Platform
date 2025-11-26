@@ -1,0 +1,107 @@
+[
+  {
+    "character": "ウィ",
+    "romaji": "wi",
+    "mnemonic": "WI is WA + small I (ワ + ィ)",
+    "mnemonicImage": "The character ワ with a small イ",
+    "batch": 1,
+    "baseCharacter": "ワ"
+  },
+  {
+    "character": "ウェ",
+    "romaji": "we",
+    "mnemonic": "WE is WA + small E (ワ + ェ)",
+    "mnemonicImage": "The character ワ with a small エ",
+    "batch": 1,
+    "baseCharacter": "ワ"
+  },
+  {
+    "character": "ウォ",
+    "romaji": "wo",
+    "mnemonic": "WO is WA + small O (ワ + ォ)",
+    "mnemonicImage": "The character ワ with a small オ",
+    "batch": 1,
+    "baseCharacter": "ワ"
+  },
+  {
+    "character": "シェ",
+    "romaji": "she",
+    "mnemonic": "SHE is SHI + small E (シ + ェ)",
+    "mnemonicImage": "The character シ with a small エ",
+    "batch": 2,
+    "baseCharacter": "シ"
+  },
+  {
+    "character": "ジェ",
+    "romaji": "je",
+    "mnemonic": "JE is JI + small E (ジ + ェ)",
+    "mnemonicImage": "The character ジ with a small エ",
+    "batch": 2,
+    "baseCharacter": "ジ"
+  },
+  {
+    "character": "チェ",
+    "romaji": "che",
+    "mnemonic": "CHE is CHI + small E (チ + ェ)",
+    "mnemonicImage": "The character チ with a small エ",
+    "batch": 3,
+    "baseCharacter": "チ"
+  },
+  {
+    "character": "ファ",
+    "romaji": "fa",
+    "mnemonic": "FA is FU + small A (フ + ァ)",
+    "mnemonicImage": "The character フ with a small ア",
+    "batch": 4,
+    "baseCharacter": "フ"
+  },
+  {
+    "character": "フィ",
+    "romaji": "fi",
+    "mnemonic": "FI is FU + small I (フ + ィ)",
+    "mnemonicImage": "The character フ with a small イ",
+    "batch": 4,
+    "baseCharacter": "フ"
+  },
+  {
+    "character": "フェ",
+    "romaji": "fe",
+    "mnemonic": "FE is FU + small E (フ + ェ)",
+    "mnemonicImage": "The character フ with a small エ",
+    "batch": 4,
+    "baseCharacter": "フ"
+  },
+  {
+    "character": "フォ",
+    "romaji": "fo",
+    "mnemonic": "FO is FU + small O (フ + ォ)",
+    "mnemonicImage": "The character フ with a small オ",
+    "batch": 4,
+    "baseCharacter": "フ"
+  },
+  {
+    "character": "ティ",
+    "romaji": "ti",
+    "mnemonic": "TI is TE + small I (テ + ィ)",
+    "mnemonicImage": "The character テ with a small イ",
+    "batch": 5,
+    "baseCharacter": "テ"
+  },
+  {
+    "character": "ディ",
+    "romaji": "di",
+    "mnemonic": "DI is DE + small I (デ + ィ)",
+    "mnemonicImage": "The character デ with a small イ",
+    "batch": 5,
+    "baseCharacter": "デ"
+  },
+  {
+    "character": "ディュ",
+    "romaji": "dyu",
+    "mnemonic": "DYU is DI + small YU (ディ + ュ)",
+    "mnemonicImage": "The character ディ with a small ユ",
+    "batch": 6,
+    "baseCharacter": "ディ"
+  }
+]
+

@@ -16,6 +16,7 @@ import {
   getAllKatakanaDakuten,
   getAllKatakanaHandakuten,
   getAllKatakanaCombo,
+  getAllKatakanaForeignCombo,
   type KanaCharacter 
 } from '@/lib/kana'
 
@@ -229,7 +230,7 @@ export default function KanaDrillsPage() {
         : new Set(['ハ', 'ヒ', 'フ', 'ヘ', 'ホ'])
       const comboBaseChars = activeTab === 'hiragana'
         ? new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
-        : new Set(['キ', 'シ', 'チ', 'ニ', 'ヒ', 'ミ', 'リ', 'ギ', 'ジ', 'ビ', 'ピ'])
+        : new Set(['キ', 'シ', 'チ', 'ニ', 'ヒ', 'ミ', 'リ', 'ギ', 'ジ', 'ビ', 'ピ', 'ワ', 'フ', 'テ', 'デ']) // Include foreign combo base chars for Katakana
       
       const hasDakutenBase = Array.from(selectedBaseChars).some(char => dakutenBaseChars.has(char))
       const hasHandakutenBase = Array.from(selectedBaseChars).some(char => handakutenBaseChars.has(char))
@@ -326,13 +327,44 @@ export default function KanaDrillsPage() {
 
     // Add Combo kana if selected - only for selected base characters
     if (includeCombos) {
-      const comboKana = activeTab === 'hiragana' ? getAllHiraganaCombo() : getAllKatakanaCombo()
-      comboKana.forEach(kana => {
-        // Only include if the base character is selected
-        if (kana.baseCharacter && selectedBaseCharacters.has(kana.baseCharacter)) {
-          kanaList.push(kana)
-        }
-      })
+      if (activeTab === 'hiragana') {
+        const comboKana = getAllHiraganaCombo()
+        comboKana.forEach(kana => {
+          // Only include if the base character is selected
+          if (kana.baseCharacter && selectedBaseCharacters.has(kana.baseCharacter)) {
+            kanaList.push(kana)
+          }
+        })
+      } else {
+        // Katakana: include both regular combos and foreign combos
+        const comboKana = getAllKatakanaCombo()
+        comboKana.forEach(kana => {
+          // Only include if the base character is selected
+          if (kana.baseCharacter && selectedBaseCharacters.has(kana.baseCharacter)) {
+            kanaList.push(kana)
+          }
+        })
+        
+        // Also include foreign combo characters (for foreign sounds)
+        // Foreign combos are automatically included when combos are enabled for Katakana
+        // They use base characters: ワ, シ, ジ, チ, フ, テ, デ, ディ
+        const foreignComboKana = getAllKatakanaForeignCombo()
+        foreignComboKana.forEach(kana => {
+          // Include foreign combos if their base character is selected
+          // Special case: ディュ uses ディ as base, so check if ディ is in the list or if デ is selected
+          if (kana.baseCharacter === 'ディ') {
+            // Check if ディ is selected, or if デ is selected (since ディ comes from デ)
+            // Also check if ディ is already in kanaList (from regular combos)
+            const hasDi = selectedBaseCharacters.has('ディ') || selectedBaseCharacters.has('デ')
+            const hasDiInList = kanaList.some(k => k.character === 'ディ')
+            if (hasDi || hasDiInList) {
+              kanaList.push(kana)
+            }
+          } else if (kana.baseCharacter && selectedBaseCharacters.has(kana.baseCharacter)) {
+            kanaList.push(kana)
+          }
+        })
+      }
     }
 
     if (kanaList.length === 0) {
@@ -791,9 +823,10 @@ export default function KanaDrillsPage() {
             const hasHandakutenBase = Array.from(selectedBaseChars).some(char => handakutenBaseChars.has(char))
             
             // Check which rows can have combos (K, S, T, N, H, M, R rows, and their dakuten/handakuten variants)
+            // For Katakana, also include foreign combo base characters (ワ, フ, テ, デ)
             const comboBaseChars = activeTab === 'hiragana'
               ? new Set(['き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'び', 'ぴ'])
-              : new Set(['キ', 'シ', 'チ', 'ニ', 'ヒ', 'ミ', 'リ', 'ギ', 'ジ', 'ビ', 'ピ'])
+              : new Set(['キ', 'シ', 'チ', 'ニ', 'ヒ', 'ミ', 'リ', 'ギ', 'ジ', 'ビ', 'ピ', 'ワ', 'フ', 'テ', 'デ'])
             const hasComboBase = Array.from(selectedBaseChars).some(char => comboBaseChars.has(char))
             
             // Only show this section if there are selected kana
@@ -845,7 +878,9 @@ export default function KanaDrillsPage() {
                         className="w-5 h-5 rounded border-zinc-300 dark:border-zinc-700 text-pink-500 focus:ring-pink-500"
                       />
                       <span className="text-zinc-700 dark:text-zinc-300">
-                        Include Kana Combos ({activeTab === 'hiragana' ? 'きゃ, きゅ, きょ, にゃ, にゅ, にょ' : 'キャ, キュ, キョ, ニャ, ニュ, ニョ'}, etc.)
+                        Include Kana Combos ({activeTab === 'hiragana' ? 'きゃ, きゅ, きょ' : 'キャ, キュ, キョ'}, etc.
+                        {activeTab === 'katakana' && ' + foreign sounds'}
+                        )
                       </span>
                     </label>
                   ) : null}

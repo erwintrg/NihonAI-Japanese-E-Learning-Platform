@@ -9,10 +9,12 @@ const COURSE_TYPE_SEQUENCE: KanaType[] = [
   'hiragana_dakuten',
   'hiragana_handakuten',
   'hiragana_combo',
+  'hiragana_special',
   'katakana',
   'katakana_dakuten',
   'katakana_handakuten',
   'katakana_combo',
+  'katakana_special',
 ]
 
 export default function LearningCourseContent({ returnBatch, returnType }: { returnBatch?: string; returnType?: string }) {
@@ -94,10 +96,12 @@ export default function LearningCourseContent({ returnBatch, returnType }: { ret
     hiragana_dakuten: 'Hiragana Dakuten',
     hiragana_handakuten: 'Hiragana Handakuten',
     hiragana_combo: 'Hiragana Combinations',
+    hiragana_special: 'Hiragana Special Cases',
     katakana: 'Katakana Basics',
     katakana_dakuten: 'Katakana Dakuten',
     katakana_handakuten: 'Katakana Handakuten',
     katakana_combo: 'Katakana Combinations',
+    katakana_special: 'Katakana Special Cases',
   }
 
   return (

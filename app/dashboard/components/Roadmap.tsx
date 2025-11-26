@@ -7,6 +7,7 @@ import {
   getTotalHiraganaDakutenBatches,
   getTotalHiraganaHandakutenBatches,
   getTotalHiraganaComboBatches,
+  getTotalBatches,
   getTotalKatakanaBatches,
   getTotalKatakanaDakutenBatches,
   getTotalKatakanaHandakutenBatches,
@@ -19,7 +20,7 @@ type RoadmapSegment = {
   description: string
   status: 'completed' | 'current' | 'locked'
   unlocksAt?: string
-  type?: 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo' | 'katakana' | 'katakana_dakuten' | 'katakana_handakuten' | 'katakana_combo' | 'vocabulary_top100' | 'grammar' | 'phrases' | 'vocabulary' | 'output'
+  type?: 'hiragana' | 'hiragana_dakuten' | 'hiragana_handakuten' | 'hiragana_combo' | 'hiragana_special' | 'katakana' | 'katakana_dakuten' | 'katakana_handakuten' | 'katakana_combo' | 'katakana_special' | 'vocabulary_top100' | 'grammar' | 'phrases' | 'vocabulary' | 'output'
   batchCount?: number
   completedBatches?: number
 }
@@ -32,10 +33,12 @@ export default function Roadmap() {
     hiragana_dakuten: new Set(),
     hiragana_handakuten: new Set(),
     hiragana_combo: new Set(),
+    hiragana_special: new Set(),
     katakana: new Set(),
     katakana_dakuten: new Set(),
     katakana_handakuten: new Set(),
     katakana_combo: new Set(),
+    katakana_special: new Set(),
     vocabulary_top100: new Set(),
     // Future course types will be added dynamically
   })
@@ -67,10 +70,12 @@ export default function Roadmap() {
           hiragana_dakuten: new Set(),
           hiragana_handakuten: new Set(),
           hiragana_combo: new Set(),
+          hiragana_special: new Set(),
           katakana: new Set(),
           katakana_dakuten: new Set(),
           katakana_handakuten: new Set(),
           katakana_combo: new Set(),
+          katakana_special: new Set(),
           vocabulary_top100: new Set(),
         }
         
@@ -103,6 +108,8 @@ export default function Roadmap() {
         return getTotalHiraganaHandakutenBatches()
       case 'hiragana_combo':
         return getTotalHiraganaComboBatches()
+      case 'hiragana_special':
+        return getTotalBatches('hiragana_special')
       case 'katakana':
         return getTotalKatakanaBatches()
       case 'katakana_dakuten':
@@ -111,6 +118,8 @@ export default function Roadmap() {
         return getTotalKatakanaHandakutenBatches()
       case 'katakana_combo':
         return getTotalKatakanaComboBatches()
+      case 'katakana_special':
+        return getTotalBatches('katakana_special')
       case 'vocabulary_top100':
         return 20 // 20 sessions for Top 100 Vocabulary (5 per session)
       // Future course types will be added here
@@ -159,20 +168,24 @@ export default function Roadmap() {
   const dakutenTotal = getTotalHiraganaDakutenBatches()
   const handakutenTotal = getTotalHiraganaHandakutenBatches()
   const combosTotal = getTotalHiraganaComboBatches()
+  const hiraganaSpecialTotal = getTotalBatches('hiragana_special')
   const katakanaTotal = getTotalKatakanaBatches()
   const katakanaDakutenTotal = getTotalKatakanaDakutenBatches()
   const katakanaHandakutenTotal = getTotalKatakanaHandakutenBatches()
   const katakanaCombosTotal = getTotalKatakanaComboBatches()
+  const katakanaSpecialTotal = getTotalBatches('katakana_special')
   const vocabularyTop100Total = 20
   
   const hiraganaCompleted = completedBatches.hiragana.size
   const dakutenCompleted = completedBatches.hiragana_dakuten.size
   const handakutenCompleted = completedBatches.hiragana_handakuten.size
   const combosCompleted = completedBatches.hiragana_combo.size
+  const hiraganaSpecialCompleted = completedBatches.hiragana_special.size
   const katakanaCompleted = completedBatches.katakana.size
   const katakanaDakutenCompleted = completedBatches.katakana_dakuten.size
   const katakanaHandakutenCompleted = completedBatches.katakana_handakuten.size
   const katakanaCombosCompleted = completedBatches.katakana_combo.size
+  const katakanaSpecialCompleted = completedBatches.katakana_special.size
   const vocabularyTop100Completed = completedBatches.vocabulary_top100.size
 
   const allRoadmapSegments: RoadmapSegment[] = [
@@ -217,14 +230,24 @@ export default function Roadmap() {
       unlocksAt: 'Complete all Hiragana Handakuten batches',
     },
     {
+      id: 'hiragana-special',
+      title: 'Hiragana Special Cases',
+      description: `Learn pronunciation rules: double consonants, long vowels, dropped vowels, nasalized n (${hiraganaSpecialCompleted}/${hiraganaSpecialTotal} session completed)`,
+      status: getSegmentStatus('hiragana_special', hiraganaSpecialTotal, 'hiragana_combo'),
+      type: 'hiragana_special',
+      batchCount: hiraganaSpecialTotal,
+      completedBatches: hiraganaSpecialCompleted,
+      unlocksAt: 'Complete all Hiragana Combinations batches',
+    },
+    {
       id: 'katakana-basics',
       title: 'Katakana Basics',
       description: `Learn the 46 basic Katakana characters (${katakanaCompleted}/${katakanaTotal} batches completed)`,
-      status: getSegmentStatus('katakana', katakanaTotal, 'hiragana_combo'),
+      status: getSegmentStatus('katakana', katakanaTotal, 'hiragana_special'),
       type: 'katakana',
       batchCount: katakanaTotal,
       completedBatches: katakanaCompleted,
-      unlocksAt: 'Complete all Hiragana Combinations batches',
+      unlocksAt: 'Complete Hiragana Special Cases session',
     },
     {
       id: 'katakana-dakuten',
@@ -257,14 +280,24 @@ export default function Roadmap() {
       unlocksAt: 'Complete all Katakana Handakuten batches',
     },
     {
+      id: 'katakana-special',
+      title: 'Katakana Special Cases',
+      description: `Learn pronunciation rules: long vowels (ー), foreign sound combinations, special pronunciation (${katakanaSpecialCompleted}/${katakanaSpecialTotal} session completed)`,
+      status: getSegmentStatus('katakana_special', katakanaSpecialTotal, 'katakana_combo'),
+      type: 'katakana_special',
+      batchCount: katakanaSpecialTotal,
+      completedBatches: katakanaSpecialCompleted,
+      unlocksAt: 'Complete all Katakana Combinations batches',
+    },
+    {
       id: 'vocabulary-top100',
       title: 'Top 100 Vocabulary',
       description: `Learn the most essential 100 vocabulary words (${vocabularyTop100Completed}/${vocabularyTop100Total} sessions completed)`,
-      status: getSegmentStatus('vocabulary_top100', vocabularyTop100Total, 'katakana_combo'),
+      status: getSegmentStatus('vocabulary_top100', vocabularyTop100Total, 'katakana_special'),
       type: 'vocabulary_top100',
       batchCount: vocabularyTop100Total,
       completedBatches: vocabularyTop100Completed,
-      unlocksAt: 'Complete all Katakana Combinations batches',
+      unlocksAt: 'Complete Katakana Special Cases session',
     },
     // Post-Top-100 Pattern (repeating cycle) - To be implemented in Phases 6, 7, and 8
     // Pattern: (a) Grammar → (b) Phrases → (c) Vocabulary → (d) Output

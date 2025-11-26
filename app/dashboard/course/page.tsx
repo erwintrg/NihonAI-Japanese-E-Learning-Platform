@@ -53,6 +53,8 @@ function CoursePageContent() {
   const [mounted, setMounted] = useState(false)
   const [user, setUser] = useState<any>(null)
   const [currentSection, setCurrentSection] = useState<SessionSection>('theory')
+  const [currentTheoryTab, setCurrentTheoryTab] = useState<string>('')
+  const [theorySections, setTheorySections] = useState<Array<{ title: string; content: string }>>([])
   const [session, setSession] = useState<CourseSession | null>(null)
   const [sessionStarted, setSessionStarted] = useState(false)
   const [sessionCompleted, setSessionCompleted] = useState(false)
@@ -80,7 +82,7 @@ function CoursePageContent() {
         
         // Get kana type from URL params, default to 'hiragana'
         const typeParam = searchParams?.get('type') as KanaType
-        const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+        const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
         const currentType: KanaType = typeParam && validTypes.includes(typeParam)
           ? typeParam
           : 'hiragana'
@@ -127,7 +129,7 @@ function CoursePageContent() {
     
     // Get kana type from URL params
     const typeParam = searchParams.get('type') as KanaType
-    const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+    const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
     const currentType: KanaType = typeParam && validTypes.includes(typeParam)
       ? typeParam
       : 'hiragana'
@@ -186,7 +188,10 @@ function CoursePageContent() {
     
     const batchKana = getKanaByBatchAndType(batchNumber, currentType)
     
-    if (batchKana.length === 0) {
+    // Special case sessions are theory-only (no kana characters)
+    const isSpecialCase = currentType === 'hiragana_special' || currentType === 'katakana_special'
+    
+    if (batchKana.length === 0 && !isSpecialCase) {
       console.error(`No kana found for batch ${batchNumber} of type ${currentType}`)
       
       // If we're trying to load a batch that doesn't exist, check if we should transition to next type
@@ -209,10 +214,12 @@ function CoursePageContent() {
 
     // Create practice questions - each kana appears twice
     // For romaji-to-character, use multiple choice
+    // Special case sessions have no practice questions (theory-only)
     const allKana = getAllKanaByType(currentType)
     const practiceQuestions: KanaPracticeQuestion[] = []
     
-    batchKana.forEach((kana, index) => {
+    if (!isSpecialCase) {
+      batchKana.forEach((kana, index) => {
       // First question: character-to-romaji (typing)
       practiceQuestions.push({
         id: index * 4 + 1,
@@ -274,39 +281,43 @@ function CoursePageContent() {
         isCorrect: null,
         options: allOptions2,
       })
-    })
+      })
+    }
 
     // Randomize practice questions, but ensure no two identical questions appear consecutively
-    // Shuffle multiple times to ensure good distribution
-    for (let shuffle = 0; shuffle < 10; shuffle++) {
-      for (let i = practiceQuestions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [practiceQuestions[i], practiceQuestions[j]] = [practiceQuestions[j], practiceQuestions[i]]
+    // Only shuffle if there are practice questions (not for special case sessions)
+    if (practiceQuestions.length > 0) {
+      // Shuffle multiple times to ensure good distribution
+      for (let shuffle = 0; shuffle < 10; shuffle++) {
+        for (let i = practiceQuestions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [practiceQuestions[i], practiceQuestions[j]] = [practiceQuestions[j], practiceQuestions[i]]
+        }
       }
-    }
-    
-    // Ensure no consecutive duplicates
-    for (let i = 1; i < practiceQuestions.length; i++) {
-      const prev = practiceQuestions[i - 1]
-      const current = practiceQuestions[i]
       
-      // If same kana and same question type, swap with a different question
-      if (prev.kana.character === current.kana.character && prev.questionType === current.questionType) {
-        // Find a different question to swap with
-        for (let j = i + 1; j < practiceQuestions.length; j++) {
-          const candidate = practiceQuestions[j]
-          if (candidate.kana.character !== current.kana.character || candidate.questionType !== current.questionType) {
-            [practiceQuestions[i], practiceQuestions[j]] = [practiceQuestions[j], practiceQuestions[i]]
-            break
+      // Ensure no consecutive duplicates
+      for (let i = 1; i < practiceQuestions.length; i++) {
+        const prev = practiceQuestions[i - 1]
+        const current = practiceQuestions[i]
+        
+        // If same kana and same question type, swap with a different question
+        if (prev.kana.character === current.kana.character && prev.questionType === current.questionType) {
+          // Find a different question to swap with
+          for (let j = i + 1; j < practiceQuestions.length; j++) {
+            const candidate = practiceQuestions[j]
+            if (candidate.kana.character !== current.kana.character || candidate.questionType !== current.questionType) {
+              [practiceQuestions[i], practiceQuestions[j]] = [practiceQuestions[j], practiceQuestions[i]]
+              break
+            }
           }
         }
       }
     }
 
-    // Get word examples using the kana being learned
+    // Get word examples using the kana being learned (skip for special case sessions)
     const allVocab = getAllVocab()
     const kanaCharacters = batchKana.map(k => k.character)
-    const wordExamples = allVocab
+    const wordExamples = isSpecialCase ? [] : allVocab
       .filter(vocab => {
         // Check if the word contains any of the kana being learned
         return kanaCharacters.some(kana => vocab.hiragana.includes(kana))
@@ -455,6 +466,137 @@ Katakana combinations are created by combining certain base characters with smal
 Think of the small kana as "attaching" to the base character. The base character provides the consonant, and the small kana provides the vowel sound. Visualize the base Katakana character you already know, then add the small version of ヤ, ユ, or ヨ!
 
 In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k => k.character).join(', ')}`
+    } else if (currentType === 'hiragana_special' && batchNumber === 1) {
+      theoryContent = `**Hiragana Special Cases - Important Pronunciation Rules**
+
+Now that you've learned all the basic Hiragana characters, it's time to understand some special pronunciation rules that will help you read Japanese correctly.
+
+**1. Double Consonants (Small っ or Regular ん)**
+
+Double consonants create a pause or emphasis in pronunciation:
+- Small っ (tsu): Creates a double consonant sound. The consonant that follows is held for a moment.
+  - Example: がっこう (gakkou) = "school" - the "k" sound is doubled
+  - Example: きっぷ (kippu) = "ticket" - the "p" sound is doubled
+  - The small っ is written half the size of regular characters
+  
+- Regular ん (n): Can also create a double consonant effect when followed by certain consonants.
+  - Example: ほんとう (hontou) = "really" - the "n" sound is emphasized
+
+**2. Long Vowels**
+
+Long vowels extend the sound of a vowel:
+- Long "aa" sound: Written as ああ or あー (in some cases)
+  - Example: おばあさん (obaasan) = "grandmother" (long "aa")
+  - vs. おばさん (obasan) = "aunt" (short "a")
+  
+- Long "ee" sound: Often written as えい (ei) instead of ええ
+  - Example: せんせい (sensei) = "teacher" - the "ei" is pronounced as a long "ee"
+  - Example: えいご (eigo) = "English" - long "ee" sound
+  
+- Long "ii" sound: Written as いい
+  - Example: いいえ (iie) = "no"
+  
+- Long "oo" sound: Written as おお or おう
+  - Example: おおきい (ookii) = "big"
+  - Example: おとうさん (otousan) = "father" - the "ou" is pronounced as long "oo"
+  
+- Long "uu" sound: Written as うう
+  - Example: すうがく (suugaku) = "mathematics"
+
+**3. Dropped Vowels (i and u)**
+
+In Japanese, the vowels "i" (い) and "u" (う) are often dropped or barely pronounced, especially when they appear between unvoiced consonants:
+- Example: すきです (sukidesu) = "I like it"
+  - The "u" in "su" and "i" in "desu" are often barely audible
+  - It sounds more like "skides" than "sukidesu"
+  
+- Example: ききます (kikimasu) = "I listen"
+  - The "i" in "ki" and "u" in "masu" are often dropped
+  - It sounds more like "kkimas" than "kikimasu"
+
+This is a natural part of Japanese pronunciation - don't try to force every vowel to be clearly pronounced!
+
+**4. Special Pronunciation of ん (n)**
+
+The character ん (n) has special pronunciation rules:
+- Before "m", "b", or "p" sounds: Pronounced like "m"
+  - Example: しんぶん (shinbun) = "newspaper" - the ん sounds like "m"
+  
+- Before "k" or "g" sounds: Pronounced like "ng" (as in "sing")
+  - Example: ほんご (honggo) = "Japanese language" - the ん sounds like "ng"
+  
+- Before "t", "d", "n", "r" sounds: Pronounced like "n"
+  - Example: ほんとう (hontou) = "really" - the ん sounds like "n"
+  
+- At the end of words: Often nasalized (pronounced through the nose)
+  - Example: にほん (nihon) = "Japan" - the final ん is nasalized
+
+**Key Takeaway:**
+These special cases are essential for natural Japanese pronunciation. Pay attention to them when listening to native speakers, and practice reading words with these patterns!`
+    } else if (currentType === 'katakana_special' && batchNumber === 1) {
+      theoryContent = `**Katakana Special Cases - Important Pronunciation Rules**
+
+Now that you've learned all the basic Katakana characters, it's time to understand some special pronunciation rules and additional characters used for foreign words.
+
+**1. Long Vowels (Long Dash ー)**
+
+In Katakana, long vowels are written with a long dash (ー), unlike Hiragana:
+- Example: コーヒー (koohii) = "coffee" - the ー extends the "o" and "i" sounds
+- Example: ケーキ (keeki) = "cake" - the ー extends the "e" sound
+- Example: テーブル (teeburu) = "table" - the ー extends the "e" sound
+
+**Important:** The long dash (ー) is always written horizontally, regardless of the direction of the text.
+
+**2. Double Consonants (Small ッ or Regular ン)**
+
+Same as Hiragana:
+- Small ッ (tsu): Creates a double consonant sound
+  - Example: カップ (kappu) = "cup" - the "p" sound is doubled
+  - Example: ベッド (beddo) = "bed" - the "d" sound is doubled
+
+- Regular ン (n): Can create emphasis when followed by consonants
+  - Example: コンピューター (konpyuutaa) = "computer"
+
+**3. Additional Foreign Sound Combinations**
+
+Katakana uses special combinations with small vowel letters to transcribe foreign sounds that don't exist in standard Japanese:
+
+**Wa-row combinations:**
+- ウィ (wi) = WA + small I - Example: ウィンドウ (windou) = "window"
+- ウェ (we) = WA + small E - Example: ウェブ (webu) = "web"
+- ウォ (wo) = WA + small O - Example: ウォーター (wootaa) = "water"
+
+**Shi/Ji-row combinations:**
+- シェ (she) = SHI + small E - Example: シェア (shea) = "share"
+- ジェ (je) = JI + small E - Example: ジェット (jetto) = "jet"
+
+**Chi-row combinations:**
+- チェ (che) = CHI + small E - Example: チェック (chekku) = "check"
+
+**Fu-row combinations:**
+- ファ (fa) = FU + small A - Example: ファン (fan) = "fan"
+- フィ (fi) = FU + small I - Example: フィルム (firumu) = "film"
+- フェ (fe) = FU + small E - Example: フェスティバル (fesutibaru) = "festival"
+- フォ (fo) = FU + small O - Example: フォーク (fooku) = "fork"
+
+**Te/De-row combinations:**
+- ティ (ti) = TE + small I - Example: パーティー (paatii) = "party"
+- ディ (di) = DE + small I - Example: ディスク (disuku) = "disk"
+- ディュ (dyu) = DI + small YU - Example: デュエット (dyuetto) = "duet"
+
+**4. Special Pronunciation: "V" Sound**
+
+The "v" sound doesn't exist in Japanese, so it's often transcribed using:
+- ビ (bi) or ビィ (bii) - Example: ビデオ (bideo) = "video"
+- Sometimes written as ヴ (vu) in modern Japanese, but ビ is more common
+
+**5. Dropped Vowels (Same as Hiragana)**
+
+Just like in Hiragana, the vowels "i" (イ) and "u" (ウ) are often dropped or barely pronounced:
+- Example: デスク (desuku) = "desk" - the "u" is often barely audible
+
+**Key Takeaway:**
+These special cases are essential for reading foreign words in Katakana. Pay attention to the long dash (ー) and practice recognizing the foreign sound combinations!`
     } else {
       // Check if this is a noteworthy batch (e.g., special patterns or pronunciation notes)
       let batchNote = ''
@@ -513,10 +655,12 @@ In this session, you'll learn ${batchKana.length} characters: ${batchKana.map(k 
         : currentType === 'hiragana_dakuten' ? 'Hiragana Dakuten'
         : currentType === 'hiragana_handakuten' ? 'Hiragana Handakuten'
         : currentType === 'hiragana_combo' ? 'Hiragana Combos'
+        : currentType === 'hiragana_special' ? 'Hiragana Special Cases'
         : currentType === 'katakana' ? 'Katakana'
         : currentType === 'katakana_dakuten' ? 'Katakana Dakuten'
         : currentType === 'katakana_handakuten' ? 'Katakana Handakuten'
-        : 'Katakana Combos'
+        : currentType === 'katakana_combo' ? 'Katakana Combos'
+        : 'Katakana Special Cases'
       
       theoryContent = `**${typeLabel} Ordering:**
 Characters are organized in batches to help you learn systematically. This session covers the ${batchName}.${batchNote}
@@ -531,10 +675,12 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
       : currentType === 'hiragana_dakuten' ? 'Hiragana Dakuten'
       : currentType === 'hiragana_handakuten' ? 'Hiragana Handakuten'
       : currentType === 'hiragana_combo' ? 'Hiragana Combos'
+      : currentType === 'hiragana_special' ? 'Hiragana Special Cases'
       : currentType === 'katakana' ? 'Katakana'
       : currentType === 'katakana_dakuten' ? 'Katakana Dakuten'
       : currentType === 'katakana_handakuten' ? 'Katakana Handakuten'
-      : 'Katakana Combos'
+      : currentType === 'katakana_combo' ? 'Katakana Combos'
+      : 'Katakana Special Cases'
     
     const sessionTitle = batchNumber === 1 && currentType === 'hiragana' 
       ? 'Introduction to Hiragana'
@@ -544,6 +690,8 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
       ? 'Introduction to Handakuten'
       : batchNumber === 1 && currentType === 'hiragana_combo'
       ? 'Introduction to Kana Combinations'
+      : batchNumber === 1 && currentType === 'hiragana_special'
+      ? 'Hiragana Special Cases'
       : batchNumber === 1 && currentType === 'katakana'
       ? 'Introduction to Katakana'
       : batchNumber === 1 && currentType === 'katakana_dakuten'
@@ -552,12 +700,16 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
       ? 'Introduction to Katakana Handakuten'
       : batchNumber === 1 && currentType === 'katakana_combo'
       ? 'Introduction to Katakana Combinations'
+      : batchNumber === 1 && currentType === 'katakana_special'
+      ? 'Katakana Special Cases'
       : `${typeLabel} Characters: ${batchName}`
     
     const hiraganaSession: CourseSession = {
       id: `${currentType}-batch-${batchNumber}`,
       title: `${typeLabel}: ${batchName}`,
-      description: `Learn ${batchKana.length} ${typeLabel} characters: ${batchKana.map(k => k.character).join(', ')}`,
+      description: isSpecialCase 
+        ? `Learn about ${typeLabel} pronunciation rules and special cases`
+        : `Learn ${batchKana.length} ${typeLabel} characters: ${batchKana.map(k => k.character).join(', ')}`,
       batchNumber,
       theory: {
         title: sessionTitle,
@@ -570,6 +722,70 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
     }
 
     setSession(hiraganaSession)
+    
+    // Parse theory content into sections for tabbed display
+    // ONLY for theory-only sessions (no practice questions)
+    // For practice sessions, always show raw theory content
+    if (theoryContent && practiceQuestions.length === 0) {
+      const sections: Array<{ title: string; content: string }> = []
+      // Split by numbered headings like "**1. Title**" or "**Title**"
+      const sectionPattern = /\*\*(\d+\.\s*)?([^*]+)\*\*/g
+      const lines = theoryContent.split('\n')
+      let currentSection: { title: string; content: string } | null = null
+      let currentContent: string[] = []
+      
+      for (const line of lines) {
+        const match = line.match(/^\*\*(\d+\.\s*)?([^*]+)\*\*/)
+        if (match) {
+          // Save previous section if exists
+          if (currentSection) {
+            currentSection.content = currentContent.join('\n').trim()
+            sections.push(currentSection)
+          }
+          // Start new section
+          const title = match[2].trim()
+          currentSection = { title, content: '' }
+          currentContent = []
+        } else if (currentSection) {
+          currentContent.push(line)
+        } else {
+          // Content before first section
+          if (currentContent.length === 0 && line.trim()) {
+            currentContent.push(line)
+          }
+        }
+      }
+      
+      // Save last section
+      if (currentSection) {
+        currentSection.content = currentContent.join('\n').trim()
+        sections.push(currentSection)
+      }
+      
+      // If no sections found, treat entire content as one section
+      if (sections.length === 0) {
+        const typeLabel = currentType === 'hiragana' ? 'Hiragana' 
+          : currentType === 'hiragana_dakuten' ? 'Hiragana Dakuten'
+          : currentType === 'hiragana_handakuten' ? 'Hiragana Handakuten'
+          : currentType === 'hiragana_combo' ? 'Hiragana Combos'
+          : currentType === 'hiragana_special' ? 'Hiragana Special Cases'
+          : currentType === 'katakana' ? 'Katakana'
+          : currentType === 'katakana_dakuten' ? 'Katakana Dakuten'
+          : currentType === 'katakana_handakuten' ? 'Katakana Handakuten'
+          : currentType === 'katakana_combo' ? 'Katakana Combos'
+          : 'Katakana Special Cases'
+        sections.push({ title: typeLabel, content: theoryContent })
+      }
+      
+      setTheorySections(sections)
+      if (sections.length > 0) {
+        setCurrentTheoryTab(sections[0].title)
+      }
+    } else {
+      // For practice sessions, don't parse into sections - show raw content
+      setTheorySections([])
+      setCurrentTheoryTab('')
+    }
   }, [searchParams, user, router, sessionCompleted, batchesLoaded, supabase, kanaType])
 
   // Load session when completed batches are loaded and search params change
@@ -596,10 +812,23 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
   }
 
   const nextSection = () => {
+    const isSpecialCase = session?.id.includes('_special')
+    const hasPractice = session?.practice && session.practice.length > 0
+    
     if (currentSection === 'theory') {
-      setCurrentSection('examples')
+      if (isSpecialCase || !hasPractice) {
+        // Special case sessions or sessions without practice: complete after theory
+        completeSession()
+      } else {
+        setCurrentSection('examples')
+      }
     } else if (currentSection === 'examples') {
-      setCurrentSection('practice')
+      if (hasPractice) {
+        setCurrentSection('practice')
+      } else {
+        // No practice questions: complete after examples
+        completeSession()
+      }
     }
   }
 
@@ -665,28 +894,30 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
       
       // Get kana type from URL params
       const typeParam = searchParams?.get('type') as KanaType
-      const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+      const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
       const currentType: KanaType = typeParam && validTypes.includes(typeParam)
         ? typeParam
         : 'hiragana'
       
-      // Save to Supabase progress table
-      const { error: progressError } = await supabase.from('progress').insert({
-        user_id: user.id,
-        quiz_score: percentage,
-        quiz_type: `${currentType}_session`,
-        vocabulary_items: session?.practice.map((q) => ({
-          kana: q.kana.character,
-          romaji: q.kana.romaji,
-          questionType: q.questionType,
-          userAnswer: q.userAnswer,
-          isCorrect: q.isCorrect,
-          batchNumber: session?.batchNumber,
-        })),
-      })
+      // Save to Supabase progress table (only if there are practice questions)
+      if (session?.practice && session.practice.length > 0) {
+        const { error: progressError } = await supabase.from('progress').insert({
+          user_id: user.id,
+          quiz_score: percentage,
+          quiz_type: `${currentType}_session`,
+          vocabulary_items: session.practice.map((q) => ({
+            kana: q.kana.character,
+            romaji: q.kana.romaji,
+            questionType: q.questionType,
+            userAnswer: q.userAnswer,
+            isCorrect: q.isCorrect,
+            batchNumber: session.batchNumber,
+          })),
+        })
 
-      if (progressError) {
-        console.error('Error saving session progress:', progressError)
+        if (progressError) {
+          console.error('Error saving session progress:', progressError)
+        }
       }
 
       // Mark batch as completed
@@ -736,7 +967,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
   }
 
   const calculatePercentage = () => {
-    if (!session || session.practice.length === 0) return 0
+    if (!session || session.practice.length === 0) return 100 // Theory-only sessions are 100% complete
     return Math.round((correctAnswers / session.practice.length) * 100)
   }
 
@@ -801,12 +1032,18 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                 Ready to learn?
               </h2>
               <p className="text-zinc-600 dark:text-zinc-400 mb-4">
-                This session includes theory, examples, and practice. Estimated time: 5 minutes.
+                {session.practice.length > 0 
+                  ? 'This session includes theory, examples, and practice. Estimated time: 5 minutes.'
+                  : 'This session includes theory and examples. Estimated time: 3 minutes.'}
               </p>
               <div className="text-sm text-zinc-500">
                 <p>• Theory: Learn the concepts</p>
-                <p>• Examples: See them in action</p>
-                <p>• Practice: Test your understanding</p>
+                {session.practice.length > 0 && (
+                  <>
+                    <p>• Examples: See them in action</p>
+                    <p>• Practice: Test your understanding</p>
+                  </>
+                )}
               </div>
             </div>
             <button
@@ -833,26 +1070,30 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
               >
                 Theory
               </button>
-              <button
-                onClick={() => setCurrentSection('examples')}
-                className={`flex-1 px-4 py-3 text-sm font-medium transition-colors border-l border-r border-zinc-200 dark:border-zinc-700 ${
-                  currentSection === 'examples'
-                    ? 'bg-pink-500 text-white'
-                    : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
-                }`}
-              >
-                Examples
-              </button>
-              <button
-                onClick={() => setCurrentSection('practice')}
-                className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
-                  currentSection === 'practice'
-                    ? 'bg-pink-500 text-white'
-                    : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
-                }`}
-              >
-                Practice
-              </button>
+              {session.practice.length > 0 && (
+                <>
+                  <button
+                    onClick={() => setCurrentSection('examples')}
+                    className={`flex-1 px-4 py-3 text-sm font-medium transition-colors border-l border-r border-zinc-200 dark:border-zinc-700 ${
+                      currentSection === 'examples'
+                        ? 'bg-pink-500 text-white'
+                        : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+                    }`}
+                  >
+                    Examples
+                  </button>
+                  <button
+                    onClick={() => setCurrentSection('practice')}
+                    className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                      currentSection === 'practice'
+                        ? 'bg-pink-500 text-white'
+                        : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+                    }`}
+                  >
+                    Practice
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}
@@ -861,27 +1102,132 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
         {sessionStarted && !sessionCompleted && currentSection === 'theory' && (
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
             <div className="mb-4">
-              <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-2">
+              <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-4">
                 {session.theory.title}
               </h2>
+              
+              {/* Theory Tabs - Only show if there are multiple sections AND this is a theory-only session */}
+              {theorySections.length > 1 && session.practice.length === 0 && (
+                <div className="mb-6 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-hidden">
+                  <div className="flex overflow-x-auto">
+                    {theorySections.map((section, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentTheoryTab(section.title)}
+                        className={`flex-shrink-0 px-4 py-3 text-sm font-medium transition-colors border-r border-zinc-200 dark:border-zinc-700 ${
+                          currentTheoryTab === section.title
+                            ? 'bg-pink-500 text-white'
+                            : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+                        }`}
+                      >
+                        {section.title}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Theory Content */}
               <div className="prose dark:prose-invert max-w-none">
-                <div 
-                  className="text-zinc-700 dark:text-zinc-300 whitespace-pre-line"
-                  dangerouslySetInnerHTML={{
-                    __html: session.theory.content
-                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                      .replace(/\n/g, '<br />')
-                  }}
-                />
+                {theorySections.length > 0 && session.practice.length === 0 ? (
+                  // Theory-only sessions: show sections with tabs
+                  theorySections
+                    .filter(section => currentTheoryTab === section.title || theorySections.length === 1)
+                    .map((section, idx) => {
+                      // Parse content to separate headings from examples
+                      const lines = section.content.split('\n')
+                      const formattedLines: string[] = []
+                      let inExampleBlock = false
+                      
+                      for (let i = 0; i < lines.length; i++) {
+                        const line = lines[i]
+                        const trimmed = line.trim()
+                        
+                        // Check if this is a heading (starts with **)
+                        if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
+                          // Close previous example block if open
+                          if (inExampleBlock) {
+                            formattedLines.push('</div>')
+                            inExampleBlock = false
+                          }
+                          // Add heading
+                          const headingText = trimmed.replace(/\*\*/g, '').trim()
+                          formattedLines.push(`<h3 class="text-xl font-bold text-black dark:text-zinc-50 mt-6 mb-3">${headingText}</h3>`)
+                        }
+                        // Check if this is an example line (starts with "- Example:")
+                        else if (trimmed.startsWith('- Example:') || trimmed.match(/^-\s*Example/)) {
+                          if (!inExampleBlock) {
+                            formattedLines.push('<div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4 border border-zinc-200 dark:border-zinc-700 my-3">')
+                            formattedLines.push('<p class="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Examples:</p>')
+                            inExampleBlock = true
+                          }
+                          // Remove "- Example:" prefix and format
+                          const exampleText = trimmed.replace(/^-\s*Example:?\s*/, '').trim()
+                          formattedLines.push(`<p class="text-zinc-700 dark:text-zinc-300 mb-1">• ${exampleText}</p>`)
+                        }
+                        // Check if this is a regular bullet point
+                        else if (trimmed.startsWith('- ')) {
+                          if (!inExampleBlock) {
+                            formattedLines.push('<div class="my-2">')
+                            inExampleBlock = true
+                          }
+                          const bulletText = trimmed.substring(2).trim()
+                          formattedLines.push(`<p class="text-zinc-700 dark:text-zinc-300 mb-1">• ${bulletText}</p>`)
+                        }
+                        // Regular text line
+                        else if (trimmed) {
+                          if (inExampleBlock && !trimmed.startsWith('-')) {
+                            formattedLines.push('</div>')
+                            inExampleBlock = false
+                          }
+                          formattedLines.push(`<p class="text-zinc-700 dark:text-zinc-300 mb-2">${trimmed}</p>`)
+                        }
+                        // Empty line
+                        else {
+                          if (inExampleBlock) {
+                            formattedLines.push('</div>')
+                            inExampleBlock = false
+                          }
+                          formattedLines.push('<br />')
+                        }
+                      }
+                      
+                      // Close any open example block
+                      if (inExampleBlock) {
+                        formattedLines.push('</div>')
+                      }
+                      
+                      return (
+                        <div
+                          key={idx}
+                          className="text-zinc-700 dark:text-zinc-300"
+                          dangerouslySetInnerHTML={{
+                            __html: formattedLines.join('')
+                          }}
+                        />
+                      )
+                    })
+                ) : (
+                  // Practice sessions: show raw theory content with formatting
+                  <div 
+                    className="text-zinc-700 dark:text-zinc-300 whitespace-pre-line"
+                    dangerouslySetInnerHTML={{
+                      __html: session.theory.content
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\n/g, '<br />')
+                    }}
+                  />
+                )}
               </div>
             </div>
 
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
-                Characters in this batch:
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {session.theory.kana.map((kana, idx) => (
+            {session.theory.kana.length > 0 && (
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
+                  Characters in this batch:
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {session.theory.kana.map((kana, idx) => (
                   <div
                     key={idx}
                     className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
@@ -900,66 +1246,106 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                       {kana.mnemonic}
                     </div>
                   </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
+            
+            {/* Next button for special case sessions */}
+            {session.practice.length === 0 && (
+              <div className="mt-6 text-center">
+                <button
+                  onClick={completeSession}
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors text-lg"
+                >
+                  Complete Session
+                  <span>→</span>
+                </button>
+              </div>
+            )}
           </div>
         )}
 
         {/* Examples Section */}
         {sessionStarted && !sessionCompleted && currentSection === 'examples' && (
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
-            <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-4">
-              Character Recognition & Word Examples
-            </h2>
-            <p className="text-zinc-600 dark:text-zinc-400 mb-6">
-              Review the characters you just learned and see them used in real words:
-            </p>
+            {session.examples.length > 0 ? (
+              <>
+                <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-4">
+                  Character Recognition & Word Examples
+                </h2>
+                <p className="text-zinc-600 dark:text-zinc-400 mb-6">
+                  Review the characters you just learned and see them used in real words:
+                </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-              {session.examples.map((kana, idx) => (
-                <div
-                  key={idx}
-                  className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 text-center"
-                >
-                  <div className="text-6xl font-bold text-black dark:text-zinc-50 mb-2">
-                    {kana.character}
-                  </div>
-                  <div className="text-lg font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
-                    {kana.romaji}
-                  </div>
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400 italic">
-                    {kana.mnemonic}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {session.theory.wordExamples && session.theory.wordExamples.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
-                  Words using these characters:
-                </h3>
-                <div className="space-y-3">
-                  {session.theory.wordExamples.map((word, idx) => (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+                  {session.examples.map((kana, idx) => (
                     <div
                       key={idx}
-                      className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
+                      className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 text-center"
                     >
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <span className="text-2xl font-bold text-black dark:text-zinc-50">
-                          {word.japanese}
-                        </span>
-                        <span className="text-lg text-zinc-600 dark:text-zinc-400">
-                          ({word.hiragana})
-                        </span>
-                        <span className="text-zinc-700 dark:text-zinc-300">
-                          - {word.english}
-                        </span>
+                      <div className="text-6xl font-bold text-black dark:text-zinc-50 mb-2">
+                        {kana.character}
+                      </div>
+                      <div className="text-lg font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                        {kana.romaji}
+                      </div>
+                      <div className="text-xs text-zinc-500 dark:text-zinc-400 italic">
+                        {kana.mnemonic}
                       </div>
                     </div>
                   ))}
                 </div>
+
+                {session.theory.wordExamples && session.theory.wordExamples.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
+                      Words using these characters:
+                    </h3>
+                    <div className="space-y-3">
+                      {session.theory.wordExamples.map((word, idx) => (
+                        <div
+                          key={idx}
+                          className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
+                        >
+                          <div className="flex items-center gap-3 flex-wrap">
+                            <span className="text-2xl font-bold text-black dark:text-zinc-50">
+                              {word.japanese}
+                            </span>
+                            <span className="text-lg text-zinc-600 dark:text-zinc-400">
+                              ({word.hiragana})
+                            </span>
+                            <span className="text-zinc-700 dark:text-zinc-300">
+                              - {word.english}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-4">
+                  Review
+                </h2>
+                <p className="text-zinc-600 dark:text-zinc-400 mb-6">
+                  This session covers important pronunciation rules and special cases. Review the theory section to ensure you understand these concepts.
+                </p>
+              </>
+            )}
+            
+            {/* Next button for special case sessions */}
+            {session.practice.length === 0 && (
+              <div className="mt-6 text-center">
+                <button
+                  onClick={completeSession}
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors text-lg"
+                >
+                  Complete Session
+                  <span>→</span>
+                </button>
               </div>
             )}
           </div>
@@ -1090,118 +1476,329 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
 
         {/* Session Complete */}
         {sessionCompleted && (
-          <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 border border-zinc-200 dark:border-zinc-800">
-            <div className="text-center mb-8">
-              <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-4">
-                <span className="text-4xl">🎉</span>
-              </div>
-              <h2 className="text-3xl font-bold text-black dark:text-zinc-50 mb-2">
-                Session Complete!
-              </h2>
-              <div className="mb-4">
-                <div className="text-6xl font-bold text-pink-500 dark:text-pink-400 mb-2">
-                  {calculatePercentage()}%
+          <>
+            {/* Theory/Example-Only Session Completion */}
+            {session.practice.length === 0 ? (
+              <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 border border-zinc-200 dark:border-zinc-800">
+                <div className="text-center mb-8">
+                  <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-4xl">📚</span>
+                  </div>
+                  <h2 className="text-3xl font-bold text-black dark:text-zinc-50 mb-2">
+                    Session Complete!
+                  </h2>
+                  <div className="mb-6">
+                    <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-4">
+                      You've completed this theory session. Great job reviewing the concepts! 🌟
+                    </p>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-500">
+                      This session focused on learning important concepts and examples. No practice questions were included.
+                    </p>
+                  </div>
                 </div>
-                <p className="text-lg text-zinc-600 dark:text-zinc-400">
-                  {calculatePercentage() === 100
-                    ? 'Perfect! Excellent work! 🌟'
-                    : calculatePercentage() >= 80
-                    ? 'Great job! Keep practicing! 💪'
-                    : 'Good effort! Review and try again! 📚'}
-                </p>
-              </div>
-            </div>
 
-            {/* Review Section */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-black dark:text-zinc-50">
-                  Review Your Answers:
-                </h3>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={showCorrectAnswers}
-                    onChange={(e) => setShowCorrectAnswers(e.target.checked)}
-                    className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
-                  />
-                  <span className="text-sm text-zinc-600 dark:text-zinc-400">
-                    Show correct answers
-                  </span>
-                </label>
-              </div>
-              <div className="space-y-3">
-                {session.practice
-                  .filter((q) => {
-                    // Only show questions that have been answered (isCorrect is not null)
-                    if (q.isCorrect === null) return false
-                    // Show incorrect answers (false) by default
-                    if (q.isCorrect === false) return true
-                    // Show correct answers (true) only when toggle is enabled
-                    if (showCorrectAnswers && q.isCorrect === true) return true
-                    return false
-                  })
-                  .map((q) => (
-                  <div
-                    key={q.id}
-                    className={`p-4 rounded-lg border ${
-                      q.isCorrect
-                        ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
-                        : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
-                    }`}
+                {/* Action Buttons */}
+                <div className="flex gap-4 justify-center">
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const currentBatch = session?.batchNumber || 1
+                      const typeParam = searchParams?.get('type') as KanaType
+                      const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
+                      const currentType: KanaType = typeParam && validTypes.includes(typeParam)
+                        ? typeParam
+                        : 'hiragana'
+                      
+                      try {
+                        const { data: batches } = await supabase
+                          .from('completed_batches')
+                          .select('batch_number')
+                          .eq('user_id', user.id)
+                          .eq('batch_type', currentType)
+                        
+                        const completedSet = new Set(batches?.map(b => b.batch_number) || [])
+                        const totalBatches = getTotalBatches(currentType)
+                        const nextBatch = currentBatch + 1
+                        
+                        let returnBatch = currentBatch
+                        let returnType: KanaType | string = currentType
+                        
+                        if (nextBatch > totalBatches) {
+                          // Transition to next course type - find the next incomplete batch
+                          const nextType = getNextCourseType(currentType)
+                          if (nextType) {
+                            returnType = nextType as KanaType
+                            // Find the next incomplete batch in the new type
+                            const { data: nextTypeBatches } = await supabase
+                              .from('completed_batches')
+                              .select('batch_number')
+                              .eq('user_id', user.id)
+                              .eq('batch_type', nextType)
+                            
+                            const nextTypeCompleted = new Set(nextTypeBatches?.map(b => b.batch_number) || [])
+                            const nextTypeTotal = getTotalBatches(nextType as KanaType)
+                            
+                            // Find first incomplete batch
+                            let nextIncomplete = 1
+                            for (let i = 1; i <= nextTypeTotal; i++) {
+                              if (!nextTypeCompleted.has(i)) {
+                                nextIncomplete = i
+                                break
+                              }
+                            }
+                            
+                            returnBatch = nextIncomplete
+                          } else {
+                            window.location.href = `/dashboard?t=${Date.now()}`
+                            return
+                          }
+                        } else {
+                          const canAccessNext = nextBatch <= totalBatches && (nextBatch === 1 || completedSet.has(nextBatch - 1))
+                          returnBatch = canAccessNext ? nextBatch : currentBatch
+                        }
+                        
+                        window.location.href = `/dashboard?returnBatch=${returnBatch}&type=${returnType}&t=${Date.now()}`
+                      } catch (error) {
+                        console.error('Error determining return batch:', error)
+                        window.location.href = `/dashboard?returnBatch=${currentBatch}&type=${currentType}&t=${Date.now()}`
+                      }
+                    }}
+                    className="px-6 py-3 bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 text-black dark:text-white rounded-lg font-medium transition-colors"
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-2xl">{q.isCorrect ? '✅' : '❌'}</span>
-                          {q.questionType === 'character-to-romaji' ? (
-                            <>
-                              <p className="font-bold text-3xl text-black dark:text-zinc-50">
-                                {q.kana.character}
-                              </p>
-                              <p className="text-zinc-600 dark:text-zinc-400">
-                                = {q.kana.romaji}
-                              </p>
-                            </>
-                          ) : (
-                            <>
-                              <p className="font-bold text-lg text-black dark:text-zinc-50">
-                                {q.kana.romaji}
-                              </p>
-                              <p className="text-zinc-600 dark:text-zinc-400">
-                                = {q.kana.character}
-                              </p>
-                            </>
-                          )}
-                        </div>
-                        <p className="text-sm text-zinc-700 dark:text-zinc-300 mb-1">
-                          <span className="font-medium">Correct answer:</span> {q.correctAnswer}
-                        </p>
-                        {!q.isCorrect && (
-                          <p className="text-sm text-red-600 dark:text-red-400">
-                            <span className="font-medium">Your answer:</span> {q.userAnswer || '[No answer]'}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {session.practice.filter((q) => {
-                  if (q.isCorrect === null) return false
-                  if (q.isCorrect === false) return true
-                  if (showCorrectAnswers && q.isCorrect === true) return true
-                  return false
-                }).length === 0 && (
-                  <div className="text-center py-8 text-zinc-600 dark:text-zinc-400">
-                    <p>No incorrect answers to review! 🎉</p>
-                    <p className="text-sm mt-2">Toggle "Show correct answers" to see all your answers.</p>
-                  </div>
-                )}
+                    Back to Dashboard
+                  </button>
+                  {session && (() => {
+                    const typeParam = searchParams?.get('type') as KanaType
+                    const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
+                    const currentType: KanaType = typeParam && validTypes.includes(typeParam)
+                      ? typeParam
+                      : 'hiragana'
+                    
+                    const currentBatch = session.batchNumber
+                    const totalBatches = getTotalBatches(currentType)
+                    const nextBatch = currentBatch + 1
+                    
+                    const hasNextBatchInType = nextBatch <= totalBatches && (nextBatch === 1 || completedBatches.has(nextBatch - 1))
+                    
+                    let nextType: KanaType | string | null = null
+                    let nextTypeBatch = 1
+                    if (!hasNextBatchInType && currentBatch === totalBatches) {
+                      const allBatchesCompleted = completedBatches.size >= totalBatches
+                      
+                      if (allBatchesCompleted) {
+                        const nextCourseType = getNextCourseType(currentType)
+                        if (nextCourseType) {
+                          nextType = nextCourseType
+                          // We'll find the next incomplete batch in the onClick handler
+                          // since we can't use await during render
+                          nextTypeBatch = 1
+                        } else {
+                          nextType = null
+                        }
+                      }
+                    }
+                    
+                    const canAccessNext = hasNextBatchInType || (nextType !== null)
+                    
+                    return canAccessNext ? (
+                      <button
+                        type="button"
+                        onClick={async (e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          
+                          try {
+                            const typeParam = searchParams?.get('type') as KanaType
+                            const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
+                            const currentType: KanaType = typeParam && validTypes.includes(typeParam)
+                              ? typeParam
+                              : 'hiragana'
+                            
+                            const currentBatch = session.batchNumber
+                            const totalBatches = getTotalBatches(currentType)
+                            const nextBatch = currentBatch + 1
+                            
+                            let targetType: KanaType | string = currentType
+                            let targetBatch = nextBatch
+                            
+                            if (nextBatch > totalBatches) {
+                              // Transition to next course type - find the next incomplete batch
+                              const nextCourseType = getNextCourseType(currentType)
+                              if (nextCourseType) {
+                                targetType = nextCourseType
+                                // Find the next incomplete batch in the new type
+                                const { data: nextTypeBatches } = await supabase
+                                  .from('completed_batches')
+                                  .select('batch_number')
+                                  .eq('user_id', user.id)
+                                  .eq('batch_type', nextCourseType)
+                                
+                                const nextTypeCompleted = new Set(nextTypeBatches?.map(b => b.batch_number) || [])
+                                const nextTypeTotal = getTotalBatches(nextCourseType as KanaType)
+                                
+                                // Find first incomplete batch
+                                let nextIncomplete = 1
+                                for (let i = 1; i <= nextTypeTotal; i++) {
+                                  if (!nextTypeCompleted.has(i)) {
+                                    nextIncomplete = i
+                                    break
+                                  }
+                                }
+                                
+                                targetBatch = nextIncomplete
+                              } else {
+                                window.location.href = `/dashboard?t=${Date.now()}`
+                                return
+                              }
+                            } else {
+                              const { data: batches, error: batchesError } = await supabase
+                                .from('completed_batches')
+                                .select('batch_number')
+                                .eq('user_id', user.id)
+                                .eq('batch_type', currentType)
+                              
+                              if (batchesError) {
+                                console.error('Error loading completed batches:', batchesError)
+                                return
+                              }
+                              
+                              if (batches) {
+                                const completedSet = new Set(batches.map(b => b.batch_number))
+                                setCompletedBatches(completedSet)
+                                
+                                if (nextBatch > 1 && !completedSet.has(nextBatch - 1)) {
+                                  const lastCompleted = Array.from(completedSet).sort((a, b) => b - a)[0] || 0
+                                  const actualNext = lastCompleted + 1
+                                  window.location.href = `/dashboard/course?batch=${actualNext}&type=${currentType}&t=${Date.now()}`
+                                  return
+                                }
+                              }
+                            }
+                            
+                            window.location.href = `/dashboard/course?batch=${targetBatch}&type=${targetType}&t=${Date.now()}`
+                          } catch (error) {
+                            console.error('Error navigating to next batch:', error)
+                          }
+                        }}
+                        className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
+                      >
+                        Next Session
+                      </button>
+                    ) : null
+                  })()}
+                </div>
               </div>
-            </div>
+            ) : (
+              /* Practice Session Completion */
+              <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 border border-zinc-200 dark:border-zinc-800">
+                <div className="text-center mb-8">
+                  <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-4xl">🎉</span>
+                  </div>
+                  <h2 className="text-3xl font-bold text-black dark:text-zinc-50 mb-2">
+                    Session Complete!
+                  </h2>
+                  <div className="mb-4">
+                    <div className="text-6xl font-bold text-pink-500 dark:text-pink-400 mb-2">
+                      {calculatePercentage()}%
+                    </div>
+                    <p className="text-lg text-zinc-600 dark:text-zinc-400">
+                      {calculatePercentage() === 100
+                        ? 'Perfect! Excellent work! 🌟'
+                        : calculatePercentage() >= 80
+                        ? 'Great job! Keep practicing! 💪'
+                        : 'Good effort! Review and try again! 📚'}
+                    </p>
+                  </div>
+                </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-4 justify-center">
+                {/* Review Section */}
+                <div className="mb-8">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-semibold text-black dark:text-zinc-50">
+                      Review Your Answers:
+                    </h3>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={showCorrectAnswers}
+                        onChange={(e) => setShowCorrectAnswers(e.target.checked)}
+                        className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
+                      />
+                      <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                        Show correct answers
+                      </span>
+                    </label>
+                  </div>
+                  <div className="space-y-3">
+                    {session.practice
+                      .filter((q) => {
+                        if (q.isCorrect === null) return false
+                        if (q.isCorrect === false) return true
+                        if (showCorrectAnswers && q.isCorrect === true) return true
+                        return false
+                      })
+                      .map((q) => (
+                      <div
+                        key={q.id}
+                        className={`p-4 rounded-lg border ${
+                          q.isCorrect
+                            ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                            : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-2xl">{q.isCorrect ? '✅' : '❌'}</span>
+                              {q.questionType === 'character-to-romaji' ? (
+                                <>
+                                  <p className="font-bold text-3xl text-black dark:text-zinc-50">
+                                    {q.kana.character}
+                                  </p>
+                                  <p className="text-zinc-600 dark:text-zinc-400">
+                                    = {q.kana.romaji}
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <p className="font-bold text-lg text-black dark:text-zinc-50">
+                                    {q.kana.romaji}
+                                  </p>
+                                  <p className="text-zinc-600 dark:text-zinc-400">
+                                    = {q.kana.character}
+                                  </p>
+                                </>
+                              )}
+                            </div>
+                            <p className="text-sm text-zinc-700 dark:text-zinc-300 mb-1">
+                              <span className="font-medium">Correct answer:</span> {q.correctAnswer}
+                            </p>
+                            {!q.isCorrect && (
+                              <p className="text-sm text-red-600 dark:text-red-400">
+                                <span className="font-medium">Your answer:</span> {q.userAnswer || '[No answer]'}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    {session.practice.filter((q) => {
+                      if (q.isCorrect === null) return false
+                      if (q.isCorrect === false) return true
+                      if (showCorrectAnswers && q.isCorrect === true) return true
+                      return false
+                    }).length === 0 && (
+                      <div className="text-center py-8 text-zinc-600 dark:text-zinc-400">
+                        <p>No incorrect answers to review! 🎉</p>
+                        <p className="text-sm mt-2">Toggle "Show correct answers" to see all your answers.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-4 justify-center">
               <button
                 type="button"
                 onClick={async () => {
@@ -1211,7 +1808,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                   
                   // Get kana type from URL params (declare outside try for catch block access)
                   const typeParam = searchParams?.get('type') as KanaType
-                  const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+                  const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
                   const currentType: KanaType = typeParam && validTypes.includes(typeParam)
                     ? typeParam
                     : 'hiragana'
@@ -1263,7 +1860,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
               {session && (() => {
                 // Get kana type from URL params
                 const typeParam = searchParams?.get('type') as KanaType
-                const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+                const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
                 const currentType: KanaType = typeParam && validTypes.includes(typeParam)
                   ? typeParam
                   : 'hiragana'
@@ -1309,7 +1906,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                       try {
                         // Get kana type from URL params
                         const typeParam = searchParams?.get('type') as KanaType
-                        const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo']
+                        const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
                         const currentType: KanaType = typeParam && validTypes.includes(typeParam)
                           ? typeParam
                           : 'hiragana'
@@ -1328,7 +1925,26 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                           const nextCourseType = getNextCourseType(currentType)
                           if (nextCourseType) {
                             targetType = nextCourseType
-                            targetBatch = 1
+                            // Find the next incomplete batch in the new type
+                            const { data: nextTypeBatches } = await supabase
+                              .from('completed_batches')
+                              .select('batch_number')
+                              .eq('user_id', user.id)
+                              .eq('batch_type', nextCourseType)
+                            
+                            const nextTypeCompleted = new Set(nextTypeBatches?.map(b => b.batch_number) || [])
+                            const nextTypeTotal = getTotalBatches(nextCourseType as KanaType)
+                            
+                            // Find first incomplete batch
+                            let nextIncomplete = 1
+                            for (let i = 1; i <= nextTypeTotal; i++) {
+                              if (!nextTypeCompleted.has(i)) {
+                                nextIncomplete = i
+                                break
+                              }
+                            }
+                            
+                            targetBatch = nextIncomplete
                           } else {
                             // No more course types available
                             window.location.href = `/dashboard?t=${Date.now()}`
@@ -1376,8 +1992,10 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                   </button>
                 ) : null
               })()}
-            </div>
-          </div>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
