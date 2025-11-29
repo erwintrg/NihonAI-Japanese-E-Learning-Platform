@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import Roadmap from './components/Roadmap'
 import { Suspense } from 'react'
 import CourseLink from './components/CourseLink'
@@ -105,7 +106,7 @@ export default async function DashboardPage({
           </div>
 
           {/* SRS System Card */}
-          <div className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/20 dark:to-amber-950/20 rounded-2xl shadow-xl p-8 border-2 border-orange-200 dark:border-orange-800/50 hover:shadow-2xl hover:border-orange-300 dark:hover:border-orange-700 transition-all relative overflow-hidden opacity-60">
+          <div className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/20 dark:to-amber-950/20 rounded-2xl shadow-xl p-8 border-2 border-orange-200 dark:border-orange-800/50 hover:shadow-2xl hover:border-orange-300 dark:hover:border-orange-700 transition-all relative overflow-hidden">
             {/* Banner Image Area - Placeholder for future banner */}
             <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
               <div className="w-full h-full bg-orange-500 rounded-bl-full"></div>
@@ -118,7 +119,7 @@ export default async function DashboardPage({
                     Spaced Repetition
                   </h2>
                   <p className="text-base text-orange-700 dark:text-orange-300">
-                    Review and reinforce vocabulary (Coming soon)
+                    Review and reinforce vocabulary
                   </p>
                 </div>
                 <div className="w-16 h-16 rounded-2xl bg-orange-500 dark:bg-orange-600 flex items-center justify-center shadow-lg ml-4">
@@ -135,12 +136,13 @@ export default async function DashboardPage({
                 <SRSStats />
               </Suspense>
               
-              <button
-                disabled
-                className="inline-flex items-center gap-2 w-full justify-center px-6 py-4 bg-zinc-300 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 rounded-xl font-semibold text-base cursor-not-allowed shadow-lg"
+              <Link
+                href="/dashboard/srs"
+                className="inline-flex items-center gap-2 w-full justify-center px-6 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-xl font-semibold text-base transition-colors shadow-lg"
               >
-                Coming Soon
-              </button>
+                Start Review Session
+                <span>→</span>
+              </Link>
             </div>
           </div>
         </div>

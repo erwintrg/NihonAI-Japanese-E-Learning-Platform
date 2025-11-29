@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { DEFAULT_SRS_SETTINGS } from '@/lib/srs'
 
 export default function SRSStats() {
   const [stats, setStats] = useState<{ newCards: number; reviews: number } | null>(null)
@@ -16,18 +17,42 @@ export default function SRSStats() {
         return
       }
 
-      // TODO: Implement actual SRS stats fetching when SRS system is built
-      // For now, return placeholder data
-      // This will query the SRS cards table to count:
-      // - New cards: cards that haven't been reviewed yet
-      // - Reviews: cards that are due for review (next_review_date <= today)
-      
-      // Placeholder implementation
-      setStats({
-        newCards: 0,
-        reviews: 0,
-      })
-      setLoading(false)
+      try {
+        // Fetch all user vocabulary cards
+        const { data: cards, error } = await supabase
+          .from('user_vocabulary')
+          .select('stage, next_review_date')
+          .eq('user_id', user.id)
+
+        if (error) {
+          console.error('Error fetching SRS stats:', error)
+          setStats({ newCards: 0, reviews: 0 })
+          setLoading(false)
+          return
+        }
+
+        const now = new Date()
+        
+        // Count new cards (not yet started)
+        const newCards = cards?.filter(card => card.stage === 'new').length || 0
+        
+        // Count cards due for review (learning or review stage, and due)
+        const reviews = cards?.filter(card => {
+          if (card.stage === 'new' || card.stage === 'mastered') return false
+          if (!card.next_review_date) return true
+          return new Date(card.next_review_date) <= now
+        }).length || 0
+
+        setStats({
+          newCards: Math.min(newCards, DEFAULT_SRS_SETTINGS.newCardsPerDay),
+          reviews: Math.min(reviews, DEFAULT_SRS_SETTINGS.maxReviewsPerDay),
+        })
+      } catch (error) {
+        console.error('Error calculating SRS stats:', error)
+        setStats({ newCards: 0, reviews: 0 })
+      } finally {
+        setLoading(false)
+      }
     }
 
     getSRSStats()
