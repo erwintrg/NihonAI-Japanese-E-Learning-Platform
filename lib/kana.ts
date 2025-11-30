@@ -37,10 +37,12 @@ export const COURSE_TYPE_SEQUENCE: (KanaType | string)[] = [
   'katakana_handakuten',
   'katakana_combo',
   'katakana_special',
+  'vocabulary_top100',
   // Future course types will be added here:
-  // 'vocabulary',
   // 'grammar',
   // 'phrases',
+  // 'vocabulary',
+  // 'output',
   // etc.
 ]
 

@@ -17,6 +17,14 @@ import {
   type KanaType
 } from '@/lib/kana'
 import { getAllVocab, type VocabularyItem } from '@/lib/data'
+import { 
+  getVocabularySessionByBatch,
+  getTotalVocabularySessions,
+  getTopicName,
+  type VocabularySession
+} from '@/lib/vocabulary'
+import { addVocabularyToSRS } from '@/lib/srs-helpers'
+import { convertRomajiToHiragana } from '@/lib/romaji-to-hiragana'
 
 type SessionSection = 'theory' | 'examples' | 'practice'
 
@@ -31,19 +39,31 @@ type KanaPracticeQuestion = {
   options?: string[] // For multiple choice questions
 }
 
+type VocabularyPracticeQuestion = {
+  id: number
+  vocabulary: VocabularyItem
+  questionType: 'japanese-to-english' | 'english-to-japanese'
+  question: string
+  correctAnswer: string
+  userAnswer: string
+  isCorrect: boolean | null
+}
+
 type CourseSession = {
   id: string
   title: string
   description: string
   batchNumber: number
+  sessionType: 'kana' | 'vocabulary'
   theory: {
     title: string
     content: string
-    kana: KanaCharacter[]
+    kana?: KanaCharacter[]
+    vocabulary?: VocabularyItem[]
     wordExamples?: VocabularyItem[]
   }
-  examples: KanaCharacter[]
-  practice: KanaPracticeQuestion[]
+  examples: KanaCharacter[] | VocabularyItem[]
+  practice: KanaPracticeQuestion[] | VocabularyPracticeQuestion[]
 }
 
 function CoursePageContent() {
@@ -118,6 +138,44 @@ function CoursePageContent() {
 
 
 
+  // Generate theory content for vocabulary sessions
+  const generateVocabularyTheoryContent = (vocabSession: VocabularySession): string => {
+    const topicName = vocabSession.topic ? getTopicName(vocabSession.topic) : 'Vocabulary'
+    let content = `# ${topicName}\n\n`
+    
+    content += `In this session, you'll learn ${vocabSession.vocabulary.length} essential vocabulary words${vocabSession.topic ? ` related to ${topicName.toLowerCase()}` : ''}.\n\n`
+    
+    vocabSession.vocabulary.forEach((vocab, index) => {
+      content += `## ${index + 1}. ${vocab.japanese} (${vocab.hiragana})\n\n`
+      content += `**Romaji:** ${vocab.romaji}\n\n`
+      content += `**English:** ${vocab.english}\n\n`
+      
+      // Kanji exposure (if available)
+      if (vocab.kanji_breakdown) {
+        content += `**Kanji Breakdown:** ${vocab.kanji_breakdown}\n\n`
+      }
+      
+      // Notes (if available)
+      if (vocab.notes) {
+        content += `**Notes:** ${vocab.notes}\n\n`
+      }
+      
+      // Example sentences
+      if (vocab.example_sentences && vocab.example_sentences.length > 0) {
+        content += `**Example:**\n`
+        vocab.example_sentences.slice(0, 2).forEach(example => {
+          content += `- ${example.japanese} (${example.hiragana})\n`
+          content += `  ${example.romaji}\n`
+          content += `  "${example.english}"\n\n`
+        })
+      }
+      
+      content += `---\n\n`
+    })
+    
+    return content
+  }
+
   const loadSession = useCallback(async () => {
     if (!searchParams || !user) return
     
@@ -127,12 +185,16 @@ function CoursePageContent() {
     // Don't load if batches aren't loaded yet (prevents race condition)
     if (!batchesLoaded) return
     
-    // Get kana type from URL params
-    const typeParam = searchParams.get('type') as KanaType
-    const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
-    const currentType: KanaType = typeParam && validTypes.includes(typeParam)
-      ? typeParam
-      : 'hiragana'
+    // Get session type from URL params
+    const typeParam = searchParams.get('type') || ''
+    const validKanaTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
+    const validVocabularyTypes = ['vocabulary_top100', 'vocabulary']
+    
+    // Determine if this is a vocabulary session or kana session
+    const isVocabularySession = validVocabularyTypes.includes(typeParam)
+    const currentType = isVocabularySession 
+      ? typeParam 
+      : (typeParam && validKanaTypes.includes(typeParam as KanaType) ? typeParam as KanaType : 'hiragana')
     
     // Always reload batches from Supabase to ensure we have the latest data
     // This prevents issues where local state is stale
@@ -186,7 +248,91 @@ function CoursePageContent() {
       // If previousBatchCompleted is true, the batch is unlocked, proceed normally
     }
     
-    const batchKana = getKanaByBatchAndType(batchNumber, currentType)
+    // Handle vocabulary sessions
+    if (isVocabularySession) {
+      const vocabSession = getVocabularySessionByBatch(batchNumber, currentType as 'vocabulary_top100' | 'vocabulary')
+      
+      if (!vocabSession) {
+        // Check if we should transition to next type
+        const totalBatches = getTotalVocabularySessions(currentType as 'vocabulary_top100' | 'vocabulary')
+        if (batchNumber > totalBatches) {
+          const nextType = getNextCourseType(currentType)
+          if (nextType) {
+            window.location.href = `/dashboard/course?batch=1&type=${nextType}&t=${Date.now()}`
+            return
+          }
+        }
+        window.location.href = `/dashboard?t=${Date.now()}`
+        return
+      }
+      
+      // Create vocabulary practice questions (typing only)
+      const vocabPracticeQuestions: VocabularyPracticeQuestion[] = []
+      
+      vocabSession.vocabulary.forEach((vocab, index) => {
+        // Question 1: Japanese to English (typing)
+        vocabPracticeQuestions.push({
+          id: index * 2 + 1,
+          vocabulary: vocab,
+          questionType: 'japanese-to-english',
+          question: `What does "${vocab.japanese}" mean?`,
+          correctAnswer: vocab.english.toLowerCase(),
+          userAnswer: '',
+          isCorrect: null,
+        })
+        
+        // Question 2: English to Japanese (typing with romaji-to-hiragana converter)
+        vocabPracticeQuestions.push({
+          id: index * 2 + 2,
+          vocabulary: vocab,
+          questionType: 'english-to-japanese',
+          question: `What is the Japanese word for "${vocab.english}"?`,
+          correctAnswer: vocab.japanese,
+          userAnswer: '',
+          isCorrect: null,
+        })
+      })
+      
+      // Shuffle practice questions
+      for (let shuffle = 0; shuffle < 10; shuffle++) {
+        for (let i = vocabPracticeQuestions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1))
+          ;[vocabPracticeQuestions[i], vocabPracticeQuestions[j]] = [vocabPracticeQuestions[j], vocabPracticeQuestions[i]]
+        }
+      }
+      
+      // Create vocabulary session
+      const topicName = vocabSession.topic ? getTopicName(vocabSession.topic) : 'Vocabulary'
+      const theoryContent = generateVocabularyTheoryContent(vocabSession)
+      
+      const newSession: CourseSession = {
+        id: vocabSession.id,
+        title: vocabSession.topic 
+          ? `${topicName}: Session ${batchNumber}`
+          : `Vocabulary: Session ${batchNumber}`,
+        description: `Learn ${vocabSession.vocabulary.length} vocabulary words${vocabSession.topic ? ` about ${topicName.toLowerCase()}` : ''}`,
+        batchNumber: vocabSession.batchNumber,
+        sessionType: 'vocabulary',
+        theory: {
+          title: topicName,
+          content: theoryContent,
+          vocabulary: vocabSession.vocabulary,
+        },
+        examples: vocabSession.vocabulary,
+        practice: vocabPracticeQuestions,
+      }
+      
+      setSession(newSession)
+      setKanaType('hiragana') // Not used for vocabulary, but keep state consistent
+      setCorrectAnswers(0) // Reset correct answers counter for new session
+      setCurrentPracticeIndex(0) // Reset practice index
+      setSessionStarted(false) // Reset session started state
+      setSessionCompleted(false) // Reset session completed state
+      return
+    }
+    
+    // Handle kana sessions (existing logic)
+    const batchKana = getKanaByBatchAndType(batchNumber, currentType as KanaType)
     
     // Special case sessions are theory-only (no kana characters)
     const isSpecialCase = currentType === 'hiragana_special' || currentType === 'katakana_special'
@@ -718,7 +864,15 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
       practice: practiceQuestions,
     }
 
-    setSession(hiraganaSession)
+    const kanaSession: CourseSession = {
+      ...hiraganaSession,
+      sessionType: 'kana',
+    }
+    setSession(kanaSession)
+    setCorrectAnswers(0) // Reset correct answers counter for new session
+    setCurrentPracticeIndex(0) // Reset practice index
+    setSessionStarted(false) // Reset session started state
+    setSessionCompleted(false) // Reset session completed state
     
     // Parse theory content into sections for tabbed display
     // ONLY for theory-only sessions (no practice questions)
@@ -865,16 +1019,39 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
     let userAnswer = ''
     let isCorrect = false
     
-    if (currentQuestion.questionType === 'character-to-romaji') {
-      // Typing question - use user input
-      if (!userInput.trim()) return
-      userAnswer = userInput.trim().toLowerCase()
-      isCorrect = userAnswer === currentQuestion.correctAnswer.toLowerCase()
-    } else {
-      // Multiple choice question - use selected option
-      if (!selectedOption) return
-      userAnswer = selectedOption
-      isCorrect = userAnswer === currentQuestion.correctAnswer
+    // Handle kana questions
+    if ('kana' in currentQuestion) {
+      if (currentQuestion.questionType === 'character-to-romaji') {
+        // Typing question - use user input
+        if (!userInput.trim()) return
+        userAnswer = userInput.trim().toLowerCase()
+        isCorrect = userAnswer === currentQuestion.correctAnswer.toLowerCase()
+      } else {
+        // Multiple choice question - use selected option
+        if (!selectedOption) return
+        userAnswer = selectedOption
+        isCorrect = userAnswer === currentQuestion.correctAnswer
+      }
+    } 
+    // Handle vocabulary questions
+    else if ('vocabulary' in currentQuestion) {
+      if (currentQuestion.questionType === 'japanese-to-english') {
+        // Typing question - use user input
+        if (!userInput.trim()) return
+        userAnswer = userInput.trim().toLowerCase()
+        isCorrect = userAnswer === currentQuestion.correctAnswer.toLowerCase()
+      } else if (currentQuestion.questionType === 'english-to-japanese') {
+        // Typing question with romaji-to-hiragana conversion
+        if (!userInput.trim()) return
+        // Convert romaji input to hiragana
+        const convertedHiragana = convertRomajiToHiragana(userInput.trim())
+        userAnswer = convertedHiragana
+        // Check if the converted hiragana matches the correct answer (Japanese)
+        // Also check if it matches the vocabulary's hiragana field if available
+        const correctAnswer = currentQuestion.vocabulary.japanese
+        const vocabHiragana = currentQuestion.vocabulary.hiragana
+        isCorrect = convertedHiragana === correctAnswer || (vocabHiragana && convertedHiragana === vocabHiragana)
+      }
     }
 
     // Update question with user answer
@@ -914,35 +1091,71 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
     setLoading(true)
 
     try {
-      // Calculate percentage
+      // Calculate percentage from session data instead of state
       const totalQuestions = session?.practice.length || 0
-      const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0
+      const correctCount = session?.practice.filter(q => q.isCorrect === true).length || 0
+      const percentage = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0
       
-      // Get kana type from URL params
-      const typeParam = searchParams?.get('type') as KanaType
-      const validTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
-      const currentType: KanaType = typeParam && validTypes.includes(typeParam)
-        ? typeParam
-        : 'hiragana'
+      // Get session type from URL params
+      const typeParam = searchParams?.get('type') || ''
+      const validKanaTypes: KanaType[] = ['hiragana', 'hiragana_dakuten', 'hiragana_handakuten', 'hiragana_combo', 'hiragana_special', 'katakana', 'katakana_dakuten', 'katakana_handakuten', 'katakana_combo', 'katakana_special']
+      const validVocabularyTypes = ['vocabulary_top100', 'vocabulary']
+      const isVocabularySession = validVocabularyTypes.includes(typeParam)
+      const currentType = isVocabularySession ? typeParam : (typeParam && validKanaTypes.includes(typeParam as KanaType) ? typeParam as KanaType : 'hiragana')
       
       // Save to Supabase progress table (only if there are practice questions)
       if (session?.practice && session.practice.length > 0) {
+        let vocabularyItems: any[] = []
+        
+        if (isVocabularySession && session.sessionType === 'vocabulary') {
+          // Vocabulary session - map vocabulary questions
+          vocabularyItems = session.practice.map((q) => {
+            const vocabQ = q as VocabularyPracticeQuestion
+            return {
+              vocabulary: vocabQ.vocabulary.japanese,
+              hiragana: vocabQ.vocabulary.hiragana,
+              romaji: vocabQ.vocabulary.romaji,
+              english: vocabQ.vocabulary.english,
+              questionType: vocabQ.questionType,
+              userAnswer: vocabQ.userAnswer,
+              isCorrect: vocabQ.isCorrect,
+              batchNumber: session.batchNumber,
+            }
+          })
+        } else {
+          // Kana session - map kana questions
+          vocabularyItems = session.practice.map((q) => {
+            const kanaQ = q as KanaPracticeQuestion
+            return {
+              kana: kanaQ.kana.character,
+              romaji: kanaQ.kana.romaji,
+              questionType: kanaQ.questionType,
+              userAnswer: kanaQ.userAnswer,
+              isCorrect: kanaQ.isCorrect,
+              batchNumber: session.batchNumber,
+            }
+          })
+        }
+        
         const { error: progressError } = await supabase.from('progress').insert({
           user_id: user.id,
           quiz_score: percentage,
           quiz_type: `${currentType}_session`,
-          vocabulary_items: session.practice.map((q) => ({
-            kana: q.kana.character,
-            romaji: q.kana.romaji,
-            questionType: q.questionType,
-            userAnswer: q.userAnswer,
-            isCorrect: q.isCorrect,
-            batchNumber: session.batchNumber,
-          })),
+          vocabulary_items: vocabularyItems,
         })
 
         if (progressError) {
           console.error('Error saving session progress:', progressError)
+        }
+      }
+      
+      // Add vocabulary to SRS if this is a vocabulary session
+      if (isVocabularySession && session?.sessionType === 'vocabulary' && session.theory.vocabulary) {
+        try {
+          await addVocabularyToSRS(user.id, session.theory.vocabulary)
+          console.log(`Added ${session.theory.vocabulary.length} vocabulary items to SRS`)
+        } catch (error) {
+          console.error('Error adding vocabulary to SRS:', error)
         }
       }
 
@@ -994,7 +1207,9 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
 
   const calculatePercentage = () => {
     if (!session || session.practice.length === 0) return 100 // Theory-only sessions are 100% complete
-    return Math.round((correctAnswers / session.practice.length) * 100)
+    // Count correct answers from session data instead of state to avoid synchronization issues
+    const correctCount = session.practice.filter(q => q.isCorrect === true).length
+    return Math.round((correctCount / session.practice.length) * 100)
   }
 
   // Auto-focus input field when moving to next textfield question
@@ -1264,7 +1479,41 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
               </div>
             </div>
 
-            {session.theory.kana.length > 0 && (
+            {session.sessionType === 'vocabulary' && session.theory.vocabulary && session.theory.vocabulary.length > 0 && (
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
+                  Vocabulary in this session:
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {session.theory.vocabulary.map((vocab, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
+                    >
+                      <div className="text-center mb-2">
+                        <span className="text-3xl font-bold text-black dark:text-zinc-50">
+                          {vocab.japanese}
+                        </span>
+                        {vocab.hiragana && vocab.hiragana !== vocab.japanese && (
+                          <span className="text-lg text-zinc-600 dark:text-zinc-400 ml-2">
+                            ({vocab.hiragana})
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-center mb-2">
+                        <span className="text-lg font-semibold text-zinc-600 dark:text-zinc-400">
+                          {vocab.romaji}
+                        </span>
+                      </div>
+                      <div className="text-sm text-zinc-700 dark:text-zinc-300 text-center">
+                        {vocab.english}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {session.sessionType === 'kana' && session.theory.kana && session.theory.kana.length > 0 && (
               <div className="mt-6">
                 <h3 className="text-lg font-semibold text-black dark:text-zinc-50 mb-3">
                   Characters in this batch:
@@ -1314,31 +1563,82 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
             {session.examples.length > 0 ? (
               <>
-                <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-4">
-                  Character Recognition & Word Examples
-                </h2>
-                <p className="text-zinc-600 dark:text-zinc-400 mb-6">
-                  Review the characters you just learned and see them used in real words:
-                </p>
+                {session.sessionType === 'vocabulary' ? (
+                  <>
+                    <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-4">
+                      Vocabulary Examples
+                    </h2>
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-6">
+                      Review the vocabulary words you just learned:
+                    </p>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-                  {session.examples.map((kana, idx) => (
-                    <div
-                      key={idx}
-                      className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 text-center"
-                    >
-                      <div className="text-6xl font-bold text-black dark:text-zinc-50 mb-2">
-                        {kana.character}
-                      </div>
-                      <div className="text-lg font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
-                        {kana.romaji}
-                      </div>
-                      <div className="text-xs text-zinc-500 dark:text-zinc-400 italic">
-                        {kana.mnemonic}
-                      </div>
+                    <div className="space-y-4 mb-6">
+                      {(session.examples as VocabularyItem[]).map((vocab, idx) => (
+                        <div
+                          key={idx}
+                          className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700"
+                        >
+                          <div className="flex items-center gap-3 flex-wrap mb-2">
+                            <span className="text-3xl font-bold text-black dark:text-zinc-50">
+                              {vocab.japanese}
+                            </span>
+                            {vocab.hiragana && vocab.hiragana !== vocab.japanese && (
+                              <span className="text-xl text-zinc-600 dark:text-zinc-400">
+                                ({vocab.hiragana})
+                              </span>
+                            )}
+                            <span className="text-lg font-semibold text-zinc-700 dark:text-zinc-300">
+                              {vocab.romaji}
+                            </span>
+                          </div>
+                          <div className="text-lg text-zinc-700 dark:text-zinc-300 mb-2">
+                            {vocab.english}
+                          </div>
+                          {vocab.example_sentences && vocab.example_sentences.length > 0 && (
+                            <div className="mt-3 pt-3 border-t border-zinc-300 dark:border-zinc-600">
+                              <p className="text-sm font-semibold text-zinc-600 dark:text-zinc-400 mb-2">Example:</p>
+                              {vocab.example_sentences.slice(0, 1).map((example, exIdx) => (
+                                <div key={exIdx} className="text-sm text-zinc-700 dark:text-zinc-300">
+                                  <div className="mb-1">{example.japanese} ({example.hiragana})</div>
+                                  <div className="text-zinc-600 dark:text-zinc-400 italic mb-1">{example.romaji}</div>
+                                  <div className="text-zinc-500 dark:text-zinc-400">"{example.english}"</div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="text-2xl font-bold text-black dark:text-zinc-50 mb-4">
+                      Character Recognition & Word Examples
+                    </h2>
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-6">
+                      Review the characters you just learned and see them used in real words:
+                    </p>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+                      {(session.examples as KanaCharacter[]).map((kana, idx) => (
+                        <div
+                          key={idx}
+                          className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 text-center"
+                        >
+                          <div className="text-6xl font-bold text-black dark:text-zinc-50 mb-2">
+                            {kana.character}
+                          </div>
+                          <div className="text-lg font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                            {kana.romaji}
+                          </div>
+                          <div className="text-xs text-zinc-500 dark:text-zinc-400 italic">
+                            {kana.mnemonic}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
 
                 {session.theory.wordExamples && session.theory.wordExamples.length > 0 && (
                   <div className="mb-6">
@@ -1421,25 +1721,55 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
             {/* Question */}
             <div className="mb-6">
               <div className="mb-6 text-center">
-                {currentPracticeQuestion.questionType === 'character-to-romaji' ? (
-                  <>
-                    <p className="text-lg font-medium text-zinc-600 dark:text-zinc-400 mb-6">What is the romaji for this character?</p>
-                    <h2 className="text-8xl font-bold text-black dark:text-zinc-50">
-                      {currentPracticeQuestion.kana.character}
-                    </h2>
-                  </>
+                {'kana' in currentPracticeQuestion ? (
+                  // Kana question
+                  currentPracticeQuestion.questionType === 'character-to-romaji' ? (
+                    <>
+                      <p className="text-lg font-medium text-zinc-600 dark:text-zinc-400 mb-6">What is the romaji for this character?</p>
+                      <h2 className="text-8xl font-bold text-black dark:text-zinc-50">
+                        {currentPracticeQuestion.kana.character}
+                      </h2>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-lg font-medium text-zinc-600 dark:text-zinc-400 mb-6">What is the Hiragana character for this romaji?</p>
+                      <h2 className="text-7xl font-bold text-black dark:text-zinc-50">
+                        {currentPracticeQuestion.kana.romaji}
+                      </h2>
+                    </>
+                  )
                 ) : (
-                  <>
-                    <p className="text-lg font-medium text-zinc-600 dark:text-zinc-400 mb-6">What is the Hiragana character for this romaji?</p>
-                    <h2 className="text-7xl font-bold text-black dark:text-zinc-50">
-                      {currentPracticeQuestion.kana.romaji}
-                    </h2>
-                  </>
+                  // Vocabulary question
+                  currentPracticeQuestion.questionType === 'japanese-to-english' ? (
+                    <>
+                      <p className="text-lg font-medium text-zinc-600 dark:text-zinc-400 mb-6">What does this word mean?</p>
+                      <h2 className="text-6xl font-bold text-black dark:text-zinc-50 mb-2">
+                        {currentPracticeQuestion.vocabulary.japanese}
+                      </h2>
+                      {currentPracticeQuestion.vocabulary.hiragana && currentPracticeQuestion.vocabulary.hiragana !== currentPracticeQuestion.vocabulary.japanese && (
+                        <p className="text-2xl text-zinc-600 dark:text-zinc-400">
+                          ({currentPracticeQuestion.vocabulary.hiragana})
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-lg font-medium text-zinc-600 dark:text-zinc-400 mb-6">What is the Japanese word for:</p>
+                      <h2 className="text-5xl font-bold text-black dark:text-zinc-50">
+                        {currentPracticeQuestion.vocabulary.english}
+                      </h2>
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
+                        Type in romaji (e.g., "hon", "mizu") and it will convert to Hiragana
+                      </p>
+                    </>
+                  )
                 )}
               </div>
               
               <div className="space-y-4">
-                {currentPracticeQuestion.questionType === 'character-to-romaji' ? (
+                {'kana' in currentPracticeQuestion ? (
+                  // Kana question handling
+                  currentPracticeQuestion.questionType === 'character-to-romaji' ? (
                   <>
                     <input
                       ref={inputRef}
@@ -1451,7 +1781,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                           handlePracticeSubmit()
                         }
                       }}
-                      placeholder='Type the romaji (e.g., "ka", "ki", "ku")...'
+                      placeholder={session.sessionType === 'vocabulary' ? 'Type the English translation...' : 'Type the romaji (e.g., "ka", "ki", "ku")...'}
                       disabled={answerFeedback !== null}
                       className={`w-full px-4 py-3 text-black dark:text-white border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all text-center text-2xl ${
                         answerFeedback === 'correct'
@@ -1469,43 +1799,99 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                       Submit Answer
                     </button>
                   </>
+                  ) : (
+                    // Kana multiple choice
+                    <>
+                      <div className="space-y-2">
+                        {currentPracticeQuestion.options?.map((option, idx) => {
+                          const isSelected = selectedOption === option
+                          const isCorrect = option === currentPracticeQuestion.correctAnswer
+                          const showFeedback = answerFeedback !== null
+                          
+                          return (
+                            <button
+                              key={idx}
+                              onClick={() => {
+                                if (!showFeedback) {
+                                  setSelectedOption(option)
+                                }
+                              }}
+                              disabled={showFeedback}
+                              className={`w-full p-4 text-4xl font-bold rounded-lg border-2 transition-all ${
+                                showFeedback && isSelected
+                                  ? isCorrect
+                                    ? 'bg-green-200 dark:bg-green-800 border-green-500 dark:border-green-600 text-green-900 dark:text-green-100'
+                                    : 'bg-red-200 dark:bg-red-800 border-red-500 dark:border-red-600 text-red-900 dark:text-red-100'
+                                  : showFeedback && isCorrect && !isSelected
+                                  ? 'bg-green-100 dark:bg-green-900/30 border-green-300 dark:border-green-700 text-green-800 dark:text-green-200'
+                                  : isSelected
+                                  ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300'
+                                  : 'border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-black dark:text-zinc-50 hover:border-pink-300 dark:hover:border-pink-700'
+                              }`}
+                            >
+                              {option}
+                            </button>
+                          )
+                        })}
+                      </div>
+                      <button
+                        onClick={handlePracticeSubmit}
+                        disabled={!selectedOption || answerFeedback !== null}
+                        className="w-full px-6 py-3 bg-pink-500 hover:bg-pink-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
+                      >
+                        Submit Answer
+                      </button>
+                    </>
+                  )
                 ) : (
+                  // Vocabulary question handling (all typing)
                   <>
-                    <div className="space-y-2">
-                      {currentPracticeQuestion.options?.map((option, idx) => {
-                        const isSelected = selectedOption === option
-                        const isCorrect = option === currentPracticeQuestion.correctAnswer
-                        const showFeedback = answerFeedback !== null
-                        
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => {
-                              if (!showFeedback) {
-                                setSelectedOption(option)
-                              }
-                            }}
-                            disabled={showFeedback}
-                            className={`w-full p-4 text-4xl font-bold rounded-lg border-2 transition-all ${
-                              showFeedback && isSelected
-                                ? isCorrect
-                                  ? 'bg-green-200 dark:bg-green-800 border-green-500 dark:border-green-600 text-green-900 dark:text-green-100'
-                                  : 'bg-red-200 dark:bg-red-800 border-red-500 dark:border-red-600 text-red-900 dark:text-red-100'
-                                : showFeedback && isCorrect && !isSelected
-                                ? 'bg-green-100 dark:bg-green-900/30 border-green-300 dark:border-green-700 text-green-800 dark:text-green-200'
-                                : isSelected
-                                ? 'border-pink-500 bg-pink-50 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300'
-                                : 'border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-black dark:text-zinc-50 hover:border-pink-300 dark:hover:border-pink-700'
-                            }`}
-                          >
-                            {option}
-                          </button>
-                        )
-                      })}
-                    </div>
+                    {currentPracticeQuestion.questionType === 'english-to-japanese' && (
+                      // Show romaji-to-hiragana conversion preview
+                      <div className="mb-4 p-3 bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700">
+                        <div className="text-sm text-zinc-600 dark:text-zinc-400 mb-1">
+                          Romaji input:
+                        </div>
+                        <div className="text-lg font-mono text-zinc-800 dark:text-zinc-200 mb-2">
+                          {userInput || '(type romaji here)'}
+                        </div>
+                        {userInput && (
+                          <>
+                            <div className="text-sm text-zinc-600 dark:text-zinc-400 mb-1">
+                              Converts to:
+                            </div>
+                            <div className="text-2xl font-bold text-black dark:text-zinc-50">
+                              {convertRomajiToHiragana(userInput)}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    )}
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={userInput}
+                      onChange={(e) => setUserInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handlePracticeSubmit()
+                        }
+                      }}
+                      placeholder={currentPracticeQuestion.questionType === 'japanese-to-english' 
+                        ? 'Type the English translation...' 
+                        : 'Type in romaji (e.g., "hon", "mizu")...'}
+                      disabled={answerFeedback !== null}
+                      className={`w-full px-4 py-3 text-black dark:text-white border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all text-center text-xl ${
+                        answerFeedback === 'correct'
+                          ? 'bg-green-200 dark:bg-green-800 border-green-400 dark:border-green-600'
+                          : answerFeedback === 'incorrect'
+                          ? 'bg-red-200 dark:bg-red-800 border-red-400 dark:border-red-600'
+                          : 'bg-white dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600'
+                      }`}
+                    />
                     <button
                       onClick={handlePracticeSubmit}
-                      disabled={!selectedOption || answerFeedback !== null}
+                      disabled={!userInput.trim() || answerFeedback !== null}
                       className="w-full px-6 py-3 bg-pink-500 hover:bg-pink-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
                     >
                       Submit Answer
