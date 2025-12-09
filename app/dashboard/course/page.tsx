@@ -854,6 +854,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
         ? `Learn about ${typeLabel} pronunciation rules`
         : `Learn ${batchKana.length} ${typeLabel} characters: ${batchKana.map(k => k.character).join(', ')}`,
       batchNumber,
+      sessionType: 'kana',
       theory: {
         title: sessionTitle,
         content: theoryContent,
@@ -864,11 +865,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
       practice: practiceQuestions,
     }
 
-    const kanaSession: CourseSession = {
-      ...hiraganaSession,
-      sessionType: 'kana',
-    }
-    setSession(kanaSession)
+    setSession(hiraganaSession)
     setCorrectAnswers(0) // Reset correct answers counter for new session
     setCurrentPracticeIndex(0) // Reset practice index
     setSessionStarted(false) // Reset session started state
