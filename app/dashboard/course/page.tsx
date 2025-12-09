@@ -1047,19 +1047,19 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
         // Also check if it matches the vocabulary's hiragana field if available
         const correctAnswer = currentQuestion.vocabulary.japanese
         const vocabHiragana = currentQuestion.vocabulary.hiragana
-        isCorrect = convertedHiragana === correctAnswer || (vocabHiragana && convertedHiragana === vocabHiragana)
+        isCorrect = convertedHiragana === correctAnswer || (vocabHiragana ? convertedHiragana === vocabHiragana : false)
       }
     }
 
     // Update question with user answer
-    const updatedPractice = [...session.practice]
+    const updatedPractice = [...session.practice] as (KanaPracticeQuestion | VocabularyPracticeQuestion)[]
     updatedPractice[currentPracticeIndex] = {
       ...currentQuestion,
       userAnswer,
       isCorrect,
-    }
+    } as KanaPracticeQuestion | VocabularyPracticeQuestion
 
-    setSession({ ...session, practice: updatedPractice })
+    setSession({ ...session, practice: updatedPractice as KanaPracticeQuestion[] | VocabularyPracticeQuestion[] })
 
     // Update correct answers count
     if (isCorrect) {
@@ -2001,7 +2001,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                       : 'hiragana'
                     
                     const currentBatch = session.batchNumber
-                    const totalBatches = getTotalBatches(currentType)
+                    const totalBatches = getTotalBatches(currentType as KanaType)
                     const nextBatch = currentBatch + 1
                     
                     const hasNextBatchInType = nextBatch <= totalBatches && (nextBatch === 1 || completedBatches.has(nextBatch - 1))
@@ -2041,7 +2041,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                               : 'hiragana'
                             
                             const currentBatch = session.batchNumber
-                            const totalBatches = getTotalBatches(currentType)
+                            const totalBatches = getTotalBatches(currentType as KanaType)
                             const nextBatch = currentBatch + 1
                             
                             let targetType: KanaType | string = currentType
@@ -2177,25 +2177,27 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-2">
                               <span className="text-2xl">{q.isCorrect ? '✅' : '❌'}</span>
-                              {q.questionType === 'character-to-romaji' ? (
-                                <>
-                                  <p className="font-bold text-3xl text-black dark:text-zinc-50">
-                                    {q.kana.character}
-                                  </p>
-                                  <p className="text-zinc-600 dark:text-zinc-400">
-                                    = {q.kana.romaji}
-                                  </p>
-                                </>
-                              ) : (
-                                <>
-                                  <p className="font-bold text-lg text-black dark:text-zinc-50">
-                                    {q.kana.romaji}
-                                  </p>
-                                  <p className="text-zinc-600 dark:text-zinc-400">
-                                    = {q.kana.character}
-                                  </p>
-                                </>
-                              )}
+                              {'kana' in q ? (
+                                q.questionType === 'character-to-romaji' ? (
+                                  <>
+                                    <p className="font-bold text-3xl text-black dark:text-zinc-50">
+                                      {q.kana.character}
+                                    </p>
+                                    <p className="text-zinc-600 dark:text-zinc-400">
+                                      = {q.kana.romaji}
+                                    </p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <p className="font-bold text-lg text-black dark:text-zinc-50">
+                                      {q.kana.romaji}
+                                    </p>
+                                    <p className="text-zinc-600 dark:text-zinc-400">
+                                      = {q.kana.character}
+                                    </p>
+                                  </>
+                                )
+                              ) : null}
                             </div>
                             <p className="text-sm text-zinc-700 dark:text-zinc-300 mb-1">
                               <span className="font-medium">Correct answer:</span> {q.correctAnswer}
@@ -2247,7 +2249,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                       .eq('batch_type', currentType)
                     
                     const completedSet = new Set(batches?.map(b => b.batch_number) || [])
-                    const totalBatches = getTotalBatches(currentType)
+                    const totalBatches = getTotalBatches(currentType as KanaType)
                     const nextBatch = currentBatch + 1
                     
                     // Check if we should transition to next type
@@ -2338,7 +2340,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                           : 'hiragana'
                         
                         const currentBatch = session.batchNumber
-                        const totalBatches = getTotalBatches(currentType)
+                        const totalBatches = getTotalBatches(currentType as KanaType)
                         const nextBatch = currentBatch + 1
                         
                         // Check if we're transitioning to a new course type
