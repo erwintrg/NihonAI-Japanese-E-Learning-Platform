@@ -361,7 +361,7 @@ function CoursePageContent() {
     // Create practice questions - each kana appears twice
     // For romaji-to-character, use multiple choice
     // Special case sessions have no practice questions (theory-only)
-    const allKana = getAllKanaByType(currentType)
+    const allKana = getAllKanaByType(currentType as KanaType)
     const practiceQuestions: KanaPracticeQuestion[] = []
     
     if (!isSpecialCase) {
@@ -471,7 +471,7 @@ function CoursePageContent() {
       .slice(0, 5) // Limit to 5 examples
 
     // Get batch name once for use in theory content and session title
-    const batchName = getBatchName(batchNumber, currentType)
+    const batchName = getBatchName(batchNumber, currentType as KanaType)
     
     // Enhanced theory content
     let theoryContent = ''
