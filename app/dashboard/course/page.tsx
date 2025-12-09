@@ -341,7 +341,7 @@ function CoursePageContent() {
       console.error(`No kana found for batch ${batchNumber} of type ${currentType}`)
       
       // If we're trying to load a batch that doesn't exist, check if we should transition to next type
-      const totalBatches = getTotalBatches(currentType)
+      const totalBatches = getTotalBatches(currentType as KanaType)
       if (batchNumber > totalBatches) {
         // Determine next course type in sequence (works for all current and future types)
         const nextType = getNextCourseType(currentType)
@@ -1946,7 +1946,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                           .eq('batch_type', currentType)
                         
                         const completedSet = new Set(batches?.map(b => b.batch_number) || [])
-                        const totalBatches = getTotalBatches(currentType)
+                        const totalBatches = getTotalBatches(currentType as KanaType)
                         const nextBatch = currentBatch + 1
                         
                         let returnBatch = currentBatch
