@@ -9,8 +9,8 @@
   {
     "character": "い",
     "romaji": "i",
-    "mnemonic": "A COUPLE OF EELS",
-    "mnemonicImage": "Two eels swimming",
+    "mnemonic": "A HOOK WITH A WORM - **EW**!",
+    "mnemonicImage": "A hook with a worm",
     "batch": 1
   },
   {
@@ -23,29 +23,29 @@
   {
     "character": "え",
     "romaji": "e",
-    "mnemonic": "AN EXOTIC BIRD LAYING EGGS",
-    "mnemonicImage": "An exotic bird laying eggs",
+    "mnemonic": "A TILTED S**E**V**E**N L**E**ANING AGAINST A R**E**ST",
+    "mnemonicImage": "A tilted seven leaning against a rest",
     "batch": 1
   },
   {
     "character": "お",
     "romaji": "o",
-    "mnemonic": "TWO LETTER O SYMBOLS",
-    "mnemonicImage": "Two letter 'O' symbols",
+    "mnemonic": "LOOKS LIKE A FACE WITH A BIG MOUTH (**O**-SHAPED)",
+    "mnemonicImage": "A face with a big mouth",
     "batch": 1
   },
   {
     "character": "か",
     "romaji": "ka",
-    "mnemonic": "KA IS JAPANESE FOR 'MOSQUITO'",
-    "mnemonicImage": "A mosquito",
+    "mnemonic": "LOOKS LIKE A **KI**TE WITH A STRING",
+    "mnemonicImage": "A kite with a string",
     "batch": 2
   },
   {
     "character": "き",
     "romaji": "ki",
-    "mnemonic": "A KEY",
-    "mnemonicImage": "A key",
+    "mnemonic": "A BROKEN KEY",
+    "mnemonicImage": "A broken key",
     "batch": 2
   },
   {
@@ -58,50 +58,50 @@
   {
     "character": "け",
     "romaji": "ke",
-    "mnemonic": "SOME WIGGLY KELP",
-    "mnemonicImage": "Some wiggly kelp",
+    "mnemonic": "A **KE**G (OF BEER) WITH A HOLE AT THE BOTTOM",
+    "mnemonicImage": "A keg of beer with a hole at the bottom",
     "batch": 2
   },
   {
     "character": "こ",
     "romaji": "ko",
-    "mnemonic": "A COUPLE OF CO-HABITATION WORMS",
+    "mnemonic": "A COUPLE OF **CO**-HABITATION WORMS",
     "mnemonicImage": "Two worms",
     "batch": 2
   },
   {
     "character": "さ",
     "romaji": "sa",
-    "mnemonic": "CHUNKY SALSA",
-    "mnemonicImage": "A spoon scooping something chunky",
+    "mnemonic": "IT'S A KEY (き), BUT SOMEONE **SA**-BOTAGED IT!",
+    "mnemonicImage": "A sabotaged key",
     "batch": 3
   },
   {
     "character": "し",
     "romaji": "shi",
-    "mnemonic": "SHEPHERD'S CROOK TO HERD SHEEP",
-    "mnemonicImage": "A shepherd's crook",
+    "mnemonic": "**SHI***! NOTHING ON MY HOOK AGAIN!",
+    "mnemonicImage": "An empty fishing hook",
     "batch": 3
   },
   {
     "character": "す",
     "romaji": "su",
-    "mnemonic": "A SWING DOING A LOOP-DE-LOOP AND THROWING THAT POOR KID OFF OF IT",
-    "mnemonicImage": "A person on a swing doing a loop-de-loop",
+    "mnemonic": "THIS LOOP SHAPE LOOKS **SU**SPICIOUS",
+    "mnemonicImage": "A suspicious loop shape",
     "batch": 3
   },
   {
     "character": "せ",
     "romaji": "se",
-    "mnemonic": "A SET OF SEXY VAMPIRE TEETH",
-    "mnemonicImage": "A set of vampire teeth",
+    "mnemonic": "A **SE**T OF **SE**VENS",
+    "mnemonicImage": "A set of sevens",
     "batch": 3
   },
   {
     "character": "そ",
     "romaji": "so",
-    "mnemonic": "A MOUTH SLURPING SODA",
-    "mnemonicImage": "A mouth slurping soda",
+    "mnemonic": "A **SO**DA BOTTLE WITH A BENT STRAW",
+    "mnemonicImage": "A soda bottle with a bent straw",
     "batch": 3
   },
   {
