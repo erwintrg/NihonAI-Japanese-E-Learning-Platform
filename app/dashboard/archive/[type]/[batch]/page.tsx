@@ -12,6 +12,12 @@ import {
 import { getAllVocab, type VocabularyItem } from '@/lib/data'
 import Link from 'next/link'
 
+// Helper function to check if a string contains Kanji characters
+const containsKanji = (text: string): boolean => {
+  // Kanji Unicode range: \u4E00-\u9FAF
+  return /[\u4E00-\u9FAF]/.test(text)
+}
+
 type CourseSession = {
   id: string
   title: string
@@ -836,9 +842,11 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                             <span className="text-2xl font-bold text-black dark:text-zinc-50">
                               {word.japanese}
                             </span>
-                            <span className="text-lg text-zinc-600 dark:text-zinc-400">
-                              ({word.hiragana})
-                            </span>
+                            {word.hiragana && containsKanji(word.japanese) && (
+                              <span className="text-lg text-zinc-600 dark:text-zinc-400">
+                                ({word.hiragana})
+                              </span>
+                            )}
                             <span className="text-zinc-700 dark:text-zinc-300">
                               - {word.english}
                             </span>
