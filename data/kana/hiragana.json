@@ -9,7 +9,7 @@
   {
     "character": "い",
     "romaji": "i",
-    "mnemonic": "A HOOK WITH A WORM - **EW**!",
+    "mnemonic": "A HOOK WITH A WORM - EW!",
     "mnemonicImage": "A hook with a worm",
     "batch": 1
   },
@@ -23,21 +23,21 @@
   {
     "character": "え",
     "romaji": "e",
-    "mnemonic": "A TILTED S**E**V**E**N L**E**ANING AGAINST A R**E**ST",
+    "mnemonic": "A TILTED SEVEN LEANING AGAINST A REST",
     "mnemonicImage": "A tilted seven leaning against a rest",
     "batch": 1
   },
   {
     "character": "お",
     "romaji": "o",
-    "mnemonic": "LOOKS LIKE A FACE WITH A BIG MOUTH (**O**-SHAPED)",
+    "mnemonic": "LOOKS LIKE A FACE WITH A BIG MOUTH (O-SHAPED)",
     "mnemonicImage": "A face with a big mouth",
     "batch": 1
   },
   {
     "character": "か",
     "romaji": "ka",
-    "mnemonic": "LOOKS LIKE A **KI**TE WITH A STRING",
+    "mnemonic": "LOOKS LIKE A KITE WITH A STRING",
     "mnemonicImage": "A kite with a string",
     "batch": 2
   },
@@ -58,49 +58,49 @@
   {
     "character": "け",
     "romaji": "ke",
-    "mnemonic": "A **KE**G (OF BEER) WITH A HOLE AT THE BOTTOM",
+    "mnemonic": "A KEG (OF BEER) WITH A HOLE AT THE BOTTOM",
     "mnemonicImage": "A keg of beer with a hole at the bottom",
     "batch": 2
   },
   {
     "character": "こ",
     "romaji": "ko",
-    "mnemonic": "A COUPLE OF **CO**-HABITATION WORMS",
+    "mnemonic": "A COUPLE OF CO-HABITATION WORMS",
     "mnemonicImage": "Two worms",
     "batch": 2
   },
   {
     "character": "さ",
     "romaji": "sa",
-    "mnemonic": "IT'S A KEY (き), BUT SOMEONE **SA**-BOTAGED IT!",
+    "mnemonic": "IT'S A KEY (き), BUT SOMEONE SA-BOTAGED IT!",
     "mnemonicImage": "A sabotaged key",
     "batch": 3
   },
   {
     "character": "し",
     "romaji": "shi",
-    "mnemonic": "**SHI***! NOTHING ON MY HOOK AGAIN!",
+    "mnemonic": "SHI! NOTHING ON MY HOOK AGAIN!",
     "mnemonicImage": "An empty fishing hook",
     "batch": 3
   },
   {
     "character": "す",
     "romaji": "su",
-    "mnemonic": "THIS LOOP SHAPE LOOKS **SU**SPICIOUS",
+    "mnemonic": "THIS LOOP SHAPE LOOKS SUSPICIOUS",
     "mnemonicImage": "A suspicious loop shape",
     "batch": 3
   },
   {
     "character": "せ",
     "romaji": "se",
-    "mnemonic": "A **SE**T OF **SE**VENS",
+    "mnemonic": "A SET OF SEVENS",
     "mnemonicImage": "A set of sevens",
     "batch": 3
   },
   {
     "character": "そ",
     "romaji": "so",
-    "mnemonic": "A **SO**DA BOTTLE WITH A BENT STRAW",
+    "mnemonic": "A SODA BOTTLE WITH A BENT STRAW",
     "mnemonicImage": "A soda bottle with a bent straw",
     "batch": 3
   },

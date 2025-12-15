@@ -66,6 +66,12 @@ type CourseSession = {
   practice: KanaPracticeQuestion[] | VocabularyPracticeQuestion[]
 }
 
+// Helper function to check if a string contains Kanji characters
+const containsKanji = (text: string): boolean => {
+  // Kanji Unicode range: \u4E00-\u9FAF
+  return /[\u4E00-\u9FAF]/.test(text)
+}
+
 function CoursePageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -146,7 +152,8 @@ function CoursePageContent() {
     content += `In this session, you'll learn ${vocabSession.vocabulary.length} essential vocabulary words${vocabSession.topic ? ` related to ${topicName.toLowerCase()}` : ''}.\n\n`
     
     vocabSession.vocabulary.forEach((vocab, index) => {
-      content += `## ${index + 1}. ${vocab.japanese} (${vocab.hiragana})\n\n`
+      const hasKanji = containsKanji(vocab.japanese)
+      content += `## ${index + 1}. ${vocab.japanese}${hasKanji && vocab.hiragana ? ` (${vocab.hiragana})` : ''}\n\n`
       content += `**Romaji:** ${vocab.romaji}\n\n`
       content += `**English:** ${vocab.english}\n\n`
       
@@ -164,7 +171,8 @@ function CoursePageContent() {
       if (vocab.example_sentences && vocab.example_sentences.length > 0) {
         content += `**Example:**\n`
         vocab.example_sentences.slice(0, 2).forEach(example => {
-          content += `- ${example.japanese} (${example.hiragana})\n`
+          const exampleHasKanji = containsKanji(example.japanese)
+          content += `- ${example.japanese}${exampleHasKanji && example.hiragana ? ` (${example.hiragana})` : ''}\n`
           content += `  ${example.romaji}\n`
           content += `  "${example.english}"\n\n`
         })
@@ -1297,41 +1305,89 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
         {/* Tabs Navigation */}
         {sessionStarted && !sessionCompleted && (
           <div className="mb-4 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
-            <div className="flex">
+            <div className="flex items-center">
+              {/* Previous Button */}
               <button
-                onClick={() => setCurrentSection('theory')}
-                className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
-                  currentSection === 'theory'
-                    ? 'bg-pink-500 text-white'
+                onClick={() => {
+                  if (currentSection === 'examples') {
+                    setCurrentSection('theory')
+                  } else if (currentSection === 'practice') {
+                    setCurrentSection('examples')
+                  }
+                }}
+                disabled={
+                  currentSection === 'theory' || 
+                  (currentSection === 'examples' && session.practice.length === 0)
+                }
+                className={`px-3 py-3 text-sm font-medium transition-colors border-r border-zinc-200 dark:border-zinc-700 ${
+                  currentSection === 'theory' || (currentSection === 'examples' && session.practice.length === 0)
+                    ? 'bg-zinc-50 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-600 cursor-not-allowed'
                     : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
                 }`}
+                title="Previous section"
               >
-                Theory
+                ←
               </button>
-              {session.practice.length > 0 && (
-                <>
-                  <button
-                    onClick={() => setCurrentSection('examples')}
-                    className={`flex-1 px-4 py-3 text-sm font-medium transition-colors border-l border-r border-zinc-200 dark:border-zinc-700 ${
-                      currentSection === 'examples'
-                        ? 'bg-pink-500 text-white'
-                        : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
-                    }`}
-                  >
-                    Examples
-                  </button>
-                  <button
-                    onClick={() => setCurrentSection('practice')}
-                    className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
-                      currentSection === 'practice'
-                        ? 'bg-pink-500 text-white'
-                        : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
-                    }`}
-                  >
-                    Practice
-                  </button>
-                </>
-              )}
+              
+              <div className="flex flex-1">
+                <button
+                  onClick={() => setCurrentSection('theory')}
+                  className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                    currentSection === 'theory'
+                      ? 'bg-pink-500 text-white'
+                      : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+                  }`}
+                >
+                  Theory
+                </button>
+                {session.practice.length > 0 && (
+                  <>
+                    <button
+                      onClick={() => setCurrentSection('examples')}
+                      className={`flex-1 px-4 py-3 text-sm font-medium transition-colors border-l border-r border-zinc-200 dark:border-zinc-700 ${
+                        currentSection === 'examples'
+                          ? 'bg-pink-500 text-white'
+                          : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+                      }`}
+                    >
+                      Examples
+                    </button>
+                    <button
+                      onClick={() => setCurrentSection('practice')}
+                      className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                        currentSection === 'practice'
+                          ? 'bg-pink-500 text-white'
+                          : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+                      }`}
+                    >
+                      Practice
+                    </button>
+                  </>
+                )}
+              </div>
+              
+              {/* Next Button */}
+              <button
+                onClick={() => {
+                  if (currentSection === 'theory' && session.practice.length > 0) {
+                    setCurrentSection('examples')
+                  } else if (currentSection === 'examples') {
+                    setCurrentSection('practice')
+                  }
+                }}
+                disabled={
+                  currentSection === 'practice' || 
+                  (currentSection === 'theory' && session.practice.length === 0)
+                }
+                className={`px-3 py-3 text-sm font-medium transition-colors border-l border-zinc-200 dark:border-zinc-700 ${
+                  currentSection === 'practice' || (currentSection === 'theory' && session.practice.length === 0)
+                    ? 'bg-zinc-50 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-600 cursor-not-allowed'
+                    : 'bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+                }`}
+                title="Next section"
+              >
+                →
+              </button>
             </div>
           </div>
         )}
@@ -1491,7 +1547,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                         <span className="text-3xl font-bold text-black dark:text-zinc-50">
                           {vocab.japanese}
                         </span>
-                        {vocab.hiragana && vocab.hiragana !== vocab.japanese && (
+                        {vocab.hiragana && containsKanji(vocab.japanese) && (
                           <span className="text-lg text-zinc-600 dark:text-zinc-400 ml-2">
                             ({vocab.hiragana})
                           </span>
@@ -1540,6 +1596,19 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
               </div>
             )}
             
+            {/* Navigation buttons for Theory section */}
+            {session.practice.length > 0 && (
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={() => setCurrentSection('examples')}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
+                >
+                  Next: Examples
+                  <span>→</span>
+                </button>
+              </div>
+            )}
+            
             {/* Next button for special case sessions */}
             {session.practice.length === 0 && (
               <div className="mt-6 text-center">
@@ -1579,7 +1648,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                             <span className="text-3xl font-bold text-black dark:text-zinc-50">
                               {vocab.japanese}
                             </span>
-                            {vocab.hiragana && vocab.hiragana !== vocab.japanese && (
+                            {vocab.hiragana && containsKanji(vocab.japanese) && (
                               <span className="text-xl text-zinc-600 dark:text-zinc-400">
                                 ({vocab.hiragana})
                               </span>
@@ -1594,13 +1663,16 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                           {vocab.example_sentences && vocab.example_sentences.length > 0 && (
                             <div className="mt-3 pt-3 border-t border-zinc-300 dark:border-zinc-600">
                               <p className="text-sm font-semibold text-zinc-600 dark:text-zinc-400 mb-2">Example:</p>
-                              {vocab.example_sentences.slice(0, 1).map((example, exIdx) => (
-                                <div key={exIdx} className="text-sm text-zinc-700 dark:text-zinc-300">
-                                  <div className="mb-1">{example.japanese} ({example.hiragana})</div>
-                                  <div className="text-zinc-600 dark:text-zinc-400 italic mb-1">{example.romaji}</div>
-                                  <div className="text-zinc-500 dark:text-zinc-400">"{example.english}"</div>
-                                </div>
-                              ))}
+                              {vocab.example_sentences.slice(0, 1).map((example, exIdx) => {
+                                const exampleHasKanji = containsKanji(example.japanese)
+                                return (
+                                  <div key={exIdx} className="text-sm text-zinc-700 dark:text-zinc-300">
+                                    <div className="mb-1">{example.japanese}{exampleHasKanji && example.hiragana ? ` (${example.hiragana})` : ''}</div>
+                                    <div className="text-zinc-600 dark:text-zinc-400 italic mb-1">{example.romaji}</div>
+                                    <div className="text-zinc-500 dark:text-zinc-400">"{example.english}"</div>
+                                  </div>
+                                )
+                              })}
                             </div>
                           )}
                         </div>
@@ -1652,9 +1724,11 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                             <span className="text-2xl font-bold text-black dark:text-zinc-50">
                               {word.japanese}
                             </span>
-                            <span className="text-lg text-zinc-600 dark:text-zinc-400">
-                              ({word.hiragana})
-                            </span>
+                            {word.hiragana && containsKanji(word.japanese) && (
+                              <span className="text-lg text-zinc-600 dark:text-zinc-400">
+                                ({word.hiragana})
+                              </span>
+                            )}
                             <span className="text-zinc-700 dark:text-zinc-300">
                               - {word.english}
                             </span>
@@ -1674,6 +1748,26 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                   This session covers important pronunciation rules and special cases. Review the theory section to ensure you understand these concepts.
                 </p>
               </>
+            )}
+            
+            {/* Navigation buttons for Examples section */}
+            {session.practice.length > 0 && (
+              <div className="mt-6 flex justify-between">
+                <button
+                  onClick={() => setCurrentSection('theory')}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 text-black dark:text-white rounded-lg font-medium transition-colors"
+                >
+                  <span>←</span>
+                  Previous: Theory
+                </button>
+                <button
+                  onClick={() => setCurrentSection('practice')}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
+                >
+                  Next: Practice
+                  <span>→</span>
+                </button>
+              </div>
             )}
             
             {/* Next button for special case sessions */}
