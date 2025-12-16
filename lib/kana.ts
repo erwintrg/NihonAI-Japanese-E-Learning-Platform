@@ -12,6 +12,7 @@ export type KanaCharacter = {
   character: string
   romaji: string
   mnemonic: string
+  mnemonicHint?: string // Hint showing where to find the sound in the mnemonic
   mnemonicImage: string
   batch: number
   baseCharacter?: string // For dakuten/handakuten/combo characters

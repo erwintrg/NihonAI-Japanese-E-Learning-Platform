@@ -788,6 +788,11 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                       <div className="text-xs text-zinc-500 dark:text-zinc-400 text-center italic">
                         {kana.mnemonic}
                       </div>
+                      {kana.mnemonicHint && (
+                        <div className="text-xs text-zinc-400 dark:text-zinc-500 text-center mt-1">
+                          {kana.mnemonicHint}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -823,6 +828,11 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
                       <div className="text-xs text-zinc-500 dark:text-zinc-400 italic">
                         {kana.mnemonic}
                       </div>
+                      {kana.mnemonicHint && (
+                        <div className="text-xs text-zinc-400 dark:text-zinc-500 mt-1">
+                          {kana.mnemonicHint}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

@@ -10,6 +10,7 @@
     "character": "い",
     "romaji": "i",
     "mnemonic": "A HOOK WITH A WORM - EW!",
+    "mnemonicHint": "(the \"E\" in \"EW\" starts the i-sound)",
     "mnemonicImage": "A hook with a worm",
     "batch": 1
   },
@@ -24,6 +25,7 @@
     "character": "え",
     "romaji": "e",
     "mnemonic": "A TILTED SEVEN LEANING AGAINST A REST",
+    "mnemonicHint": "(the \"E\" in SEVEN contains the e-sound)",
     "mnemonicImage": "A tilted seven leaning against a rest",
     "batch": 1
   },
@@ -31,6 +33,7 @@
     "character": "お",
     "romaji": "o",
     "mnemonic": "LOOKS LIKE A FACE WITH A BIG MOUTH (O-SHAPED)",
+    "mnemonicHint": "(the \"O\" contains the o-sound)",
     "mnemonicImage": "A face with a big mouth",
     "batch": 1
   },
@@ -38,6 +41,7 @@
     "character": "か",
     "romaji": "ka",
     "mnemonic": "LOOKS LIKE A KITE WITH A STRING",
+    "mnemonicHint": "(the \"K\" in KITE starts the ka-sound)",
     "mnemonicImage": "A kite with a string",
     "batch": 2
   },
@@ -45,6 +49,7 @@
     "character": "き",
     "romaji": "ki",
     "mnemonic": "A BROKEN KEY",
+    "mnemonicHint": "(the \"KEY\" contains the ki-sound)",
     "mnemonicImage": "A broken key",
     "batch": 2
   },
@@ -52,6 +57,7 @@
     "character": "く",
     "romaji": "ku",
     "mnemonic": "THE MOUTH OF A CUCKOO BIRD SAYING 'KU KU!'",
+    "mnemonicHint": "(the \"KU\" contains the ku-sound)",
     "mnemonicImage": "A cuckoo bird with its mouth open",
     "batch": 2
   },
@@ -59,6 +65,7 @@
     "character": "け",
     "romaji": "ke",
     "mnemonic": "A KEG (OF BEER) WITH A HOLE AT THE BOTTOM",
+    "mnemonicHint": "(the \"KE\" in KEG contains the ke-sound)",
     "mnemonicImage": "A keg of beer with a hole at the bottom",
     "batch": 2
   },
@@ -66,20 +73,23 @@
     "character": "こ",
     "romaji": "ko",
     "mnemonic": "A COUPLE OF CO-HABITATION WORMS",
+    "mnemonicHint": "(the \"CO\" contains the ko-sound)",
     "mnemonicImage": "Two worms",
     "batch": 2
   },
   {
     "character": "さ",
     "romaji": "sa",
-    "mnemonic": "IT'S A KEY (き), BUT SOMEONE SA-BOTAGED IT!",
+    "mnemonic": "IT'S A KEY (き), BUT SOMEONE SABOTAGED IT!",
+    "mnemonicHint": "(the \"SA\" in SABOTAGED contains the sa-sound)",
     "mnemonicImage": "A sabotaged key",
     "batch": 3
   },
   {
     "character": "し",
     "romaji": "shi",
-    "mnemonic": "SHI! NOTHING ON MY HOOK AGAIN!",
+    "mnemonic": "SHEESH! NOTHING ON MY HOOK AGAIN!",
+    "mnemonicHint": "(the \"SHI\" in SHEESH contains the shi-sound)",
     "mnemonicImage": "An empty fishing hook",
     "batch": 3
   },
@@ -87,6 +97,7 @@
     "character": "す",
     "romaji": "su",
     "mnemonic": "THIS LOOP SHAPE LOOKS SUSPICIOUS",
+    "mnemonicHint": "(the \"SU\" in SUSPICIOUS contains the su-sound)",
     "mnemonicImage": "A suspicious loop shape",
     "batch": 3
   },
@@ -94,6 +105,7 @@
     "character": "せ",
     "romaji": "se",
     "mnemonic": "A SET OF SEVENS",
+    "mnemonicHint": "(the \"SE\" in SET and SEVENS contains the se-sound)",
     "mnemonicImage": "A set of sevens",
     "batch": 3
   },
@@ -101,41 +113,47 @@
     "character": "そ",
     "romaji": "so",
     "mnemonic": "A SODA BOTTLE WITH A BENT STRAW",
+    "mnemonicHint": "(the \"SO\" in SODA contains the so-sound)",
     "mnemonicImage": "A soda bottle with a bent straw",
     "batch": 3
   },
   {
     "character": "た",
     "romaji": "ta",
-    "mnemonic": "A TACO (THAT YOU'RE EATING WITH A FORK)",
+    "mnemonic": "A TACO WITH A FORK STUCK IN IT",
+    "mnemonicHint": "(the \"TA\" in TACO contains the ta-sound)",
     "mnemonicImage": "A fork with a piece of food",
     "batch": 4
   },
   {
     "character": "ち",
     "romaji": "chi",
-    "mnemonic": "'SAY CHEESE!' THAT FORCED SMILE YOU HAVE TO MAKE",
+    "mnemonic": "CHICKEN WAVING WITH ITS WING",
+    "mnemonicHint": "(the \"CHI\" in CHICKEN contains the chi-sound)",
     "mnemonicImage": "A face with a forced smile",
     "batch": 4
   },
   {
     "character": "つ",
     "romaji": "tsu",
-    "mnemonic": "A BIG WAVE LIKE A TSUNAMI",
+    "mnemonic": "A TSUNAMI WAVE CRASHING",
+    "mnemonicHint": "(the \"TSU\" in TSUNAMI contains the tsu-sound)",
     "mnemonicImage": "A large wave",
     "batch": 4
   },
   {
     "character": "て",
     "romaji": "te",
-    "mnemonic": "A HAND-HELD TELESCOPE",
+    "mnemonic": "A TELESCOPE POINTING UP",
+    "mnemonicHint": "(the \"TE\" in TELESCOPE contains the te-sound)",
     "mnemonicImage": "A hand-held telescope",
     "batch": 4
   },
   {
     "character": "と",
     "romaji": "to",
-    "mnemonic": "A TOE WITH A LITTLE SPLINTER IN IT",
+    "mnemonic": "A TOE WITH A SPLINTER",
+    "mnemonicHint": "(the \"TO\" in TOE contains the to-sound)",
     "mnemonicImage": "A toe with a splinter",
     "batch": 4
   },
@@ -143,6 +161,7 @@
     "character": "な",
     "romaji": "na",
     "mnemonic": "THE NUN PRAYING IN FRONT OF THE CROSS ASKING FOR NACHOS",
+    "mnemonicHint": "(the \"NA\" in NACHOS contains the na-sound)",
     "mnemonicImage": "A nun praying in front of a cross",
     "batch": 5
   },
@@ -150,27 +169,31 @@
     "character": "に",
     "romaji": "ni",
     "mnemonic": "A NEEDLE PULLING A THREAD",
+    "mnemonicHint": "(the \"NI\" in NEEDLE contains the ni-sound)",
     "mnemonicImage": "A needle pulling a thread",
     "batch": 5
   },
   {
     "character": "ぬ",
     "romaji": "nu",
-    "mnemonic": "SOME NOODLES",
+    "mnemonic": "NUDDLES (NOODLES) IN A BOWL",
+    "mnemonicHint": "(the \"NU\" in NUDDLES contains the nu-sound)",
     "mnemonicImage": "Some noodles",
     "batch": 5
   },
   {
     "character": "ね",
     "romaji": "ne",
-    "mnemonic": "IT'S NELLY, THE NEKO (JAPANESE FOR 'CAT')",
+    "mnemonic": "NELLY THE CAT WITH A CURLY TAIL",
+    "mnemonicHint": "(the \"NE\" in NELLY contains the ne-sound)",
     "mnemonicImage": "A cat (neko)",
     "batch": 5
   },
   {
     "character": "の",
     "romaji": "no",
-    "mnemonic": "A PIG NOSE",
+    "mnemonic": "A NOSE WITH A SWIRL INSIDE",
+    "mnemonicHint": "(the \"NO\" in NOSE contains the no-sound)",
     "mnemonicImage": "A pig nose",
     "batch": 5
   },
@@ -178,6 +201,7 @@
     "character": "は",
     "romaji": "ha",
     "mnemonic": "は LOOKS LIKE H + a",
+    "mnemonicHint": "(the \"H\" and \"a\" combine to make the ha-sound)",
     "mnemonicImage": "The letter 'H' and the Hiragana 'あ' (A)",
     "batch": 6
   },
@@ -185,6 +209,7 @@
     "character": "ひ",
     "romaji": "hi",
     "mnemonic": "HE HAS A BIG NOSE",
+    "mnemonicHint": "(the \"HI\" in HIS contains the hi-sound)",
     "mnemonicImage": "A face with a large nose",
     "batch": 6
   },
@@ -192,6 +217,7 @@
     "character": "ふ",
     "romaji": "fu",
     "mnemonic": "A DANCING FOOL HULA HOOPING",
+    "mnemonicHint": "(the \"FO\" in FOOL and \"HU\" in HULA contain the fu-sound)",
     "mnemonicImage": "A dancing fool hula hooping",
     "batch": 6
   },
@@ -199,20 +225,23 @@
     "character": "へ",
     "romaji": "he",
     "mnemonic": "THE FAMOUS MOUNTAIN MT. SAINT HELENS",
+    "mnemonicHint": "(the \"HE\" in HELENS contains the he-sound)",
     "mnemonicImage": "A mountain",
     "batch": 6
   },
   {
     "character": "ほ",
     "romaji": "ho",
-    "mnemonic": "A MUTATED SANTA CLAUS UTTERING 'HO HO HO'",
+    "mnemonic": "HOLD UP! THAT'S は WITH AN EXTRA LINE!",
+    "mnemonicHint": "(the \"HO\" in HOLD contains the ho-sound)",
     "mnemonicImage": "A mutated Santa Claus",
     "batch": 6
   },
   {
     "character": "ま",
     "romaji": "ma",
-    "mnemonic": "IMAGINE YOUR MA LOOKING LIKE THIS. AGHH!",
+    "mnemonic": "YOUR MA (MOM) WITH A SHOCKED FACE",
+    "mnemonicHint": "(the \"MA\" contains the ma-sound)",
     "mnemonicImage": "A person with a shocked expression",
     "batch": 7
   },
@@ -220,41 +249,47 @@
     "character": "み",
     "romaji": "mi",
     "mnemonic": "WHO JUST TURNED 21? ME!",
+    "mnemonicHint": "(the \"ME\" contains the mi-sound)",
     "mnemonicImage": "A person with a party hat",
     "batch": 7
   },
   {
     "character": "む",
     "romaji": "mu",
-    "mnemonic": "'MOOOOO' SAYS THE COW",
+    "mnemonic": "A COW SAYING MU (MOO)",
+    "mnemonicHint": "(the MOO already sounds like the mu-sound)",
     "mnemonicImage": "A cow",
     "batch": 7
   },
   {
     "character": "め",
     "romaji": "me",
-    "mnemonic": "ME IS JAPANESE FOR 'EYE'",
+    "mnemonic": "LOOKS LIKE AN EYE WITH MANY EYELASHES - ME IS ALSO JAPANESE FOR 'EYE'",
+    "mnemonicHint": "(the \"MA\" in MANY starts the me-sound)",
     "mnemonicImage": "An eye",
     "batch": 7
   },
   {
     "character": "も",
     "romaji": "mo",
-    "mnemonic": "TO CATCH MORE FISH, ADD MORE WORMS TO YOUR HOOK",
+    "mnemonic": "MORE WORMS ON A HOOK",
+    "mnemonicHint": "(the \"MO\" in MORE contains the mo-sound)",
     "mnemonicImage": "A fishing hook with worms",
     "batch": 7
   },
   {
     "character": "や",
     "romaji": "ya",
-    "mnemonic": "A YACHT",
+    "mnemonic": "A YACHT SAILING",
+    "mnemonicHint": "(the \"YA\" in YACHT contains the ya-sound)",
     "mnemonicImage": "A yacht",
     "batch": 8
   },
   {
     "character": "ゆ",
     "romaji": "yu",
-    "mnemonic": "A UNIQUE LOOKING FISH",
+    "mnemonic": "A YUNIQUE (UNIQUE) FISH",
+    "mnemonicHint": "(the \"YU\" in YUNIQUE contains the yu-sound)",
     "mnemonicImage": "A unique-looking fish",
     "batch": 8
   },
@@ -262,13 +297,15 @@
     "character": "よ",
     "romaji": "yo",
     "mnemonic": "YO! FIND THE Y & O IN よ",
+    "mnemonicHint": "(the \"YO\" contains the yo-sound)",
     "mnemonicImage": "The letters 'Y' and 'O'",
     "batch": 8
   },
   {
     "character": "ら",
     "romaji": "ra",
-    "mnemonic": "A RABBIT",
+    "mnemonic": "RAMEN BOWL WITH A CHOPSTICK",
+    "mnemonicHint": "(the \"RA\" in RAMEN contains the ra-sound)",
     "mnemonicImage": "A rabbit",
     "batch": 9
   },
@@ -276,34 +313,39 @@
     "character": "り",
     "romaji": "ri",
     "mnemonic": "THE REEDS ARE SWAYING IN THE WIND",
+    "mnemonicHint": "(the \"RI\" in REEDS contains the ri-sound)",
     "mnemonicImage": "Reeds swaying in the wind",
     "batch": 9
   },
   {
     "character": "る",
     "romaji": "ru",
-    "mnemonic": "る IS A CRAZIER ROUTE",
+    "mnemonic": "A CRAZY RUTE (ROUTE)",
+    "mnemonicHint": "(the \"RU\" in RUTE contains the ru-sound)",
     "mnemonicImage": "A winding road",
     "batch": 9
   },
   {
     "character": "れ",
     "romaji": "re",
-    "mnemonic": "THIS GUY IS RETCHING UP HIS DINNER",
+    "mnemonic": "RETCHING (VOMITING)",
+    "mnemonicHint": "(the \"RE\" in RETCHING contains the re-sound)",
     "mnemonicImage": "A person retching",
     "batch": 9
   },
   {
     "character": "ろ",
     "romaji": "ro",
-    "mnemonic": "A PLAIN OLD ROAD ESPECIALLY WHEN COMPARED TO る",
+    "mnemonic": "A PLAIN ROAD (ROUTE)",
+    "mnemonicHint": "(the \"RO\" in ROAD contains the ro-sound)",
     "mnemonicImage": "A plain old road",
     "batch": 9
   },
   {
     "character": "わ",
     "romaji": "wa",
-    "mnemonic": "A WASP FLYING STRAIGHT UP",
+    "mnemonic": "A WASP FLYING UP",
+    "mnemonicHint": "(the \"WA\" in WASP contains the wa-sound)",
     "mnemonicImage": "A wasp flying straight up",
     "batch": 10
   },
@@ -311,13 +353,15 @@
     "character": "を",
     "romaji": "wo",
     "mnemonic": "WHOA! THERE'S A BOOMERANG IN HIS MOUTH",
-    "mnemonicImage": "A person with a boomerang in their mouth",
+    "mnemonicHint": "(WHOA contains the wo-sound)",
+    "mnemonicImage": "A person with a boomerang in his mouth",
     "batch": 10
   },
   {
     "character": "ん",
     "romaji": "n",
     "mnemonic": "ん LOOKS JUST LIKE n, THE LOWERCASE 'N'",
+    "mnemonicHint": "(the \"N\" contains the n-sound)",
     "mnemonicImage": "The lowercase 'n'",
     "batch": 10
   }
