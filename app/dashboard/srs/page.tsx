@@ -46,19 +46,22 @@ export default function SRSReviewPage() {
     checkAuth()
   }, [])
 
+  // Reset card state when moving to a new card
   useEffect(() => {
     if (sessionStarted && !sessionCompleted && currentCardIndex < cards.length) {
       startTimeRef.current = new Date()
       setTimer(0)
       setAnswerTime(0)
       setShowAnswer(false)
-      
+    }
+  }, [sessionStarted, currentCardIndex, cards.length, sessionCompleted])
+
+  // Timer effect - separate from card reset to avoid resetting showAnswer
+  useEffect(() => {
+    if (sessionStarted && !sessionCompleted && currentCardIndex < cards.length) {
       // Start timer
       timerIntervalRef.current = setInterval(() => {
         setTimer(prev => prev + 1)
-        if (showAnswer) {
-          setAnswerTime(prev => prev + 1)
-        }
       }, 1000)
 
       return () => {
@@ -67,7 +70,20 @@ export default function SRSReviewPage() {
         }
       }
     }
-  }, [sessionStarted, currentCardIndex, cards.length, sessionCompleted, showAnswer])
+  }, [sessionStarted, currentCardIndex, cards.length, sessionCompleted])
+
+  // Answer time tracking - separate effect that only runs when answer is shown
+  useEffect(() => {
+    if (showAnswer && sessionStarted && !sessionCompleted) {
+      const answerTimerInterval = setInterval(() => {
+        setAnswerTime(prev => prev + 1)
+      }, 1000)
+
+      return () => {
+        clearInterval(answerTimerInterval)
+      }
+    }
+  }, [showAnswer, sessionStarted, sessionCompleted])
 
   const checkAuth = async () => {
     const { data: { user }, error } = await supabase.auth.getUser()
@@ -251,7 +267,7 @@ export default function SRSReviewPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center">
         <div className="text-center">
           <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-2">Loading...</div>
           <div className="text-zinc-600 dark:text-zinc-400">Preparing your review session</div>
@@ -262,7 +278,7 @@ export default function SRSReviewPage() {
 
   if (sessionCompleted || cards.length === 0) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+      <div className="min-h-screen bg-white dark:bg-zinc-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl p-8 text-center">
             <div className="text-6xl mb-4">🎉</div>
@@ -310,7 +326,7 @@ export default function SRSReviewPage() {
 
   if (!sessionStarted) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+      <div className="min-h-screen bg-white dark:bg-zinc-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl p-8">
             <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50 mb-4">
@@ -352,7 +368,7 @@ export default function SRSReviewPage() {
 
   if (!currentCard || !currentCard.vocabulary) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center">
         <div className="text-center">
           <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-2">Error</div>
           <div className="text-zinc-600 dark:text-zinc-400">Card data not found</div>
