@@ -68,8 +68,8 @@ Learning Japanese requires mastering multiple writing systems (hiragana, katakan
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/erwintrg/nihonai-tutor.git
-cd nihonai-tutor
+git clone https://github.com/erwintrg/NihonAI-Japanese-E-Learning-Platform.git
+cd NihonAI-Japanese-E-Learning-Platform
 ```
 
 2. Install dependencies:
