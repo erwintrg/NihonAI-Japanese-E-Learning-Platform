@@ -11,7 +11,7 @@ Learning Japanese requires mastering multiple writing systems (hiragana, katakan
 - **Frontend**: Next.js 16, React 19, TypeScript
 - **Styling**: Tailwind CSS 4
 - **Backend**: Supabase (PostgreSQL database, Authentication)
-- **AI Integration**: OpenAI API (for quiz generation)
+- **AI Integration**: OpenAI API (for student assistance, writing/speaking practice partners, and output session review)
 - **Deployment**: Vercel
 - **State Management**: React Hooks, Server Components
 - **Routing**: Next.js App Router
