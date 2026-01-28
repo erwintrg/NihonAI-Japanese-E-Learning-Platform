@@ -145,41 +145,31 @@ function CoursePageContent() {
 
 
   // Generate theory content for vocabulary sessions
+  // Only includes session introduction and special notes/background facts
+  // Individual vocabulary details are shown in the "Vocabulary in this session" card
   const generateVocabularyTheoryContent = (vocabSession: VocabularySession): string => {
     const topicName = vocabSession.topic ? getTopicName(vocabSession.topic) : 'Vocabulary'
     let content = `# ${topicName}\n\n`
     
     content += `In this session, you'll learn ${vocabSession.vocabulary.length} essential vocabulary words${vocabSession.topic ? ` related to ${topicName.toLowerCase()}` : ''}.\n\n`
     
-    vocabSession.vocabulary.forEach((vocab, index) => {
-      const hasKanji = containsKanji(vocab.japanese)
-      content += `## ${index + 1}. ${vocab.japanese}${hasKanji && vocab.hiragana ? ` (${vocab.hiragana})` : ''}\n\n`
-      content += `**Romaji:** ${vocab.romaji}\n\n`
-      content += `**English:** ${vocab.english}\n\n`
-      
-      // Kanji exposure (if available)
-      if (vocab.kanji_breakdown) {
-        content += `**Kanji Breakdown:** ${vocab.kanji_breakdown}\n\n`
-      }
-      
-      // Notes (if available)
-      if (vocab.notes) {
-        content += `**Notes:** ${vocab.notes}\n\n`
-      }
-      
-      // Example sentences
-      if (vocab.example_sentences && vocab.example_sentences.length > 0) {
-        content += `**Example:**\n`
-        vocab.example_sentences.slice(0, 2).forEach(example => {
-          const exampleHasKanji = containsKanji(example.japanese)
-          content += `- ${example.japanese}${exampleHasKanji && example.hiragana ? ` (${example.hiragana})` : ''}\n`
-          content += `  ${example.romaji}\n`
-          content += `  "${example.english}"\n\n`
-        })
-      }
-      
-      content += `---\n\n`
-    })
+    // Only include special notes or interesting background facts
+    // Check if any vocabulary has special notes worth highlighting
+    const specialNotes = vocabSession.vocabulary
+      .filter(vocab => vocab.notes && vocab.notes.trim().length > 0)
+      .map(vocab => ({
+        word: vocab.japanese,
+        hiragana: vocab.hiragana,
+        notes: vocab.notes
+      }))
+    
+    if (specialNotes.length > 0) {
+      content += `## Special Notes\n\n`
+      specialNotes.forEach(({ word, hiragana, notes }) => {
+        const displayWord = hiragana && hiragana !== word ? `${word} (${hiragana})` : word
+        content += `**${displayWord}:** ${notes}\n\n`
+      })
+    }
     
     return content
   }
@@ -1248,7 +1238,7 @@ Characters in this session: ${batchKana.map(k => k.character).join(', ')}`
   const currentPracticeQuestion = session.practice[currentPracticeIndex]
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+    <div className="min-h-screen bg-white dark:bg-zinc-950">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-6">
