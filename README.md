@@ -29,13 +29,25 @@ Learning Japanese requires mastering multiple writing systems (hiragana, katakan
 
 ## Screenshots / Demo
 
-<!-- Add screenshots here showing:
-- Dashboard view
-- Learning course interface
-- Kana drills practice
-- SRS vocabulary review
-- Learning roadmap
--->
+### Dashboard
+![Dashboard](public/screenshots/nihonai-dashboard.png)
+*Main dashboard showing learning roadmap, current session, and quick access to all features*
+
+### Learning Course Session
+![Course Session](public/screenshots/nihonai-session-practice.png)
+*Interactive learning session with theory, examples, and practice tabs*
+
+### Kana Drills
+![Kana Drills](public/screenshots/nihonai-kanadrills.png)
+*Customizable kana practice drills for mastering hiragana and katakana characters*
+
+### Spaced Repetition System (SRS)
+![SRS Review](public/screenshots/nihonai-SRS.png)
+*Vocabulary review system with adaptive scheduling based on your performance*
+
+### Course Archive
+![Archive](public/screenshots/nihonai-archive.png)
+*Completed course archive showing all finished batches and progress history*
 
 ## What I Learned
 
