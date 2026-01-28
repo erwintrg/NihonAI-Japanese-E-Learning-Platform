@@ -62,7 +62,7 @@ Learning Japanese requires mastering multiple writing systems (hiragana, katakan
 - Node.js 18+ installed
 - npm or yarn
 - Supabase account (free tier works)
-- OpenAI API key (optional, for AI quiz features)
+- OpenAI API key (optional, for AI chat assistance and practice features)
 
 ### Installation
 
