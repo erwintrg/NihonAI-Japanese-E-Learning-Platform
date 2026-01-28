@@ -107,7 +107,7 @@
     "type": "word",
     "category": "time",
     "frequency": 9,
-    "notes": "Can mean 'time' or 'when' (as a conjunction).",
+    "notes": "Can mean 'time' or 'when' (as a conjunction).\n\n**Special Note:** Means \"time\" or \"hour\". Counter for hours is 時 (ji): 一時 (ichiji), 二時 (niji), etc.",
     "example_sentences": [
       {
         "japanese": "時の経つのは早い。",
@@ -252,7 +252,8 @@
         "romaji": "jikan",
         "english": "I don't have time now."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Can mean both \"time\" (duration) and \"hour\" (unit of time). Context determines meaning."
   },
   {
     "id": 6013,
@@ -296,7 +297,8 @@
         "romaji": "nichi",
         "english": "We got married last month on the 11th."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Can mean \"day\", \"sun\", or be used as a counter for days. Reading changes: 一日 (ichinichi/tsuitachi), 二日 (futsuka), etc."
   },
   {
     "id": 6015,
@@ -866,7 +868,8 @@
         "romaji": "toshi",
         "english": "A new year has started."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Counter for years. Also means \"age\" when used with 歳 (sai)."
   },
   {
     "id": 6046,

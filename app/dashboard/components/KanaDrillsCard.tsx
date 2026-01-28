@@ -10,18 +10,9 @@ export default function KanaDrillsCard({ userId }: { userId: string }) {
   const supabase = createClient()
 
   useEffect(() => {
-    async function checkUnlock() {
-      const { data: batches } = await supabase
-        .from('completed_batches')
-        .select('batch_number')
-        .eq('user_id', userId)
-        .eq('batch_type', 'hiragana')
-        .eq('batch_number', 1)
-      
-      setIsUnlocked(Boolean(batches && batches.length > 0))
-      setLoading(false)
-    }
-    checkUnlock()
+    // Kana Drills is now accessible to all users (portfolio version)
+    setIsUnlocked(true)
+    setLoading(false)
   }, [userId, supabase])
 
   if (loading) {

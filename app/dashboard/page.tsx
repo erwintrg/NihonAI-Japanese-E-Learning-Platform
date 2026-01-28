@@ -31,20 +31,10 @@ export default async function DashboardPage({
     redirect('/auth')
   }
 
-  // Fetch user progress
-  const { data: progressData, error: progressError } = await supabase
-    .from('progress')
-    .select('*')
-    .eq('user_id', user.id)
-    .order('created_at', { ascending: false })
-
-  const quizzesCompleted = progressData?.length || 0
-  const totalScore = progressData?.reduce((sum, quiz) => sum + (quiz.quiz_score || 0), 0) || 0
-  const averageScore = quizzesCompleted > 0 ? Math.round((totalScore / quizzesCompleted) * 10) / 10 : 0
-  const latestQuiz = progressData?.[0]
+  // Analytics data fetching removed - feature coming soon
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+    <div className="min-h-screen bg-white dark:bg-zinc-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
@@ -199,7 +189,7 @@ export default async function DashboardPage({
           <KanaDrillsCard userId={user.id} />
         </div>
 
-        {/* Analytics Section - Full Width Below */}
+        {/* Analytics Section - Coming Soon */}
         <div className="mb-8">
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-200 dark:border-zinc-800">
             <div className="flex items-start justify-between mb-4">
@@ -215,37 +205,11 @@ export default async function DashboardPage({
                 <span className="text-xl">📊</span>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
-                <div className="text-3xl font-bold text-black dark:text-zinc-50 mb-1">
-                  {quizzesCompleted}
-                </div>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  Quizzes completed
-                </p>
-              </div>
-              {quizzesCompleted > 0 && (
-                <>
-                  <div>
-                    <div className="text-3xl font-bold text-black dark:text-zinc-50 mb-1">
-                      {averageScore}/5
-                    </div>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                      Average score
-                    </p>
-                  </div>
-                  {latestQuiz && (
-                    <div>
-                      <div className="text-3xl font-bold text-black dark:text-zinc-50 mb-1">
-                        {latestQuiz.quiz_score}/5
-                      </div>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                        Latest score
-                      </p>
-                    </div>
-                  )}
-                </>
-              )}
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+              <p className="text-sm text-blue-700 dark:text-blue-300">
+                <span className="font-semibold">Coming soon:</span> Advanced analytics with detailed progress charts,
+                learning streaks, and performance insights.
+              </p>
             </div>
           </div>
         </div>

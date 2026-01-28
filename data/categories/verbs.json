@@ -9,7 +9,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 10,
-    "notes": "Most common verb. Irregular conjugation. Used to make many compound verbs.\n\n\"Because the hiragana ends with an う sound, you know this word is a verb. The kanji itself means printing so the verb vocab version is to print.\" \"When you print something out, it's usually the paperwork needed in order to sue (す) someone. You're just that kind of person, always looking to sue.\"",
+    "notes": "Most common verb. Irregular conjugation. Used to make many compound verbs.\n\n\"Because the hiragana ends with an う sound, you know this word is a verb. The kanji itself means printing so the verb vocab version is to print.\" \"When you print something out, it's usually the paperwork needed in order to sue (す) someone. You're just that kind of person, always looking to sue.\"\n\n**Special Note:** Most common verb. Irregular conjugation. Used to make many compound verbs (e.g., 勉強する, 料理する).",
     "example_sentences": [
       {
         "japanese": "友達と一緒に宿題をした。",
@@ -33,7 +33,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 10,
-    "notes": "Irregular verb. Past tense is 'itta' (not 'ikita').",
+    "notes": "Irregular verb. Past tense is 'itta' (not 'ikita').\n\n**Special Note:** Irregular verb. Past tense is 行った (itta), not 行きた (ikita).",
     "example_sentences": [
       {
         "japanese": "日曜日は図書館に行きます。",
@@ -59,7 +59,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 10,
-    "notes": "Irregular verb. Only two irregular verbs in Japanese: する and 来る.\n\n\"Because the hiragana ends with an う sound, you know this word is a verb. The kanji itself means spin so the verb vocab version is to spin.\" The reading you learned with the kanji is used here.",
+    "notes": "Irregular verb. Only two irregular verbs in Japanese: する and 来る.\n\n\"Because the hiragana ends with an う sound, you know this word is a verb. The kanji itself means spin so the verb vocab version is to spin.\" The reading you learned with the kanji is used here.\n\n**Special Note:** One of only two irregular verbs in Japanese (along with する).",
     "example_sentences": [
       {
         "japanese": "彼は昼過ぎに来ます。",
@@ -129,7 +129,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 10,
-    "notes": "Ichidan (ru-verb). Used for watching TV, movies, etc.\n\n\"Because the hiragana ends with an う sound, you know this word is a verb. The kanji itself means view so what is the verb vocab version? It's to view. This is mainly used for spectators who are viewing something.\" \"The reading here is actually the same as 見る. This is easy to remember because the meanings are so similar too, not to mention it has a 見 right inside the kanji itself!\"\n\n\"In order to diagnose a patient, you must first go to examine a patient. When you examine them you know what's wrong with them and then you can diagnose them, which is why this verb is to examine.\" \"The reading is the same as 見る, which you have to do when you are examining a patient. So, you look and see all you can about the patient while you examine them, making this reading み as well.\"",
+    "notes": "**Special Note:** To see/look/watch. 観る is used specifically for watching shows/movies. 診る is for medical examination.",
     "example_sentences": [
       {
         "japanese": "私は絵を見るのが好きです。",
@@ -157,7 +157,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 9,
-    "notes": "Godan (u-verb). Can mean both 'listen' and 'ask' depending on context.",
+    "notes": "**Special Note:** Can mean both \"listen\" and \"ask\" depending on context. Also written as 聴く for \"listen carefully\".",
     "example_sentences": [
       {
         "japanese": "彼女はラジオを聞いています。",
@@ -189,7 +189,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 9,
-    "notes": "Godan (u-verb).",
+    "notes": "**Special Note:** Can be written as ゆう in casual speech. Pronunciation is often \"yuu\" rather than \"iu\".",
     "example_sentences": [
       {
         "japanese": "上司が「一杯、飲もう。」と言った。",
@@ -209,7 +209,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 9,
-    "notes": "Godan (u-verb).",
+    "notes": "**Special Note:** Used for thoughts and opinions. More subjective than 考える (to think/consider).",
     "example_sentences": [
       {
         "japanese": "私もそう思います。",
@@ -235,7 +235,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 9,
-    "notes": "Godan (u-verb).",
+    "notes": "**Special Note:** Often confused with 知る. 分かる means \"to understand\" (internal comprehension), while 知る means \"to know\" (factual knowledge).",
     "example_sentences": [
       {
         "japanese": "質問の意味は分かりましたか。",
@@ -255,7 +255,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 9,
-    "notes": "Ichidan (ru-verb). Expresses ability or possibility.",
+    "notes": "**Special Note:** Can express both ability (\"can do\") and skill (\"be good at\"). The particle が is used: 日本語が出来る (I can speak Japanese).",
     "example_sentences": [
       {
         "japanese": "彼女はイタリア語が出来ます。",
@@ -275,7 +275,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 10,
-    "notes": "Godan (u-verb). Used for inanimate objects. Use 'iru' for animate objects.",
+    "notes": "**Special Note:** Used for inanimate objects. Use いる for animate objects (people, animals).",
     "example_sentences": [
       {
         "japanese": "私の机の上に書類がたくさん有ります。",
@@ -301,7 +301,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 10,
-    "notes": "Ichidan (ru-verb). Used for people and animals. Use 'aru' for inanimate objects.",
+    "notes": "**Special Note:** Used for people and animals. Use ある for inanimate objects.",
     "example_sentences": [
       {
         "japanese": "今日は一日中家に居ました。",
@@ -385,7 +385,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 9,
-    "notes": "Godan (u-verb).\n\n\"When you create something you make something. This type of creation is usually for large things that you'd want to manufacture so you can make a lot of them.\" \"The reading is like 作る, which means \"\"to make.\"\" They have very similar meanings, but different kanji. Use 作る to help you to remember the reading of this word.\"",
+    "notes": "**Special Note:** Means \"to make\" or \"to create\". Used for tangible things. 造る is for large-scale manufacturing.",
     "example_sentences": [
       {
         "japanese": "今、朝ご飯を作っています。",
@@ -465,7 +465,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 9,
-    "notes": "Godan (u-verb).",
+    "notes": "**Special Note:** Often confused with 分かる. 知る means \"to know\" (factual knowledge), while 分かる means \"to understand\" (internal comprehension).",
     "example_sentences": [
       {
         "japanese": "誰もその話を知らない。",
@@ -505,7 +505,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 8,
-    "notes": "Godan (u-verb).",
+    "notes": "**Special Note:** Means \"to return home\". Use 戻る for returning to any place.",
     "example_sentences": [
       {
         "japanese": "家に帰ろう。",
@@ -549,7 +549,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 8,
-    "notes": "Ichidan (ru-verb).",
+    "notes": "**Special Note:** Means \"to start\" (transitive - you start something). Use 始まる for \"to begin\" (intransitive - something begins).",
     "example_sentences": [
       {
         "japanese": "テストを始めてください。",
@@ -569,7 +569,7 @@
     "type": "word",
     "category": "verbs",
     "frequency": 8,
-    "notes": "Godan (u-verb).",
+    "notes": "**Special Note:** Means \"to end\" (intransitive - something ends). Use 終える for \"to finish\" (transitive - you finish something).",
     "example_sentences": [
       {
         "japanese": "会議は4時に終わります。",
@@ -811,7 +811,8 @@
         "romaji": "hontou",
         "english": "Is the story true?"
       }
-    ]
+    ],
+    "notes": "**Special Note:** Can be used as a noun (truth) or な-adjective (really). Very common in casual speech for emphasis."
   },
   {
     "id": 3040,
@@ -1357,7 +1358,8 @@
         "romaji": "daijoubu",
         "english": "Are you OK?"
       }
-    ]
+    ],
+    "notes": "**Special Note:** Very common expression meaning \"OK\", \"alright\", or \"safe\". Often used to reassure someone."
   },
   {
     "id": 3071,
@@ -1860,7 +1862,8 @@
         "romaji": "oshieru",
         "english": "He teaches mathematics."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Means \"to teach\" or \"to tell\". Use 習う for \"to learn from someone\"."
   },
   {
     "id": 3096,
@@ -1984,7 +1987,8 @@
         "romaji": "au",
         "english": "These shoes fit me."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Means \"to meet\" someone. Use 出会う for \"to encounter\" or \"to meet by chance\"."
   },
   {
     "id": 3102,
@@ -4110,7 +4114,8 @@
         "romaji": "hajimaru",
         "english": "My new job started."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Means \"to begin\" (intransitive - something begins). Use 始める for \"to start\" (transitive - you start something)."
   },
   {
     "id": 3213,
@@ -5675,7 +5680,8 @@
         "romaji": "oeru",
         "english": "At last I have finished my homework."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Means \"to finish\" (transitive - you finish something). Use 終わる for \"to end\" (intransitive - something ends)."
   },
   {
     "id": 3300,
@@ -6882,7 +6888,8 @@
         "romaji": "uru",
         "english": "He sold the house."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Means \"to sell\". The opposite is 買う (to buy)."
   },
   {
     "id": 3365,
@@ -18737,7 +18744,7 @@
     "type": "verb",
     "category": "verbs",
     "frequency": 0,
-    "notes": "\"This word consists of kanji with hiragana attached. Because the hiragana ends with an う sound, you know this word is a verb. The kanji itself means learn so the vocab verb version means to learn.\" \"Since this word consists of a kanji with hiragana attached, you can bet that it will use the kun'yomi reading. You didn't learn that reading with this kanji, so here's a mnemonic to help you: You have to learn about Nara, the city of deer... lots and lots of deer. If you don't know about it, how about learning about it?\"",
+    "notes": "\"This word consists of kanji with hiragana attached. Because the hiragana ends with an う sound, you know this word is a verb. The kanji itself means learn so the vocab verb version means to learn.\" \"Since this word consists of a kanji with hiragana attached, you can bet that it will use the kun'yomi reading. You didn't learn that reading with this kanji, so here's a mnemonic to help you: You have to learn about Nara, the city of deer... lots and lots of deer. If you don't know about it, how about learning about it?\"\n\n**Special Note:** Means \"to learn from someone\" (with a teacher). Use 勉強する for self-study.",
     "example_sentences": [
       {
         "japanese": "日本に来てから、いろんな言葉を習いました。",

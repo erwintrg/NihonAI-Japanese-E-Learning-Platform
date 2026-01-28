@@ -94,17 +94,8 @@ export default function KanaDrillsPage() {
       
       setUser(user)
       
-      // Check if Kana Drills is unlocked (user has completed first Hiragana batch)
-      const { data: batches } = await supabase
-        .from('completed_batches')
-        .select('batch_number')
-        .eq('user_id', user.id)
-        .eq('batch_type', 'hiragana')
-        .eq('batch_number', 1)
-      
-      if (batches && batches.length > 0) {
-        setIsUnlocked(true)
-      }
+      // Kana Drills is now accessible to all users (portfolio version)
+      setIsUnlocked(true)
       
       // Mark unlock check as complete
       setUnlockCheckComplete(true)
@@ -545,7 +536,7 @@ export default function KanaDrillsPage() {
 
   if (!mounted || !unlockCheckComplete) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center">
         <div className="max-w-md w-full mx-4">
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 border border-zinc-200 dark:border-zinc-800 text-center">
             <div className="text-4xl mb-4">⏳</div>
@@ -560,7 +551,7 @@ export default function KanaDrillsPage() {
 
   if (!isUnlocked) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center">
         <div className="max-w-md w-full mx-4">
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 border border-zinc-200 dark:border-zinc-800 text-center">
             <div className="text-6xl mb-4">🔒</div>
@@ -588,7 +579,7 @@ export default function KanaDrillsPage() {
     const correctQuestions = allQuestions.filter(q => q.isCorrect === true)
     
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 py-8">
+      <div className="min-h-screen bg-white dark:bg-zinc-950 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-8 border border-zinc-200 dark:border-zinc-800">
             <div className="text-center mb-8">
@@ -719,7 +710,7 @@ export default function KanaDrillsPage() {
     const hasSelection = selectedKana.size > 0
     
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 py-8">
+      <div className="min-h-screen bg-white dark:bg-zinc-950 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6">
             <button

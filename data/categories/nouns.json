@@ -9,7 +9,7 @@
     "type": "word",
     "category": "nouns",
     "frequency": 9,
-    "notes": "Common noun. Counter is 'satsu' (冊).",
+    "notes": "Common noun. Counter is 'satsu' (冊).\n\n**Special Note:** Counter is 冊 (satsu) for books. Also means \"origin\" or \"main\" when used as a prefix.",
     "example_sentences": [
       {
         "japanese": "ここに本があります。",
@@ -48,7 +48,7 @@
     "type": "word",
     "category": "nouns",
     "frequency": 10,
-    "notes": "Very common noun. Counter is 'nin' (人) or 'ri' (人) for small numbers.",
+    "notes": "Very common noun. Counter is 'nin' (人) or 'ri' (人) for small numbers.\n\n**Special Note:** Counter varies: 一人 (hitori), 二人 (futari), then 三人 (sannin), 四人 (yonin), etc. Note the irregular readings.",
     "example_sentences": [
       {
         "japanese": "彼は優しい人です。",
@@ -87,7 +87,7 @@
     "type": "word",
     "category": "nouns",
     "frequency": 9,
-    "notes": "Can also be read as 'uchi' meaning 'my home' or 'our home'.",
+    "notes": "Can also be read as 'uchi' meaning 'my home' or 'our home'.\n\n**Special Note:** Can be read as いえ (house) or うち (my/our home). うち is more personal and often used to refer to one's own home.",
     "example_sentences": [
       {
         "japanese": "ここが私の家です。",
@@ -113,7 +113,7 @@
     "type": "word",
     "category": "nouns",
     "frequency": 9,
-    "notes": "Can mean both 'time' and 'hour'.",
+    "notes": "Can mean both 'time' and 'hour'.\n\n**Special Note:** Can mean both \"time\" (duration) and \"hour\" (unit of time). Context determines meaning.",
     "example_sentences": [
       {
         "japanese": "今は時間がありません。",
@@ -173,7 +173,7 @@
     "type": "word",
     "category": "nouns",
     "frequency": 7,
-    "notes": "Can mean both 'word' and 'language'.",
+    "notes": "Can mean both 'word' and 'language'.\n\n**Special Note:** Can mean both \"word\" and \"language\". Also written as ことば.",
     "example_sentences": [
       {
         "japanese": "この言葉の意味が分かりません。",
@@ -273,7 +273,7 @@
     "type": "word",
     "category": "nouns",
     "frequency": 8,
-    "notes": "Common noun. Can also be written as 子ども.",
+    "notes": "Common noun. Can also be written as 子ども.\n\n**Special Note:** Can be written as 子供 or 子ども. Both are correct, but 子ども is more common in modern writing.",
     "example_sentences": [
       {
         "japanese": "電車で子供が騒いでいた。",
@@ -293,7 +293,7 @@
     "type": "word",
     "category": "nouns",
     "frequency": 8,
-    "notes": "Can mean both 'problem' and 'question' (in tests).",
+    "notes": "Can mean both 'problem' and 'question' (in tests).\n\n**Special Note:** Can mean both \"problem\" (issue) and \"question\" (in tests). Context determines meaning.",
     "example_sentences": [
       {
         "japanese": "問題が一つあります。",
@@ -846,7 +846,8 @@
         "romaji": "atama",
         "english": "I've had a headache since this morning."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Counter for large animals. 一頭 (ittou), 二頭 (nitou), etc."
   },
   {
     "id": 4042,
@@ -4104,7 +4105,8 @@
         "romaji": "genki",
         "english": "I'm fine, thank you."
       }
-    ]
+    ],
+    "notes": "**Special Note:** な-adjective meaning \"healthy\" or \"energetic\". Common greeting: 元気ですか (How are you?)."
   },
   {
     "id": 4211,
@@ -4999,7 +5001,7 @@
     "type": "noun",
     "category": "nouns",
     "frequency": 5,
-    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well. Take note that this word means both \"\"sun\"\" and \"\"day,\"\" though. Why? because the sun takes a day to go around and come back!\" \"Since this word is made up of a single kanji, it uses the kun'yomi reading. Here's a mnemonic to help you to remember it: What do you feel from the sun? You feel the heat (ひ).\"\n\nThe kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as the one you learned with the kanji.",
+    "notes": "\"The kanji and the word are exactly the same. That means they share meanings as well. Take note that this word means both \"\"sun\"\" and \"\"day,\"\" though. Why? because the sun takes a day to go around and come back!\" \"Since this word is made up of a single kanji, it uses the kun'yomi reading. Here's a mnemonic to help you to remember it: What do you feel from the sun? You feel the heat (ひ).\"\n\nThe kanji and the word are exactly the same. That means they share meanings as well. The reading is the same as the one you learned with the kanji.\n\n**Special Note:** Can mean \"day\", \"sun\", or be used as a counter for days. Reading changes: 一日 (ichinichi/tsuitachi), 二日 (futsuka), etc.",
     "example_sentences": [
       {
         "japanese": "そろそろ日がのぼるじかんだ。",
@@ -7662,7 +7664,7 @@
     "type": "noun",
     "category": "nouns",
     "frequency": 5,
-    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: This year I refuse to watch tosh.0's (とし) show. It is terrible.\"",
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: This year I refuse to watch tosh.0's (とし) show. It is terrible.\"\n\n**Special Note:** Counter for years. Also means \"age\" when used with 歳 (sai).",
     "example_sentences": [
       {
         "japanese": "どうぞよいお年をおむかえください。",
@@ -8067,7 +8069,8 @@
         "romaji": "tsuki",
         "english": "The moon looks so beautiful tonight."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Can mean \"month\" or \"moon\". As a counter for months, reading is ヶ月 (kagetsu)."
   },
   {
     "id": 5282,
@@ -12067,7 +12070,8 @@
         "romaji": "en",
         "english": "The curry and rice is 700 yen."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Japanese currency (yen). Counter is 円 (en). No plural form."
   },
   {
     "id": 4629,
@@ -20667,7 +20671,7 @@
     "type": "noun",
     "category": "nouns",
     "frequency": 0,
-    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: What time is it? It's time to key (とき) your enemy's car. Imagine yourself looking at your watch, waiting until the correct time to perform a synchronized keying of someone's car. Who do you hate the most? Whose car would you like to key?\"",
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: What time is it? It's time to key (とき) your enemy's car. Imagine yourself looking at your watch, waiting until the correct time to perform a synchronized keying of someone's car. Who do you hate the most? Whose car would you like to key?\"\n\n**Special Note:** Means \"time\" or \"hour\". Counter for hours is 時 (ji): 一時 (ichiji), 二時 (niji), etc.",
     "example_sentences": [
       {
         "japanese": "れいぼうをつける時は、白いボタンをおしてください。",

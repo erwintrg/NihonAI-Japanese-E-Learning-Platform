@@ -148,7 +148,7 @@
     "type": "phrase",
     "category": "expressions",
     "frequency": 9,
-    "notes": "Commonly used to reassure others. Very common in anime",
+    "notes": "Commonly used to reassure others. Very common in anime\n\n**Special Note:** Very common expression meaning \"OK\", \"alright\", or \"safe\". Often used to reassure someone.",
     "example_sentences": [
       {
         "japanese": "大丈夫ですか？",
@@ -503,7 +503,7 @@
     "type": "expression",
     "category": "expressions",
     "frequency": 0,
-    "notes": "\"This word has two meanings, both of which you learned with the kanji: minute and part/  portion.\" \"This word is almost always attached to something, which is probably why this single kanji vocab word uses the on'yomi reading instead of the kun'yomi one. If you know the kanji reading, you know this vocab's reading as well, but the reading is different depending on the meaning:If it means minute, it's read ふん.If it means part or portion, it's read ぶん. Probably because your buns come in two parts. Ohoho.\"",
+    "notes": "\"This word has two meanings, both of which you learned with the kanji: minute and part/  portion.\" \"This word is almost always attached to something, which is probably why this single kanji vocab word uses the on'yomi reading instead of the kun'yomi one. If you know the kanji reading, you know this vocab's reading as well, but the reading is different depending on the meaning:If it means minute, it's read ふん.If it means part or portion, it's read ぶん. Probably because your buns come in two parts. Ohoho.\"\n\n**Special Note:** Means \"minute\" or \"part\". Counter for minutes is 分 (fun/pun): 一分 (ippun), 二分 (nifun), etc.",
     "example_sentences": [
       {
         "japanese": "ここからえきまで、あるいて十五分かかります。",

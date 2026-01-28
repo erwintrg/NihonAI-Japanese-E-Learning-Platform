@@ -9,7 +9,7 @@
     "type": "word",
     "category": "adjectives",
     "frequency": 10,
-    "notes": "い-adjective. Very common.",
+    "notes": "**Special Note:** い-adjective. For size. Use 大きな before nouns (no い).",
     "example_sentences": [
       {
         "japanese": "あの大きい建物は何ですか。",
@@ -29,7 +29,7 @@
     "type": "word",
     "category": "adjectives",
     "frequency": 9,
-    "notes": "い-adjective. Very common.",
+    "notes": "**Special Note:** い-adjective. For size. Use 小さな before nouns (no い).",
     "example_sentences": []
   },
   {
@@ -42,7 +42,7 @@
     "type": "word",
     "category": "adjectives",
     "frequency": 9,
-    "notes": "い-adjective.",
+    "notes": "**Special Note:** For objects/things. Use 若い for young people.",
     "example_sentences": []
   },
   {
@@ -55,7 +55,7 @@
     "type": "word",
     "category": "adjectives",
     "frequency": 8,
-    "notes": "い-adjective. For objects, not people.",
+    "notes": "**Special Note:** For objects/things. Use 年寄り or 老人 for old people.",
     "example_sentences": []
   },
   {
@@ -68,7 +68,7 @@
     "type": "word",
     "category": "adjectives",
     "frequency": 10,
-    "notes": "い-adjective. Can also be read as 'ii' in casual speech.",
+    "notes": "**Special Note:** Can be read as よい (formal) or いい (casual). Both are correct.",
     "example_sentences": [
       {
         "japanese": "彼は良いところだけを強調した。",
@@ -108,7 +108,7 @@
     "type": "word",
     "category": "adjectives",
     "frequency": 9,
-    "notes": "な-adjective. Very common in anime. Used to express liking something.",
+    "notes": "な-adjective. Very common in anime. Used to express liking something.\n\n**Special Note:** な-adjective meaning \"liked\" or \"favorite\". Use with が particle: コーヒーが好き (I like coffee).",
     "example_sentences": [
       {
         "japanese": "私はワインが好きです。",
@@ -134,7 +134,7 @@
     "type": "word",
     "category": "adjectives",
     "frequency": 10,
-    "notes": "な-adjective. Very common expression in anime and daily life.",
+    "notes": "な-adjective. Very common expression in anime and daily life.\n\n**Special Note:** Very common expression meaning \"OK\", \"alright\", or \"safe\". Often used to reassure someone.",
     "example_sentences": [
       {
         "japanese": "大丈夫ですか。",
@@ -160,7 +160,7 @@
     "type": "word",
     "category": "adjectives",
     "frequency": 9,
-    "notes": "な-adjective. Very common in anime for emphasis.",
+    "notes": "な-adjective. Very common in anime for emphasis.\n\n**Special Note:** Can be used as a noun (truth) or な-adjective (really). Very common in casual speech for emphasis.",
     "example_sentences": [
       {
         "japanese": "その話は本当ですか。",
@@ -200,7 +200,7 @@
     "type": "word",
     "category": "adjectives",
     "frequency": 8,
-    "notes": "い-adjective. Can mean both 'early' and 'fast'. Context determines meaning.",
+    "notes": "**Special Note:** Can mean both \"early\" (time) and \"fast\" (speed). Use 速い specifically for speed.",
     "example_sentences": [
       {
         "japanese": "まだ学校へ行くには早い時間です。",
@@ -226,7 +226,7 @@
     "type": "word",
     "category": "adjectives",
     "frequency": 7,
-    "notes": "い-adjective.",
+    "notes": "**Special Note:** Can mean both \"late\" (time) and \"slow\" (speed).",
     "example_sentences": []
   },
   {
@@ -464,7 +464,8 @@
         "romaji": "mondai",
         "english": "There's one problem."
       }
-    ]
+    ],
+    "notes": "**Special Note:** Can mean both \"problem\" (issue) and \"question\" (in tests). Context determines meaning."
   },
   {
     "id": 5027,
@@ -1604,7 +1605,8 @@
         "romaji": "wakai",
         "english": "He's still young."
       }
-    ]
+    ],
+    "notes": "**Special Note:** For people. Use 新しい for new objects."
   },
   {
     "id": 5084,
@@ -2375,7 +2377,8 @@
         "romaji": "kirai",
         "english": "I hate cigarettes."
       }
-    ]
+    ],
+    "notes": "**Special Note:** な-adjective meaning \"disliked\" or \"hated\". Use with が particle: 魚が嫌い (I dislike fish)."
   },
   {
     "id": 5126,
@@ -5545,7 +5548,7 @@
     "type": "adjective",
     "category": "adjectives",
     "frequency": 0,
-    "notes": "\"What is the origin of your energy? It is your spirit and health (though this vocab word also means energy as well).\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.",
+    "notes": "\"What is the origin of your energy? It is your spirit and health (though this vocab word also means energy as well).\" This is a jukugo word, which usually means on'yomi readings from the kanji. If you know the readings of your kanji you'll know how to read this as well.\n\n**Special Note:** な-adjective meaning \"healthy\" or \"energetic\". Common greeting: 元気ですか (How are you?).",
     "example_sentences": [
       {
         "japanese": "お父さんは、元気ですか。",
@@ -7103,7 +7106,7 @@
     "type": "adjective",
     "category": "adjectives",
     "frequency": 0,
-    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: You visit your friend's home. However, this home isn't any normal home. They live at the video game company EA (いえ). Imagine yourself going to your friend's home from school every day. You go to EA, settle in, and play some video games. What a great home that would be to visit.There's another reading as well, though, and it's うち. This reading is used for your own home. For someone else's home you'd use いえ, though.\"",
+    "notes": "The kanji and the word are exactly the same. That means they share meanings as well. \"Since this word is made up of a single kanji, it should use the kun'yomi reading. When learning the kanji, you didn't learn that reading, so here's a mnemonic to help you with this word: You visit your friend's home. However, this home isn't any normal home. They live at the video game company EA (いえ). Imagine yourself going to your friend's home from school every day. You go to EA, settle in, and play some video games. What a great home that would be to visit.There's another reading as well, though, and it's うち. This reading is used for your own home. For someone else's home you'd use いえ, though.\"\n\n**Special Note:** Can be read as いえ (house) or うち (my/our home). うち is more personal and often used to refer to one's own home.",
     "example_sentences": [
       {
         "japanese": "みなさん、家にあそびに来てください。",

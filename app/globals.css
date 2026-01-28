@@ -5,6 +5,7 @@
   --foreground: #171717;
 }
 
+/* Tailwind design tokens */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,17 +13,27 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Explicit dark mode driven by .dark on <html> */
+:root.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Ensure html element also gets background for full page coverage */
+html {
+  background: var(--background);
+}
+
+/* Ensure main content areas respect dark mode */
+.dark body,
+.dark html {
+  background: var(--background);
 }
 
 /* Fix Supabase Auth UI button text visibility in dark mode */

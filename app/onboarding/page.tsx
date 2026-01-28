@@ -226,7 +226,7 @@ export default function OnboardingPage() {
 
   if (!mounted || !user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
+      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-zinc-950">
         <div className="text-lg text-zinc-900 dark:text-zinc-50">Loading...</div>
       </div>
     )
@@ -240,7 +240,7 @@ export default function OnboardingPage() {
   console.log('Current step:', currentStep, 'Loading:', loading, 'User:', !!user)
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+    <div className="min-h-screen bg-white dark:bg-zinc-950">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Debug info - remove in production */}
         {process.env.NODE_ENV === 'development' && (
