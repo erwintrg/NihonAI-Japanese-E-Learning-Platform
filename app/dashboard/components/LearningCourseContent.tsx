@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { getTotalBatches, getBatchName, type KanaType } from '@/lib/kana'
+import { getTotalVocabularySessions, getVocabularySessionByBatch } from '@/lib/vocabulary'
 
 const COURSE_TYPE_SEQUENCE: KanaType[] = [
   'hiragana',
@@ -17,8 +18,10 @@ const COURSE_TYPE_SEQUENCE: KanaType[] = [
   'katakana_special',
 ]
 
+type SessionType = KanaType | 'vocabulary_top100' | 'vocabulary'
+
 export default function LearningCourseContent({ returnBatch, returnType }: { returnBatch?: string; returnType?: string }) {
-  const [currentSession, setCurrentSession] = useState<{ type: KanaType; batch: number; name: string } | null>(null)
+  const [currentSession, setCurrentSession] = useState<{ type: SessionType; batch: number; name: string } | null>(null)
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
 
@@ -33,14 +36,24 @@ export default function LearningCourseContent({ returnBatch, returnType }: { ret
       // If returnBatch and returnType are provided, use them
       if (returnBatch && returnType) {
         const batch = parseInt(returnBatch, 10)
-        const type = returnType as KanaType
-        const name = getBatchName(batch, type)
-        setCurrentSession({ type, batch, name })
+        const type = returnType as SessionType
+        
+        // Handle vocabulary sessions
+        if (type === 'vocabulary_top100' || type === 'vocabulary') {
+          const vocabSession = getVocabularySessionByBatch(batch, type)
+          const name = vocabSession?.topic ? `Top 100: ${vocabSession.topic}` : `Vocabulary: Session ${batch}`
+          setCurrentSession({ type, batch, name })
+        } else {
+          // Handle Kana sessions
+          const name = getBatchName(batch, type as KanaType)
+          setCurrentSession({ type: type as KanaType, batch, name })
+        }
         setLoading(false)
         return
       }
 
       // Otherwise, find the next incomplete batch
+      // First check Kana types
       for (const courseType of COURSE_TYPE_SEQUENCE) {
         const { data: batches } = await supabase
           .from('completed_batches')
@@ -71,8 +84,49 @@ export default function LearningCourseContent({ returnBatch, returnType }: { ret
         return
       }
 
-      // All completed, default to first batch
-      setCurrentSession({ type: 'hiragana', batch: 1, name: getBatchName(1, 'hiragana') })
+      // All Kana completed, check for vocabulary sessions
+      const vocabularyTypes: ('vocabulary_top100' | 'vocabulary')[] = ['vocabulary_top100', 'vocabulary']
+      
+      for (const vocabType of vocabularyTypes) {
+        const { data: batches } = await supabase
+          .from('completed_batches')
+          .select('batch_number')
+          .eq('user_id', user.id)
+          .eq('batch_type', vocabType)
+          .order('batch_number', { ascending: true })
+
+        const totalBatches = getTotalVocabularySessions(vocabType)
+        const completedNumbers = batches?.map(b => b.batch_number).sort((a, b) => a - b) || []
+        
+        if (completedNumbers.length >= totalBatches && totalBatches > 0) {
+          continue
+        }
+
+        let next = 1
+        for (const num of completedNumbers) {
+          if (num === next) {
+            next++
+          } else {
+            break
+          }
+        }
+
+        const vocabSession = getVocabularySessionByBatch(next, vocabType)
+        const name = vocabSession?.topic ? `Top 100: ${vocabSession.topic}` : `Vocabulary: Session ${next}`
+        setCurrentSession({ type: vocabType, batch: next, name })
+        setLoading(false)
+        return
+      }
+
+      // All completed (including vocabulary), default to first vocabulary session if available
+      const firstVocabSession = getVocabularySessionByBatch(1, 'vocabulary_top100')
+      if (firstVocabSession) {
+        const name = firstVocabSession.topic ? `Top 100: ${firstVocabSession.topic}` : 'Vocabulary: Session 1'
+        setCurrentSession({ type: 'vocabulary_top100', batch: 1, name })
+      } else {
+        // Fallback to first Hiragana batch
+        setCurrentSession({ type: 'hiragana', batch: 1, name: getBatchName(1, 'hiragana') })
+      }
       setLoading(false)
     }
 
@@ -91,7 +145,7 @@ export default function LearningCourseContent({ returnBatch, returnType }: { ret
     return null
   }
 
-  const typeLabels: Record<KanaType, string> = {
+  const typeLabels: Record<SessionType, string> = {
     hiragana: 'Hiragana Basics',
     hiragana_dakuten: 'Hiragana Dakuten',
     hiragana_handakuten: 'Hiragana Handakuten',
@@ -102,6 +156,8 @@ export default function LearningCourseContent({ returnBatch, returnType }: { ret
     katakana_handakuten: 'Katakana Handakuten',
     katakana_combo: 'Katakana Combinations',
     katakana_special: 'Katakana Special Cases',
+    vocabulary_top100: 'Top 100 Vocabulary',
+    vocabulary: 'Vocabulary',
   }
 
   return (

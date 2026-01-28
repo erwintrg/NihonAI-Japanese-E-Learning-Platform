@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useEffect, useState } from 'react'
 import { getTotalBatches, type KanaType } from '@/lib/kana'
+import { getTotalVocabularySessions } from '@/lib/vocabulary'
 
 // Course type sequence for determining next session
 const COURSE_TYPE_SEQUENCE: KanaType[] = [
@@ -20,9 +21,11 @@ const COURSE_TYPE_SEQUENCE: KanaType[] = [
   // Future: 'vocabulary', 'grammar', 'phrases' will be added here
 ]
 
+type SessionType = KanaType | 'vocabulary_top100' | 'vocabulary'
+
 export default function CourseLink({ returnBatch, returnType }: { returnBatch?: string; returnType?: string }) {
   const [nextBatch, setNextBatch] = useState<number | null>(null)
-  const [nextType, setNextType] = useState<KanaType>('hiragana')
+  const [nextType, setNextType] = useState<SessionType>('hiragana')
   const supabase = createClient()
 
   useEffect(() => {
@@ -33,12 +36,12 @@ export default function CourseLink({ returnBatch, returnType }: { returnBatch?: 
       // If returnBatch and returnType are provided, use them
       if (returnBatch && returnType) {
         setNextBatch(parseInt(returnBatch, 10))
-        setNextType(returnType as KanaType)
+        setNextType(returnType as SessionType)
         return
       }
 
       // Otherwise, find the next incomplete batch across all course types
-      // Check each course type in sequence
+      // First check Kana types
       for (const courseType of COURSE_TYPE_SEQUENCE) {
         const { data: batches } = await supabase
           .from('completed_batches')
@@ -72,9 +75,45 @@ export default function CourseLink({ returnBatch, returnType }: { returnBatch?: 
         return
       }
 
-      // All course types completed, default to first batch of first type
+      // All Kana types completed, check for vocabulary sessions
+      const vocabularyTypes: ('vocabulary_top100' | 'vocabulary')[] = ['vocabulary_top100', 'vocabulary']
+      
+      for (const vocabType of vocabularyTypes) {
+        const { data: batches } = await supabase
+          .from('completed_batches')
+          .select('batch_number')
+          .eq('user_id', user.id)
+          .eq('batch_type', vocabType)
+          .order('batch_number', { ascending: true })
+
+        const totalBatches = getTotalVocabularySessions(vocabType)
+        const completedNumbers = batches?.map(b => b.batch_number).sort((a, b) => a - b) || []
+        
+        // Check if all batches of this type are completed
+        if (completedNumbers.length >= totalBatches && totalBatches > 0) {
+          // All batches completed, check next type
+          continue
+        }
+
+        // Find the first incomplete batch in this type
+        let next = 1
+        for (const num of completedNumbers) {
+          if (num === next) {
+            next++
+          } else {
+            break
+          }
+        }
+
+        // Found the next vocabulary batch to work on
+        setNextBatch(next)
+        setNextType(vocabType)
+        return
+      }
+
+      // All course types completed (including vocabulary), default to first vocabulary session if available
       setNextBatch(1)
-      setNextType('hiragana')
+      setNextType('vocabulary_top100')
     }
 
     getNextBatch()
