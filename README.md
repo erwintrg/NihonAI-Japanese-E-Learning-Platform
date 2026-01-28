@@ -6,6 +6,10 @@ An AI-powered Japanese language learning platform that provides structured lesso
 
 Learning Japanese requires mastering multiple writing systems (hiragana, katakana, kanji) and thousands of vocabulary words. Traditional methods often lack structure, personalization, and efficient review systems. NihonAI Tutor solves this by providing a comprehensive learning platform with structured courses, interactive drills, and an SRS system that adapts to each learner's progress, ensuring efficient retention and systematic advancement through the language.
 
+## Author's Note
+
+This is one of my flagship projects that I am actively developing over time. Japan and its culture is an important topic of mine and I've always wanted to learn the language. Within the last decade of learning the language, I have come across many people with similar dreams and I wanted to make the learning journey easier for them, including mine. Everything built in here accounts for not only the best learning route and practices that I've come across my lifetime, but features my own personal roadmap of success. If you have tried any language learning app, chances are, I've used it. If you have read any books on learning Japanese, chances are, I've read them. With that said, NihonAI (not sure if I will stick with the name, I came up with it on a whim) will guide you through everything you need to learn, but your job is still to immersive yourself in the culture for listening comprehension and other kinds of Japan-relevant interactions.
+
 ## Tech Stack
 
 - **Frontend**: Next.js 16, React 19, TypeScript
